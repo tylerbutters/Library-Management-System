@@ -9,13 +9,16 @@ namespace LMS
 { 
     class FileManager
     {
-        
-        public static List<Member> ReadFile(string memberInfoFile)
+
+        private List<Member> LoadMembers()
         {
-            var lines = File.ReadAllLines(memberInfoFile);
-            var data = from l in lines.Skip(1)
-                       let split = l.Split(',')
-                       select new Member
+
+            var rows = File.ReadAllLines(@"./Database/memberInformation.csv");
+            List<Member> members = new List<Member>();
+            
+            var membersvar = from l in rows.Skip(1) //skips first row
+                       let split = l.Split(',') //splits cell at comma
+                       select new Member()
                        {
                            id = int.Parse(split[0]),
                            pin = int.Parse(split[1]),
@@ -23,8 +26,8 @@ namespace LMS
                            lastName = split[3],
                            email = split[4],
                        };
-            return data.ToList();
+            members = membersvar.ToList();
+            return members;
         }
-        
     }
 }

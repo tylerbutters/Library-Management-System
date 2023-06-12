@@ -13,13 +13,5 @@ namespace LMS
         public string firstName { get; set; }
         public string lastName { get; set; }
         public string email { get; set; }
-
-        //public Member(int _id, int _pin, string _firstName, string _lastName, string _email) {
-        //    id = _id;
-        //    pin = _pin;
-        //    firstName = _firstName;
-        //    lastName = _lastName;
-        //    email = _email;
-        //}
     }
 }
