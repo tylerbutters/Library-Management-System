@@ -53,27 +53,24 @@ namespace LMS.Pages
                 Navigateto_member_homepage(sender, e);
                 return;
             }
-            //else
-            //{
-                
-            //    string[] adminlines = File.ReadAllLines(@".\Database\AdminPasswords.csv");
-            //    var adminUserNameData = adminlines.Skip(1).Select(row => row.Split(',')[0]).ToList();
-            //    var adminPasswordData = adminlines.Skip(1).Select(row => row.Split(',')[1]).ToList();
+            else
+            {
 
-            //    if (adminUserNameData.Contains(inputEmail) && PasswordData.Contains(inputPassword))
-            //    {
-            //        MessageBox.Show("Logging in as Admin");
-            //        Navigateto_admin_homepage(sender, e);
-            //        return;
-            //    }
-            //    else
-            //    {
-            //        MessageBox.Show("Please enter a valid username and password");
-            //    }
-            //}
+                string[] adminlines = File.ReadAllLines(@".\Database\AdminPasswords.csv");
+                var adminUserNameData = adminlines.Skip(1).Select(row => row.Split(',')[0]).ToList();
+                var adminPasswordData = adminlines.Skip(1).Select(row => row.Split(',')[1]).ToList();
 
-            
-
+                if (adminUserNameData.Contains(inputEmail) && PasswordData.Contains(inputPassword))
+                {
+                    MessageBox.Show("Logging in as Admin");
+                    Navigateto_admin_homepage(sender, e);
+                    return;
+                }
+                else
+                {
+                    MessageBox.Show("Please enter a valid username and password");
+                }
+            }
         }
     }
 }
