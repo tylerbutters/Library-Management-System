@@ -23,6 +23,12 @@ namespace LMS.Pages
         public Admin_Homepage()
         {
             InitializeComponent();
+            DataContext = FileManager.ReadFile(@"./Database/memberInformation.csv");
+        }
+
+        private void DataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
         }
     }
 }
