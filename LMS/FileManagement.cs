@@ -14,8 +14,8 @@ namespace LMS
         public static string BookFile { get; set; } = @".\Database\bookInformation.csv";
         public static List<Member> LoadMembers()
         {
-            string[] rows = File.ReadAllLines(FileManagement.MemberFile);
-            var members = from l in rows.Skip(1)
+            string[] rows = File.ReadAllLines(MemberFile);
+            IEnumerable<Member> members = from l in rows.Skip(1)
                           let split = l.Split(',')
                           select new Member()
                           {

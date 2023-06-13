@@ -26,6 +26,5 @@ namespace LMS.Pages
             InitializeComponent();
             MemberGrid.ItemsSource = FileManagement.LoadMembers();
         }
-        
     }
 }
