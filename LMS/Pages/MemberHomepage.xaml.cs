@@ -18,9 +18,9 @@ namespace LMS.Pages
     /// <summary>
     /// Interaction logic for Member_Homepage.xaml
     /// </summary>
-    public partial class Member_Homepage : Page
+    public partial class MemberHomepage : Page
     {
-        public Member_Homepage()
+        public MemberHomepage()
         {
             InitializeComponent();
         }

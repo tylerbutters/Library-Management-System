@@ -19,8 +19,9 @@ namespace LMS.Pages
     /// <summary>
     /// Interaction logic for Admin_Homepage.xaml
     /// </summary>
-    public partial class Admin_Homepage : Page
+    public partial class AdminHomepage : Page
     {
+<<<<<<< HEAD:LMS/Pages/Admin_Homepage.xaml.cs
         public List<Member> LoadMembers()
         {
 
@@ -39,6 +40,9 @@ namespace LMS.Pages
             return members.ToList(); ;
         }
         public Admin_Homepage()
+=======
+        public AdminHomepage()
+>>>>>>> 3a1bde6c142699441054aed92e4c52f2dadee9df:LMS/Pages/AdminHomepage.xaml.cs
         {
             InitializeComponent();
             MemberGrid.ItemsSource = LoadMembers();
