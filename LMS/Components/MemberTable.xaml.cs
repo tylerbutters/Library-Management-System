@@ -18,11 +18,12 @@ namespace LMS.Components
     /// <summary>
     /// Interaction logic for Page1.xaml
     /// </summary>
-    public partial class Page1 : Page
+    public partial class MemberGrid : Page
     {
-        public Page1()
+        public MemberGrid()
         {
             InitializeComponent();
+            MemberGrid.ItemsSource = FileManagement.LoadMembers();
         }
     }
 }
