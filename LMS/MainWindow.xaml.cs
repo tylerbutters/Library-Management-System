@@ -21,35 +21,32 @@ namespace LMS
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
-
-
     {
-        public Login Login;
-        public Member_Homepage Member_Homepage;
-        public Admin_Homepage Admin_Homepage;
+        public LoginPage loginPage;
+        public MemberHomepage memberHomepage;
+        public AdminHomepage adminHomepage;
         
         public MainWindow()
         {
             //Initialize instance of each page
-            Login = new Login();
-            Member_Homepage = new Member_Homepage();
-            Admin_Homepage = new Admin_Homepage();
+            loginPage = new LoginPage();
+            memberHomepage = new MemberHomepage();
+            adminHomepage = new AdminHomepage();
             //inital project creation
             InitializeComponent();
             //Display Login in frame at startup
-            MainWindowFrame.Content = Login;
+            MainWindowFrame.Content = loginPage;
 
-            Login.Navigateto_member_homepage += NavigateTo_Member_Homepage;
-            Login.Navigateto_admin_homepage += NavigateTo_Admin_Homepage;
+            loginPage.navigateTo_MemberHomepage += NavigateTo_MemberHomepage;
+            loginPage.navigateTo_AdminHomepage += NavigateTo_AdminHomepage;
         }
-       public void NavigateTo_Member_Homepage(object sender, RoutedEventArgs e)
+        public void NavigateTo_MemberHomepage(object sender, RoutedEventArgs e)
         {
-            MainWindowFrame.Content = Member_Homepage; 
+            MainWindowFrame.Content = memberHomepage; 
         }
-        public void NavigateTo_Admin_Homepage(object sender, RoutedEventArgs e)
+        public void NavigateTo_AdminHomepage(object sender, RoutedEventArgs e)
         {
-            MainWindowFrame.Content = Admin_Homepage;
+            MainWindowFrame.Content = adminHomepage;
         }
-
     }
 }

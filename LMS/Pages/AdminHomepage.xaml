@@ -1,4 +1,4 @@
-﻿<Page x:Class="LMS.Pages.Member_Homepage"
+﻿<Page x:Class="LMS.Pages.AdminHomepage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -6,8 +6,7 @@
       xmlns:local="clr-namespace:LMS.Pages"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="Member_Homepage">
-
+      Title="Admin_Homepage">
 
     <Grid Background="#fdffee">
         <Grid.RowDefinitions>
@@ -24,9 +23,9 @@
                 BorderBrush="#e7ead4" BorderThickness="20"
                 Background="#ffffff" >
             <TextBlock FontSize="30" FontWeight="Bold">
-                MEMBER HOMEPAGE <LineBreak></LineBreak> TO GO HERE
+                ADMIN HOMEPAGE <LineBreak></LineBreak> TO GO HERE
             </TextBlock>
-           
+
         </Border>
     </Grid>
 </Page>

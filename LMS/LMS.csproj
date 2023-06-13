@@ -67,28 +67,28 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Pages\Admin_Homepage.xaml">
+    <Page Include="Pages\AdminHomepage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\Login.xaml">
+    <Page Include="Pages\LoginPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\Member_Homepage.xaml">
+    <Page Include="Pages\MemberHomepage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Pages\Admin_Homepage.xaml.cs">
-      <DependentUpon>Admin_Homepage.xaml</DependentUpon>
+    <Compile Include="Pages\AdminHomepage.xaml.cs">
+      <DependentUpon>AdminHomepage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\Login.xaml.cs">
-      <DependentUpon>Login.xaml</DependentUpon>
+    <Compile Include="Pages\LoginPage.xaml.cs">
+      <DependentUpon>LoginPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\Member_Homepage.xaml.cs">
-      <DependentUpon>Member_Homepage.xaml</DependentUpon>
+    <Compile Include="Pages\MemberHomepage.xaml.cs">
+      <DependentUpon>MemberHomepage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>

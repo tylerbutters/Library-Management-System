@@ -18,9 +18,9 @@ namespace LMS.Pages
     /// <summary>
     /// Interaction logic for Admin_Homepage.xaml
     /// </summary>
-    public partial class Admin_Homepage : Page
+    public partial class AdminHomepage : Page
     {
-        public Admin_Homepage()
+        public AdminHomepage()
         {
             InitializeComponent();
         }

@@ -1,4 +1,4 @@
-﻿<Page x:Class="LMS.Pages.Login"
+﻿<Page x:Class="LMS.Pages.LoginPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -31,7 +31,7 @@
                         Enter ID
                     </TextBlock>
 
-                    <TextBox Name="LoginEmail" Padding="5" Width="280" FontSize="20" Background="#e7ead4">
+                    <TextBox Name="IDInput" Padding="5" Width="280" FontSize="20" Background="#e7ead4">
                         <TextBox.Resources>
                             <Style TargetType="Border">
                                 <Setter Property="CornerRadius" Value="10"/>
@@ -42,7 +42,7 @@
                     <TextBlock Margin="0 10 0 0 " FontFamily="Inter" FontSize="20" FontWeight="Bold" Padding="0 2 2 2">
                         Enter Pin
                     </TextBlock>
-                    <TextBox Name="LoginPassword" Padding="5" Width="280" FontSize="20" Background="#e7ead4">
+                    <TextBox Name="PinInput" Padding="5" Width="280" FontSize="20" Background="#e7ead4">
                             <TextBox.Resources>
                                 <Style TargetType="Border">
                                     <Setter Property="CornerRadius" Value="10"/>
@@ -53,7 +53,7 @@
                     
                 </StackPanel>
                 
-                    <Button Click="LogIn_Button_Click" Width="130" Padding="5" Margin="0 20 0 0" Background="#bcce50" FontFamily="inter" FontSize="25" FontWeight="Bold" Foreground="#ffffff">
+                    <Button Click="Login_Button_Click" Width="130" Padding="5" Margin="0 20 0 0" Background="#bcce50" FontFamily="inter" FontSize="25" FontWeight="Bold" Foreground="#ffffff">
                     <Button.Resources>
                         <Style TargetType="Border">
                             <Setter Property="CornerRadius" Value="10"/>
