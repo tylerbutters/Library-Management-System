@@ -22,14 +22,11 @@ namespace LMS.Pages
     /// </summary>
     public partial class LoginPage : Page
     {
-        public const string memberFile = @".\Database\UserPasswords.csv";
-        public const string adminFile = @".\Database\AdminPasswords.csv";
-
         public delegate void NavigateTo_MemberHomepage(object sender, RoutedEventArgs e);
         public event NavigateTo_MemberHomepage navigateTo_MemberHomepage;
         public delegate void NavigateTo_AdminHomepage(object sender, RoutedEventArgs e);
         public event NavigateTo_AdminHomepage navigateTo_AdminHomepage;
-        
+
         public LoginPage()
         {
             InitializeComponent();
@@ -56,11 +53,11 @@ namespace LMS.Pages
         //Login button runs "Login_Check()" against user list first, then admin list.
         private void Login_Button_Click(object sender, RoutedEventArgs e)
         {
-            if (CheckLoginDetails(memberFile))
+            if (CheckLoginDetails(FileManagement.memberFile))
             {
                 navigateTo_MemberHomepage(sender, e);
             }
-            else if (CheckLoginDetails(adminFile))
+            else if (CheckLoginDetails(FileManagement.adminFile))
             {
                 //MessageBox.Show("Logging in as Admin");
                 navigateTo_AdminHomepage(sender, e);

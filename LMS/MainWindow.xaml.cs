@@ -35,11 +35,7 @@ namespace LMS
             //inital project creation
             InitializeComponent();
             //Display Login in frame at startup
-<<<<<<< HEAD
-            MainWindowFrame.Content = new Admin_Homepage();
-=======
             MainWindowFrame.Content = loginPage;
->>>>>>> 3a1bde6c142699441054aed92e4c52f2dadee9df
 
             loginPage.navigateTo_MemberHomepage += NavigateTo_MemberHomepage;
             loginPage.navigateTo_AdminHomepage += NavigateTo_AdminHomepage;
