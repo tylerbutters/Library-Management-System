@@ -22,7 +22,7 @@ namespace LMS
     /// </summary>
     public partial class MainWindow : Window
 
-        
+
     {
         public Login Login;
         public Member_Homepage Member_Homepage;
