@@ -23,9 +23,9 @@ namespace LMS.Pages
     public partial class LoginPage : Page
     {
         public delegate void NavigateTo_MemberHomepage(object sender, RoutedEventArgs e);
-        public event NavigateTo_MemberHomepage navigateTo_MemberHomepage;
+        public event NavigateTo_MemberHomepage NavigateToMemberHomepage;
         public delegate void NavigateTo_AdminHomepage(object sender, RoutedEventArgs e);
-        public event NavigateTo_AdminHomepage navigateTo_AdminHomepage;
+        public event NavigateTo_AdminHomepage NaigateToAdminHomepage;
 
         public LoginPage()
         {
@@ -53,14 +53,14 @@ namespace LMS.Pages
         //Login button runs "Login_Check()" against user list first, then admin list.
         private void Login_Button_Click(object sender, RoutedEventArgs e)
         {
-            if (CheckLoginDetails(FileManagement.memberFile))
+            if (CheckLoginDetails(FileManagement.MemberFile))
             {
-                navigateTo_MemberHomepage(sender, e);
+                NavigateToMemberHomepage(sender, e);
             }
-            else if (CheckLoginDetails(FileManagement.adminFile))
+            else if (CheckLoginDetails(FileManagement.AdminFile))
             {
                 //MessageBox.Show("Logging in as Admin");
-                navigateTo_AdminHomepage(sender, e);
+                NaigateToAdminHomepage(sender, e);
             }
             else
             {
