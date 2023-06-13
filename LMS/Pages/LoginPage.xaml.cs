@@ -39,16 +39,18 @@ namespace LMS.Pages
             string idInput = IDInput.Text;
             string pinInput = PinInput.Text;
             string[] rows = File.ReadAllLines(file);
-            IEnumerable<LoginPage> logins = (from l in rows.Skip(1)
+            //member and admin classes inherit from account class. code just puts the id and pin data into the account object.
+            //then compares to the inputted data. since admin and member both inherit from account this function can be used for both cases.
+            IEnumerable<Account> accounts = (from l in rows.Skip(1)
                                  let split = l.Split(',')
-                                 select new LoginPage()
+                                 select new Account()
                                  {
                                      Id = split[0],
                                      Pin = split[1],
                                  }).ToList();
            
-            foreach (LoginPage login in logins){
-                if (login.Id == idInput && login.Pin == pinInput)
+            foreach (Account account in accounts){
+                if (account.Id == idInput && account.Pin == pinInput)
                 {
                     return true;
                 }
