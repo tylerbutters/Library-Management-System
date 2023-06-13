@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.IO;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -23,6 +24,23 @@ namespace LMS.Pages
         public AdminHomepage()
         {
             InitializeComponent();
+            MemberGrid.ItemsSource = LoadMembers();
+        }
+        public List<Member> LoadMembers()
+        {
+            string[] rows = File.ReadAllLines(FileManagement.memberFile);
+            var members = from l in rows.Skip(1)
+                          let split = l.Split(',')
+                          select new Member()
+                          {
+                              id = int.Parse(split[0]),
+                              pin = int.Parse(split[1]),
+                              firstName = split[2],
+                              lastName = split[3],
+                              email = split[4],
+                          };
+
+            return members.ToList();
         }
     }
 }
