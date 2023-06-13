@@ -16,15 +16,15 @@ namespace LMS
         {
             string[] rows = File.ReadAllLines(MemberFile);
             IEnumerable<Member> members = from l in rows.Skip(1)
-                          let split = l.Split(',')
-                          select new Member()
-                          {
-                              Id = int.Parse(split[0]),
-                              Pin = int.Parse(split[1]),
-                              FirstName = split[2],
-                              LastName = split[3],
-                              Email = split[4],
-                          };
+                                          let split = l.Split(',')
+                                          select new Member()
+                                          {
+                                              Id = int.Parse(split[0]),
+                                              Pin = int.Parse(split[1]),
+                                              FirstName = split[2],
+                                              LastName = split[3],
+                                              Email = split[4],
+                                          };
 
             return members.ToList();
         }
