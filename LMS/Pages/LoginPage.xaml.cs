@@ -22,11 +22,13 @@ namespace LMS.Pages
     /// </summary>
     public partial class LoginPage : Page
     {
+        public string Id;
+        public string Pin;
+
         public delegate void NavigateTo_MemberHomepage(object sender, RoutedEventArgs e);
         public event NavigateTo_MemberHomepage NavigateToMemberHomepage;
         public delegate void NavigateTo_AdminHomepage(object sender, RoutedEventArgs e);
         public event NavigateTo_AdminHomepage NaigateToAdminHomepage;
-
         public LoginPage()
         {
             InitializeComponent();
@@ -34,16 +36,24 @@ namespace LMS.Pages
         //Login Check checks the entered email and password against the given list and returns true/false.
         public bool CheckLoginDetails(string file)
         {
-            //use if/else loop to check admin CSV first, else member CSV
             string idInput = IDInput.Text;
             string pinInput = PinInput.Text;
-
             string[] rows = File.ReadAllLines(file);
-            List<string> idData = rows.Skip(1).Select(row => row.Split(',')[0]).ToList();
-            List<string> pinData = rows.Skip(1).Select(row => row.Split(',')[1]).ToList();
-
-            //returns conditional statement
-            return idData.Contains(idInput) && pinData.Contains(pinInput);
+            IEnumerable<LoginPage> logins = (from l in rows.Skip(1)
+                                 let split = l.Split(',')
+                                 select new LoginPage()
+                                 {
+                                     Id = split[0],
+                                     Pin = split[1],
+                                 }).ToList();
+           
+            foreach (LoginPage login in logins){
+                if (login.Id == idInput && login.Pin == pinInput)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
         //Login button runs "Login_Check()" against user list first, then admin list.
         private void Login_Button_Click(object sender, RoutedEventArgs e)

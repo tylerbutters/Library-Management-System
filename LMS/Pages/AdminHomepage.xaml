@@ -18,8 +18,7 @@
               AreRowDetailsFrozen="True"
               CanUserReorderColumns="False"
               CanUserResizeColumns="False" 
-              CanUserSortColumns = "True"
-              >
+              CanUserSortColumns = "True">
 
         <DataGrid.Resources>
             <Style BasedOn="{StaticResource {x:Type DataGridColumnHeader}}" TargetType="{x:Type DataGridColumnHeader}">
@@ -36,11 +35,11 @@
             </Style>
         </DataGrid.Resources>
         <DataGrid.Columns>
-            <DataGridTextColumn Header="ID" Binding="{Binding id}" Width="1*"></DataGridTextColumn>
-            <DataGridTextColumn Header="Pin" Binding="{Binding pin}" Width="0.5*"></DataGridTextColumn>
-            <DataGridTextColumn Header="First Name" Binding="{Binding firstName}" Width="1*"></DataGridTextColumn>
-            <DataGridTextColumn Header="Last Name" Binding="{Binding lastName}" Width="1*"></DataGridTextColumn>
-            <DataGridTextColumn Header="Email" Binding="{Binding email}" Width="2*"></DataGridTextColumn>
+            <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="1*"></DataGridTextColumn>
+            <DataGridTextColumn Header="Pin" Binding="{Binding Pin}" Width="0.5*"></DataGridTextColumn>
+            <DataGridTextColumn Header="First Name" Binding="{Binding FirstName}" Width="1*"></DataGridTextColumn>
+            <DataGridTextColumn Header="Last Name" Binding="{Binding LastName}" Width="1*"></DataGridTextColumn>
+            <DataGridTextColumn Header="Email" Binding="{Binding Email}" Width="2*"></DataGridTextColumn>
         </DataGrid.Columns>
             
     </DataGrid>

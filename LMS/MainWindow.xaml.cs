@@ -36,7 +36,7 @@ namespace LMS
         }
         public void NavigateTo_MemberHomepage(object sender, RoutedEventArgs e)
         {
-            MainWindowFrame.Content = memberHomepage; 
+            MainWindowFrame.Content = memberHomepage;
         }
         public void NavigateTo_AdminHomepage(object sender, RoutedEventArgs e)
         {
