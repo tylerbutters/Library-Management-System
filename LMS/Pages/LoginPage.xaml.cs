@@ -42,11 +42,6 @@ namespace LMS.Pages
             List<string> idData = rows.Skip(1).Select(row => row.Split(',')[0]).ToList();
             List<string> pinData = rows.Skip(1).Select(row => row.Split(',')[1]).ToList();
 
-            if (idInput == "" || pinInput == "")
-            {
-                MessageBox.Show("Please enter both username and password");
-            }
-
             //returns conditional statement
             return idData.Contains(idInput) && pinData.Contains(pinInput);
         }
@@ -64,8 +59,12 @@ namespace LMS.Pages
             }
             else
             {
-                MessageBox.Show("Username/Password incorrect");
+                MessageBox.Show("Cannot find account with those details");
             }
+        }
+        private void Exit_Button_Click(object sender, RoutedEventArgs e)
+        {
+            Application.Current.Shutdown();
         }
     }
 }
