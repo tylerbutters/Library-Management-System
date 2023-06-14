@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace LMS.Components
 {
     /// <summary>
-    /// Interaction logic for Page1.xaml
+    /// Interaction logic for MemberTable.xaml
     /// </summary>
-    public partial class MemberGrid : Page
+    public partial class MemberTable : UserControl
     {
-        public MemberGrid()
+        public MemberTable()
         {
             InitializeComponent();
             MemberGrid.ItemsSource = FileManagement.LoadMembers();
