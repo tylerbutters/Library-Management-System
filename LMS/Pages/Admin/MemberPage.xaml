@@ -10,7 +10,8 @@
     <StackPanel Background="#FDFFEE">
         <DockPanel Name="Navbar" Background="#417422" VerticalAlignment="Top" Height="250" >
             <Grid Name="AddMemberArea" Width="300">
-                <Button Name="AddMemberButton" Content="+" VerticalAlignment="Center"  Width="75" Height="75" FontSize="90" FontWeight="Black" Foreground="White" BorderThickness="0" Click="AddMemberButton_Click">
+                <Button Name="AddMemberButton" VerticalAlignment="Center"  Width="75" Height="75" FontSize="90" FontWeight="Black" Foreground="White" BorderThickness="0" Click="AddMemberButton_Click">
+                    <Image Source="../Images/addIcon.png" Width="40"/>
                     <Button.Style>
                         <Style TargetType="{x:Type Button}">
                             <Setter Property="Background" Value="#BFCA43"/>
@@ -41,7 +42,7 @@
                 <TextBox x:Name="SearchBox" Width="200" Margin="5" TextChanged="SearchBox_TextChanged" />
                 <Button Content="Search" Click="SearchButton_Click" />
             </StackPanel>
-            <Grid Name="LogoutArea" Width="300">
+            <Grid Name="LogoutArea" Width="auto">
                 <Button Content="Log out" VerticalAlignment="Center"  Width="200" Height="75" FontSize="30" FontWeight="Black" Foreground="White" BorderThickness="0" Click="Logout_Button_Click">
                     <Button.Style>
                         <Style TargetType="{x:Type Button}">

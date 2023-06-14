@@ -33,6 +33,7 @@ namespace LMS
 
             loginPage.NavigateToMemberHomepage += NavigateTo_MemberHomepage;
             loginPage.NaigateToAdminHomepage += NavigateTo_AdminHomepage;
+            
         }
         public void NavigateTo_MemberHomepage(object sender, RoutedEventArgs e)
         {
