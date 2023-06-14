@@ -1,23 +1,31 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+using System.IO;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
+using System.Windows.Shapes;
 
-namespace LMS.UserControls
+namespace LMS.Pages
 {
     /// <summary>
-    /// Interaction logic for Search.xaml
+    /// Interaction logic for Admin_Homepage.xaml
     /// </summary>
-    public partial class Search : UserControl
+    public partial class MemberPage : Page
     {
-        public Search()
+        public MemberPage()
         {
             InitializeComponent();
-
+            MemberGrid.ItemsSource = FileManagement.LoadMembers();
         }
-
-        //executes search operation when the search button is clicked
         private void SearchButton_Click(object sender, RoutedEventArgs e)
         {
             //Retrieves search term from the 'searchbox', 'trim() removes any trailing whitespace.

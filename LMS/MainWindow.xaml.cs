@@ -24,7 +24,7 @@ namespace LMS
     {
         public LoginPage loginPage = new LoginPage();
         public MemberHomepage memberHomepage = new MemberHomepage();
-        public AdminHomepage adminHomepage = new AdminHomepage();
+        public MemberPage adminHomepage = new MemberPage();
         public MainWindow()
         {
             InitializeComponent();
