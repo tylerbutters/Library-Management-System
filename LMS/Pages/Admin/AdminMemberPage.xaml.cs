@@ -19,9 +19,9 @@ namespace LMS.Pages
     /// <summary>
     /// Interaction logic for Admin_Homepage.xaml
     /// </summary>
-    public partial class MemberPage : Page
+    public partial class AdminMemberPage : Page
     {
-        public MemberPage()
+        public AdminMemberPage()
         {
             InitializeComponent();
             MemberGrid.ItemsSource = FileManagement.LoadMembers();

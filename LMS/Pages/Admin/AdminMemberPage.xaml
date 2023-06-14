@@ -1,4 +1,4 @@
-﻿<Page x:Class="LMS.Pages.MemberPage"
+﻿<Page x:Class="LMS.Pages.AdminMemberPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -11,7 +11,7 @@
         <DockPanel Name="Navbar" Background="#417422" VerticalAlignment="Top" Height="250" >
             <Grid Name="AddMemberArea" Width="300">
                 <Button Name="AddMemberButton" VerticalAlignment="Center"  Width="75" Height="75" FontSize="90" FontWeight="Black" Foreground="White" BorderThickness="0" Click="AddMemberButton_Click">
-                    <Image Source="../Images/addIcon.png" Width="40"/>
+                    <!--<Image Source="../Images/addIcon.png" Width="40"/>-->
                     <Button.Style>
                         <Style TargetType="{x:Type Button}">
                             <Setter Property="Background" Value="#BFCA43"/>
