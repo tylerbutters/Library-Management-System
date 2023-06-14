@@ -68,6 +68,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Pages\addUser.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\AdminHomepage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -84,6 +88,9 @@
   <ItemGroup>
     <Compile Include="Book.cs" />
     <Compile Include="Member.cs" />
+    <Compile Include="Pages\addUser.xaml.cs">
+      <DependentUpon>addUser.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\AdminHomepage.xaml.cs">
       <DependentUpon>AdminHomepage.xaml</DependentUpon>
     </Compile>
