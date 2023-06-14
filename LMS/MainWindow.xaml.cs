@@ -1,5 +1,7 @@
-﻿using System;
+﻿using LMS.Pages;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,10 +22,25 @@ namespace LMS
     /// </summary>
     public partial class MainWindow : Window
     {
+        public LoginPage loginPage = new LoginPage();
+        public MemberHomepage memberHomepage = new MemberHomepage();
+        public MemberPage adminHomepage = new MemberPage();
         public MainWindow()
         {
-            //inital project creation
             InitializeComponent();
+            //Display Login in frame at startup
+            MainWindowFrame.Content = loginPage;
+
+            loginPage.NavigateToMemberHomepage += NavigateTo_MemberHomepage;
+            loginPage.NaigateToAdminHomepage += NavigateTo_AdminHomepage;
+        }
+        public void NavigateTo_MemberHomepage(object sender, RoutedEventArgs e)
+        {
+            MainWindowFrame.Content = memberHomepage; 
+        }
+        public void NavigateTo_AdminHomepage(object sender, RoutedEventArgs e)
+        {
+            MainWindowFrame.Content = adminHomepage;
         }
     }
 }
