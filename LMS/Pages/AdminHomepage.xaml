@@ -3,44 +3,15 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:LMS.Pages"
+      xmlns:local="clr-namespace:LMS.Pages" xmlns:local1="clr-namespace:LMS.Components"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="1080" d:DesignWidth="1920"
       Title="Admin_Homepage">
 
-    <DataGrid Name="MemberGrid" 
-              Height="430" 
-              Width="auto"
-              AutoGenerateColumns="False"
-              VerticalAlignment="Top"
-              AlternatingRowBackground="LightGray"
-              IsReadOnly="True"
-              AreRowDetailsFrozen="True"
-              CanUserReorderColumns="False"
-              CanUserResizeColumns="False" 
-              CanUserSortColumns = "True">
-
-        <DataGrid.Resources>
-            <Style BasedOn="{StaticResource {x:Type DataGridColumnHeader}}" TargetType="{x:Type DataGridColumnHeader}">
-                <Setter Property="Background" Value="DarkGreen" />
-                <Setter Property="Foreground" Value="White"/>
-                <Setter Property="FontWeight" Value="Black"/>
-                <Setter Property="HorizontalContentAlignment" Value="Center"/>
-
-            </Style>
-            <Style TargetType="{x:Type DataGridRow}">
-                <Setter Property="Background" Value="white"/>
-                <Setter Property="Foreground" Value="black"/>
-
-            </Style>
-        </DataGrid.Resources>
-        <DataGrid.Columns>
-            <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="1*"></DataGridTextColumn>
-            <DataGridTextColumn Header="Pin" Binding="{Binding Pin}" Width="0.5*"></DataGridTextColumn>
-            <DataGridTextColumn Header="First Name" Binding="{Binding FirstName}" Width="1*"></DataGridTextColumn>
-            <DataGridTextColumn Header="Last Name" Binding="{Binding LastName}" Width="1*"></DataGridTextColumn>
-            <DataGridTextColumn Header="Email" Binding="{Binding Email}" Width="2*"></DataGridTextColumn>
-        </DataGrid.Columns>
-            
-    </DataGrid>
+    <StackPanel Background="#FDFFEE">
+        <StackPanel Name="Navbar" Background="#417422" VerticalAlignment="Top" Height="250"></StackPanel>
+        <StackPanel Name="TableArea" Background="#E7EAD4" Width="1270" Height="720" Margin="50" VerticalAlignment="Bottom" HorizontalAlignment="Center">
+            <local1:MemberTable></local1:MemberTable>
+        </StackPanel>
+    </StackPanel>
 </Page>
