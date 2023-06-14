@@ -19,9 +19,9 @@ namespace LMS.Pages
     /// <summary>
     /// Interaction logic for Admin_Homepage.xaml
     /// </summary>
-    public partial class MemberPage : Page
+    public partial class AdminMemberPage : Page
     {
-        public MemberPage()
+        public AdminMemberPage()
         {
             InitializeComponent();
             MemberGrid.ItemsSource = FileManagement.LoadMembers();
@@ -53,6 +53,16 @@ namespace LMS.Pages
         private void SearchBox_TextChanged(object sender, TextChangedEventArgs e)
         {
 
+        }
+
+        private void Logout_Button_Click(object sender, RoutedEventArgs e)
+        {
+            //go back to 
+        }
+
+        private void AddMemberButton_Click(object sender, RoutedEventArgs e)
+        {
+            //add member
         }
     }
 }
