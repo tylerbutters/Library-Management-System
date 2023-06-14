@@ -39,8 +39,20 @@
                 </Button>
             </Grid>
             <StackPanel Name="Searchbar" Width="1000">
-                <TextBox x:Name="SearchBox" Width="200" Margin="5" TextChanged="SearchBox_TextChanged" />
-                <Button Content="Search" Click="SearchButton_Click" />
+                <!--<TextBox x:Name="SearchBox" Width="200" Margin="5" TextChanged="SearchBox_TextChanged" />
+                <Button Content="Search" Click="SearchButton_Click" />-->
+                <StackPanel Orientation="Horizontal" Margin="10">
+
+                    <TextBox x:Name="SearchBox"  Text="Search" Grid.Column="1" Width="743" Height="60" Margin="595,58,-590,-92" TextChanged="SearchBox_TextChanged" Grid.Row="1" >
+                        <TextBox.Padding>
+                            <Thickness Left="30" Right="5" Top="13"/>
+                        </TextBox.Padding>
+                        <TextBox.FontSize>
+                            20
+                        </TextBox.FontSize>
+                    </TextBox>
+
+                </StackPanel>
             </StackPanel>
             <Grid Name="LogoutArea" Width="auto">
                 <Button Content="Log out" VerticalAlignment="Center"  Width="200" Height="75" FontSize="30" FontWeight="Black" Foreground="White" BorderThickness="0" Click="Logout_Button_Click">
@@ -71,6 +83,7 @@
                 </Button>
             </Grid>
         </DockPanel>
+    
         <StackPanel Name="TableArea" Background="#E7EAD4" Width="1270" Height="720" Margin="50" VerticalAlignment="Bottom" HorizontalAlignment="Center">
             <DataGrid Name="MemberGrid"
               Height="auto" 
