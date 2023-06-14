@@ -7,10 +7,10 @@
       d:DesignHeight="1080" d:DesignWidth="1920"
       Title="Admin_Homepage">
 
-    <StackPanel Background="#FDFFEE">
-        <DockPanel Name="Navbar" Background="#417422" VerticalAlignment="Top" Height="250" >
-            <Grid Name="AddMemberArea" Width="300">
-                <Button Name="AddMemberButton" VerticalAlignment="Center"  Width="75" Height="75" FontSize="90" FontWeight="Black" Foreground="White" BorderThickness="0" Click="AddMemberButton_Click">
+    <Grid Background="#FDFFEE">
+        <DockPanel Name="Navbar" Background="#417422" VerticalAlignment="Top" HorizontalAlignment="Center" Height="250" Width="1920" >
+            <Grid Name="AddMemberArea" Width="450">
+                <Button Name="AddMemberButton" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="00 0 50 0" Width="75" Height="75" BorderThickness="0" Click="AddMemberButton_Click">
                     <!--<Image Source="../Images/addIcon.png" Width="40"/>-->
                     <Button.Style>
                         <Style TargetType="{x:Type Button}">
@@ -38,24 +38,17 @@
                     </Button.Resources>
                 </Button>
             </Grid>
-            <StackPanel Name="Searchbar" Width="1000">
-                <!--<TextBox x:Name="SearchBox" Width="200" Margin="5" TextChanged="SearchBox_TextChanged" />
-                <Button Content="Search" Click="SearchButton_Click" />-->
-                <StackPanel Orientation="Horizontal" Margin="10">
-
-                    <TextBox x:Name="SearchBox"  Text="Search" Grid.Column="1" Width="743" Height="60" Margin="595,58,-590,-92" TextChanged="SearchBox_TextChanged" Grid.Row="1" >
-                        <TextBox.Padding>
-                            <Thickness Left="30" Right="5" Top="13"/>
-                        </TextBox.Padding>
-                        <TextBox.FontSize>
-                            20
-                        </TextBox.FontSize>
-                    </TextBox>
-
-                </StackPanel>
-            </StackPanel>
-            <Grid Name="LogoutArea" Width="auto">
-                <Button Content="Log out" VerticalAlignment="Center"  Width="200" Height="75" FontSize="30" FontWeight="Black" Foreground="White" BorderThickness="0" Click="Logout_Button_Click">
+            <Grid Name="Searchbar" Width="auto" HorizontalAlignment="Center">
+                <TextBox x:Name="SearchBox" Width="1020" Height="75" TextChanged="SearchBox_TextChanged" BorderThickness="0" VerticalContentAlignment="Center">
+                    <TextBox.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="20"/>
+                        </Style>
+                    </TextBox.Resources>
+                </TextBox>
+            </Grid>
+            <Grid Name="LogoutArea" Width="450">
+                <Button Content="Log out" HorizontalAlignment="Left" Margin="50 0 0 0" Width="200" Height="75" FontSize="30" FontWeight="Black" Foreground="White" BorderThickness="0" Click="Logout_Button_Click">
                     <Button.Style>
                         <Style TargetType="{x:Type Button}">
                             <Setter Property="Background" Value="#C84920"/>
@@ -83,7 +76,7 @@
                 </Button>
             </Grid>
         </DockPanel>
-    
+
         <StackPanel Name="TableArea" Background="#E7EAD4" Width="1270" Height="720" Margin="50" VerticalAlignment="Bottom" HorizontalAlignment="Center">
             <DataGrid Name="MemberGrid"
               Height="auto" 
@@ -136,5 +129,5 @@
                 </DataGrid.Columns>
             </DataGrid>
         </StackPanel>
-    </StackPanel>
+    </Grid>
 </Page>
