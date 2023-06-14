@@ -5,64 +5,88 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:LMS.Pages"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="1080" d:DesignWidth="1920"
       Title="Login">
 
     <Grid Background="#fdffee">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="1*"></RowDefinition>
-            <RowDefinition Height="6*"></RowDefinition>
-            <RowDefinition Height="1*"></RowDefinition>
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="1*"></ColumnDefinition>
-            <ColumnDefinition Width="3*"></ColumnDefinition>
-            <ColumnDefinition Width="1*"></ColumnDefinition>
-        </Grid.ColumnDefinitions>
-        <Border Grid.Row="1" Grid.Column="1"  CornerRadius="20"
-                BorderBrush="#e7ead4" BorderThickness="20"
-                Background="#ffffff" >
-            <StackPanel Orientation="Vertical" HorizontalAlignment="Center" Margin="5">
-                <TextBlock HorizontalAlignment="Center" FontFamily="inter" FontSize="40" FontWeight="ExtraBold">
-                    Log In
-                </TextBlock>
-                <StackPanel Orientation="Vertical" HorizontalAlignment="Left">
-                    <TextBlock Margin="0 10 0 0 " FontFamily="Inter" FontSize="20" FontWeight="Bold" Padding="0 2 2 2">
-                        Enter ID
-                    </TextBlock>
-
-                    <TextBox Name="IDInput" Padding="5" Width="280" FontSize="20" Background="#e7ead4">
-                        <TextBox.Resources>
-                            <Style TargetType="Border">
-                                <Setter Property="CornerRadius" Value="10"/>
-                            </Style>
-                        </TextBox.Resources>
-                        
-                    </TextBox>
-                    <TextBlock Margin="0 10 0 0 " FontFamily="Inter" FontSize="20" FontWeight="Bold" Padding="0 2 2 2">
-                        Enter Pin
-                    </TextBlock>
-                    <TextBox Name="PinInput" Padding="5" Width="280" FontSize="20" Background="#e7ead4">
+        <Border CornerRadius="10"  Background="#e7ead4" Height="572" Width="819">
+            <Border CornerRadius="10" Background="White" Height="530" Width="776">
+                <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Margin="5">
+                    <TextBlock HorizontalAlignment="Center" FontFamily="inter" FontSize="40" FontWeight="ExtraBold">Log in</TextBlock>
+                    <StackPanel Orientation="Vertical" HorizontalAlignment="Left">
+                        <TextBlock FontFamily="Inter" FontSize="25" FontWeight="Black" Margin="0 20 0 5">Enter ID</TextBlock>
+                        <TextBox  Name="IDInput" Padding="20 0 0 0" Width="550" Height="60" FontSize="20" Background="#e7ead4" BorderThickness="0" VerticalContentAlignment="Center">
                             <TextBox.Resources>
                                 <Style TargetType="Border">
                                     <Setter Property="CornerRadius" Value="10"/>
                                 </Style>
                             </TextBox.Resources>
-                            
                         </TextBox>
-                    
-                </StackPanel>
-                
-                    <Button Click="Login_Button_Click" Width="130" Padding="5" Margin="0 20 0 0" Background="#bcce50" FontFamily="inter" FontSize="25" FontWeight="Bold" Foreground="#ffffff">
-                    <Button.Resources>
-                        <Style TargetType="Border">
-                            <Setter Property="CornerRadius" Value="10"/>
-                        </Style>
-                    </Button.Resources>
-                        Log In
+
+                        <TextBlock FontFamily="Inter" FontSize="25" FontWeight="Black" Margin="0 20 0 5">Enter Pin</TextBlock>
+                        <TextBox Name="PinInput" Padding="20 0 0 0" Width="550" Height="60" FontSize="20" Background="#e7ead4" BorderThickness="0" VerticalContentAlignment="Center">
+                            <TextBox.Resources>
+                                <Style TargetType="Border">
+                                    <Setter Property="CornerRadius" Value="10"/>
+                                </Style>
+                            </TextBox.Resources>
+                        </TextBox>
+                    </StackPanel>
+
+                    <Button Content="Log in" Click="Login_Button_Click" Width="200" Height="75" Margin="0 60 0 0" FontFamily="inter" FontSize="30" FontWeight="Black" Foreground="White" BorderThickness="0">
+                        <Button.Style>
+                            <Style TargetType="{x:Type Button}">
+                                <Setter Property="Background" Value="#bcce50"/>
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="{x:Type Button}">
+                                            <Border Background="{TemplateBinding Background}">
+                                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                            </Border>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="#A5AE38"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                        <Button.Resources>
+                            <Style TargetType="Border">
+                                <Setter Property="CornerRadius" Value="20"/>
+                            </Style>
+                        </Button.Resources>
                     </Button>
-                
-            </StackPanel>
+                </StackPanel>
+            </Border>
         </Border>
+        <Button Content="Exit" VerticalAlignment="Bottom" Margin="0 100"  Width="160" Height="60" FontFamily="inter" FontSize="30" FontWeight="Black" Foreground="White" BorderThickness="0" Click="Exit_Button_Click">
+            <Button.Style>
+                <Style TargetType="{x:Type Button}">
+                    <Setter Property="Background" Value="#C84920"/>
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type Button}">
+                                <Border Background="{TemplateBinding Background}">
+                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="#933618"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="15"/>
+                </Style>
+            </Button.Resources>
+        </Button>
     </Grid>
 </Page>
