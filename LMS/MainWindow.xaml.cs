@@ -30,9 +30,10 @@ namespace LMS
             InitializeComponent();
             //Display Login in frame at startup
             MainWindowFrame.Content = loginPage;
+            NavigateToMemberPage();
 
-            loginPage.NavigateToMemberHomepage += NavigateTo_MemberHomepage;
-            loginPage.NaigateToAdminHomepage += NavigateTo_AdminHomepage;
+            //loginPage.NavigateToMemberHomepage += NavigateTo_MemberHomepage;
+            //loginPage.NaigateToAdminHomepage += NavigateTo_AdminHomepage;
         }
         public void NavigateTo_MemberHomepage(object sender, RoutedEventArgs e)
         {
@@ -41,6 +42,15 @@ namespace LMS
         public void NavigateTo_AdminHomepage(object sender, RoutedEventArgs e)
         {
             MainWindowFrame.Content = adminHomepage;
+        }
+
+        private void NavigateToMemberPage()
+        {
+            // Create an instance of the MemberPage
+            MemberPage memberPage = new MemberPage();
+
+            // Set the Content property of the main window to the MemberPage instance
+            this.Content = memberPage;
         }
     }
 }

@@ -25,8 +25,24 @@ namespace LMS.Pages
         {
             InitializeComponent();
             MemberGrid.ItemsSource = FileManagement.LoadMembers();
+
+            SearchBox.KeyDown += SearchBox_KeyDown;
         }
-        private void SearchButton_Click(object sender, RoutedEventArgs e)
+
+        private void SearchBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                PerformSearch();
+            }
+        }
+
+        //private void SearchButton_Click(object sender, RoutedEventArgs e)
+        //{
+        //    PerformSearch();
+        //}
+
+        private void PerformSearch()
         {
             //Retrieves search term from the 'searchbox', 'trim() removes any trailing whitespace.
             string searchTerm = SearchBox.Text.Trim();
