@@ -3,18 +3,73 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:LMS.Pages" xmlns:local1="clr-namespace:LMS.Components"
       mc:Ignorable="d" 
       d:DesignHeight="1080" d:DesignWidth="1920"
       Title="Admin_Homepage">
 
     <StackPanel Background="#FDFFEE">
-        <StackPanel Name="Navbar" Background="#417422" VerticalAlignment="Top" Height="250">
-            <StackPanel>
+        <DockPanel Name="Navbar" Background="#417422" VerticalAlignment="Top" Height="250" >
+            <Grid Name="AddMemberArea" Width="300">
+                <Button Name="AddMemberButton" Content="+" VerticalAlignment="Center"  Width="75" Height="75" FontSize="90" FontWeight="Black" Foreground="White" BorderThickness="0" Click="AddMemberButton_Click">
+                    <Button.Style>
+                        <Style TargetType="{x:Type Button}">
+                            <Setter Property="Background" Value="#BFCA43"/>
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="{x:Type Button}">
+                                        <Border Background="{TemplateBinding Background}">
+                                            <ContentPresenter HorizontalAlignment="Center"/>
+                                        </Border>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="#933618"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                    <Button.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="15"/>
+                        </Style>
+                    </Button.Resources>
+                </Button>
+            </Grid>
+            <StackPanel Name="Searchbar" Width="1000">
                 <TextBox x:Name="SearchBox" Width="200" Margin="5" TextChanged="SearchBox_TextChanged" />
                 <Button Content="Search" Click="SearchButton_Click" />
             </StackPanel>
-        </StackPanel>
+            <Grid Name="LogoutArea" Width="300">
+                <Button Content="Log out" VerticalAlignment="Center"  Width="200" Height="75" FontSize="30" FontWeight="Black" Foreground="White" BorderThickness="0" Click="Logout_Button_Click">
+                    <Button.Style>
+                        <Style TargetType="{x:Type Button}">
+                            <Setter Property="Background" Value="#C84920"/>
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="{x:Type Button}">
+                                        <Border Background="{TemplateBinding Background}">
+                                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                        </Border>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="#933618"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                    <Button.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="15"/>
+                        </Style>
+                    </Button.Resources>
+                </Button>
+            </Grid>
+        </DockPanel>
         <StackPanel Name="TableArea" Background="#E7EAD4" Width="1270" Height="720" Margin="50" VerticalAlignment="Bottom" HorizontalAlignment="Center">
             <DataGrid Name="MemberGrid"
               Height="auto" 

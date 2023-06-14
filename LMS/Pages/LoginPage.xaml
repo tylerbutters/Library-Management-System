@@ -12,9 +12,9 @@
         <Border CornerRadius="10"  Background="#e7ead4" Height="572" Width="819">
             <Border CornerRadius="10" Background="White" Height="530" Width="776">
                 <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Margin="5">
-                    <TextBlock HorizontalAlignment="Center" FontFamily="inter" FontSize="40" FontWeight="ExtraBold">Log in</TextBlock>
+                    <TextBlock HorizontalAlignment="Center" FontSize="40" FontWeight="ExtraBold">Log in</TextBlock>
                     <StackPanel Orientation="Vertical" HorizontalAlignment="Left">
-                        <TextBlock FontFamily="Inter" FontSize="25" FontWeight="Black" Margin="0 20 0 5">Enter ID</TextBlock>
+                        <TextBlock FontSize="25" FontWeight="Black" Margin="0 20 0 5">Enter ID</TextBlock>
                         <TextBox  Name="IDInput" Padding="20 0 0 0" Width="550" Height="60" FontSize="20" Background="#e7ead4" BorderThickness="0" VerticalContentAlignment="Center">
                             <TextBox.Resources>
                                 <Style TargetType="Border">
@@ -23,7 +23,7 @@
                             </TextBox.Resources>
                         </TextBox>
 
-                        <TextBlock FontFamily="Inter" FontSize="25" FontWeight="Black" Margin="0 20 0 5">Enter Pin</TextBlock>
+                        <TextBlock FontSize="25" FontWeight="Black" Margin="0 20 0 5">Enter Pin</TextBlock>
                         <TextBox Name="PinInput" Padding="20 0 0 0" Width="550" Height="60" FontSize="20" Background="#e7ead4" BorderThickness="0" VerticalContentAlignment="Center">
                             <TextBox.Resources>
                                 <Style TargetType="Border">
@@ -33,7 +33,7 @@
                         </TextBox>
                     </StackPanel>
 
-                    <Button Content="Log in" Click="Login_Button_Click" Width="200" Height="75" Margin="0 60 0 0" FontFamily="inter" FontSize="30" FontWeight="Black" Foreground="White" BorderThickness="0">
+                    <Button Content="Log in" Click="Login_Button_Click" Width="200" Height="75" Margin="0 60 0 0" FontSize="30" FontWeight="Black" Foreground="White" BorderThickness="0">
                         <Button.Style>
                             <Style TargetType="{x:Type Button}">
                                 <Setter Property="Background" Value="#bcce50"/>
@@ -62,7 +62,7 @@
                 </StackPanel>
             </Border>
         </Border>
-        <Button Content="Exit" VerticalAlignment="Bottom" Margin="0 100"  Width="160" Height="60" FontFamily="inter" FontSize="30" FontWeight="Black" Foreground="White" BorderThickness="0" Click="Exit_Button_Click">
+        <Button Content="Exit" VerticalAlignment="Bottom" Margin="0 100"  Width="160" Height="60" FontSize="30" FontWeight="Black" Foreground="White" BorderThickness="0" Click="Exit_Button_Click">
             <Button.Style>
                 <Style TargetType="{x:Type Button}">
                     <Setter Property="Background" Value="#C84920"/>

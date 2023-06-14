@@ -54,5 +54,15 @@ namespace LMS.Pages
         {
 
         }
+
+        private void Logout_Button_Click(object sender, RoutedEventArgs e)
+        {
+            //go back to 
+        }
+
+        private void AddMemberButton_Click(object sender, RoutedEventArgs e)
+        {
+            //add member
+        }
     }
 }
