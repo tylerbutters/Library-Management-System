@@ -52,6 +52,8 @@
             <DataGridTextColumn Header="First Name" Binding="{Binding FirstName}" Width="1*"></DataGridTextColumn>
             <DataGridTextColumn Header="Last Name" Binding="{Binding LastName}" Width="1*"></DataGridTextColumn>
             <DataGridTextColumn Header="Email" Binding="{Binding Email}" Width="2*"></DataGridTextColumn>
+            <DataGridTextColumn Header="Reserves" Binding="{Binding ReserveCounter}" Width="1*"></DataGridTextColumn>
+            <DataGridTextColumn Header="Loans" Binding="{Binding LoanCounter}" Width="1*"></DataGridTextColumn>
         </DataGrid.Columns>
     </DataGrid>
 </UserControl>
