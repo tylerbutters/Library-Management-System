@@ -26,17 +26,18 @@ namespace LMS
     {
         public LoginPage loginPage = new LoginPage();
         public MemberHomepage memberHomepage = new MemberHomepage();
-        public AdminMainPage AdminMainPage = new AdminMainPage();
+        public AdminMainPage adminMainPage = new AdminMainPage();
+        public MemberNavbar memberNavbar = new MemberNavbar();
         public MainWindow()
         {
             InitializeComponent();
             //Display Login in frame at startup
-            MainWindowFrame.Content = AdminMainPage;
-            //MainWindowFrame.Content = loginPage;
+            //MainWindowFrame.Content = adminMainPage;
+            MainWindowFrame.Content = loginPage;
 
             loginPage.navigateToMemberHomepage += NavigateToMemberHomepage;
             loginPage.navigateToAdminMainPage += NavigateToAdminHomepage;
-            //AdminMainPage.navigateToLoginPage += NavigateToLoginPage;
+            adminMainPage.memberNavbar.navigateToLoginPage += NavigateToLoginPage;
         }
         public void NavigateToMemberHomepage(object sender, RoutedEventArgs e)
         {
@@ -44,7 +45,7 @@ namespace LMS
         }
         public void NavigateToAdminHomepage(object sender, RoutedEventArgs e)
         {
-            MainWindowFrame.Content = AdminMainPage;
+            MainWindowFrame.Content = adminMainPage;
         }
 
         public void NavigateToLoginPage(object send, RoutedEventArgs e)
