@@ -25,38 +25,42 @@ namespace LMS.Pages
         {
             InitializeComponent();
         }
-        public int GenerateRandomPIN()
+        public int GenerateRandomID()
         {
             int _min = 10000;
             int _max = 99999;
             Random _rdm = new Random();
             return _rdm.Next(_min, _max);
         }
-
+        public int GenerateRandomPIN()
+        {
+            int _min = 1000;
+            int _max = 9999;
+            Random _rdm = new Random(Guid.NewGuid().GetHashCode());
+            return _rdm.Next(_min, _max);
+        }
         private void AddUserScrollVeiwer_Changed(object sender, RoutedEventArgs e)
         { }
-
         private void Add_User_Button_Click(object sender, RoutedEventArgs e)
         {
             string firstNameInput = first_name_input.Text;
             string lastNameInput = last_name_input.Text;
             string emailInput = email_input.Text;
-            //generate random ID
-            //generate random PIN
-            string userID = "1234";
-            string userPIN = "1111";
+            //create and initialize ID and PIN
+            string userID= GenerateRandomID().ToString();
+            string userPIN=GenerateRandomPIN().ToString();
 
             string[] lines = File.ReadAllLines(@"Database\memberInformation.csv");
             var existingEmail = lines.Skip(1).Select(row => row.Split(',')[4]).ToList();
             var existingID = lines.Skip(1).Select(row => row.Split(',')[0]).ToList();
             var existingPIN = lines.Skip(1).Select(row => row.Split(',')[1]).ToList();
 
-            //generate random ID; loop check against existingID (existingPIN.Contains(userPIN)) 
-            while (existingPIN.Contains(userPIN))
+            //Check to see if PIN or ID already exist and generate new ones if they do
+            while ((existingID.Contains(userID))||(existingPIN.Contains(userPIN)))
             {
-                userPIN=GenerateRandomPIN().ToString();
+                userID=GenerateRandomID().ToString();
+                userPIN = GenerateRandomPIN().ToString();
             }
-
             if (firstNameInput==""||lastNameInput==""||emailInput=="")
             {
                 MessageBox.Show("Please Enter all feilds");
@@ -67,8 +71,6 @@ namespace LMS.Pages
                 MessageBox.Show("This Email is already registered.");
                 return;
             }
-            
-
             else
             {
                 var addDataToCSV = $"{userID},{userPIN},{firstNameInput},{lastNameInput},{emailInput}";
@@ -81,7 +83,6 @@ namespace LMS.Pages
                 first_name_input.Text = "";
                 last_name_input.Text = "";
                 email_input.Text = "";
-
             }
         }
     }

@@ -23,10 +23,12 @@
         <Border Grid.Row="1" Grid.Column="1"  CornerRadius="20"
                 BorderBrush="#e7ead4" BorderThickness="20"
                 Background="#ffffff" >
-            <TextBlock FontSize="30" FontWeight="Bold">
+            <StackPanel>
+                <TextBlock FontSize="30" FontWeight="Bold">
                 MEMBER HOMEPAGE <LineBreak></LineBreak> TO GO HERE
             </TextBlock>
-           
+                <Button Name="Add_User_button" Click="User_button_click">ADD NEW USER</Button>
+            </StackPanel>
         </Border>
     </Grid>
 </Page>

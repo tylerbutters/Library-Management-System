@@ -31,7 +31,6 @@ namespace LMS.Pages
         {
             InitializeComponent();
         }
-        //Login Check checks the entered email and password against the given list and returns true/false.
         public bool CheckLoginDetails(string file)
         {
             //use if/else loop to check admin CSV first, else member CSV

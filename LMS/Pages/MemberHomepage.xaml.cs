@@ -19,10 +19,18 @@ namespace LMS.Pages
     /// Interaction logic for Member_Homepage.xaml
     /// </summary>
     public partial class MemberHomepage : Page
+
     {
+        public delegate void NavigateTo_addUser(object sender, RoutedEventArgs e);
+        public event NavigateTo_addUser NavigateToaddUser;
         public MemberHomepage()
         {
             InitializeComponent();
+        }
+
+        private void User_button_click(object sender, RoutedEventArgs e)
+        {
+            NavigateToaddUser(sender, e);
         }
     }
 }
