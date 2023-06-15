@@ -19,14 +19,15 @@ namespace LMS.Pages.AdminPages
     /// <summary>
     /// Interaction logic for Admin_Homepage.xaml
     /// </summary>
-    /// 
     public partial class AdminMainPage : Page
     {
-        public MemberTable memberTable = new MemberTable();
-        public MemberNavbar memberNavbar  = new MemberNavbar();
+        public MemberTable memberTable;
+        public MemberNavbar memberNavbar;
         public AdminMainPage()
         {
             InitializeComponent();
+            memberTable = new MemberTable();
+            memberNavbar = new MemberNavbar(memberTable.memberGrid);
             Navbar.Content = memberNavbar;
             PageContent.Content = memberTable;
         }

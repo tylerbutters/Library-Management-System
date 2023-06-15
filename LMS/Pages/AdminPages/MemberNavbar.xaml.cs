@@ -25,12 +25,12 @@ namespace LMS.Pages.AdminPages
         public delegate void NavigateToAdminBookPage(object send, RoutedEventArgs e);
         public event NavigateToAdminBookPage navigateToAdminBookPage;
 
-        public MemberNavbar()
-        {
-            
+        public DataGrid memberTable;
+        public MemberNavbar(DataGrid _memberTable)
+        {     
             InitializeComponent();
             SearchBox.KeyDown += SearchbarKeyDown;
-            //Console.WriteLine(testing);
+            memberTable = _memberTable;
         }
         private void SearchbarKeyDown(object sender, KeyEventArgs e)
         {
@@ -56,11 +56,11 @@ namespace LMS.Pages.AdminPages
                     member.email.IndexOf(searchInput, StringComparison.OrdinalIgnoreCase) >= 0
                 ).ToList();
 
-                //MemberGrid.ItemsSource = searchResults;
+                memberTable.ItemsSource = searchResults;
             }
             else
             {
-                //MemberGrid.ItemsSource = FileManagement.LoadMembers();
+                memberTable.ItemsSource = FileManagement.LoadMembers();
             }
         }
         private void LogoutButtonClick(object sender, RoutedEventArgs e)

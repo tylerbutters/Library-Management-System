@@ -9,7 +9,7 @@
       Title="MemberTable">
 
     <StackPanel Name="TableArea" Background="#E7EAD4" Width="1270" Height="720" HorizontalAlignment="Center">
-        <DataGrid Name="MemberGrid" x:FieldModifier="public"
+        <DataGrid x:Name="MemberGrid"
               Height="auto" 
               Width="auto"
               AutoGenerateColumns="False"

@@ -20,9 +20,11 @@ namespace LMS.Pages.AdminPages
     /// </summary>
     public partial class MemberTable : Page
     {
+        public DataGrid memberGrid { get; internal set;}
         public MemberTable()
         {
             InitializeComponent();
+            memberGrid = MemberGrid;
             //MemberGrid.ItemsSource = FileManagement.LoadMembers();
         }
     }
