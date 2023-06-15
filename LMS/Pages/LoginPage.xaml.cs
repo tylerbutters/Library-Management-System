@@ -27,8 +27,8 @@ namespace LMS.Pages
 
         public delegate void NavigateToMemberHomepage(object sender, RoutedEventArgs e);
         public event NavigateToMemberHomepage navigateToMemberHomepage;
-        public delegate void NavigateToAdminMemberPage(object sender, RoutedEventArgs e);
-        public event NavigateToAdminMemberPage navigateToAdminMemberPage;
+        public delegate void NavigateToAdminMainPage(object sender, RoutedEventArgs e);
+        public event NavigateToAdminMainPage navigateToAdminMainPage;
         public LoginPage()
         {
             InitializeComponent();
@@ -48,7 +48,7 @@ namespace LMS.Pages
                 else if (CheckLoginDetails(FileManagement.AdminFile))
                 {
                     //MessageBox.Show("Logging in as Admin");
-                    navigateToAdminMemberPage(sender, e);
+                    navigateToAdminMainPage(sender, e);
                 }
                 else
                 {
@@ -91,7 +91,7 @@ namespace LMS.Pages
             else if (CheckLoginDetails(FileManagement.AdminFile))
             {
                 //MessageBox.Show("Logging in as Admin");
-                navigateToAdminMemberPage(sender, e);
+                navigateToAdminMainPage(sender, e);
             }
             else
             {

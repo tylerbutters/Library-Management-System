@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.IO;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -13,16 +14,19 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace LMS.Pages
+namespace LMS.Pages.AdminPages
 {
     /// <summary>
-    /// Interaction logic for Member_Homepage.xaml
+    /// Interaction logic for Admin_Homepage.xaml
     /// </summary>
-    public partial class MemberHomepage : Page
+    /// 
+    public partial class AdminMainPage : Page
     {
-        public MemberHomepage()
+        public AdminMainPage()
         {
             InitializeComponent();
+            Navbar.Content = new MemberNavbar();
+            PageContent.Content = new MemberTable();
         }
     }
 }
