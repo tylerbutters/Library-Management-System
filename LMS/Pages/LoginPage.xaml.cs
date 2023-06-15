@@ -32,7 +32,31 @@ namespace LMS.Pages
         public LoginPage()
         {
             InitializeComponent();
+
+            IDInput.KeyDown += LoginFeilds_KeyDown;
+            PinInput.KeyDown += LoginFeilds_KeyDown;
         }
+
+        private void LoginFeilds_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                if (CheckLoginDetails(FileManagement.MemberFile))
+                {
+                    NavigateToMemberHomepage(sender, e);
+                }
+                else if (CheckLoginDetails(FileManagement.AdminFile))
+                {
+                    //MessageBox.Show("Logging in as Admin");
+                    NaigateToAdminHomepage(sender, e);
+                }
+                else
+                {
+                    MessageBox.Show("Cannot find account with those details");
+                }
+            }
+        }
+
         //Login Check checks the entered email and password against the given list and returns true/false.
         public bool CheckLoginDetails(string file)
         {
