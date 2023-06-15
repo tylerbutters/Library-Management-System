@@ -1,4 +1,6 @@
 ﻿using LMS.Pages;
+using LMS.Pages.AdminPages;
+using LMS.Pages.MemberPages;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -24,30 +26,35 @@ namespace LMS
     {
         public LoginPage loginPage = new LoginPage();
         public MemberHomepage memberHomepage = new MemberHomepage();
-        public AdminHomepage adminHomepage = new AdminHomepage();
-        public addUser adduser = new addUser();
+        public AdminMainPage adminMainPage = new AdminMainPage();
+        public AddMemberPage addMemberPage = new AddMemberPage();
         public MainWindow()
         {
             InitializeComponent();
             //Display Login in frame at startup
+            MainWindowFrame.Content = adminMainPage;
+            //MainWindowFrame.Content = loginPage;
+
+            loginPage.navigateToMemberHomepage += NavigateToMemberHomepage;
+            loginPage.navigateToAdminMainPage += NavigateToAdminHomepage;
+            adminMainPage.memberNavbar.navigateToLoginPage += NavigateToLoginPage;
+        }
+        public void NavigateToMemberHomepage(object sender, RoutedEventArgs e)
+        {
+            MainWindowFrame.Content = memberHomepage;
+        }
+        public void NavigateToAdminHomepage(object sender, RoutedEventArgs e)
+        {
+            MainWindowFrame.Content = adminMainPage;
+        }
+
+        public void NavigateToLoginPage(object send, RoutedEventArgs e)
+        {
             MainWindowFrame.Content = loginPage;
-
-            loginPage.NavigateToMemberHomepage += NavigateTo_MemberHomepage;
-            loginPage.NaigateToAdminHomepage += NavigateTo_AdminHomepage;
-            memberHomepage.NavigateToaddUser += NavigateTo_addUser;
-
-        }
-        public void NavigateTo_MemberHomepage(object sender, RoutedEventArgs e)
-        {
-            MainWindowFrame.Content = memberHomepage; 
-        }
-        public void NavigateTo_AdminHomepage(object sender, RoutedEventArgs e)
-        {
-            MainWindowFrame.Content = adminHomepage;
         }
         public void NavigateTo_addUser(object sender, RoutedEventArgs e)
         {
-            MainWindowFrame.Content = adduser;
+            MainWindowFrame.Content = addMemberPage;
         }
     }
 }

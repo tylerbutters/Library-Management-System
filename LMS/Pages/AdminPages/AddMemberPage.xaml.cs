@@ -14,14 +14,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace LMS.Pages
+namespace LMS.Pages.AdminPages
 {
     /// <summary>
-    /// Interaction logic for addUser.xaml
+    /// Interaction logic for AddMemberPage.xaml
     /// </summary>
-    public partial class addUser : Page
+    public partial class AddMemberPage : Page
     {
-        public addUser()
+        public AddMemberPage()
         {
             InitializeComponent();
         }
@@ -47,8 +47,8 @@ namespace LMS.Pages
             string lastNameInput = last_name_input.Text;
             string emailInput = email_input.Text;
             //create and initialize ID and PIN
-            string userID= GenerateRandomID().ToString();
-            string userPIN=GenerateRandomPIN().ToString();
+            string userID = GenerateRandomID().ToString();
+            string userPIN = GenerateRandomPIN().ToString();
 
             string[] lines = File.ReadAllLines(@"Database\memberInformation.csv");
             var existingEmail = lines.Skip(1).Select(row => row.Split(',')[4]).ToList();
@@ -56,7 +56,7 @@ namespace LMS.Pages
             var existingPIN = lines.Skip(1).Select(row => row.Split(',')[1]).ToList();
 
             //Check to see if PIN or ID already exist and generate new ones if they do
-            while ((existingID.Contains(userID))||(existingPIN.Contains(userPIN)))
+            while (existingID.Contains(userID)||existingPIN.Contains(userPIN))
             {
                 userID=GenerateRandomID().ToString();
                 userPIN = GenerateRandomPIN().ToString();

@@ -13,24 +13,19 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace LMS.Pages
+namespace LMS.Pages.AdminPages
 {
     /// <summary>
-    /// Interaction logic for Member_Homepage.xaml
+    /// Interaction logic for MemberTable.xaml
     /// </summary>
-    public partial class MemberHomepage : Page
-
+    public partial class MemberTable : Page
     {
-        public delegate void NavigateTo_addUser(object sender, RoutedEventArgs e);
-        public event NavigateTo_addUser NavigateToaddUser;
-        public MemberHomepage()
+        public DataGrid memberGrid { get; internal set;}
+        public MemberTable()
         {
             InitializeComponent();
-        }
-
-        private void User_button_click(object sender, RoutedEventArgs e)
-        {
-            NavigateToaddUser(sender, e);
+            memberGrid = MemberGrid;
+            //MemberGrid.ItemsSource = FileManagement.LoadMembers();
         }
     }
 }

@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.IO;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -14,17 +13,24 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace LMS.Pages
+namespace LMS.Pages.MemberPages
 {
     /// <summary>
-    /// Interaction logic for Admin_Homepage.xaml
+    /// Interaction logic for Member_Homepage.xaml
     /// </summary>
-    public partial class AdminHomepage : Page
+    public partial class MemberHomepage : Page
+
     {
-        public AdminHomepage()
+        public delegate void NavigateTo_addUser(object sender, RoutedEventArgs e);
+        public event NavigateTo_addUser NavigateToaddUser;
+        public MemberHomepage()
         {
             InitializeComponent();
-            MemberGrid.ItemsSource = FileManagement.LoadMembers();
+        }
+
+        private void User_button_click(object sender, RoutedEventArgs e)
+        {
+            NavigateToaddUser(sender, e);
         }
     }
 }

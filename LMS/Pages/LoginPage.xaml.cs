@@ -22,46 +22,83 @@ namespace LMS.Pages
     /// </summary>
     public partial class LoginPage : Page
     {
-        public delegate void NavigateTo_MemberHomepage(object sender, RoutedEventArgs e);
-        public event NavigateTo_MemberHomepage NavigateToMemberHomepage;
-        public delegate void NavigateTo_AdminHomepage(object sender, RoutedEventArgs e);
-        public event NavigateTo_AdminHomepage NaigateToAdminHomepage;
+        public string Id;
+        public string Pin;
 
+        public delegate void NavigateToMemberHomepage(object sender, RoutedEventArgs e);
+        public event NavigateToMemberHomepage navigateToMemberHomepage;
+        public delegate void NavigateToAdminMainPage(object sender, RoutedEventArgs e);
+        public event NavigateToAdminMainPage navigateToAdminMainPage;
         public LoginPage()
         {
             InitializeComponent();
+
+            IDInput.KeyDown += LoginFeildsKeyDown;
+            PinInput.KeyDown += LoginFeildsKeyDown;
         }
+
+        private void LoginFeildsKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                if (CheckLoginDetails(FileManagement.MemberFile))
+                {
+                    navigateToMemberHomepage(sender, e);
+                }
+                else if (CheckLoginDetails(FileManagement.AdminFile))
+                {
+                    //MessageBox.Show("Logging in as Admin");
+                    navigateToAdminMainPage(sender, e);
+                }
+                else
+                {
+                    MessageBox.Show("Cannot find account with those details");
+                }
+            }
+        }
+
+        //Login Check checks the entered email and password against the given list and returns true/false.
         public bool CheckLoginDetails(string file)
         {
-            //use if/else loop to check admin CSV first, else member CSV
             string idInput = IDInput.Text;
             string pinInput = PinInput.Text;
-
             string[] rows = File.ReadAllLines(file);
-            List<string> idData = rows.Skip(1).Select(row => row.Split(',')[0]).ToList();
-            List<string> pinData = rows.Skip(1).Select(row => row.Split(',')[1]).ToList();
-
-            //returns conditional statement
-            return idData.Contains(idInput) && pinData.Contains(pinInput);
+            //member and admin classes inherit from account class. code just puts the id and pin data into the account object.
+            //then compares to the inputted data. since admin and member both inherit from account this function can be used for both cases.
+            IEnumerable<Account> accounts = (from l in rows.Skip(1)
+                                 let split = l.Split(',')
+                                 select new Account()
+                                 {
+                                     id = split[0],
+                                     pin = split[1],
+                                 }).ToList();
+           
+            foreach (Account account in accounts){
+                if (account.id == idInput && account.pin == pinInput)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
         //Login button runs "Login_Check()" against user list first, then admin list.
-        private void Login_Button_Click(object sender, RoutedEventArgs e)
+        private void LoginButtonClick(object sender, RoutedEventArgs e)
         {
             if (CheckLoginDetails(FileManagement.MemberFile))
             {
-                NavigateToMemberHomepage(sender, e);
+                navigateToMemberHomepage(sender, e);
             }
             else if (CheckLoginDetails(FileManagement.AdminFile))
             {
                 //MessageBox.Show("Logging in as Admin");
-                NaigateToAdminHomepage(sender, e);
+                navigateToAdminMainPage(sender, e);
             }
             else
             {
                 MessageBox.Show("Cannot find account with those details");
             }
         }
-        private void Exit_Button_Click(object sender, RoutedEventArgs e)
+        private void ExitButtonClick(object sender, RoutedEventArgs e)
         {
             Application.Current.Shutdown();
         }

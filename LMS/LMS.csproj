@@ -55,24 +55,42 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Pages\AdminPages\AddMemberPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Pages\AdminPages\MemberNavbar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\AdminPages\MemberTable.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Compile Include="Classes\Account.cs" />
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="FileManagement.cs" />
+    <Compile Include="Classes\FileManagement.cs" />
+    <Compile Include="Pages\AdminPages\AddMemberPage.xaml.cs">
+      <DependentUpon>AddMemberPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\AdminPages\MemberNavbar.xaml.cs">
+      <DependentUpon>MemberNavbar.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\AdminPages\MemberTable.xaml.cs">
+      <DependentUpon>MemberTable.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Pages\addUser.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Pages\AdminHomepage.xaml">
+    <Page Include="Pages\AdminPages\AdminMainPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -80,24 +98,21 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\MemberHomepage.xaml">
+    <Page Include="Pages\MemberPages\MemberHomepage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Book.cs" />
-    <Compile Include="Member.cs" />
-    <Compile Include="Pages\addUser.xaml.cs">
-      <DependentUpon>addUser.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Pages\AdminHomepage.xaml.cs">
-      <DependentUpon>AdminHomepage.xaml</DependentUpon>
+    <Compile Include="Classes\Book.cs" />
+    <Compile Include="Classes\Member.cs" />
+    <Compile Include="Pages\AdminPages\AdminMainPage.xaml.cs">
+      <DependentUpon>AdminMainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\LoginPage.xaml.cs">
       <DependentUpon>LoginPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\MemberHomepage.xaml.cs">
+    <Compile Include="Pages\MemberPages\MemberHomepage.xaml.cs">
       <DependentUpon>MemberHomepage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -117,6 +132,9 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="Database\adminLogins.csv" />
+    <None Include="Database\bookInformation.csv" />
+    <None Include="Database\memberInformation.csv" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -126,7 +144,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Database\" />
+    <Resource Include="Images\addIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\search_icon.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

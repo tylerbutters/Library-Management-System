@@ -7,7 +7,7 @@ using System.IO;
 
 namespace LMS
 {
-    public class FileManagement
+    internal class FileManagement
     {
         public static string MemberFile { get; set; } = @".\Database\memberInformation.csv";
         public static string AdminFile { get; set; } = @".\Database\adminLogins.csv";
@@ -19,11 +19,11 @@ namespace LMS
                           let split = l.Split(',')
                           select new Member()
                           {
-                              Id = int.Parse(split[0]),
-                              Pin = int.Parse(split[1]),
-                              FirstName = split[2],
-                              LastName = split[3],
-                              Email = split[4],
+                              id = split[0],
+                              pin = split[1],
+                              firstName = split[2],
+                              lastName = split[3],
+                              email = split[4],
                           };
 
             return members.ToList();

@@ -3,11 +3,10 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:LMS"
         mc:Ignorable="d"
-        Title="MainWindow" Height="1080" Width="1920">
+        Title="MainWindow" Width="1920" Height="1080">
+    
     <Grid>
-        <Frame Name="MainWindowFrame" NavigationUIVisibility="Hidden">
-        </Frame>
+        <Frame Name="MainWindowFrame" NavigationUIVisibility="Hidden"></Frame>
     </Grid>
 </Window>
