@@ -45,12 +45,12 @@ namespace LMS.Pages
                                  let split = l.Split(',')
                                  select new Account()
                                  {
-                                     Id = split[0],
-                                     Pin = split[1],
+                                     id = split[0],
+                                     pin = split[1],
                                  }).ToList();
            
             foreach (Account account in accounts){
-                if (account.Id == idInput && account.Pin == pinInput)
+                if (account.id == idInput && account.pin == pinInput)
                 {
                     return true;
                 }

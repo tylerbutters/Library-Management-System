@@ -8,12 +8,10 @@ namespace LMS
 {
     internal class Member : Account
     {
-        //public int Id { get; set; }
-        //public int Pin { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public string Email { get; set; }
-        public int ReserveCounter { get; set; } = 0;
-        public int LoanCounter { get; set; } = 0;
+        public string firstName { get; set; }
+        public string lastName { get; set; }
+        public string email { get; set; }
+        public int reserveCounter { get; set; } = 0;
+        public int loanCounter { get; set; } = 0;
     }
 }

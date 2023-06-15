@@ -21,6 +21,8 @@ namespace LMS.Pages
     /// </summary>
     public partial class AdminMemberPage : Page
     {
+        public delegate void NavigateBackToLogin(object send, RoutedEventArgs e);
+        public event NavigateBackToLogin navigateBackToLogin;
         public AdminMemberPage()
         {
             InitializeComponent();
@@ -52,10 +54,10 @@ namespace LMS.Pages
             if (!string.IsNullOrEmpty(searchTerm))
             {
                 List<Member> searchResults = FileManagement.LoadMembers().Where(member =>
-                    member.Id.IndexOf(searchTerm, StringComparison.OrdinalIgnoreCase) >= 0 ||
-                    member.FirstName.IndexOf(searchTerm, StringComparison.OrdinalIgnoreCase) >= 0 ||
-                    member.LastName.IndexOf(searchTerm, StringComparison.OrdinalIgnoreCase) >= 0 ||
-                    member.Email.IndexOf(searchTerm, StringComparison.OrdinalIgnoreCase) >= 0
+                    member.id.IndexOf(searchTerm, StringComparison.OrdinalIgnoreCase) >= 0 ||
+                    member.firstName.IndexOf(searchTerm, StringComparison.OrdinalIgnoreCase) >= 0 ||
+                    member.lastName.IndexOf(searchTerm, StringComparison.OrdinalIgnoreCase) >= 0 ||
+                    member.email.IndexOf(searchTerm, StringComparison.OrdinalIgnoreCase) >= 0
                 ).ToList();
 
                 MemberGrid.ItemsSource = searchResults;
@@ -73,7 +75,7 @@ namespace LMS.Pages
 
         private void Logout_Button_Click(object sender, RoutedEventArgs e)
         {
-            //go back to 
+            navigateBackToLogin(sender, e);
         }
 
         private void AddMemberButton_Click(object sender, RoutedEventArgs e)

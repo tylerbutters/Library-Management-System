@@ -8,14 +8,14 @@ namespace LMS
 {
     public class Book
     {
-        public int Id { get; set; }
-        public string Cover { get; set; }
-        public string Title { get; set; }
-        public string AuthorFirstName { get; set; }
-        public string AuthorLastName { get; set; }
-        public string Type { get; set; }
-        public string Genre { get; set; }
-        public string Summary { get; set; }
-        public bool IsAvailable { get; set; }
+        public int id { get; set; }
+        public string cover { get; set; }
+        public string title { get; set; }
+        public string authorFirstName { get; set; }
+        public string authorLastName { get; set; }
+        public string type { get; set; }
+        public string genre { get; set; }
+        public string summary { get; set; }
+        public bool isAvailable { get; set; }
     }
 }
