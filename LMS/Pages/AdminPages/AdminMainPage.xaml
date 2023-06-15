@@ -11,7 +11,7 @@
         <StackPanel Height="250" VerticalAlignment="Top">
             <Frame Name="Navbar"></Frame>
         </StackPanel>
-        <StackPanel Height="830" VerticalAlignment="Bottom">
+        <StackPanel Height="750" VerticalAlignment="Bottom">
             <Frame Name="PageContent"></Frame>
         </StackPanel>
     </Grid>

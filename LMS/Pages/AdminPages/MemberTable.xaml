@@ -5,11 +5,11 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:LMS.Pages.AdminPages"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="720" d:DesignWidth="1270"
       Title="MemberTable">
 
-    <StackPanel Name="TableArea" Background="#E7EAD4" Width="1270" Height="720" Margin="50" VerticalAlignment="Bottom" HorizontalAlignment="Center">
-        <DataGrid Name="MemberGrid"
+    <StackPanel Name="TableArea" Background="#E7EAD4" Width="1270" Height="720" HorizontalAlignment="Center">
+        <DataGrid Name="MemberGrid" x:FieldModifier="public"
               Height="auto" 
               Width="auto"
               AutoGenerateColumns="False"
@@ -50,13 +50,13 @@
             </DataGrid.CellStyle>
 
             <DataGrid.Columns>
-                <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="1*"></DataGridTextColumn>
-                <DataGridTextColumn Header="Pin" Binding="{Binding Pin}" Width="0.5*"></DataGridTextColumn>
-                <DataGridTextColumn Header="First Name" Binding="{Binding FirstName}" Width="1*"></DataGridTextColumn>
-                <DataGridTextColumn Header="Last Name" Binding="{Binding LastName}" Width="1*"></DataGridTextColumn>
-                <DataGridTextColumn Header="Email" Binding="{Binding Email}" Width="2*"></DataGridTextColumn>
-                <DataGridTextColumn Header="Reserves" Binding="{Binding ReserveCounter}" Width="1*"></DataGridTextColumn>
-                <DataGridTextColumn Header="Loans" Binding="{Binding LoanCounter}" Width="1*"></DataGridTextColumn>
+                <DataGridTextColumn Header="ID" Binding="{Binding id}" Width="1*"></DataGridTextColumn>
+                <DataGridTextColumn Header="Pin" Binding="{Binding pin}" Width="0.5*"></DataGridTextColumn>
+                <DataGridTextColumn Header="First Name" Binding="{Binding firstName}" Width="1*"></DataGridTextColumn>
+                <DataGridTextColumn Header="Last Name" Binding="{Binding lastName}" Width="1*"></DataGridTextColumn>
+                <DataGridTextColumn Header="Email" Binding="{Binding email}" Width="2*"></DataGridTextColumn>
+                <DataGridTextColumn Header="Reserves" Binding="{Binding reserveCounter}" Width="1*"></DataGridTextColumn>
+                <DataGridTextColumn Header="Loans" Binding="{Binding loanCounter}" Width="1*"></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
     </StackPanel>

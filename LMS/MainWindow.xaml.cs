@@ -32,8 +32,8 @@ namespace LMS
         {
             InitializeComponent();
             //Display Login in frame at startup
-            //MainWindowFrame.Content = adminMainPage;
-            MainWindowFrame.Content = loginPage;
+            MainWindowFrame.Content = adminMainPage;
+            //MainWindowFrame.Content = loginPage;
 
             loginPage.navigateToMemberHomepage += NavigateToMemberHomepage;
             loginPage.navigateToAdminMainPage += NavigateToAdminHomepage;

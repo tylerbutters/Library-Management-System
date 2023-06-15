@@ -24,10 +24,13 @@ namespace LMS.Pages.AdminPages
         public event NavigateToLogin navigateToLoginPage;
         public delegate void NavigateToAdminBookPage(object send, RoutedEventArgs e);
         public event NavigateToAdminBookPage navigateToAdminBookPage;
+
         public MemberNavbar()
         {
+            
             InitializeComponent();
             SearchBox.KeyDown += SearchbarKeyDown;
+            //Console.WriteLine(testing);
         }
         private void SearchbarKeyDown(object sender, KeyEventArgs e)
         {

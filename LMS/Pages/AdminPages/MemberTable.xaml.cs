@@ -23,7 +23,7 @@ namespace LMS.Pages.AdminPages
         public MemberTable()
         {
             InitializeComponent();
-            MemberGrid.ItemsSource = FileManagement.LoadMembers();
+            //MemberGrid.ItemsSource = FileManagement.LoadMembers();
         }
     }
 }

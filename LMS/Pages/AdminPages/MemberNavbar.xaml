@@ -5,7 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:LMS.Pages.AdminPages"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="250" d:DesignWidth="1920"
       Title="MemberNavbar">
 
     <StackPanel Name="Navbar" Background="#417422" VerticalAlignment="Top" HorizontalAlignment="Center" Height="250">

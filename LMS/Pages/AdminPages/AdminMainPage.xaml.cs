@@ -22,14 +22,13 @@ namespace LMS.Pages.AdminPages
     /// 
     public partial class AdminMainPage : Page
     {
-        public MemberNavbar memberNavbar = new MemberNavbar();
+        public MemberTable memberTable = new MemberTable();
+        public MemberNavbar memberNavbar  = new MemberNavbar();
         public AdminMainPage()
         {
-            
             InitializeComponent();
             Navbar.Content = memberNavbar;
-            PageContent.Content = new MemberTable();
-            
+            PageContent.Content = memberTable;
         }
     }
 }
