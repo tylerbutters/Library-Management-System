@@ -76,5 +76,10 @@ namespace LMS.Pages
         {
             //add member
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
