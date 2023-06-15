@@ -20,7 +20,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
+    <OutputPath>.\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -55,6 +55,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Pages\AdminPages\AddMemberPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Pages\AdminPages\MemberNavbar.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -73,6 +77,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Classes\FileManagement.cs" />
+    <Compile Include="Pages\AdminPages\AddMemberPage.xaml.cs">
+      <DependentUpon>AddMemberPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\AdminPages\MemberNavbar.xaml.cs">
       <DependentUpon>MemberNavbar.xaml</DependentUpon>
     </Compile>

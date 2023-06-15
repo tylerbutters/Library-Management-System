@@ -46,7 +46,6 @@ namespace LMS
         {
             MainWindowFrame.Content = adminMainPage;
         }
-
         public void NavigateToLoginPage(object send, RoutedEventArgs e)
         {
             MainWindowFrame.Content = loginPage;
