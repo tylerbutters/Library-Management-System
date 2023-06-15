@@ -17,19 +17,27 @@ using System.Windows.Shapes;
 namespace LMS.Pages.AdminPages
 {
     /// <summary>
-    /// Interaction logic for Admin_Homepage.xaml
+    /// Interaction logic for AdminHomepage.xaml
     /// </summary>
     public partial class AdminMainPage : Page
     {
-        public MemberTable memberTable;
         public MemberNavbar memberNavbar;
+        public MemberTable memberTable = new MemberTable();
+        public AddMemberPage addMemberPage = new AddMemberPage();
+        
         public AdminMainPage()
         {
             InitializeComponent();
-            memberTable = new MemberTable();
-            memberNavbar = new MemberNavbar(memberTable.memberGrid);
+            memberNavbar = new MemberNavbar(memberTable.memberDataGrid);
             Navbar.Content = memberNavbar;
             PageContent.Content = memberTable;
+
+            memberNavbar.navigateToAddMemberPage += NavigateToAddMemberPage;
+        }
+
+        public void NavigateToAddMemberPage(object send, RoutedEventArgs e)
+        {
+            PageContent.Content = addMemberPage;
         }
     }
 }

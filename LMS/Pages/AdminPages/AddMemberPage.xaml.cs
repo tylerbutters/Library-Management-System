@@ -27,25 +27,21 @@ namespace LMS.Pages.AdminPages
         }
         public int GenerateRandomID()
         {
-            int _min = 10000;
-            int _max = 99999;
-            Random _rdm = new Random();
-            return _rdm.Next(_min, _max);
+            int min = 10000;
+            int max = 99999;
+            return new Random().Next(min, max);
         }
         public int GenerateRandomPIN()
         {
-            int _min = 1000;
-            int _max = 9999;
-            Random _rdm = new Random(Guid.NewGuid().GetHashCode());
-            return _rdm.Next(_min, _max);
+            int min = 1000;
+            int max = 9999;
+            return new Random(Guid.NewGuid().GetHashCode()).Next(min, max);
         }
-        private void AddUserScrollVeiwer_Changed(object sender, RoutedEventArgs e)
-        { }
-        private void Add_User_Button_Click(object sender, RoutedEventArgs e)
+        private void AddUserButtonClick(object sender, RoutedEventArgs e)
         {
-            string firstNameInput = first_name_input.Text;
-            string lastNameInput = last_name_input.Text;
-            string emailInput = email_input.Text;
+            string firstNameInput = this.firstNameInput.Text;
+            string lastNameInput = this.lastNameInput.Text;
+            string emailInput = this.emailInput.Text;
             //create and initialize ID and PIN
             string userID = GenerateRandomID().ToString();
             string userPIN = GenerateRandomPIN().ToString();
@@ -77,12 +73,10 @@ namespace LMS.Pages.AdminPages
                 var newLines = lines.Append(addDataToCSV).ToArray();
 
                 File.WriteAllLines(@"Database\memberInformation.csv", newLines);
-                MessageBox.Show("User Added Successfully");
-                MessageBox.Show("your ID Number is: ", userID);
-                MessageBox.Show("your PIN number is: ", userPIN);
-                first_name_input.Text = "";
-                last_name_input.Text = "";
-                email_input.Text = "";
+                MessageBox.Show("User Added Successfully!\nID: " + userID + "\nPIN: "+ userPIN);
+                this.firstNameInput.Text = "";
+                this.lastNameInput.Text = "";
+                this.emailInput.Text = "";
             }
         }
     }

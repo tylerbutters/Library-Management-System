@@ -27,7 +27,6 @@ namespace LMS
         public LoginPage loginPage = new LoginPage();
         public MemberHomepage memberHomepage = new MemberHomepage();
         public AdminMainPage adminMainPage = new AdminMainPage();
-        public AddMemberPage addMemberPage = new AddMemberPage();
         public MainWindow()
         {
             InitializeComponent();
@@ -47,14 +46,9 @@ namespace LMS
         {
             MainWindowFrame.Content = adminMainPage;
         }
-
         public void NavigateToLoginPage(object send, RoutedEventArgs e)
         {
             MainWindowFrame.Content = loginPage;
-        }
-        public void NavigateTo_addUser(object sender, RoutedEventArgs e)
-        {
-            MainWindowFrame.Content = addMemberPage;
         }
     }
 }

@@ -51,7 +51,7 @@
 
             <DataGrid.Columns>
                 <DataGridTextColumn Header="ID" Binding="{Binding id}" Width="1*"></DataGridTextColumn>
-                <DataGridTextColumn Header="Pin" Binding="{Binding pin}" Width="0.5*"></DataGridTextColumn>
+                <DataGridTextColumn Header="PIN" Binding="{Binding pin}" Width="0.5*"></DataGridTextColumn>
                 <DataGridTextColumn Header="First Name" Binding="{Binding firstName}" Width="1*"></DataGridTextColumn>
                 <DataGridTextColumn Header="Last Name" Binding="{Binding lastName}" Width="1*"></DataGridTextColumn>
                 <DataGridTextColumn Header="Email" Binding="{Binding email}" Width="2*"></DataGridTextColumn>

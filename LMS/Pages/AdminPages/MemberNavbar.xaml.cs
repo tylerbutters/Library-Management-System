@@ -24,13 +24,15 @@ namespace LMS.Pages.AdminPages
         public event NavigateToLogin navigateToLoginPage;
         public delegate void NavigateToAdminBookPage(object send, RoutedEventArgs e);
         public event NavigateToAdminBookPage navigateToAdminBookPage;
+        public delegate void NavigateToAddMemberPage(object send, RoutedEventArgs e);
+        public event NavigateToAddMemberPage navigateToAddMemberPage;
 
         public DataGrid memberTable;
-        public MemberNavbar(DataGrid _memberTable)
-        {     
+        public MemberNavbar(DataGrid memberDataGrid)
+        {
             InitializeComponent();
             SearchBox.KeyDown += SearchbarKeyDown;
-            memberTable = _memberTable;
+            memberTable = memberDataGrid;
         }
         private void SearchbarKeyDown(object sender, KeyEventArgs e)
         {
@@ -68,10 +70,9 @@ namespace LMS.Pages.AdminPages
             navigateToLoginPage(sender, e);
         }
 
-        private void 
-            ButtonClick(object sender, RoutedEventArgs e)
+        private void AddMemberButtonClick(object sender, RoutedEventArgs e)
         {
-            //add member
+            navigateToAddMemberPage(sender, e);
         }
 
         private void BookPageButtonClick(object sender, RoutedEventArgs e)

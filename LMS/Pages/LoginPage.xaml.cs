@@ -22,8 +22,8 @@ namespace LMS.Pages
     /// </summary>
     public partial class LoginPage : Page
     {
-        public string Id;
-        public string Pin;
+        public string id;
+        public string pin;
 
         public delegate void NavigateToMemberHomepage(object sender, RoutedEventArgs e);
         public event NavigateToMemberHomepage navigateToMemberHomepage;
@@ -34,7 +34,7 @@ namespace LMS.Pages
             InitializeComponent();
 
             IDInput.KeyDown += LoginFeildsKeyDown;
-            PinInput.KeyDown += LoginFeildsKeyDown;
+            PINInput.KeyDown += LoginFeildsKeyDown;
         }
 
         private void LoginFeildsKeyDown(object sender, KeyEventArgs e)
@@ -61,7 +61,7 @@ namespace LMS.Pages
         public bool CheckLoginDetails(string file)
         {
             string idInput = IDInput.Text;
-            string pinInput = PinInput.Text;
+            string pinInput = PINInput.Text;
             string[] rows = File.ReadAllLines(file);
             //member and admin classes inherit from account class. code just puts the id and pin data into the account object.
             //then compares to the inputted data. since admin and member both inherit from account this function can be used for both cases.
@@ -81,7 +81,7 @@ namespace LMS.Pages
             }
             return false;
         }
-        //Login button runs "Login_Check()" against user list first, then admin list.
+        //Login button runs "LoginCheck()" against user list first, then admin list.
         private void LoginButtonClick(object sender, RoutedEventArgs e)
         {
             if (CheckLoginDetails(FileManagement.MemberFile))
