@@ -1,0 +1,18 @@
+﻿<Page x:Class="LMS.Pages.AdminPages.AdminMainPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      mc:Ignorable="d" 
+      d:DesignHeight="1080" d:DesignWidth="1920"
+      Title="Admin_Homepage">
+
+    <Grid Background="#FDFFEE">
+        <StackPanel Height="250" VerticalAlignment="Top">
+            <Frame Name="Navbar"></Frame>
+        </StackPanel>
+        <StackPanel Height="750" VerticalAlignment="Bottom">
+            <Frame Name="PageContent"></Frame>
+        </StackPanel>
+    </Grid>
+</Page>

@@ -1,4 +1,6 @@
 ﻿using LMS.Pages;
+using LMS.Pages.AdminPages;
+using LMS.Pages.MemberPages;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -24,17 +26,17 @@ namespace LMS
     {
         public LoginPage loginPage = new LoginPage();
         public MemberHomepage memberHomepage = new MemberHomepage();
-        public AdminMemberPage adminMemberPage = new AdminMemberPage();
+        public AdminMainPage adminMainPage = new AdminMainPage();
         public MainWindow()
         {
             InitializeComponent();
             //Display Login in frame at startup
-            MainWindowFrame.Content = adminMemberPage;
+            MainWindowFrame.Content = adminMainPage;
             //MainWindowFrame.Content = loginPage;
 
             loginPage.navigateToMemberHomepage += NavigateToMemberHomepage;
-            loginPage.navigateToAdminMemberPage += NavigateToAdminHomepage;
-            adminMemberPage.navigateToLoginPage += NavigateToLoginPage;
+            loginPage.navigateToAdminMainPage += NavigateToAdminHomepage;
+            adminMainPage.memberNavbar.navigateToLoginPage += NavigateToLoginPage;
         }
         public void NavigateToMemberHomepage(object sender, RoutedEventArgs e)
         {
@@ -42,7 +44,7 @@ namespace LMS
         }
         public void NavigateToAdminHomepage(object sender, RoutedEventArgs e)
         {
-            MainWindowFrame.Content = adminMemberPage;
+            MainWindowFrame.Content = adminMainPage;
         }
 
         public void NavigateToLoginPage(object send, RoutedEventArgs e)

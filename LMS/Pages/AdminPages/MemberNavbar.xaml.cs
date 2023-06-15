@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.IO;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -14,21 +13,24 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace LMS.Pages
+namespace LMS.Pages.AdminPages
 {
     /// <summary>
-    /// Interaction logic for Admin_Homepage.xaml
+    /// Interaction logic for MemberNavbar.xaml
     /// </summary>
-    public partial class AdminMemberPage : Page
+    public partial class MemberNavbar : Page
     {
         public delegate void NavigateToLogin(object send, RoutedEventArgs e);
         public event NavigateToLogin navigateToLoginPage;
-        public AdminMemberPage()
-        {
-            InitializeComponent();
-            MemberGrid.ItemsSource = FileManagement.LoadMembers();
+        public delegate void NavigateToAdminBookPage(object send, RoutedEventArgs e);
+        public event NavigateToAdminBookPage navigateToAdminBookPage;
 
+        public DataGrid memberTable;
+        public MemberNavbar(DataGrid _memberTable)
+        {     
+            InitializeComponent();
             SearchBox.KeyDown += SearchbarKeyDown;
+            memberTable = _memberTable;
         }
         private void SearchbarKeyDown(object sender, KeyEventArgs e)
         {
@@ -37,11 +39,6 @@ namespace LMS.Pages
                 SearchMembers();
             }
         }
-
-        //private void SearchButton_Click(object sender, RoutedEventArgs e)
-        //{
-        //    PerformSearch();
-        //}
 
         private void SearchMembers()
         {
@@ -59,14 +56,13 @@ namespace LMS.Pages
                     member.email.IndexOf(searchInput, StringComparison.OrdinalIgnoreCase) >= 0
                 ).ToList();
 
-                MemberGrid.ItemsSource = searchResults;
+                memberTable.ItemsSource = searchResults;
             }
             else
             {
-                MemberGrid.ItemsSource = FileManagement.LoadMembers();
+                memberTable.ItemsSource = FileManagement.LoadMembers();
             }
         }
-
         private void LogoutButtonClick(object sender, RoutedEventArgs e)
         {
             navigateToLoginPage(sender, e);
@@ -75,6 +71,11 @@ namespace LMS.Pages
         private void AddMemberButtonClick(object sender, RoutedEventArgs e)
         {
             //add member
+        }
+
+        private void BookPageButtonClick(object sender, RoutedEventArgs e)
+        {
+            navigateToAdminBookPage(sender, e);
         }
     }
 }
