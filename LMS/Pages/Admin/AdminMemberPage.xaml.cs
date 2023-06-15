@@ -21,21 +21,20 @@ namespace LMS.Pages
     /// </summary>
     public partial class AdminMemberPage : Page
     {
-        public delegate void NavigateBackToLogin(object send, RoutedEventArgs e);
-        public event NavigateBackToLogin navigateBackToLogin;
+        public delegate void NavigateToLogin(object send, RoutedEventArgs e);
+        public event NavigateToLogin navigateToLoginPage;
         public AdminMemberPage()
         {
             InitializeComponent();
             MemberGrid.ItemsSource = FileManagement.LoadMembers();
 
-            SearchBox.KeyDown += SearchBox_KeyDown;
+            SearchBox.KeyDown += SearchbarKeyDown;
         }
-
-        private void SearchBox_KeyDown(object sender, KeyEventArgs e)
+        private void SearchbarKeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
             {
-                PerformSearch();
+                SearchMembers();
             }
         }
 
@@ -44,20 +43,20 @@ namespace LMS.Pages
         //    PerformSearch();
         //}
 
-        private void PerformSearch()
+        private void SearchMembers()
         {
             //Retrieves search term from the 'searchbox', 'trim() removes any trailing whitespace.
-            string searchTerm = SearchBox.Text.Trim();
+            string searchInput = SearchBox.Text.Trim();
 
             //checks if 'searchterm' is not empty. uses 'where' method to search for a match for each member property.
             //Filtered results are converted to a list and assigned to the 'MemberGrid.ItemsSource'
-            if (!string.IsNullOrEmpty(searchTerm))
+            if (!string.IsNullOrEmpty(searchInput))
             {
                 List<Member> searchResults = FileManagement.LoadMembers().Where(member =>
-                    member.id.IndexOf(searchTerm, StringComparison.OrdinalIgnoreCase) >= 0 ||
-                    member.firstName.IndexOf(searchTerm, StringComparison.OrdinalIgnoreCase) >= 0 ||
-                    member.lastName.IndexOf(searchTerm, StringComparison.OrdinalIgnoreCase) >= 0 ||
-                    member.email.IndexOf(searchTerm, StringComparison.OrdinalIgnoreCase) >= 0
+                    member.id.IndexOf(searchInput, StringComparison.OrdinalIgnoreCase) >= 0 ||
+                    member.firstName.IndexOf(searchInput, StringComparison.OrdinalIgnoreCase) >= 0 ||
+                    member.lastName.IndexOf(searchInput, StringComparison.OrdinalIgnoreCase) >= 0 ||
+                    member.email.IndexOf(searchInput, StringComparison.OrdinalIgnoreCase) >= 0
                 ).ToList();
 
                 MemberGrid.ItemsSource = searchResults;
@@ -68,17 +67,12 @@ namespace LMS.Pages
             }
         }
 
-        private void SearchBox_TextChanged(object sender, TextChangedEventArgs e)
+        private void LogoutButtonClick(object sender, RoutedEventArgs e)
         {
-
+            navigateToLoginPage(sender, e);
         }
 
-        private void Logout_Button_Click(object sender, RoutedEventArgs e)
-        {
-            navigateBackToLogin(sender, e);
-        }
-
-        private void AddMemberButton_Click(object sender, RoutedEventArgs e)
+        private void AddMemberButtonClick(object sender, RoutedEventArgs e)
         {
             //add member
         }

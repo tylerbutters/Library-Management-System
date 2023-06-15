@@ -25,30 +25,30 @@ namespace LMS.Pages
         public string Id;
         public string Pin;
 
-        public delegate void NavigateTo_MemberHomepage(object sender, RoutedEventArgs e);
-        public event NavigateTo_MemberHomepage NavigateToMemberHomepage;
-        public delegate void NavigateTo_AdminHomepage(object sender, RoutedEventArgs e);
-        public event NavigateTo_AdminHomepage NaigateToAdminHomepage;
+        public delegate void NavigateToMemberHomepage(object sender, RoutedEventArgs e);
+        public event NavigateToMemberHomepage navigateToMemberHomepage;
+        public delegate void NavigateToAdminMemberPage(object sender, RoutedEventArgs e);
+        public event NavigateToAdminMemberPage navigateToAdminMemberPage;
         public LoginPage()
         {
             InitializeComponent();
 
-            IDInput.KeyDown += LoginFeilds_KeyDown;
-            PinInput.KeyDown += LoginFeilds_KeyDown;
+            IDInput.KeyDown += LoginFeildsKeyDown;
+            PinInput.KeyDown += LoginFeildsKeyDown;
         }
 
-        private void LoginFeilds_KeyDown(object sender, KeyEventArgs e)
+        private void LoginFeildsKeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
             {
                 if (CheckLoginDetails(FileManagement.MemberFile))
                 {
-                    NavigateToMemberHomepage(sender, e);
+                    navigateToMemberHomepage(sender, e);
                 }
                 else if (CheckLoginDetails(FileManagement.AdminFile))
                 {
                     //MessageBox.Show("Logging in as Admin");
-                    NaigateToAdminHomepage(sender, e);
+                    navigateToAdminMemberPage(sender, e);
                 }
                 else
                 {
@@ -82,23 +82,23 @@ namespace LMS.Pages
             return false;
         }
         //Login button runs "Login_Check()" against user list first, then admin list.
-        private void Login_Button_Click(object sender, RoutedEventArgs e)
+        private void LoginButtonClick(object sender, RoutedEventArgs e)
         {
             if (CheckLoginDetails(FileManagement.MemberFile))
             {
-                NavigateToMemberHomepage(sender, e);
+                navigateToMemberHomepage(sender, e);
             }
             else if (CheckLoginDetails(FileManagement.AdminFile))
             {
                 //MessageBox.Show("Logging in as Admin");
-                NaigateToAdminHomepage(sender, e);
+                navigateToAdminMemberPage(sender, e);
             }
             else
             {
                 MessageBox.Show("Cannot find account with those details");
             }
         }
-        private void Exit_Button_Click(object sender, RoutedEventArgs e)
+        private void ExitButtonClick(object sender, RoutedEventArgs e)
         {
             Application.Current.Shutdown();
         }

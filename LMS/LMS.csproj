@@ -124,7 +124,6 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\addIcon.png" />
-    <Folder Include="UserControls\" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\search_icon.png" />

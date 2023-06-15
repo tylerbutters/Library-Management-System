@@ -33,7 +33,7 @@
                         </TextBox>
                     </StackPanel>
 
-                    <Button Content="Log in" Click="Login_Button_Click" Width="200" Height="75" Margin="0 60 0 0" FontSize="30" FontWeight="Black" Foreground="White" BorderThickness="0">
+                    <Button Content="Log in" Click="LoginButtonClick" Width="200" Height="75" Margin="0 60 0 0" FontSize="30" FontWeight="Black" Foreground="White" BorderThickness="0">
                         <Button.Style>
                             <Style TargetType="{x:Type Button}">
                                 <Setter Property="Background" Value="#bcce50"/>
@@ -62,7 +62,7 @@
                 </StackPanel>
             </Border>
         </Border>
-        <Button Content="Exit" VerticalAlignment="Bottom" Margin="0 100"  Width="160" Height="60" FontSize="30" FontWeight="Black" Foreground="White" BorderThickness="0" Click="Exit_Button_Click">
+        <Button Content="Exit" VerticalAlignment="Bottom" Margin="0 100"  Width="160" Height="60" FontSize="30" FontWeight="Black" Foreground="White" BorderThickness="0" Click="ExitButtonClick">
             <Button.Style>
                 <Style TargetType="{x:Type Button}">
                     <Setter Property="Background" Value="#C84920"/>
