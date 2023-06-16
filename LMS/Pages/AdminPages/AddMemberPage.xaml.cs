@@ -1,5 +1,4 @@
 ﻿using System;
-using LMS.Classes.FileManagement;
 using System.Collections.Generic;
 using System.Linq;
 using System.IO;
@@ -49,7 +48,7 @@ namespace LMS.Pages.AdminPages
                 email = emailInput.Text
             };
 
-            string[] lines = File.ReadAllLines(@"Database\memberInformation.csv");
+            string[] rows = File.ReadAllLines(@"Database\memberInformation.csv");
             List<Member> currentMembers = FileManagement.LoadMembers();
 
             //Check to see if PIN or email already exist and generate new ones if they do
@@ -72,9 +71,9 @@ namespace LMS.Pages.AdminPages
                 return;
             }
 
-            string addDataToCSV = $"{newMember.id},{newMember.pin},{newMember.firstName},{newMember.lastName},{newMember.email}";
-            string[] newLines = lines.Append(addDataToCSV).ToArray();
-            File.WriteAllLines(@"Database\memberInformation.csv", newLines);
+            string newMemberInfo = $"{newMember.id},{newMember.pin},{newMember.firstName},{newMember.lastName},{newMember.email}";
+            string[] newRows = rows.Append(newMemberInfo).ToArray();
+            File.WriteAllLines(@"Database\memberInformation.csv", newRows);
             MessageBox.Show("User Added Successfully!\nID: " + newMember.id + "\nPIN: " + newMember.pin);
 
             firstNameInput.Text = "";
