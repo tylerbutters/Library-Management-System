@@ -8,7 +8,7 @@ namespace LMS
 {
     public class Book
     {
-        public int id { get; set; }
+        public string id { get; set; }
         public string cover { get; set; }
         public string title { get; set; }
         public string authorFirstName { get; set; }
@@ -16,6 +16,6 @@ namespace LMS
         public string type { get; set; }
         public string genre { get; set; }
         public string summary { get; set; }
-        public bool isAvailable { get; set; }
+        public string isAvailable { get; set; }
     }
 }

@@ -37,6 +37,7 @@ namespace LMS
             loginPage.navigateToMemberHomepage += NavigateToMemberHomepage;
             loginPage.navigateToAdminMainPage += NavigateToAdminHomepage;
             adminMainPage.memberNavbar.navigateToLoginPage += NavigateToLoginPage;
+            adminMainPage.bookNavbar.navigateToLoginPage += NavigateToLoginPage;
         }
         public void NavigateToMemberHomepage(object sender, RoutedEventArgs e)
         {

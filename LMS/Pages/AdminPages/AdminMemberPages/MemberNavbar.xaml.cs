@@ -82,7 +82,6 @@ namespace LMS.Pages.AdminPages
                 SearchMembers(sender, e);
             }
         }
-
         private void SearchIconButtonClick(object sender, RoutedEventArgs e)
         {
             SearchMembers(sender, e);
