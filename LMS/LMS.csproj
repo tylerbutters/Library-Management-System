@@ -55,15 +55,31 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="Pages\AdminPages\AddMemberPage.xaml">
+    <Page Include="Pages\AdminPages\AdminBookPages\AddBookPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Pages\AdminPages\MemberNavbar.xaml">
+    <Page Include="Pages\AdminPages\AdminBookPages\BookNavbar.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Pages\AdminPages\AdminBookPages\BookTable.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Pages\AdminPages\AdminBookPages\ViewBookPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Pages\AdminPages\AdminMemberPages\AddMemberPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Pages\AdminPages\AdminMemberPages\MemberNavbar.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\AdminPages\MemberTable.xaml">
+    <Page Include="Pages\AdminPages\AdminMemberPages\MemberTable.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -76,15 +92,26 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Classes\Admin.cs" />
     <Compile Include="Classes\FileManagement.cs" />
-    <Compile Include="Pages\AdminPages\AddMemberPage.xaml.cs">
+    <Compile Include="Pages\AdminPages\AdminBookPages\AddBookPage.xaml.cs">
+      <DependentUpon>AddBookPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\AdminPages\AdminBookPages\BookNavbar.xaml.cs">
+      <DependentUpon>BookNavbar.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\AdminPages\AdminBookPages\BookTable.xaml.cs">
+      <DependentUpon>BookTable.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\AdminPages\AdminBookPages\ViewBookPage.xaml.cs">
+      <DependentUpon>ViewBookPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\AdminPages\AdminMemberPages\AddMemberPage.xaml.cs">
       <DependentUpon>AddMemberPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\AdminPages\MemberNavbar.xaml.cs">
+    <Compile Include="Pages\AdminPages\AdminMemberPages\MemberNavbar.xaml.cs">
       <DependentUpon>MemberNavbar.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\AdminPages\MemberTable.xaml.cs">
+    <Compile Include="Pages\AdminPages\AdminMemberPages\MemberTable.xaml.cs">
       <DependentUpon>MemberTable.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainWindow.xaml.cs">
@@ -95,7 +122,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\AdminPages\ViewMemberPage.xaml">
+    <Page Include="Pages\AdminPages\AdminMemberPages\ViewMemberPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -114,7 +141,7 @@
     <Compile Include="Pages\AdminPages\AdminMainPage.xaml.cs">
       <DependentUpon>AdminMainPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\AdminPages\ViewMemberPage.xaml.cs">
+    <Compile Include="Pages\AdminPages\AdminMemberPages\ViewMemberPage.xaml.cs">
       <DependentUpon>ViewMemberPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\LoginPage.xaml.cs">

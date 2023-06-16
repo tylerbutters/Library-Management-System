@@ -16,6 +16,6 @@ namespace LMS
         public string type { get; set; }
         public string genre { get; set; }
         public string summary { get; set; }
-        public bool isAvailable { get; set; }
+        public string isAvailable { get; set; }
     }
 }

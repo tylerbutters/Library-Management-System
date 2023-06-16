@@ -19,15 +19,15 @@ namespace LMS.Pages.AdminPages
     /// <summary>
     /// Interaction logic for AddMemberPage.xaml
     /// </summary>
-    public partial class AddMemberPage : Page
+    public partial class AddBookPage : Page
     {
-        public AddMemberPage()
+        public AddBookPage()
         {
             InitializeComponent();
         }
         public int GenerateRandomID()
         {
-            int min = 10000;
+            int min = 10000; 
             int max = 99999;
             return new Random().Next(min, max);
         }
