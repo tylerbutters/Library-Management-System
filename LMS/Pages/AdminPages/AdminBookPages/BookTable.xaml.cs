@@ -22,17 +22,17 @@ namespace LMS.Pages.AdminPages
     {
         public delegate void NavigateToViewBookPage(object send, RoutedEventArgs e);
         public event NavigateToViewBookPage navigateToViewBookPage;
-        public DataGrid bookDataGrid { get; internal set;}
+        public DataGrid bookDataGridInfo { get; internal set;}
         internal Book selectedBook { get; set; }
         public BookTable()
         {
             InitializeComponent();
-            bookDataGrid = BookGrid;
-            bookDataGrid.SelectionChanged += BookDataGridSelectionChanged;
+            bookDataGridInfo = BookGrid;
+            bookDataGridInfo.SelectionChanged += BookDataGridSelectionChanged;
         }
         private void BookDataGridSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            selectedBook = (Book)bookDataGrid.SelectedItem;
+            selectedBook = (Book)bookDataGridInfo.SelectedItem;
 
             navigateToViewBookPage(sender, e);
         }

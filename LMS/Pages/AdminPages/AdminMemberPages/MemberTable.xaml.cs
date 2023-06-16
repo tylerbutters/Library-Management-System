@@ -22,17 +22,17 @@ namespace LMS.Pages.AdminPages
     {
         public delegate void NavigateToViewMemberPage (object send, RoutedEventArgs e);
         public event NavigateToViewMemberPage navigateToViewMemberPage;
-        public DataGrid memberDataGrid { get; internal set;}
+        public DataGrid memberDataGridInfo { get; internal set;}
         internal Member selectedMember { get; set; }
         public MemberTable()
         {
             InitializeComponent();
-            memberDataGrid = MemberGrid;
-            memberDataGrid.SelectionChanged += MemberDataGridSelectionChanged;
+            memberDataGridInfo = MemberGrid;
+            memberDataGridInfo.SelectionChanged += MemberDataGridSelectionChanged;
         }
         private void MemberDataGridSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            selectedMember = (Member)memberDataGrid.SelectedItem;
+            selectedMember = (Member)memberDataGridInfo.SelectedItem;
 
             navigateToViewMemberPage(sender, e);
         }

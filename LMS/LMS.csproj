@@ -59,10 +59,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Pages\AdminPages\AdminBookPages\BookNavbar.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="Pages\AdminPages\AdminBookPages\BookTable.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -74,10 +70,6 @@
     <Page Include="Pages\AdminPages\AdminMemberPages\AddMemberPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Pages\AdminPages\AdminMemberPages\MemberNavbar.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\AdminPages\AdminMemberPages\MemberTable.xaml">
       <SubType>Designer</SubType>
@@ -96,9 +88,6 @@
     <Compile Include="Pages\AdminPages\AdminBookPages\AddBookPage.xaml.cs">
       <DependentUpon>AddBookPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\AdminPages\AdminBookPages\BookNavbar.xaml.cs">
-      <DependentUpon>BookNavbar.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Pages\AdminPages\AdminBookPages\BookTable.xaml.cs">
       <DependentUpon>BookTable.xaml</DependentUpon>
     </Compile>
@@ -107,9 +96,6 @@
     </Compile>
     <Compile Include="Pages\AdminPages\AdminMemberPages\AddMemberPage.xaml.cs">
       <DependentUpon>AddMemberPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Pages\AdminPages\AdminMemberPages\MemberNavbar.xaml.cs">
-      <DependentUpon>MemberNavbar.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\AdminPages\AdminMemberPages\MemberTable.xaml.cs">
       <DependentUpon>MemberTable.xaml</DependentUpon>
