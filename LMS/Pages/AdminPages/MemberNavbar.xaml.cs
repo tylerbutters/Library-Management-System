@@ -26,6 +26,8 @@ namespace LMS.Pages.AdminPages
         public event NavigateToAdminBookPage navigateToAdminBookPage;
         public delegate void NavigateToAddMemberPage(object send, RoutedEventArgs e);
         public event NavigateToAddMemberPage navigateToAddMemberPage;
+        public delegate void NavigateToMemberTablePage(object send, RoutedEventArgs e);
+        public event NavigateToMemberTablePage navigateToMemberTablePage;
 
         public DataGrid memberTable;
         public MemberNavbar(DataGrid memberDataGrid)
@@ -35,8 +37,9 @@ namespace LMS.Pages.AdminPages
             memberTable = memberDataGrid;
         }
 
-        private void SearchMembers()
+        private void SearchMembers(object sender, RoutedEventArgs e)
         {
+            navigateToMemberTablePage(sender, e);
             //Retrieves search term from the 'searchbox', 'trim() removes any trailing whitespace.
             string searchInput = SearchBar.Text.Trim();
 
@@ -76,13 +79,13 @@ namespace LMS.Pages.AdminPages
         {
             if (e.Key == Key.Enter)
             {
-                SearchMembers();
+                SearchMembers(sender, e);
             }
         }
 
         private void SearchIconButtonClick(object sender, RoutedEventArgs e)
         {
-            SearchMembers();
+            SearchMembers(sender, e);
         }
     }
 }

@@ -35,8 +35,13 @@ namespace LMS.Pages.AdminPages
 
             memberNavbar.navigateToAddMemberPage += NavigateToAddMemberPage;
             memberTable.navigateToViewMemberPage += NavigateToViewMemberPage;
+            memberNavbar.navigateToMemberTablePage += NavigateToMemberTablePage;
         }
 
+        public void NavigateToMemberTablePage(object send, RoutedEventArgs e)
+        {
+            PageContent.Content = memberTable;
+        }
         public void NavigateToAddMemberPage(object send, RoutedEventArgs e)
         {
             PageContent.Content = addMemberPage;
