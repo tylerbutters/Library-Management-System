@@ -29,12 +29,12 @@ namespace LMS.Pages.AdminPages
         public delegate void NavigateToBookTablePage(object send, RoutedEventArgs e);
         public event NavigateToBookTablePage navigateToBookTablePage;
 
-        public DataGrid memberTable;
-        public BookNavbar(DataGrid memberDataGrid)
+        public DataGrid bookTable;
+        public BookNavbar(DataGrid bookDataGrid)
         {
             InitializeComponent();
             SearchBar.KeyDown += SearchbarKeyDown;
-            memberTable = memberDataGrid;
+            bookTable = bookDataGrid;
         }
 
         private void SearchMembers(object sender, RoutedEventArgs e)
@@ -47,18 +47,20 @@ namespace LMS.Pages.AdminPages
             //Filtered results are converted to a list and assigned to the 'MemberGrid.ItemsSource'
             if (!string.IsNullOrEmpty(searchInput))
             {
-                List<Member> searchResults = FileManagement.LoadMembers().Where(member =>
-                    member.id.IndexOf(searchInput, StringComparison.OrdinalIgnoreCase) >= 0 ||
-                    member.firstName.IndexOf(searchInput, StringComparison.OrdinalIgnoreCase) >= 0 ||
-                    member.lastName.IndexOf(searchInput, StringComparison.OrdinalIgnoreCase) >= 0 ||
-                    member.email.IndexOf(searchInput, StringComparison.OrdinalIgnoreCase) >= 0
+                List<Book> searchResults = FileManagement.LoadBooks().Where(book =>
+                    book.id.IndexOf(searchInput, StringComparison.OrdinalIgnoreCase) >= 0 ||
+                    book.authorFirstName.IndexOf(searchInput, StringComparison.OrdinalIgnoreCase) >= 0 ||
+                    book.authorLastName.IndexOf(searchInput, StringComparison.OrdinalIgnoreCase) >= 0 ||
+                    book.type.IndexOf(searchInput, StringComparison.OrdinalIgnoreCase) >= 0 ||
+                    book.genre.IndexOf(searchInput, StringComparison.OrdinalIgnoreCase) >= 0 ||
+                    book.isAvailable.IndexOf(searchInput, StringComparison.OrdinalIgnoreCase) >= 0
                 ).ToList();
 
-                memberTable.ItemsSource = searchResults;
+                bookTable.ItemsSource = searchResults;
             }
             else
             {
-                memberTable.ItemsSource = FileManagement.LoadMembers();
+                bookTable.ItemsSource = FileManagement.LoadMembers();
             }
         }
         private void LogoutButtonClick(object sender, RoutedEventArgs e)

@@ -8,7 +8,7 @@ namespace LMS
 {
     public class Book
     {
-        public int id { get; set; }
+        public string id { get; set; }
         public string cover { get; set; }
         public string title { get; set; }
         public string authorFirstName { get; set; }

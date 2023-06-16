@@ -28,18 +28,26 @@ namespace LMS
 
             return members.ToList();
         }
-        //public static List<Account> LoadAccounts()
-        //{
-        //    string[] rows = File.ReadAllLines(MemberFile).Concat(File.ReadAllLines(AdminFile)).ToArray();
+        public static List<Book> LoadBooks()
+        {
+            string[] rows = File.ReadAllLines(BookFile);
+            IEnumerable<Book> books = from l in rows.Skip(1)
+                                        let split = l.Split(',')
+                                        select new Book()
+                                        {
+                                            id = split[0],
+                                            cover = split[1],
+                                            title = split[2],
+                                            authorFirstName = split[3],
+                                            authorLastName = split[4],
+                                            type = split[5],
+                                            genre = split[6],
+                                            summary = split[7],
+                                            isAvailable = split[8],
+                                        };
 
-        //    IEnumerable<Account> accounts = from l in rows.Skip(1)
-        //                                    let split = l.Split(',')
-        //                                    select new Account()
-        //                                    {
-        //                                        id = split[0],
-        //                                        pin = split[1],
-        //                                    };
-        //    return accounts.ToList();
-        //}
+            return books.ToList();
+        }
+
     }
 }
