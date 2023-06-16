@@ -48,8 +48,8 @@ namespace LMS.Pages.AdminPages
                 email = emailInput.Text
             };
 
-            string[] rows = File.ReadAllLines(@"Database\memberInformation.csv");
-            List<Member> currentMembers = FileManagement.LoadMembers();
+            string[] rows = File.ReadAllLines(FileManagement.AccountFile);
+            List<Member> currentMembers = FileManagement.LoadAccounts().OfType<Member>().ToList();
 
             //Check to see if PIN or email already exist and generate new ones if they do
             foreach (Member currentMember in currentMembers)
