@@ -22,9 +22,6 @@ namespace LMS.Pages
     /// </summary>
     public partial class LoginPage : Page
     {
-        public string id;
-        public string pin;
-
         public delegate void NavigateToMemberHomepage(object sender, RoutedEventArgs e);
         public event NavigateToMemberHomepage navigateToMemberHomepage;
         public delegate void NavigateToAdminMainPage(object sender, RoutedEventArgs e);
@@ -36,67 +33,57 @@ namespace LMS.Pages
             IDInput.KeyDown += LoginFeildsKeyDown;
             PINInput.KeyDown += LoginFeildsKeyDown;
         }
-
-        private void LoginFeildsKeyDown(object sender, KeyEventArgs e)
+        public Account AuthenticateLoginDetails()
         {
-            if (e.Key == Key.Enter)
+            List<Account> accounts = FileManagement.LoadAccounts();
+            string idInput = IDInput.Text;
+            string pinInput = PINInput.Text;
+
+            foreach (Account account in accounts)
             {
-                if (CheckLoginDetails(FileManagement.MemberFile))
+                if (account.id == idInput && account.pin == pinInput)
+                {
+                    return account;
+                }
+            }
+
+            return null;
+        }
+        //checks the account type and navigates them to their respective page
+        private void HandleAuthentication(object sender, RoutedEventArgs e)
+        {
+            Account authenticatedAccount = AuthenticateLoginDetails();
+
+            if (authenticatedAccount != null)
+            {
+                if (authenticatedAccount is Member)
                 {
                     navigateToMemberHomepage(sender, e);
                 }
-                else if (CheckLoginDetails(FileManagement.AdminFile))
+                else if (authenticatedAccount is Admin)
                 {
-                    //MessageBox.Show("Logging in as Admin");
                     navigateToAdminMainPage(sender, e);
                 }
-                else
-                {
-                    MessageBox.Show("Cannot find account with those details");
-                }
-            }
-        }
-
-        //Login Check checks the entered email and password against the given list and returns true/false.
-        public bool CheckLoginDetails(string file)
-        {
-            string idInput = IDInput.Text;
-            string pinInput = PINInput.Text;
-            string[] rows = File.ReadAllLines(file);
-            //member and admin classes inherit from account class. code just puts the id and pin data into the account object.
-            //then compares to the inputted data. since admin and member both inherit from account this function can be used for both cases.
-            IEnumerable<Account> accounts = (from l in rows.Skip(1)
-                                             let split = l.Split(',')
-                                             select new Account()
-                                             {
-                                                 id = split[0],
-                                                 pin = split[1],
-                                             }).ToList();
-           
-            foreach (Account account in accounts){
-                if (account.id == idInput && account.pin == pinInput)
-                {
-                    return true;
-                }
-            }
-            return false;
-        }
-        //Login button runs "LoginCheck()" against user list first, then admin list.
-        private void LoginButtonClick(object sender, RoutedEventArgs e)
-        {
-            if (CheckLoginDetails(FileManagement.MemberFile))
-            {
-                navigateToMemberHomepage(sender, e);
-            }
-            else if (CheckLoginDetails(FileManagement.AdminFile))
-            {
-                navigateToAdminMainPage(sender, e);
             }
             else
             {
                 MessageBox.Show("Cannot find account with those details");
             }
         }
+
+        private void LoginFeildsKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                HandleAuthentication(sender, e);
+            }
+        }
+
+        private void LoginButtonClick(object sender, RoutedEventArgs e)
+        {
+            HandleAuthentication(sender, e);
+        }
+
         private void ExitButtonClick(object sender, RoutedEventArgs e)
         {
             Application.Current.Shutdown();
