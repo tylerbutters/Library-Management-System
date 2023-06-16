@@ -41,6 +41,9 @@ namespace LMS.Pages.AdminPages
             bookDataGrid = bookTable.bookDataGridInfo;
 
             PageContent.Content = memberTable;
+
+            memberTable.navigateToViewMemberPage += NavigateToViewMemberPage;
+            bookTable.navigateToViewBookPage += NavigateToViewBookPage;
         }
 
         public delegate void NavigateToLogin(object send, RoutedEventArgs e);
@@ -94,6 +97,16 @@ namespace LMS.Pages.AdminPages
         {
             navigateToLoginPage(sender, e);
         }
+        public void NavigateToViewMemberPage(object send, RoutedEventArgs e)
+        {
+            viewMemberPage = new ViewMemberPage(memberTable.selectedMember);
+            PageContent.Content = viewMemberPage;
+        }
+        public void NavigateToViewBookPage(object send, RoutedEventArgs e)
+        {
+            viewBookPage = new ViewBookPage(bookTable.selectedBook);
+            PageContent.Content = viewBookPage;
+        }
         private void AddButtonClick(object sender, RoutedEventArgs e)
         {
             if (isOnMemberPage)
@@ -108,11 +121,19 @@ namespace LMS.Pages.AdminPages
         private void MemberPageButtonClick(object sender, RoutedEventArgs e)
         {
             isOnMemberPage = true;
+            BookPageButton.Background = (Brush)new BrushConverter().ConvertFrom("#6FAB4A");
+            BookPageButton.Foreground = new SolidColorBrush(Colors.White);
+            MemberPageButton.Background = (Brush)new BrushConverter().ConvertFrom("#FDFEEE");
+            MemberPageButton.Foreground = new SolidColorBrush(Colors.Black);
             PageContent.Content = memberTable;
         }
         private void BookPageButtonClick(object sender, RoutedEventArgs e)
         {
             isOnMemberPage = false;
+            BookPageButton.Background = (Brush)new BrushConverter().ConvertFrom("#FDFEEE");
+            BookPageButton.Foreground = new SolidColorBrush(Colors.Black);
+            MemberPageButton.Background = (Brush)new BrushConverter().ConvertFrom("#6FAB4A");
+            MemberPageButton.Foreground = new SolidColorBrush(Colors.White);
             PageContent.Content = bookTable;
         }
         private void SearchbarKeyDown(object sender, KeyEventArgs e)
