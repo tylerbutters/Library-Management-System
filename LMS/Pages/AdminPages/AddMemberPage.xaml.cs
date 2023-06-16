@@ -1,4 +1,5 @@
 ﻿using System;
+using LMS.Classes.FileManagement;
 using System.Collections.Generic;
 using System.Linq;
 using System.IO;
@@ -39,45 +40,46 @@ namespace LMS.Pages.AdminPages
         }
         private void AddUserButtonClick(object sender, RoutedEventArgs e)
         {
-            string firstNameInput = this.firstNameInput.Text;
-            string lastNameInput = this.lastNameInput.Text;
-            string emailInput = this.emailInput.Text;
-            //create and initialize ID and PIN
-            string userID = GenerateRandomID().ToString();
-            string userPIN = GenerateRandomPIN().ToString();
+            Member newMember = new Member
+            {
+                id = GenerateRandomID().ToString(),
+                pin = GenerateRandomPIN().ToString(),
+                firstName = firstNameInput.Text,
+                lastName = lastNameInput.Text,
+                email = emailInput.Text
+            };
 
             string[] lines = File.ReadAllLines(@"Database\memberInformation.csv");
-            var existingEmail = lines.Skip(1).Select(row => row.Split(',')[4]).ToList();
-            var existingID = lines.Skip(1).Select(row => row.Split(',')[0]).ToList();
-            var existingPIN = lines.Skip(1).Select(row => row.Split(',')[1]).ToList();
+            List<Member> currentMembers = FileManagement.LoadMembers();
 
-            //Check to see if PIN or ID already exist and generate new ones if they do
-            while (existingID.Contains(userID)||existingPIN.Contains(userPIN))
+            //Check to see if PIN or email already exist and generate new ones if they do
+            foreach (Member currentMember in currentMembers)
             {
-                userID=GenerateRandomID().ToString();
-                userPIN = GenerateRandomPIN().ToString();
+                if (currentMember.email == newMember.email)
+                {
+                    MessageBox.Show("This Email is already registered.");
+                    return;
+                }
+                else if (currentMember.id == newMember.id)
+                {
+                    newMember.id = GenerateRandomID().ToString();
+                }
             }
-            if (firstNameInput==""||lastNameInput==""||emailInput=="")
+
+            if (firstNameInput.Text == "" || lastNameInput.Text == "" || emailInput.Text == "")
             {
                 MessageBox.Show("Please Enter all feilds");
                 return;
             }
-            else if (existingEmail.Contains(emailInput))
-            {
-                MessageBox.Show("This Email is already registered.");
-                return;
-            }
-            else
-            {
-                var addDataToCSV = $"{userID},{userPIN},{firstNameInput},{lastNameInput},{emailInput}";
-                var newLines = lines.Append(addDataToCSV).ToArray();
 
-                File.WriteAllLines(@"Database\memberInformation.csv", newLines);
-                MessageBox.Show("User Added Successfully!\nID: " + userID + "\nPIN: "+ userPIN);
-                this.firstNameInput.Text = "";
-                this.lastNameInput.Text = "";
-                this.emailInput.Text = "";
-            }
+            string addDataToCSV = $"{newMember.id},{newMember.pin},{newMember.firstName},{newMember.lastName},{newMember.email}";
+            string[] newLines = lines.Append(addDataToCSV).ToArray();
+            File.WriteAllLines(@"Database\memberInformation.csv", newLines);
+            MessageBox.Show("User Added Successfully!\nID: " + newMember.id + "\nPIN: " + newMember.pin);
+
+            firstNameInput.Text = "";
+            lastNameInput.Text = "";
+            emailInput.Text = "";
         }
     }
 }
