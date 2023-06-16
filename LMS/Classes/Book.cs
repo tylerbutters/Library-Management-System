@@ -9,13 +9,12 @@ namespace LMS
     public class Book
     {
         public string id { get; set; }
-        public string cover { get; set; }
+        public string cover { get; set; } = "NO_COVER";
         public string title { get; set; }
         public string authorFirstName { get; set; }
         public string authorLastName { get; set; }
-        public string type { get; set; }
-        public string genre { get; set; }
+        public string tag { get; set; }
         public string summary { get; set; }
-        public string isAvailable { get; set; }
+        public string isAvailable { get; set; } = "true";
     }
 }

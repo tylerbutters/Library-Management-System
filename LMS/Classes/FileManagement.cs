@@ -57,10 +57,9 @@ namespace LMS
                                           title = split[2],
                                           authorFirstName = split[3],
                                           authorLastName = split[4],
-                                          type = split[5],
-                                          genre = split[6],
-                                          summary = split[7],
-                                          isAvailable = split[8],
+                                          tag = split[5],
+                                          summary = split[6],
+                                          isAvailable = split[7],
                                       };
 
             return books.ToList();

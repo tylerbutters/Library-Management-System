@@ -17,10 +17,12 @@ using System.Windows.Shapes;
 namespace LMS.Pages.AdminPages
 {
     /// <summary>
-    /// Interaction logic for AddMemberPage.xaml
+    /// Interaction logic for AddBookPage.xaml
     /// </summary>
     public partial class AddBookPage : Page
     {
+        public delegate void NavigateToBookPage(object sender, RoutedEventArgs e);
+        public event NavigateToBookPage navigateToBookPage;
         public AddBookPage()
         {
             InitializeComponent();
@@ -31,56 +33,54 @@ namespace LMS.Pages.AdminPages
             int max = 99999;
             return new Random().Next(min, max);
         }
-        public int GenerateRandomPIN()
+        private void SaveNewBookButtonClick(object sender, RoutedEventArgs e)
         {
-            int min = 1000;
-            int max = 9999;
-            return new Random(Guid.NewGuid().GetHashCode()).Next(min, max);
-        }
-        private void AddUserButtonClick(object sender, RoutedEventArgs e)
-        {
-            //only filters in accounts of type Member
-            List<Member> currentMembers = FileManagement.LoadAccounts().OfType<Member>().ToList();
+            //only filters in accounts of type Book
+            List<Book> currentBooks = FileManagement.LoadAccounts().OfType<Book>().ToList();
 
-            if (firstNameInput.Text == "" || lastNameInput.Text == "" || emailInput.Text == "")
+            if (titleInput.Text == "" || authorFirstNameInput.Text == "" || authorLastNameInput.Text == "" || tagInput.Text == "")
             {
                 MessageBox.Show("Please Enter all feilds");
                 return;
             }
 
-            Member newMember = new Member
+            Book newBook = new Book
             {
                 id = GenerateRandomID().ToString(),
-                pin = GenerateRandomPIN().ToString(),
-                firstName = firstNameInput.Text,
-                lastName = lastNameInput.Text,
-                email = emailInput.Text
+                title = titleInput.Text,
+                authorFirstName = authorFirstNameInput.Text,
+                authorLastName = authorLastNameInput.Text,
+                tag = tagInput.Text
             };
 
-            //Check to see if PIN or email already exist and generate new ones if they do
-            foreach (Member currentMember in currentMembers)
+            //Check to see if title already exist and generate new ones if they do
+            foreach (Book currentBook in currentBooks)
             {
-                if (currentMember.email == newMember.email)
+                if (currentBook.title == newBook.title)
                 {
                     MessageBox.Show("This Email is already registered.");
                     return;
                 }
-                else if (currentMember.id == newMember.id)
+                else if (currentBook.id == newBook.id)
                 {
-                    newMember.id = GenerateRandomID().ToString();
+                    newBook.id = GenerateRandomID().ToString();
                 }
             }
 
-            string newMemberInfo = $"{newMember.id},{newMember.pin},{newMember.firstName},{newMember.lastName},{newMember.email}";
-            string[] currentRows = File.ReadAllLines(FileManagement.AccountFile);
-            string[] newRows = currentRows.Append(newMemberInfo).ToArray();
-            File.WriteAllLines(@"Database\memberInformation.csv", newRows);
+            string newBookInfo = $"{newBook.id},{newBook.cover},{newBook.title},{newBook.authorFirstName},{newBook.authorLastName},{newBook.tag},{newBook.summary},{newBook.isAvailable}";
+            string[] currentRows = File.ReadAllLines(FileManagement.BookFile);
+            string[] newRows = currentRows.Append(newBookInfo).ToArray();
+            File.WriteAllLines(FileManagement.BookFile, newRows);
+            MessageBox.Show("User Added Successfully!\n");
 
-            MessageBox.Show("User Added Successfully!\nID: " + newMember.id + "\nPIN: " + newMember.pin);
-
-            firstNameInput.Text = "";
-            lastNameInput.Text = "";
-            emailInput.Text = "";
+            titleInput.Text = "";
+            authorFirstNameInput.Text = "";
+            authorLastNameInput.Text = "";
+            tagInput.Text = "";
+        }
+        private void BackButtonClick(object sender, RoutedEventArgs e)
+        {
+            navigateToBookPage(sender, e);
         }
     }
 }

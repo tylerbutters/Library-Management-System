@@ -45,6 +45,7 @@ namespace LMS.Pages.AdminPages
             memberTable.navigateToViewMemberPage += NavigateToViewMemberPage;
             bookTable.navigateToViewBookPage += NavigateToViewBookPage;
             addMemberPage.navigateToMemberPage += MemberPageButtonClick;
+            addBookPage.navigateToBookPage += BookPageButtonClick;
         }
 
         public delegate void NavigateToLogin(object send, RoutedEventArgs e);
@@ -149,8 +150,7 @@ namespace LMS.Pages.AdminPages
                     book.id.IndexOf(searchInput, StringComparison.OrdinalIgnoreCase) >= 0 ||
                     book.authorFirstName.IndexOf(searchInput, StringComparison.OrdinalIgnoreCase) >= 0 ||
                     book.authorLastName.IndexOf(searchInput, StringComparison.OrdinalIgnoreCase) >= 0 ||
-                    book.type.IndexOf(searchInput, StringComparison.OrdinalIgnoreCase) >= 0 ||
-                    book.genre.IndexOf(searchInput, StringComparison.OrdinalIgnoreCase) >= 0 ||
+                    book.tag.IndexOf(searchInput, StringComparison.OrdinalIgnoreCase) >= 0 ||
                     book.isAvailable.IndexOf(searchInput, StringComparison.OrdinalIgnoreCase) >= 0
                 ).ToList();
 

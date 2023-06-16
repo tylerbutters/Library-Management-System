@@ -39,7 +39,7 @@ namespace LMS.Pages.AdminPages
             int max = 9999;
             return new Random(Guid.NewGuid().GetHashCode()).Next(min, max);
         }
-        private void AddUserButtonClick(object sender, RoutedEventArgs e)
+        private void SaveNewMemberButtonClick(object sender, RoutedEventArgs e)
         {
             Member newMember = new Member
             {
@@ -75,7 +75,7 @@ namespace LMS.Pages.AdminPages
 
             string newMemberInfo = $"{newMember.id},{newMember.pin},{newMember.firstName},{newMember.lastName},{newMember.email}";
             string[] newRows = rows.Append(newMemberInfo).ToArray();
-            File.WriteAllLines(@"Database\memberInformation.csv", newRows);
+            File.WriteAllLines(FileManagement.AccountFile, newRows);
             MessageBox.Show("User Added Successfully!\nID: " + newMember.id + "\nPIN: " + newMember.pin);
 
             firstNameInput.Text = "";
