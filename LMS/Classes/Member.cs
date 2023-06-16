@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LMS
 {
-    internal class Member : Account
+    public class Member : Account
     {
         public string firstName { get; set; }
         public string lastName { get; set; }

@@ -22,7 +22,7 @@
               CanUserResizeRows="False"
               VerticalContentAlignment="Center" 
               BorderThickness="0"
-              GridLinesVisibility="None">
+              GridLinesVisibility="None" SelectionChanged="MemberDataGridSelectionChanged">
 
             <DataGrid.Resources>
                 <Style BasedOn="{StaticResource {x:Type DataGridColumnHeader}}" TargetType="{x:Type DataGridColumnHeader}">

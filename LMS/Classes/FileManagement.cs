@@ -7,7 +7,7 @@ using System.IO;
 
 namespace LMS
 {
-    internal class FileManagement
+    public class FileManagement
     {
         public static string MemberFile { get; set; } = @".\Database\memberInformation.csv";
         public static string AdminFile { get; set; } = @".\Database\adminLogins.csv";

@@ -24,7 +24,8 @@ namespace LMS.Pages.AdminPages
         public MemberNavbar memberNavbar;
         public MemberTable memberTable = new MemberTable();
         public AddMemberPage addMemberPage = new AddMemberPage();
-        
+        public ViewMemberPage viewMemberPage;
+
         public AdminMainPage()
         {
             InitializeComponent();
@@ -33,11 +34,18 @@ namespace LMS.Pages.AdminPages
             PageContent.Content = memberTable;
 
             memberNavbar.navigateToAddMemberPage += NavigateToAddMemberPage;
+            memberTable.navigateToViewMemberPage += NavigateToViewMemberPage;
         }
 
         public void NavigateToAddMemberPage(object send, RoutedEventArgs e)
         {
             PageContent.Content = addMemberPage;
+        }
+
+        public void NavigateToViewMemberPage(object send, RoutedEventArgs e)
+        {
+            viewMemberPage = new ViewMemberPage(memberTable.selectedMember);
+            PageContent.Content = viewMemberPage;
         }
     }
 }

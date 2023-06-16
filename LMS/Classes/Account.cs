@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LMS
 {
-    class Account
+    public class Account
     {
         public string id { get; set; }
         public string pin { get; set; }

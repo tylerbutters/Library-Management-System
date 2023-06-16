@@ -20,12 +20,24 @@ namespace LMS.Pages.AdminPages
     /// </summary>
     public partial class MemberTable : Page
     {
+        public delegate void NavigateToViewMemberPage (object send, RoutedEventArgs e);
+        public event NavigateToViewMemberPage navigateToViewMemberPage;
         public DataGrid memberDataGrid { get; internal set;}
+        internal Member selectedMember { get; set; }
         public MemberTable()
         {
             InitializeComponent();
             memberDataGrid = MemberGrid;
+            memberDataGrid.SelectionChanged += MemberDataGridSelectionChanged;
             //MemberGrid.ItemsSource = FileManagement.LoadMembers();
+        }
+
+        private void MemberDataGridSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            selectedMember = (Member)memberDataGrid.SelectedItem;
+
+            // Perform the navigation to another page passing the selected item as a parameter
+            navigateToViewMemberPage(sender, e);
         }
     }
 }
