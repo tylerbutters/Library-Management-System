@@ -39,6 +39,15 @@ namespace LMS.Pages.AdminPages
         }
         private void AddUserButtonClick(object sender, RoutedEventArgs e)
         {
+            //only filters in accounts of type Member
+            List<Member> currentMembers = FileManagement.LoadAccounts().OfType<Member>().ToList();
+
+            if (firstNameInput.Text == "" || lastNameInput.Text == "" || emailInput.Text == "")
+            {
+                MessageBox.Show("Please Enter all feilds");
+                return;
+            }
+
             Member newMember = new Member
             {
                 id = GenerateRandomID().ToString(),
@@ -47,9 +56,6 @@ namespace LMS.Pages.AdminPages
                 lastName = lastNameInput.Text,
                 email = emailInput.Text
             };
-
-            string[] rows = File.ReadAllLines(@"Database\memberInformation.csv");
-            List<Member> currentMembers = FileManagement.LoadMembers();
 
             //Check to see if PIN or email already exist and generate new ones if they do
             foreach (Member currentMember in currentMembers)
@@ -65,15 +71,11 @@ namespace LMS.Pages.AdminPages
                 }
             }
 
-            if (firstNameInput.Text == "" || lastNameInput.Text == "" || emailInput.Text == "")
-            {
-                MessageBox.Show("Please Enter all feilds");
-                return;
-            }
-
             string newMemberInfo = $"{newMember.id},{newMember.pin},{newMember.firstName},{newMember.lastName},{newMember.email}";
-            string[] newRows = rows.Append(newMemberInfo).ToArray();
+            string[] currentRows = File.ReadAllLines(FileManagement.AccountFile);
+            string[] newRows = currentRows.Append(newMemberInfo).ToArray();
             File.WriteAllLines(@"Database\memberInformation.csv", newRows);
+
             MessageBox.Show("User Added Successfully!\nID: " + newMember.id + "\nPIN: " + newMember.pin);
 
             firstNameInput.Text = "";

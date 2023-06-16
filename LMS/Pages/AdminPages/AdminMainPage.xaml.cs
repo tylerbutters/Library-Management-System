@@ -123,7 +123,7 @@ namespace LMS.Pages.AdminPages
 
             if (!string.IsNullOrEmpty(searchInput))
             {
-                List<Member> searchResults = FileManagement.LoadMembers().Where(member =>
+                List<Member> searchResults = FileManagement.LoadAccounts().OfType<Member>().Where(member =>
                     member.id.IndexOf(searchInput, StringComparison.OrdinalIgnoreCase) >= 0 ||
                     member.firstName.IndexOf(searchInput, StringComparison.OrdinalIgnoreCase) >= 0 ||
                     member.lastName.IndexOf(searchInput, StringComparison.OrdinalIgnoreCase) >= 0 ||
@@ -134,7 +134,7 @@ namespace LMS.Pages.AdminPages
             }
             else
             {
-                memberDataGrid.ItemsSource = FileManagement.LoadMembers();
+                memberDataGrid.ItemsSource = FileManagement.LoadAccounts().OfType<Member>();
             }
         }
         private void SearchBooks(object sender, RoutedEventArgs e)

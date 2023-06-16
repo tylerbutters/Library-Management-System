@@ -9,8 +9,7 @@ namespace LMS
 {
     public class FileManagement
     {
-        public static string AccountFile { get; set; } = @".\Database\memberInformation.csv";
-        //public static string AdminFile { get; set; } = @".\Database\adminLogins.csv";
+        public static string AccountFile { get; set; } = @".\Database\accountInformation.csv";
         public static string BookFile { get; set; } = @".\Database\bookInformation.csv";
         public static List<Account> LoadAccounts()
         {
@@ -21,7 +20,7 @@ namespace LMS
                    string[] split = l.Split(',');
 
                    Account account;
-                   bool isAdmin = bool.Parse(split[5]);
+                   bool isAdmin = split[0] == "true";
 
                    if (isAdmin)
                    {
@@ -31,14 +30,14 @@ namespace LMS
                    {
                        account = new Member()
                        {
-                           firstName = split[2],
-                           lastName = split[3],
-                           email = split[4],
+                           firstName = split[3],
+                           lastName = split[4],
+                           email = split[5],
                        };
                    }
 
-                   account.id = split[0];
-                   account.pin = split[1];
+                   account.id = split[1];
+                   account.pin = split[2];
 
                    return account;
                }).ToList();
