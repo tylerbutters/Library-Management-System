@@ -66,12 +66,12 @@ namespace LMS.Pages
             //member and admin classes inherit from account class. code just puts the id and pin data into the account object.
             //then compares to the inputted data. since admin and member both inherit from account this function can be used for both cases.
             IEnumerable<Account> accounts = (from l in rows.Skip(1)
-                                 let split = l.Split(',')
-                                 select new Account()
-                                 {
-                                     id = split[0],
-                                     pin = split[1],
-                                 }).ToList();
+                                             let split = l.Split(',')
+                                             select new Account()
+                                             {
+                                                 id = split[0],
+                                                 pin = split[1],
+                                             }).ToList();
            
             foreach (Account account in accounts){
                 if (account.id == idInput && account.pin == pinInput)
@@ -90,7 +90,6 @@ namespace LMS.Pages
             }
             else if (CheckLoginDetails(FileManagement.AdminFile))
             {
-                //MessageBox.Show("Logging in as Admin");
                 navigateToAdminMainPage(sender, e);
             }
             else

@@ -31,21 +31,14 @@ namespace LMS.Pages.AdminPages
         public MemberNavbar(DataGrid memberDataGrid)
         {
             InitializeComponent();
-            SearchBox.KeyDown += SearchbarKeyDown;
+            SearchBar.KeyDown += SearchbarKeyDown;
             memberTable = memberDataGrid;
-        }
-        private void SearchbarKeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key == Key.Enter)
-            {
-                SearchMembers();
-            }
         }
 
         private void SearchMembers()
         {
             //Retrieves search term from the 'searchbox', 'trim() removes any trailing whitespace.
-            string searchInput = SearchBox.Text.Trim();
+            string searchInput = SearchBar.Text.Trim();
 
             //checks if 'searchterm' is not empty. uses 'where' method to search for a match for each member property.
             //Filtered results are converted to a list and assigned to the 'MemberGrid.ItemsSource'
@@ -78,6 +71,18 @@ namespace LMS.Pages.AdminPages
         private void BookPageButtonClick(object sender, RoutedEventArgs e)
         {
             navigateToAdminBookPage(sender, e);
+        }
+        private void SearchbarKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                SearchMembers();
+            }
+        }
+
+        private void SearchIconButtonClick(object sender, RoutedEventArgs e)
+        {
+            SearchMembers();
         }
     }
 }

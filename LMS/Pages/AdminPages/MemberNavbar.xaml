@@ -12,7 +12,7 @@
         <DockPanel Name="TopNavBar" VerticalAlignment="Bottom" Margin="0 70 0 45">
             <Grid Name="AddMemberArea" Width="450">
                 <Button Name="AddMemberButton" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0 0 50 0" Width="75" Height="75" BorderThickness="0" Click="AddMemberButtonClick">
-                    <!--<Image Source="../Images/addIcon.png" Width="40"/>-->
+                    <Image Source="pack://application:,,,/Images/addIcon.png" Width="45"/>
                     <Button.Style>
                         <Style TargetType="{x:Type Button}">
                             <Setter Property="Background" Value="#BFCA43"/>
@@ -39,14 +39,20 @@
                     </Button.Resources>
                 </Button>
             </Grid>
-            <Grid Name="Searchbar" Width="auto" HorizontalAlignment="Center">
-                <TextBox Tag="Search" x:Name="SearchBox" Width="1020" Height="75" BorderThickness="0" VerticalContentAlignment="Center">
-                    <TextBox.Resources>
-                        <Style TargetType="Border">
-                            <Setter Property="CornerRadius" Value="20"/>
-                        </Style>
-                    </TextBox.Resources>
-                </TextBox>
+            <Grid Width="auto" HorizontalAlignment="Center">
+                <Grid Width="1020" Height="75">
+                    <Border Background="White" CornerRadius="20" />
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <Button Grid.Column="0" Background="Transparent" BorderThickness="0" Margin="15 0 0 0" Width="50" Click="SearchIconButtonClick">
+                            <Image Source="pack://application:,,,/Images/searchIcon.png"/>
+                        </Button>
+                        <TextBox FontSize="25" x:Name="SearchBar" Background="Transparent" BorderThickness="0" Margin="15 0 0 0" Grid.Column="1" VerticalContentAlignment="Center"/>
+                    </Grid>
+                </Grid>
             </Grid>
             <Grid Name="LogoutArea" Width="450">
                 <Button Content="Log out" HorizontalAlignment="Left" Margin="50 0 0 0" Width="200" Height="75" FontSize="30" FontWeight="Black" Foreground="White" BorderThickness="0" Click="LogoutButtonClick">

@@ -154,7 +154,7 @@
     <Resource Include="Images\addIcon.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\search_icon.png" />
+    <Resource Include="Images\searchIcon.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
