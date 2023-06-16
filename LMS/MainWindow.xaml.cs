@@ -35,15 +35,14 @@ namespace LMS
             //MainWindowFrame.Content = loginPage;
 
             loginPage.navigateToMemberHomepage += NavigateToMemberHomepage;
-            loginPage.navigateToAdminMainPage += NavigateToAdminHomepage;
-            adminMainPage.memberNavbar.navigateToLoginPage += NavigateToLoginPage;
-            adminMainPage.bookNavbar.navigateToLoginPage += NavigateToLoginPage;
+            loginPage.navigateToAdminMainPage += NavigateToAdminMainPage;
+            adminMainPage.navigateToLoginPage += NavigateToLoginPage;
         }
         public void NavigateToMemberHomepage(object sender, RoutedEventArgs e)
         {
             MainWindowFrame.Content = memberHomepage;
         }
-        public void NavigateToAdminHomepage(object sender, RoutedEventArgs e)
+        public void NavigateToAdminMainPage(object sender, RoutedEventArgs e)
         {
             MainWindowFrame.Content = adminMainPage;
         }

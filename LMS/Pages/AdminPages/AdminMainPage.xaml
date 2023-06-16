@@ -8,8 +8,116 @@
       Title="AdminHomepage">
 
     <Grid Background="#FDFFEE">
-        <StackPanel Height="250" VerticalAlignment="Top">
-            <Frame Name="Navbar"></Frame>
+        <StackPanel Name="Navbar" Background="#417422" VerticalAlignment="Top" HorizontalAlignment="Center" Height="250">
+            <DockPanel Name="TopNavBar" VerticalAlignment="Bottom" Margin="0 70 0 45">
+                <Grid Width="450">
+                    <Button Name="AddBookButton" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0 0 50 0" Width="75" Height="75" BorderThickness="0" Click="AddButtonClick">
+                        <Image Source="pack://application:,,,/Images/addIcon.png" Width="45"/>
+                        <Button.Style>
+                            <Style TargetType="{x:Type Button}">
+                                <Setter Property="Background" Value="#BFCA43"/>
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="{x:Type Button}">
+                                            <Border Background="{TemplateBinding Background}">
+                                                <ContentPresenter HorizontalAlignment="Center"/>
+                                            </Border>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="#933618"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                        <Button.Resources>
+                            <Style TargetType="Border">
+                                <Setter Property="CornerRadius" Value="15"/>
+                            </Style>
+                        </Button.Resources>
+                    </Button>
+                </Grid>
+                <Grid Width="auto" HorizontalAlignment="Center">
+                    <Grid Width="1020" Height="75">
+                        <Border Background="White" CornerRadius="20" />
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <Button Grid.Column="0" Background="Transparent" BorderThickness="0" Margin="15 0 0 0" Width="50" Click="SearchIconButtonClick">
+                                <Image Source="pack://application:,,,/Images/searchIcon.png"/>
+                            </Button>
+                            <TextBox FontSize="25" x:Name="SearchBar" Background="Transparent" BorderThickness="0" Margin="15 0 0 0" Grid.Column="1" VerticalContentAlignment="Center"/>
+                        </Grid>
+                    </Grid>
+                </Grid>
+                <Grid Name="LogoutArea" Width="450">
+                    <Button Content="Log out" HorizontalAlignment="Left" Margin="50 0 0 0" Width="200" Height="75" FontSize="30" FontWeight="Black" Foreground="White" BorderThickness="0" Click="LogoutButtonClick">
+                        <Button.Style>
+                            <Style TargetType="{x:Type Button}">
+                                <Setter Property="Background" Value="#C84920"/>
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="{x:Type Button}">
+                                            <Border Background="{TemplateBinding Background}">
+                                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                            </Border>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="#933618"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                        <Button.Resources>
+                            <Style TargetType="Border">
+                                <Setter Property="CornerRadius" Value="15"/>
+                            </Style>
+                        </Button.Resources>
+                    </Button>
+                </Grid>
+            </DockPanel>
+            <DockPanel Name ="BottomNavBar" VerticalAlignment="Bottom" Width="500">
+                <Button Content="Members" Width="235" Height="60" FontWeight="Black" FontSize="35" Foreground="White" HorizontalAlignment="Left" BorderThickness="0" Click="MemberPageButtonClick">
+                    <Button.Style>
+                        <Style TargetType="{x:Type Button}">
+                            <Setter Property="Background" Value="#6FAB4A"/>
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="{x:Type Button}">
+                                        <Border Background="{TemplateBinding Background}">
+                                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                        </Border>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="#933618"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                    <Button.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="10 10 0 0"/>
+                        </Style>
+                    </Button.Resources>
+                </Button>
+                <Button Content="Books" Background="#FDFEEE" Width="235" Height="60" FontWeight="Black" FontSize="35" HorizontalAlignment="Right" BorderThickness="0" Click="BookPageButtonClick">
+                    <Button.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="10 10 0 0"/>
+                        </Style>
+                    </Button.Resources>
+                </Button>
+            </DockPanel>
         </StackPanel>
         <StackPanel Height="750" VerticalAlignment="Bottom">
             <Frame Name="PageContent"></Frame>
