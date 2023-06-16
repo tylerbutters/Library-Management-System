@@ -21,6 +21,8 @@ namespace LMS.Pages.AdminPages
     /// </summary>
     public partial class AddMemberPage : Page
     {
+        public delegate void NavigateToMemberPage(object sender, RoutedEventArgs e);
+        public event NavigateToMemberPage navigateToMemberPage;
         public AddMemberPage()
         {
             InitializeComponent();
@@ -79,6 +81,10 @@ namespace LMS.Pages.AdminPages
             firstNameInput.Text = "";
             lastNameInput.Text = "";
             emailInput.Text = "";
+        }
+        private void BackButtonClick(object sender, RoutedEventArgs e)
+        {
+            navigateToMemberPage(sender, e);
         }
     }
 }

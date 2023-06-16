@@ -12,7 +12,7 @@
         <Border CornerRadius="10"  Background="#e7ead4" Height="572" Width="819">
             <Border CornerRadius="10" Background="White" Height="530" Width="776">
                 <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Margin="5">
-                    <TextBlock HorizontalAlignment="Center" FontSize="40" FontWeight="ExtraBold">Enter your details</TextBlock>
+                    <TextBlock Text="Enter your details" HorizontalAlignment="Center" FontSize="40" FontWeight="Black"/>
                     <StackPanel Orientation="Vertical" HorizontalAlignment="Left">
                         <TextBlock Text="ID" FontSize="25" FontWeight="Black" Margin="0 20 0 5"/>
                         <TextBox  Name="IDInput" Padding="20 0 0 0" Width="550" Height="60" FontSize="20" Background="#e7ead4" BorderThickness="0" VerticalContentAlignment="Center">

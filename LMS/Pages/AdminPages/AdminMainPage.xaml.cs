@@ -44,6 +44,7 @@ namespace LMS.Pages.AdminPages
             SearchBar.KeyDown += SearchbarKeyDown;
             memberTable.navigateToViewMemberPage += NavigateToViewMemberPage;
             bookTable.navigateToViewBookPage += NavigateToViewBookPage;
+            addMemberPage.navigateToMemberPage += MemberPageButtonClick;
         }
 
         public delegate void NavigateToLogin(object send, RoutedEventArgs e);
