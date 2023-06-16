@@ -38,7 +38,7 @@ namespace LMS.Pages.AdminPages
             //only filters in accounts of type Book
             List<Book> currentBooks = FileManagement.LoadAccounts().OfType<Book>().ToList();
 
-            if (titleInput.Text == "" || authorFirstNameInput.Text == "" || authorLastNameInput.Text == "" || tagInput.Text == "")
+            if (titleInput.Text == "" || authorFirstNameInput.Text == "" || authorLastNameInput.Text == "" || tagInput.Text == "" || summaryInput.Text == "")
             {
                 MessageBox.Show("Please Enter all feilds");
                 return;
@@ -50,7 +50,8 @@ namespace LMS.Pages.AdminPages
                 title = titleInput.Text,
                 authorFirstName = authorFirstNameInput.Text,
                 authorLastName = authorLastNameInput.Text,
-                tag = tagInput.Text
+                tag = tagInput.Text,
+                summary = summaryInput.Text,
             };
 
             //Check to see if title already exist and generate new ones if they do
@@ -71,12 +72,13 @@ namespace LMS.Pages.AdminPages
             string[] currentRows = File.ReadAllLines(FileManagement.BookFile);
             string[] newRows = currentRows.Append(newBookInfo).ToArray();
             File.WriteAllLines(FileManagement.BookFile, newRows);
-            MessageBox.Show("User Added Successfully!\n");
+            MessageBox.Show("Book Added Successfully!\n");
 
             titleInput.Text = "";
             authorFirstNameInput.Text = "";
             authorLastNameInput.Text = "";
             tagInput.Text = "";
+            summaryInput.Text = "";
         }
         private void BackButtonClick(object sender, RoutedEventArgs e)
         {

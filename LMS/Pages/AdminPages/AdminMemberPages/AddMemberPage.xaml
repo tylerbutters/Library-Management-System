@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:LMS.Pages.AdminPages"
       mc:Ignorable="d" 
       d:DesignHeight="745" d:DesignWidth="1920"
-      Title="addUser">
+      Title="addMember">
     <Grid Height="745" Width="1600">
         <Button Content="Back" Click="BackButtonClick" Width="137" Height="62" FontFamily="inter" FontSize="30" FontWeight="Black" Foreground="White" BorderThickness="0" HorizontalAlignment="Left" VerticalAlignment="Top">
             <Button.Style>

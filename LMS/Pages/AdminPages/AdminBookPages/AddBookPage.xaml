@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:LMS.Pages.AdminPages"
       mc:Ignorable="d" 
       d:DesignHeight="1080" d:DesignWidth="1920"
-      Title="addUser">
+      Title="addBook">
     <Grid Height="745" Width="1600">
         <Button Content="Back" Click="BackButtonClick" Width="137" Height="62" FontFamily="inter" FontSize="30" FontWeight="Black" Foreground="White" BorderThickness="0" HorizontalAlignment="Left" VerticalAlignment="Top">
             <Button.Style>
@@ -36,49 +36,66 @@
         </Button>
         <Border CornerRadius="10" Background="#E7EAD4" Height="745" Width="1276">
             <Border CornerRadius="10" Background="White" Height="700" Width="1226">
-                <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Width="650">
-                    <TextBlock Text="Add Book" FontFamily="Inter" FontSize="40" FontWeight="Black" HorizontalAlignment="Center"/>
-                    <TextBlock Text="Title" Margin="0 20 0 5" FontFamily="Inter" FontSize="25" FontWeight="Black"/>
-                    <TextBox  Name="titleInput" Padding="20 0 0 0" Height="60" FontSize="20" Background="#e7ead4" BorderThickness="0" VerticalContentAlignment="Center">
-                        <TextBox.Resources>
-                            <Style TargetType="Border">
-                                <Setter Property="CornerRadius" Value="10"/>
-                            </Style>
-                        </TextBox.Resources>
-                    </TextBox>
-                    <StackPanel Orientation="Horizontal">
-                        <StackPanel VerticalAlignment="Bottom" Margin="0 0 10 0">
-                            <TextBlock Text="Author First Name" Margin="0 20 0 5" FontFamily="Inter" FontSize="25" FontWeight="Black"/>
-                            <TextBox Name="authorFirstNameInput" Padding="20 0 0 0" Width="315" Height="60" FontSize="20" Background="#e7ead4" BorderThickness="0" VerticalContentAlignment="Center">
-                                <TextBox.Resources>
-                                    <Style TargetType="Border">
-                                        <Setter Property="CornerRadius" Value="10"/>
-                                    </Style>
-                                </TextBox.Resources>
-                            </TextBox>
-                        </StackPanel>
-                        <StackPanel VerticalAlignment="Bottom" Margin="10 0 0 0">
-                            <TextBlock Text="Author Last Name" Margin="0 20 0 5" FontFamily="Inter" FontSize="25" FontWeight="Black"/>
-                            <TextBox Name="authorLastNameInput" Padding="20 0 0 0" Width="315" Height="60" FontSize="20" Background="#e7ead4" BorderThickness="0" VerticalContentAlignment="Center">
-                                <TextBox.Resources>
-                                    <Style TargetType="Border">
-                                        <Setter Property="CornerRadius" Value="10"/>
-                                    </Style>
-                                </TextBox.Resources>
-                            </TextBox>
-                        </StackPanel>
 
-                        
+                <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Width="1000">
+                    <TextBlock Text="Add Book" FontFamily="Inter" FontSize="40" FontWeight="Black" HorizontalAlignment="Center"/>
+                
+                
+                <StackPanel Orientation="Horizontal">
+
+
+                        <StackPanel Width="490" Margin="00 0 10 0">
+                        <TextBlock Text="Title" Margin="0 20 0 5" FontFamily="Inter" FontSize="25" FontWeight="Black"/>
+                        <TextBox  Name="titleInput" Padding="20 0 0 0" Height="60" FontSize="20" Background="#e7ead4" BorderThickness="0" VerticalContentAlignment="Center">
+                            <TextBox.Resources>
+                                <Style TargetType="Border">
+                                    <Setter Property="CornerRadius" Value="10"/>
+                                </Style>
+                            </TextBox.Resources>
+                        </TextBox>
+                        <StackPanel Orientation="Horizontal">
+                            <StackPanel VerticalAlignment="Bottom" Margin="0 0 10 0" Width="235">
+                                <TextBlock Text="Author First Name" Margin="0 20 0 5" FontFamily="Inter" FontSize="25" FontWeight="Black"/>
+                                <TextBox Name="authorFirstNameInput" Padding="20 0 0 0" Height="60" FontSize="20" Background="#e7ead4" BorderThickness="0" VerticalContentAlignment="Center">
+                                    <TextBox.Resources>
+                                        <Style TargetType="Border">
+                                            <Setter Property="CornerRadius" Value="10"/>
+                                        </Style>
+                                    </TextBox.Resources>
+                                </TextBox>
+                            </StackPanel>
+                            <StackPanel VerticalAlignment="Bottom" Margin="10 0 0 0" Width="235">
+                                <TextBlock Text="Author Last Name" Margin="0 20 0 5" FontFamily="Inter" FontSize="25" FontWeight="Black"/>
+                                <TextBox Name="authorLastNameInput" Padding="20 0 0 0" Height="60" FontSize="20" Background="#e7ead4" BorderThickness="0" VerticalContentAlignment="Center">
+                                    <TextBox.Resources>
+                                        <Style TargetType="Border">
+                                            <Setter Property="CornerRadius" Value="10"/>
+                                        </Style>
+                                    </TextBox.Resources>
+                                </TextBox>
+                            </StackPanel>
+                        </StackPanel>
+                        <TextBlock Text="Tag" Margin="0 20 0 5" FontFamily="Inter" FontSize="25" FontWeight="Black"/>
+                        <TextBox Name="tagInput" Padding="20 0 0 0" Height="60" FontSize="20" Background="#e7ead4" BorderThickness="0" VerticalContentAlignment="Center">
+                            <TextBox.Resources>
+                                <Style TargetType="Border">
+                                    <Setter Property="CornerRadius" Value="10"/>
+                                </Style>
+                            </TextBox.Resources>
+                        </TextBox>
+                    </StackPanel>
+                    <StackPanel Width="490" Margin="10 0 0 0">
+                        <TextBlock Text="Summary" Margin="0 20 0 5" FontFamily="Inter" FontSize="25" FontWeight="Black"/>
+                            <TextBox Name="summaryInput" Padding="20" Height="290" FontSize="20" Background="#e7ead4" BorderThickness="0" TextWrapping="Wrap">
+                            <TextBox.Resources>
+                                <Style TargetType="Border">
+                                    <Setter Property="CornerRadius" Value="10"/>
+                                </Style>
+                            </TextBox.Resources>
+                        </TextBox>
                     </StackPanel>
                     
-                    <TextBlock Text="Tag" Margin="0 20 0 5" FontFamily="Inter" FontSize="25" FontWeight="Black"/>
-                    <TextBox Name="tagInput" Padding="20 0 0 0" Height="60" FontSize="20" Background="#e7ead4" BorderThickness="0" VerticalContentAlignment="Center">
-                        <TextBox.Resources>
-                            <Style TargetType="Border">
-                                <Setter Property="CornerRadius" Value="10"/>
-                            </Style>
-                        </TextBox.Resources>
-                    </TextBox>
+                    </StackPanel>
                     <Button Content="Save" Click="SaveNewBookButtonClick" Width="200" Height="75" Margin="0 60 0 0" FontFamily="inter" FontSize="30" FontWeight="Black" Foreground="White" BorderThickness="0">
                         <Button.Style>
                             <Style TargetType="{x:Type Button}">

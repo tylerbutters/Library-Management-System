@@ -76,7 +76,7 @@ namespace LMS.Pages.AdminPages
             string newMemberInfo = $"{newMember.id},{newMember.pin},{newMember.firstName},{newMember.lastName},{newMember.email}";
             string[] newRows = rows.Append(newMemberInfo).ToArray();
             File.WriteAllLines(FileManagement.AccountFile, newRows);
-            MessageBox.Show("User Added Successfully!\nID: " + newMember.id + "\nPIN: " + newMember.pin);
+            MessageBox.Show("Member Added Successfully!\nID: " + newMember.id + "\nPIN: " + newMember.pin);
 
             firstNameInput.Text = "";
             lastNameInput.Text = "";
