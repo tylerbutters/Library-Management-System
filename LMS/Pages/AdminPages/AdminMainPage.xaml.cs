@@ -36,63 +36,18 @@ namespace LMS.Pages.AdminPages
         public AdminMainPage()
         {
             InitializeComponent();
-            SearchBar.KeyDown += SearchbarKeyDown;
-            memberDataGrid = memberTable.memberDataGridInfo;
-            bookDataGrid = bookTable.bookDataGridInfo;
-
             PageContent.Content = memberTable;
 
+            memberDataGrid = memberTable.memberDataGridInfo;
+            bookDataGrid = bookTable.bookDataGridInfo; 
+
+            SearchBar.KeyDown += SearchbarKeyDown;
             memberTable.navigateToViewMemberPage += NavigateToViewMemberPage;
             bookTable.navigateToViewBookPage += NavigateToViewBookPage;
         }
 
         public delegate void NavigateToLogin(object send, RoutedEventArgs e);
-        public event NavigateToLogin navigateToLoginPage;
-
-        private void SearchMembers(object sender, RoutedEventArgs e)
-        {
-            PageContent.Content = memberTable;
-            string searchInput = SearchBar.Text.Trim();
-
-            if (!string.IsNullOrEmpty(searchInput))
-            {
-                List<Member> searchResults = FileManagement.LoadMembers().Where(member =>
-                    member.id.IndexOf(searchInput, StringComparison.OrdinalIgnoreCase) >= 0 ||
-                    member.firstName.IndexOf(searchInput, StringComparison.OrdinalIgnoreCase) >= 0 ||
-                    member.lastName.IndexOf(searchInput, StringComparison.OrdinalIgnoreCase) >= 0 ||
-                    member.email.IndexOf(searchInput, StringComparison.OrdinalIgnoreCase) >= 0
-                ).ToList();
-
-                memberDataGrid.ItemsSource = searchResults;
-            }
-            else
-            {
-                memberDataGrid.ItemsSource = FileManagement.LoadMembers();
-            }
-        }
-        private void SearchBooks(object sender, RoutedEventArgs e)
-        {
-            PageContent.Content = bookTable;
-            string searchInput = SearchBar.Text.Trim();
-
-            if (!string.IsNullOrEmpty(searchInput))
-            {
-                List<Book> searchResults = FileManagement.LoadBooks().Where(book =>
-                    book.id.IndexOf(searchInput, StringComparison.OrdinalIgnoreCase) >= 0 ||
-                    book.authorFirstName.IndexOf(searchInput, StringComparison.OrdinalIgnoreCase) >= 0 ||
-                    book.authorLastName.IndexOf(searchInput, StringComparison.OrdinalIgnoreCase) >= 0 ||
-                    book.type.IndexOf(searchInput, StringComparison.OrdinalIgnoreCase) >= 0 ||
-                    book.genre.IndexOf(searchInput, StringComparison.OrdinalIgnoreCase) >= 0 ||
-                    book.isAvailable.IndexOf(searchInput, StringComparison.OrdinalIgnoreCase) >= 0
-                ).ToList();
-
-                bookDataGrid.ItemsSource = searchResults;
-            }
-            else
-            {
-                bookDataGrid.ItemsSource = FileManagement.LoadMembers();
-            }
-        }
+        public event NavigateToLogin navigateToLoginPage;  
         private void LogoutButtonClick(object sender, RoutedEventArgs e)
         {
             navigateToLoginPage(sender, e);
@@ -159,6 +114,50 @@ namespace LMS.Pages.AdminPages
             else
             {
                 SearchBooks(sender, e);
+            }
+        }
+        private void SearchMembers(object sender, RoutedEventArgs e)
+        {
+            PageContent.Content = memberTable;
+            string searchInput = SearchBar.Text.Trim();
+
+            if (!string.IsNullOrEmpty(searchInput))
+            {
+                List<Member> searchResults = FileManagement.LoadMembers().Where(member =>
+                    member.id.IndexOf(searchInput, StringComparison.OrdinalIgnoreCase) >= 0 ||
+                    member.firstName.IndexOf(searchInput, StringComparison.OrdinalIgnoreCase) >= 0 ||
+                    member.lastName.IndexOf(searchInput, StringComparison.OrdinalIgnoreCase) >= 0 ||
+                    member.email.IndexOf(searchInput, StringComparison.OrdinalIgnoreCase) >= 0
+                ).ToList();
+
+                memberDataGrid.ItemsSource = searchResults;
+            }
+            else
+            {
+                memberDataGrid.ItemsSource = FileManagement.LoadMembers();
+            }
+        }
+        private void SearchBooks(object sender, RoutedEventArgs e)
+        {
+            PageContent.Content = bookTable;
+            string searchInput = SearchBar.Text.Trim();
+
+            if (!string.IsNullOrEmpty(searchInput))
+            {
+                List<Book> searchResults = FileManagement.LoadBooks().Where(book =>
+                    book.id.IndexOf(searchInput, StringComparison.OrdinalIgnoreCase) >= 0 ||
+                    book.authorFirstName.IndexOf(searchInput, StringComparison.OrdinalIgnoreCase) >= 0 ||
+                    book.authorLastName.IndexOf(searchInput, StringComparison.OrdinalIgnoreCase) >= 0 ||
+                    book.type.IndexOf(searchInput, StringComparison.OrdinalIgnoreCase) >= 0 ||
+                    book.genre.IndexOf(searchInput, StringComparison.OrdinalIgnoreCase) >= 0 ||
+                    book.isAvailable.IndexOf(searchInput, StringComparison.OrdinalIgnoreCase) >= 0
+                ).ToList();
+
+                bookDataGrid.ItemsSource = searchResults;
+            }
+            else
+            {
+                bookDataGrid.ItemsSource = FileManagement.LoadBooks();
             }
         }
     }
