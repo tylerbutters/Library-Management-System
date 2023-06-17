@@ -50,9 +50,10 @@
                             <Button Grid.Column="0" Background="Transparent" BorderThickness="0" Margin="15 0 0 0" Width="50" Click="SearchIconButtonClick">
                                 <Image Source="pack://application:,,,/Images/searchIcon.png"/>
                             </Button>
-                            <TextBox FontSize="25" x:Name="SearchBar" Background="Transparent" BorderThickness="0" Margin="15 0 0 0" Grid.Column="1" VerticalContentAlignment="Center"/>
+                            <TextBox FontSize="25" x:Name="SearchBar" Background="Transparent" FontWeight="Medium" BorderThickness="0" Margin="15 0 0 0" Grid.Column="1" VerticalContentAlignment="Center" Text="Search..." Foreground="Gray" LostFocus="SearchBarLostFocus" GotFocus="SearchBarGotFocus"/>
                         </Grid>
                     </Grid>
+
                 </Grid>
                 <Grid Name="LogoutArea" Width="450">
                     <Button Content="Log out" HorizontalAlignment="Left" Margin="50 0 0 0" Width="200" Height="75" FontSize="30" FontWeight="Black" Foreground="White" BorderThickness="0" Click="LogoutButtonClick">

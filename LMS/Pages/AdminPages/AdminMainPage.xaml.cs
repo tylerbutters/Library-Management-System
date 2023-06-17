@@ -48,19 +48,20 @@ namespace LMS.Pages.AdminPages
             addBookPage.navigateToBookPage += BookPageButtonClick;
         }
 
-        public delegate void NavigateToLogin(object send, RoutedEventArgs e);
+        public delegate void NavigateToLogin(object sender, RoutedEventArgs e);
         public event NavigateToLogin navigateToLoginPage;  
         private void LogoutButtonClick(object sender, RoutedEventArgs e)
         {
             navigateToLoginPage(sender, e);
         }
-        public void NavigateToViewMemberPage(object send, RoutedEventArgs e)
+        public void NavigateToViewMemberPage(object sender, RoutedEventArgs e)
         {
             viewMemberPage = new ViewMemberPage(memberTable.selectedMember);
             PageContent.Content = viewMemberPage;
         }
-        public void NavigateToViewBookPage(object send, RoutedEventArgs e)
+        public void NavigateToViewBookPage(object sender, RoutedEventArgs e)
         {
+
             viewBookPage = new ViewBookPage(bookTable.selectedBook);
             PageContent.Content = viewBookPage;
         }
@@ -77,20 +78,24 @@ namespace LMS.Pages.AdminPages
         }
         private void MemberPageButtonClick(object sender, RoutedEventArgs e)
         {
+            SearchBar.Text = "";
+            SearchBarLostFocus(sender, e);
             isOnMemberPage = true;
             BookPageButton.Background = (Brush)new BrushConverter().ConvertFrom("#6FAB4A");
-            BookPageButton.Foreground = new SolidColorBrush(Colors.White);
+            BookPageButton.Foreground = Brushes.White;
             MemberPageButton.Background = (Brush)new BrushConverter().ConvertFrom("#FDFEEE");
-            MemberPageButton.Foreground = new SolidColorBrush(Colors.Black);
+            MemberPageButton.Foreground = Brushes.Black;
             PageContent.Content = memberTable;
         }
         private void BookPageButtonClick(object sender, RoutedEventArgs e)
         {
+            SearchBar.Text = "";
+            SearchBarLostFocus(sender, e);
             isOnMemberPage = false;
             BookPageButton.Background = (Brush)new BrushConverter().ConvertFrom("#FDFEEE");
-            BookPageButton.Foreground = new SolidColorBrush(Colors.Black);
+            BookPageButton.Foreground = Brushes.Black;
             MemberPageButton.Background = (Brush)new BrushConverter().ConvertFrom("#6FAB4A");
-            MemberPageButton.Foreground = new SolidColorBrush(Colors.White);
+            MemberPageButton.Foreground = Brushes.White;
             PageContent.Content = bookTable;
         }
         private void SearchbarKeyDown(object sender, KeyEventArgs e)
@@ -161,5 +166,24 @@ namespace LMS.Pages.AdminPages
                 bookDataGrid.ItemsSource = null;
             }
         }
+        private void SearchBarGotFocus(object sender, RoutedEventArgs e)
+        {
+            if (SearchBar.Text == "Search...")
+            {
+                SearchBar.Text = string.Empty;
+                SearchBar.FontWeight = FontWeights.Normal;
+                SearchBar.Foreground = Brushes.Black;
+            }
+        }
+
+        private void SearchBarLostFocus(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrEmpty(SearchBar.Text))
+            {
+                SearchBar.Text = "Search...";
+                SearchBar.Foreground = Brushes.Gray;
+            }
+        }
+
     }
 }
