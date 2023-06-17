@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
+using System.Windows;
 
 namespace LMS
 {
@@ -45,6 +46,11 @@ namespace LMS
             return accounts;
         }
 
+        public static List<Member> LoadMembers()
+        {
+            return LoadAccounts().OfType<Member>().ToList();
+        }
+
         public static List<Book> LoadBooks()
         {
             string[] rows = File.ReadAllLines(BookFile);
@@ -64,6 +70,22 @@ namespace LMS
 
             return books.ToList();
         }
+        public static void SaveBooks(Book newBook)
+        {
+            string newBookInfo = $"{newBook.id},{newBook.cover},{newBook.title},{newBook.authorFirstName},{newBook.authorLastName},{newBook.tag},{newBook.summary},{newBook.isAvailable}";
+            string[] currentRows = File.ReadAllLines(BookFile);
+            string[] newRows = currentRows.Append(newBookInfo).ToArray();
+            File.WriteAllLines(BookFile, newRows);
+            MessageBox.Show("Book Added Successfully!\n");
+        }
 
+        public static void SaveMembers(Member newMember)
+        {
+            string newMemberInfo = $"{newMember.id},{newMember.pin},{newMember.firstName},{newMember.lastName},{newMember.email}";
+            string[] currentRows = File.ReadAllLines(AccountFile);
+            string[] newRows = currentRows.Append(newMemberInfo).ToArray();
+            File.WriteAllLines(AccountFile, newRows);
+            MessageBox.Show("Member Added Successfully!\nID: " + newMember.id + "\nPIN: " + newMember.pin);
+        }
     }
 }

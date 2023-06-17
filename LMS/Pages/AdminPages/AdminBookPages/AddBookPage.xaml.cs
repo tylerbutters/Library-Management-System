@@ -36,7 +36,7 @@ namespace LMS.Pages.AdminPages
         private void SaveNewBookButtonClick(object sender, RoutedEventArgs e)
         {
             //only filters in accounts of type Book
-            List<Book> currentBooks = FileManagement.LoadAccounts().OfType<Book>().ToList();
+            List<Book> currentBooks = FileManagement.LoadBooks();
 
             if (titleInput.Text == "" || authorFirstNameInput.Text == "" || authorLastNameInput.Text == "" || tagInput.Text == "" || summaryInput.Text == "")
             {
@@ -57,9 +57,9 @@ namespace LMS.Pages.AdminPages
             //Check to see if title already exist and generate new ones if they do
             foreach (Book currentBook in currentBooks)
             {
-                if (currentBook.title == newBook.title)
+                if (currentBook.title == newBook.title && currentBook.authorFirstName == newBook.authorFirstName && currentBook.authorLastName == newBook.authorLastName)
                 {
-                    MessageBox.Show("This Email is already registered.");
+                    MessageBox.Show("This book is already registered.");
                     return;
                 }
                 else if (currentBook.id == newBook.id)
@@ -68,11 +68,7 @@ namespace LMS.Pages.AdminPages
                 }
             }
 
-            string newBookInfo = $"{newBook.id},{newBook.cover},{newBook.title},{newBook.authorFirstName},{newBook.authorLastName},{newBook.tag},{newBook.summary},{newBook.isAvailable}";
-            string[] currentRows = File.ReadAllLines(FileManagement.BookFile);
-            string[] newRows = currentRows.Append(newBookInfo).ToArray();
-            File.WriteAllLines(FileManagement.BookFile, newRows);
-            MessageBox.Show("Book Added Successfully!\n");
+            FileManagement.SaveBooks(newBook);
 
             titleInput.Text = "";
             authorFirstNameInput.Text = "";

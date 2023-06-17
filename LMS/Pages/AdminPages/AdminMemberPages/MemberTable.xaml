@@ -8,7 +8,8 @@
       d:DesignHeight="720" d:DesignWidth="1270"
       Title="MemberTable">
 
-    <StackPanel Name="TableArea" Background="#E7EAD4" Width="1270" Height="720" HorizontalAlignment="Center">
+    <Grid Name="TableArea" Background="#E7EAD4" Width="1270" Height="720" HorizontalAlignment="Center">
+        <TextBlock x:Name="NoResultsText" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="30" FontWeight="Medium" Text="No results" Visibility="Collapsed"/>
         <DataGrid x:Name="MemberGrid"
               Height="auto" 
               Width="auto"
@@ -23,7 +24,7 @@
               VerticalContentAlignment="Center" 
               BorderThickness="0"
               GridLinesVisibility="None" SelectionChanged="MemberDataGridSelectionChanged">
-
+            
             <DataGrid.Resources>
                 <Style BasedOn="{StaticResource {x:Type DataGridColumnHeader}}" TargetType="{x:Type DataGridColumnHeader}">
                     <Setter Property="Background" Value="#6FAB4A" />
@@ -59,5 +60,5 @@
                 <DataGridTextColumn Header="Loans" Binding="{Binding loanCounter}" Width="1*"></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
-    </StackPanel>
+    </Grid>
 </Page>

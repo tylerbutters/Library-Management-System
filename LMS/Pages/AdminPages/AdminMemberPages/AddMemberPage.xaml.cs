@@ -50,8 +50,7 @@ namespace LMS.Pages.AdminPages
                 email = emailInput.Text
             };
 
-            string[] rows = File.ReadAllLines(FileManagement.AccountFile);
-            List<Member> currentMembers = FileManagement.LoadAccounts().OfType<Member>().ToList();
+            List<Member> currentMembers = FileManagement.LoadMembers();
 
             //Check to see if PIN or email already exist and generate new ones if they do
             foreach (Member currentMember in currentMembers)
@@ -73,10 +72,7 @@ namespace LMS.Pages.AdminPages
                 return;
             }
 
-            string newMemberInfo = $"{newMember.id},{newMember.pin},{newMember.firstName},{newMember.lastName},{newMember.email}";
-            string[] newRows = rows.Append(newMemberInfo).ToArray();
-            File.WriteAllLines(FileManagement.AccountFile, newRows);
-            MessageBox.Show("Member Added Successfully!\nID: " + newMember.id + "\nPIN: " + newMember.pin);
+            FileManagement.SaveMembers(newMember);
 
             firstNameInput.Text = "";
             lastNameInput.Text = "";
