@@ -5,10 +5,10 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:LMS.Pages.AdminPages"
       mc:Ignorable="d" 
-      d:DesignHeight="745" d:DesignWidth="1920"
+      d:DesignHeight="745" d:DesignWidth="1600"
       Title="addMember">
     <Grid Height="745" Width="1600">
-        <Button Content="Back" Click="BackButtonClick" Width="137" Height="62" FontFamily="inter" FontSize="30" FontWeight="Black" Foreground="White" BorderThickness="0" HorizontalAlignment="Left" VerticalAlignment="Top">
+        <Button Content="Back" Click="BackButtonClick" Width="140" Height="62" FontFamily="inter" FontSize="30" FontWeight="Black" Foreground="White" BorderThickness="0" HorizontalAlignment="Left" VerticalAlignment="Top">
             <Button.Style>
                 <Style TargetType="{x:Type Button}">
                     <Setter Property="Background" Value="#417422"/>
@@ -38,23 +38,35 @@
             <Border CornerRadius="10" Background="White" Height="700" Width="1226">
                 <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Width="650">
                     <TextBlock Text="Add Member" FontFamily="Inter" FontSize="40" FontWeight="Black" HorizontalAlignment="Center"/>
-                    <TextBlock Text="First Name" Margin="0 20 0 5" FontFamily="Inter" FontSize="25" FontWeight="Black"/>
-                    <TextBox  Name="firstNameInput" Padding="20 0 0 0" Height="60" FontSize="20" Background="#e7ead4" BorderThickness="0" VerticalContentAlignment="Center">
-                        <TextBox.Resources>
-                            <Style TargetType="Border">
-                                <Setter Property="CornerRadius" Value="10"/>
-                            </Style>
-                        </TextBox.Resources>
-                    </TextBox>
-                    <TextBlock Text="Last Name" Margin="0 20 0 5" FontFamily="Inter" FontSize="25" FontWeight="Black"/>
-                    <TextBox Name="lastNameInput" Padding="20 0 0 0" Height="60" FontSize="20" Background="#e7ead4" BorderThickness="0" VerticalContentAlignment="Center">
-                        <TextBox.Resources>
-                            <Style TargetType="Border">
-                                <Setter Property="CornerRadius" Value="10"/>
-                            </Style>
-                        </TextBox.Resources>
-                    </TextBox>
-
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="1*"></RowDefinition>
+                            <RowDefinition Height="1*"></RowDefinition>
+                            <RowDefinition Height="1*"></RowDefinition>
+                        </Grid.RowDefinitions>
+                    
+                    <StackPanel Grid.Row="0">
+                            <TextBlock Text="First Name" Margin="0 20 0 5" FontFamily="Inter" FontSize="25" FontWeight="Black"/>
+                            <TextBox  Name="firstNameInput" Padding="20 0 0 0" Height="60" FontSize="20" Background="#e7ead4" BorderThickness="0" VerticalContentAlignment="Center">
+                                <TextBox.Resources>
+                                    <Style TargetType="Border">
+                                        <Setter Property="CornerRadius" Value="10"/>
+                                    </Style>
+                                </TextBox.Resources>
+                            </TextBox>
+                        </StackPanel>
+                    
+                        <StackPanel Grid.Row="1">
+                            <TextBlock Text="Last Name" Margin="0 20 0 5" FontFamily="Inter" FontSize="25" FontWeight="Black"/>
+                            <TextBox Name="lastNameInput" Padding="20 0 0 0" Height="60" FontSize="20" Background="#e7ead4" BorderThickness="0" VerticalContentAlignment="Center">
+                                <TextBox.Resources>
+                                    <Style TargetType="Border">
+                                        <Setter Property="CornerRadius" Value="10"/>
+                                    </Style>
+                                </TextBox.Resources>
+                            </TextBox>
+                        </StackPanel>
+                        <StackPanel Grid.Row="2">
                     <TextBlock Text="Email" Margin="0 20 0 5" FontFamily="Inter" FontSize="25" FontWeight="Black"/>
                     <TextBox Name="emailInput" Padding="20 0 0 0" Height="60" FontSize="20" Background="#e7ead4" BorderThickness="0" VerticalContentAlignment="Center">
                         <TextBox.Resources>
@@ -63,6 +75,8 @@
                             </Style>
                         </TextBox.Resources>
                     </TextBox>
+                        </StackPanel>
+                    </Grid>
                     <Button Content="Save" Click="SaveNewMemberButtonClick" Width="200" Height="75" Margin="0 60 0 0" FontFamily="inter" FontSize="30" FontWeight="Black" Foreground="White" BorderThickness="0">
                         <Button.Style>
                             <Style TargetType="{x:Type Button}">

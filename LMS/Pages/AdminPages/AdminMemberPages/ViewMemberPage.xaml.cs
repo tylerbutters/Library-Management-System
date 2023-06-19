@@ -21,7 +21,8 @@ namespace LMS.Pages.AdminPages
     /// </summary>
     public partial class ViewMemberPage : Page
     {
-
+        private bool isEditing = false;
+        private bool isConfirmed = false;
         private Member memberInfo;
 
         //Member info from login and member class's are passed through parameters and displayed in each text example.
@@ -31,11 +32,10 @@ namespace LMS.Pages.AdminPages
             InitializeComponent();
 
             ID.Text = memberInfo.id;
+            PIN.Text = memberInfo.pin;
             FirstName.Text = memberInfo.firstName;
             LastName.Text = memberInfo.lastName;
             Email.Text = memberInfo.email;
-            Password.Text = memberInfo.pin;
-            
         }
 
         private void BackButtonClick(object sender, RoutedEventArgs e)
@@ -46,9 +46,40 @@ namespace LMS.Pages.AdminPages
             }
         }
 
-        private void EditButtonClick(object sender, RoutedEventArgs e)
+        private void EditCancelButtonClick(object sender, RoutedEventArgs e)
+        {
+            if (!isEditing)
+            {
+                isEditing = true;
+                SaveButton.Visibility = Visibility.Visible;
+                DeleteButton.Visibility = Visibility.Visible;
+                EditCancelButton.Content = "Cancel";
+            }
+            else
+            {
+                isEditing = false;
+                SaveButton.Visibility = Visibility.Hidden;
+                DeleteButton.Visibility = Visibility.Hidden;
+                EditCancelButton.Content = "Edit";
+            }
+        }
+
+        private void SaveButtonClick(object sender, RoutedEventArgs e)
         {
 
+        }
+        private void DeleteButtonClick(object sender, RoutedEventArgs e)
+        {
+            if (!isConfirmed)
+            {
+                isConfirmed = true;
+                DeleteButton.Content = "Confirm?";
+            }
+            else
+            {
+                //delete user
+                isConfirmed = false;
+            }
         }
     }
 }
