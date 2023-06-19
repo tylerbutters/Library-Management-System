@@ -8,7 +8,7 @@
       d:DesignHeight="1080" d:DesignWidth="1920"
       Title="addBook">
     <Grid Height="745" Width="1600">
-        <Button Content="Back" Click="BackButtonClick" Width="140" Height="62" FontFamily="inter" FontSize="30" FontWeight="Black" Foreground="White" BorderThickness="0" HorizontalAlignment="Left" VerticalAlignment="Top">
+        <Button Content="Back" Click="BackButtonClick" Width="140" Height="60"  FontSize="30" FontWeight="Black" Foreground="White" BorderThickness="0" HorizontalAlignment="Left" VerticalAlignment="Top">
             <Button.Style>
                 <Style TargetType="{x:Type Button}">
                     <Setter Property="Background" Value="#417422"/>
@@ -36,8 +36,8 @@
         </Button>
         <Border CornerRadius="10" Background="#E7EAD4" Height="745" Width="1276">
             <Border CornerRadius="10" Background="White" Height="700" Width="1226">
-                <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Height="620" Width="auto">
-                    <TextBlock Text="Add Book" FontFamily="Inter" FontSize="40" FontWeight="Black" HorizontalAlignment="Center"/>
+                <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Height="600" Width="auto">
+                    <TextBlock Text="Add Book"  FontSize="40" FontWeight="Black" HorizontalAlignment="Center"/>
                 
                 
                 <Grid Width="1100" Height="auto">
@@ -53,7 +53,7 @@
                                 <RowDefinition Height="1*"></RowDefinition>
                             </Grid.RowDefinitions>
                             <StackPanel Grid.Row="0">
-                                <TextBlock Text="Title" Margin="0 20 0 5" FontFamily="Inter" FontSize="25" FontWeight="Black"/>
+                                <TextBlock Text="Title" Margin="0 20 0 5"  FontSize="25" FontWeight="Black"/>
                                 <TextBox  Name="titleInput" Padding="20 0 0 0" Height="60" FontSize="20" Background="#e7ead4" BorderThickness="0" VerticalContentAlignment="Center">
                                     <TextBox.Resources>
                                         <Style TargetType="Border">
@@ -69,7 +69,7 @@
                                     <ColumnDefinition Width="1*"></ColumnDefinition>
                                 </Grid.ColumnDefinitions>
                                 <StackPanel Grid.Column="0" VerticalAlignment="Bottom" Margin="0 0 10 0">
-                                    <TextBlock Text="Author First Name" Margin="0 20 0 5" FontFamily="Inter" FontSize="25" FontWeight="Black"/>
+                                    <TextBlock Text="Author First Name" Margin="0 20 0 5"  FontSize="25" FontWeight="Black"/>
                                     <TextBox Name="authorFirstNameInput" Padding="20 0 0 0" Height="60" FontSize="20" Background="#e7ead4" BorderThickness="0" VerticalContentAlignment="Center">
                                         <TextBox.Resources>
                                             <Style TargetType="Border">
@@ -79,7 +79,7 @@
                                     </TextBox>
                                 </StackPanel>
                                 <StackPanel Grid.Column="1" VerticalAlignment="Bottom" Margin="10 0 0 0">
-                                    <TextBlock Text="Author Last Name" Margin="0 20 0 5" FontFamily="Inter" FontSize="25" FontWeight="Black"/>
+                                    <TextBlock Text="Author Last Name" Margin="0 20 0 5"  FontSize="25" FontWeight="Black"/>
                                     <TextBox Name="authorLastNameInput" Padding="20 0 0 0" Height="60" FontSize="20" Background="#e7ead4" BorderThickness="0" VerticalContentAlignment="Center">
                                         <TextBox.Resources>
                                             <Style TargetType="Border">
@@ -91,7 +91,7 @@
                             </Grid>
 
                             <StackPanel Grid.Row="2" >
-                                <TextBlock Text="Tag" Margin="0 20 0 5" FontFamily="Inter" FontSize="25" FontWeight="Black"/>
+                                <TextBlock Text="Tag" Margin="0 20 0 5"  FontSize="25" FontWeight="Black"/>
                                 <TextBox Name="tagInput" Padding="20 0 0 0" Height="60" FontSize="20" Background="#e7ead4" BorderThickness="0" VerticalContentAlignment="Center">
                                     <TextBox.Resources>
                                         <Style TargetType="Border">
@@ -102,8 +102,8 @@
                             </StackPanel>
                             <StackPanel Grid.Row="3">
                                 <StackPanel Orientation="Horizontal">
-                                    <TextBlock Text="Cover" Margin="0 20 0 5" FontFamily="Inter" FontSize="25" FontWeight="Black"/>
-                                    <Button Content="Select Image" Click="SelectImageButtonClick" Width="150" Height="30" Margin="20 0 0 5" FontFamily="inter" FontSize="17" FontWeight="Medium" Foreground="White" BorderThickness="0" VerticalAlignment="Bottom">
+                                    <TextBlock Text="Cover" Margin="0 20 0 5"  FontSize="25" FontWeight="Black"/>
+                                    <Button Content="Select Image" Click="SelectImageButtonClick" Width="150" Height="30" Margin="20 0 0 5"  FontSize="17" FontWeight="Medium" Foreground="White" BorderThickness="0" VerticalAlignment="Bottom">
                                         <Button.Style>
                                             <Style TargetType="{x:Type Button}">
                                                 <Setter Property="Background" Value="#bcce50"/>
@@ -146,7 +146,7 @@
 
                         
                     <StackPanel Grid.Column="1" Margin="10 0 0 0">
-                        <TextBlock Text="Summary" Margin="0 20 0 5" FontFamily="Inter" FontSize="25" FontWeight="Black"/>
+                        <TextBlock Text="Summary" Margin="0 20 0 5"  FontSize="25" FontWeight="Black"/>
                             <TextBox Name="summaryInput" Padding="20" Height="410" FontSize="20" Background="#e7ead4" BorderThickness="0" TextWrapping="Wrap">
                             <TextBox.Resources>
                                 <Style TargetType="Border">
@@ -156,7 +156,7 @@
                         </TextBox>
                     </StackPanel>
                         </Grid>
-                            <Button Content="Save" Click="SaveNewBookButtonClick" Width="200" Height="75" Margin="0 30 0 0" FontFamily="inter" FontSize="30" FontWeight="Black" Foreground="White" BorderThickness="0">
+                            <Button Content="Save" Click="SaveNewBookButtonClick" Width="200" Height="75" Margin="0 30 0 0"  FontSize="30" FontWeight="Black" Foreground="White" BorderThickness="0">
                         <Button.Style>
                             <Style TargetType="{x:Type Button}">
                                 <Setter Property="Background" Value="#bcce50"/>

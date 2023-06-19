@@ -7,7 +7,7 @@
       mc:Ignorable="d" 
       d:DesignHeight="745" d:DesignWidth="1920"
       Title="ViewMemberPage">
-    <Grid Height="745" Width="1600" VerticalAlignment="Center">
+    <Grid Height="745" Width="1600">
 
         <Grid Height="250" VerticalAlignment="Top">
             <Grid.RowDefinitions>
@@ -15,7 +15,7 @@
                 <RowDefinition></RowDefinition>
                 <RowDefinition></RowDefinition>
             </Grid.RowDefinitions>
-            <Button Content="Back" Grid.Row="0" Click="BackButtonClick" Width="140" Height="60" FontFamily="inter" FontSize="30" FontWeight="Black" Foreground="White" BorderThickness="0" HorizontalAlignment="Left" VerticalAlignment="Top">
+            <Button Content="Back" Grid.Row="0" Click="BackButtonClick" Width="140" Height="60"  FontSize="30" FontWeight="Black" Foreground="White" BorderThickness="0" HorizontalAlignment="Left" VerticalAlignment="Top">
                 <Button.Style>
                     <Style TargetType="{x:Type Button}">
                         <Setter Property="Background" Value="#417422"/>
@@ -41,7 +41,7 @@
                     </Style>
                 </Button.Resources>
             </Button>
-            <Button Grid.Row="0" Content="Edit" Name="EditCancelButton" Click="EditCancelButtonClick" Width="140" Height="60" FontFamily="inter" FontSize="30" FontWeight="Black" Foreground="White" BorderThickness="0" HorizontalAlignment="Right" VerticalAlignment="Top">
+            <Button Grid.Row="0" Content="Edit" Name="EditCancelButton" Click="EditCancelButtonClick" Width="140" Height="60"  FontSize="30" FontWeight="Black" Foreground="White" BorderThickness="0" HorizontalAlignment="Right" VerticalAlignment="Top">
                 <Button.Style>
                     <Style TargetType="{x:Type Button}">
                         <Setter Property="Background" Value="#417422"/>
@@ -68,7 +68,7 @@
                 </Button.Resources>
             </Button>
 
-            <Button Content="Save" Name="SaveButton"  Grid.Row="1" Visibility="Hidden" Click="SaveButtonClick" Width="140" Height="60" FontFamily="inter" FontSize="30" FontWeight="Black" Foreground="White" BorderThickness="0" HorizontalAlignment="Right" VerticalAlignment="Top">
+            <Button Content="Save" Name="SaveButton"  Grid.Row="1" Visibility="Hidden" Click="SaveButtonClick" Width="140" Height="60"  FontSize="30" FontWeight="Black" Foreground="White" BorderThickness="0" HorizontalAlignment="Right" VerticalAlignment="Top">
                 <Button.Style>
                     <Style TargetType="{x:Type Button}">
                         <Setter Property="Background" Value="#bcce50"/>
@@ -95,7 +95,7 @@
                 </Button.Resources>
             </Button>
 
-            <Button Content="Delete" Name="DeleteButton" Grid.Row="2" Visibility="Hidden" Click="DeleteButtonClick" Width="140" Height="60" FontFamily="inter" FontSize="30" FontWeight="Black" Foreground="White" BorderThickness="0" HorizontalAlignment="Right" VerticalAlignment="Top">
+            <Button Content="Delete" Name="DeleteButton" Grid.Row="2" Visibility="Hidden" Click="DeleteButtonClick" Width="140" Height="60"  FontSize="30" FontWeight="Black" Foreground="White" BorderThickness="0" HorizontalAlignment="Right" VerticalAlignment="Top">
                 <Button.Style>
                     <Style TargetType="{x:Type Button}">
                         <Setter Property="Background" Value="#C84920"/>

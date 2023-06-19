@@ -162,6 +162,10 @@
     </EmbeddedResource>
     <None Include="Database\bookInformation.csv" />
     <None Include="Database\accountInformation.csv" />
+    <Resource Include="Fonts\Inter-Black.ttf" />
+    <Resource Include="Fonts\Inter-Bold.ttf" />
+    <Resource Include="Fonts\Inter-Medium.ttf" />
+    <Resource Include="Fonts\Inter-Regular.ttf" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

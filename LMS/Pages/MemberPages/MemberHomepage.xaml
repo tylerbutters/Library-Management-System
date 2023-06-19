@@ -35,19 +35,19 @@
                 <ColumnDefinition Width="1*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <StackPanel Grid.Column="0">
-                <TextBlock Text="ID" FontFamily="Inter" FontSize="25" FontWeight="Black"/>
+                <TextBlock Text="ID"  FontSize="25" FontWeight="Black"/>
                 <TextBlock Text="Example" Name="ID" FontWeight="Medium" FontSize="20"/>
             </StackPanel>
             <StackPanel Grid.Column="1">
-                <TextBlock Text="First Name" FontFamily="Inter" FontSize="25" FontWeight="Black"/>
+                <TextBlock Text="First Name"  FontSize="25" FontWeight="Black"/>
                 <TextBlock Text="Example" Name="FirstName" FontWeight="Medium" FontSize="20"/>
             </StackPanel>
             <StackPanel Grid.Column="2">
-                <TextBlock Text="Last Name" FontFamily="Inter" FontSize="25" FontWeight="Black"/>
+                <TextBlock Text="Last Name"  FontSize="25" FontWeight="Black"/>
                 <TextBlock Text="Example" Name="LastName" FontWeight="Medium" FontSize="20"/>
             </StackPanel>
             <StackPanel Grid.Column="3">
-                <TextBlock Text="Email" FontFamily="Inter" FontSize="25" FontWeight="Black"/>
+                <TextBlock Text="Email"  FontSize="25" FontWeight="Black"/>
                 <TextBlock Text="Example" Name="Email" FontWeight="Medium" FontSize="20"/>
             </StackPanel>
         </Grid>
