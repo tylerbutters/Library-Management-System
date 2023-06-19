@@ -45,7 +45,7 @@
                             <ColumnDefinition Width="1*"></ColumnDefinition>
                             <ColumnDefinition Width="1*"></ColumnDefinition>
                         </Grid.ColumnDefinitions>
-                        <Grid Grid.Column="0">
+                        <Grid Grid.Column="0" Margin="0 0 10 0">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="1*"></RowDefinition>
                                 <RowDefinition Height="1*"></RowDefinition>
@@ -63,8 +63,12 @@
                                 </TextBox>
                             </StackPanel>
 
-                            <StackPanel Grid.Row="1"  Orientation="Horizontal">
-                                <StackPanel VerticalAlignment="Bottom" Margin="0 0 10 0" Width="235">
+                                <Grid Grid.Row="1">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="1*"></ColumnDefinition>
+                                    <ColumnDefinition Width="1*"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <StackPanel Grid.Column="0" VerticalAlignment="Bottom" Margin="0 0 10 0">
                                     <TextBlock Text="Author First Name" Margin="0 20 0 5" FontFamily="Inter" FontSize="25" FontWeight="Black"/>
                                     <TextBox Name="authorFirstNameInput" Padding="20 0 0 0" Height="60" FontSize="20" Background="#e7ead4" BorderThickness="0" VerticalContentAlignment="Center">
                                         <TextBox.Resources>
@@ -74,7 +78,7 @@
                                         </TextBox.Resources>
                                     </TextBox>
                                 </StackPanel>
-                                <StackPanel VerticalAlignment="Bottom" Margin="10 0 0 0" Width="235">
+                                <StackPanel Grid.Column="1" VerticalAlignment="Bottom" Margin="10 0 0 0">
                                     <TextBlock Text="Author Last Name" Margin="0 20 0 5" FontFamily="Inter" FontSize="25" FontWeight="Black"/>
                                     <TextBox Name="authorLastNameInput" Padding="20 0 0 0" Height="60" FontSize="20" Background="#e7ead4" BorderThickness="0" VerticalContentAlignment="Center">
                                         <TextBox.Resources>
@@ -84,7 +88,7 @@
                                         </TextBox.Resources>
                                     </TextBox>
                                 </StackPanel>
-                            </StackPanel>
+                            </Grid>
 
                             <StackPanel Grid.Row="2" >
                                 <TextBlock Text="Tag" Margin="0 20 0 5" FontFamily="Inter" FontSize="25" FontWeight="Black"/>
@@ -99,7 +103,7 @@
                             <StackPanel Grid.Row="3">
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock Text="Cover" Margin="0 20 0 5" FontFamily="Inter" FontSize="25" FontWeight="Black"/>
-                                    <Button Content="Select Image" Click="SelectImageButtonClick" Width="200" Height="40" Margin="30 0 0 5" FontFamily="inter" FontSize="20" FontWeight="Medium" Foreground="White" BorderThickness="0" VerticalAlignment="Bottom">
+                                    <Button Content="Select Image" Click="SelectImageButtonClick" Width="150" Height="30" Margin="20 0 0 5" FontFamily="inter" FontSize="17" FontWeight="Medium" Foreground="White" BorderThickness="0" VerticalAlignment="Bottom">
                                         <Button.Style>
                                             <Style TargetType="{x:Type Button}">
                                                 <Setter Property="Background" Value="#bcce50"/>
@@ -141,9 +145,9 @@
 
 
                         
-                    <StackPanel Grid.Column="1" Width="490" Margin="10 0 0 0">
+                    <StackPanel Grid.Column="1" Margin="10 0 0 0">
                         <TextBlock Text="Summary" Margin="0 20 0 5" FontFamily="Inter" FontSize="25" FontWeight="Black"/>
-                            <TextBox Name="summaryInput" Padding="20" Height="400" FontSize="20" Background="#e7ead4" BorderThickness="0" TextWrapping="Wrap">
+                            <TextBox Name="summaryInput" Padding="20" Height="410" FontSize="20" Background="#e7ead4" BorderThickness="0" TextWrapping="Wrap">
                             <TextBox.Resources>
                                 <Style TargetType="Border">
                                     <Setter Property="CornerRadius" Value="10"/>

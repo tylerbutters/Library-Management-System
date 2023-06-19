@@ -8,10 +8,19 @@
       Title="AdminHomepage">
 
     <Grid Background="#FDFFEE">
-        <StackPanel Name="Navbar" Background="#417422" VerticalAlignment="Top" HorizontalAlignment="Center" Height="250">
-            <DockPanel Name="TopNavBar" VerticalAlignment="Bottom" Margin="0 70 0 45">
-                <Grid Width="450">
-                    <Button Name="AddBookButton" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0 0 50 0" Width="75" Height="75" BorderThickness="0" Click="AddButtonClick">
+        <Grid Name="Navbar" Background="#417422" VerticalAlignment="Top" Height="250">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="3*"></RowDefinition>
+                <RowDefinition Height="1*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid Name="TopNavBar" Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"></ColumnDefinition>
+                    <ColumnDefinition Width="2.6*"></ColumnDefinition>
+                    <ColumnDefinition Width="1*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Column="0">
+                    <Button Name="AddBookButton" VerticalAlignment="Center" HorizontalAlignment="Right" Width="75" Height="75" BorderThickness="0" Click="AddButtonClick">
                         <Image Source="pack://application:,,,/Assets/addIcon.png" Width="45"/>
                         <Button.Style>
                             <Style TargetType="{x:Type Button}">
@@ -39,7 +48,7 @@
                         </Button.Resources>
                     </Button>
                 </Grid>
-                <Grid Width="auto" HorizontalAlignment="Center">
+                <Grid Grid.Column="1" HorizontalAlignment="Center">
                     <Grid Width="1020" Height="75">
                         <Border Background="White" CornerRadius="20" />
                         <Grid>
@@ -55,8 +64,8 @@
                     </Grid>
 
                 </Grid>
-                <Grid Name="LogoutArea" Width="450">
-                    <Button Content="Log out" HorizontalAlignment="Left" Margin="50 0 0 0" Width="200" Height="75" FontSize="30" FontWeight="Black" Foreground="White" BorderThickness="0" Click="LogoutButtonClick">
+                <Grid Name="LogoutArea" Grid.Column="2">
+                    <Button Content="Log out" HorizontalAlignment="Left" Width="200" Height="75" FontSize="30" FontWeight="Black" Foreground="White" BorderThickness="0" Click="LogoutButtonClick">
                         <Button.Style>
                             <Style TargetType="{x:Type Button}">
                                 <Setter Property="Background" Value="#C84920"/>
@@ -83,62 +92,69 @@
                         </Button.Resources>
                     </Button>
                 </Grid>
-            </DockPanel>
-            <DockPanel Name ="BottomNavBar" VerticalAlignment="Bottom" Width="500">
-                <Button Content="Members" Name="MemberPageButton" Width="235" Height="60" Background="#FDFEEE" FontWeight="Black" FontSize="35" Foreground="Black" HorizontalAlignment="Left" BorderThickness="0" Click="MemberPageButtonClick">
-                    <Button.Style>
-                        <Style TargetType="{x:Type Button}">
-                            <Setter Property="Template">
-                                <Setter.Value>
-                                    <ControlTemplate TargetType="{x:Type Button}">
-                                        <Border Background="{TemplateBinding Background}">
-                                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                        </Border>
-                                    </ControlTemplate>
-                                </Setter.Value>
-                            </Setter>
-                            <Style.Triggers>
-                                <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter Property="Background" Value="#933618"/>
-                                </Trigger>
-                            </Style.Triggers>
-                        </Style>
-                    </Button.Style>
-                    <Button.Resources>
-                        <Style TargetType="Border">
-                            <Setter Property="CornerRadius" Value="10 10 0 0"/>
-                        </Style>
-                    </Button.Resources>
-                </Button>
-                <Button Content="Books" Name="BookPageButton" Width="235" Height="60" FontWeight="Black" FontSize="35" Foreground="White" Background="#6FAB4A" HorizontalAlignment="Right" BorderThickness="0" Click="BookPageButtonClick">
-                    <Button.Style>
-                        <Style TargetType="{x:Type Button}">
-                            <Setter Property="Template">
-                                <Setter.Value>
-                                    <ControlTemplate TargetType="{x:Type Button}">
-                                        <Border Background="{TemplateBinding Background}">
-                                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                        </Border>
-                                    </ControlTemplate>
-                                </Setter.Value>
-                            </Setter>
-                            <Style.Triggers>
-                                <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter Property="Background" Value="#933618"/>
-                                </Trigger>
-                            </Style.Triggers>
-                        </Style>
-                    </Button.Style>
-                    <Button.Resources>
-                        <Style TargetType="Border">
-                            <Setter Property="CornerRadius" Value="10 10 0 0"/>
-                        </Style>
-                    </Button.Resources>
-                </Button>
-            </DockPanel>
-        </StackPanel>
-        <StackPanel Height="750" VerticalAlignment="Bottom">
-            <Frame Name="PageContent"></Frame>
-        </StackPanel>
+            </Grid>
+            <Grid Name="BottomNavBar" Grid.Row="1" Width="500"  VerticalAlignment="Bottom">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"></ColumnDefinition>
+                    <ColumnDefinition Width="1*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Column="0">
+                    <Button Content="Members" Name="MemberPageButton" Width="235" Height="60" Background="#FDFEEE" FontWeight="Black" FontSize="35" Foreground="Black" HorizontalAlignment="Left" BorderThickness="0" Click="MemberPageButtonClick">
+                        <Button.Style>
+                            <Style TargetType="{x:Type Button}">
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="{x:Type Button}">
+                                            <Border Background="{TemplateBinding Background}">
+                                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                            </Border>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="#933618"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                        <Button.Resources>
+                            <Style TargetType="Border">
+                                <Setter Property="CornerRadius" Value="10 10 0 0"/>
+                            </Style>
+                        </Button.Resources>
+                    </Button>
+                </Grid>
+                <Grid Grid.Column="1">
+                    <Button Content="Books" Name="BookPageButton" Width="235" Height="60" FontWeight="Black" FontSize="35" Foreground="White" Background="#6FAB4A" HorizontalAlignment="Right" BorderThickness="0" Click="BookPageButtonClick">
+                        <Button.Style>
+                            <Style TargetType="{x:Type Button}">
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="{x:Type Button}">
+                                            <Border Background="{TemplateBinding Background}">
+                                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                            </Border>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="#933618"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                        <Button.Resources>
+                            <Style TargetType="Border">
+                                <Setter Property="CornerRadius" Value="10 10 0 0"/>
+                            </Style>
+                        </Button.Resources>
+                    </Button>
+                </Grid>
+
+            </Grid>
+        </Grid>
+        <Frame Height="750" VerticalAlignment="Bottom" Name="PageContent"/>
     </Grid>
 </Page>

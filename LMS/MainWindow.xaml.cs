@@ -24,9 +24,9 @@ namespace LMS
     /// </summary>
     public partial class MainWindow : Window
     {
-        public LoginPage loginPage;
-        public MemberMainPage memberMainPage;
-        public AdminMainPage adminMainPage;
+        private LoginPage loginPage;
+        private MemberMainPage memberMainPage;
+        private AdminMainPage adminMainPage;
 
         public MainWindow()
         {

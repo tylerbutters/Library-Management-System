@@ -24,35 +24,31 @@ namespace LMS.Pages.AdminPages
         public delegate void NavigateToLoginPage(object sender, RoutedEventArgs e);
         public event NavigateToLoginPage navigateToLoginPage;
 
-        public bool isOnMemberPage = true;
+        private bool isOnMemberPage = true;
 
-        public MemberTable memberTable = new MemberTable();
-        public AddMemberPage addMemberPage = new AddMemberPage();
-        public ViewMemberPage viewMemberPage;
+        private MemberTable memberTable = new MemberTable();
+        private AddMemberPage addMemberPage = new AddMemberPage();
+        private ViewMemberPage viewMemberPage;
 
-        public BookTable bookTable = new BookTable();
-        public AddBookPage addBookPage = new AddBookPage();
-        public ViewBookPage viewBookPage;
+        private BookTable bookTable = new BookTable();
+        private AddBookPage addBookPage = new AddBookPage();
+        private ViewBookPage viewBookPage;
 
-        public DataGrid bookDataGrid;
-        public DataGrid memberDataGrid;
+        private DataGrid bookDataGrid;
+        private DataGrid memberDataGrid;
         public AdminMainPage()
         {
             InitializeComponent();
             PageContent.Content = memberTable;
 
             memberDataGrid = memberTable.memberDataGridInfo;
-            bookDataGrid = bookTable.bookDataGridInfo; 
+            bookDataGrid = bookTable.bookDataGridInfo;
 
             SearchBar.KeyDown += SearchbarKeyDown;
             memberTable.navigateToViewMemberPage += NavigateToViewMemberPage;
             bookTable.navigateToViewBookPage += NavigateToViewBookPage;
             addMemberPage.navigateToMemberPage += MemberPageButtonClick;
             addBookPage.navigateToBookPage += BookPageButtonClick;
-        }
-        private void LogoutButtonClick(object sender, RoutedEventArgs e)
-        {
-            navigateToLoginPage(sender, e);
         }
         public void NavigateToViewMemberPage(object sender, RoutedEventArgs e)
         {
@@ -64,6 +60,10 @@ namespace LMS.Pages.AdminPages
 
             viewBookPage = new ViewBookPage(bookTable.selectedBook);
             PageContent.Content = viewBookPage;
+        }
+        private void LogoutButtonClick(object sender, RoutedEventArgs e)
+        {
+            navigateToLoginPage(sender, e);
         }
         private void AddButtonClick(object sender, RoutedEventArgs e)
         {

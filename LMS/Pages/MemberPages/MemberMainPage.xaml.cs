@@ -23,7 +23,7 @@ namespace LMS.Pages.MemberPages
         public delegate void NavigateToLoginPage(object sender, RoutedEventArgs e);
         public event NavigateToLoginPage navigateToLoginPage;
 
-        public MemberHomePage memberHomePage;
+        private MemberHomePage memberHomePage;
 
         public MemberMainPage(Member loggedInMember)
         {

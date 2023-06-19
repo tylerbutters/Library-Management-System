@@ -9,10 +9,15 @@
 
 
     <Grid Background="#fdffee">
-        <StackPanel Orientation="Horizontal" Name="Navbar" Background="#417422" VerticalAlignment="Top" HorizontalAlignment="Center" Height="200">
-            <Grid Width="450">
-                <Button Name="HomeButton" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0 0 50 0" Width="75" Height="75" BorderThickness="0" Click="HomeButtonClick">
-                        <Image Source="pack://application:,,,/Images/homeIcon.png" Width="50"/>
+        <Grid Name="Navbar" Background="#417422" VerticalAlignment="Top" Height="200">
+            <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"></ColumnDefinition>
+                    <ColumnDefinition Width="2.6*"></ColumnDefinition>
+                    <ColumnDefinition Width="1*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Column="0">
+                    <Button Name="HomeButton" VerticalAlignment="Center" HorizontalAlignment="Right" Width="75" Height="75" BorderThickness="0" Click="HomeButtonClick">
+                        <Image Source="pack://application:,,,/Assets/homeIcon.png" Width="45"/>
                         <Button.Style>
                             <Style TargetType="{x:Type Button}">
                                 <Setter Property="Background" Value="#BFCA43"/>
@@ -39,7 +44,7 @@
                         </Button.Resources>
                     </Button>
                 </Grid>
-                <Grid Width="auto" HorizontalAlignment="Center">
+                <Grid Grid.Column="1" HorizontalAlignment="Center">
                     <Grid Width="1020" Height="75">
                         <Border Background="White" CornerRadius="20" />
                         <Grid>
@@ -48,15 +53,15 @@
                                 <ColumnDefinition />
                             </Grid.ColumnDefinitions>
                             <Button Grid.Column="0" Background="Transparent" BorderThickness="0" Margin="15 0 0 0" Width="50" Click="SearchIconButtonClick">
-                                <Image Source="pack://application:,,,/Images/searchIcon.png"/>
+                                <Image Source="pack://application:,,,/Assets/searchIcon.png"/>
                             </Button>
                             <TextBox FontSize="25" x:Name="SearchBar" Background="Transparent" FontWeight="Medium" BorderThickness="0" Margin="15 0 0 0" Grid.Column="1" VerticalContentAlignment="Center" Text="Search..." Foreground="Gray" LostFocus="SearchBarLostFocus" GotFocus="SearchBarGotFocus"/>
                         </Grid>
                     </Grid>
 
                 </Grid>
-            <Grid Name="LogoutArea" Width="450">
-                <Button Content="Log out" HorizontalAlignment="Left" Margin="50 0 0 0" Width="200" Height="75" FontSize="30" FontWeight="Black" Foreground="White" BorderThickness="0" Click="LogoutButtonClick">
+            <Grid Name="LogoutArea" Grid.Column="2">
+                <Button Content="Log out" HorizontalAlignment="Left" Width="200" Height="75" FontSize="30" FontWeight="Black" Foreground="White" BorderThickness="0" Click="LogoutButtonClick">
                     <Button.Style>
                         <Style TargetType="{x:Type Button}">
                             <Setter Property="Background" Value="#C84920"/>
@@ -83,7 +88,7 @@
                     </Button.Resources>
                 </Button>
             </Grid>
-        </StackPanel>
+        </Grid>
         <Frame Name="PageContent" Height="750" VerticalAlignment="Bottom" Margin="0 0 0 30"></Frame>
     </Grid>
 </Page>

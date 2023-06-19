@@ -32,30 +32,28 @@ namespace LMS.Pages.AdminPages
         {
             InitializeComponent();
         }
-        public int GenerateRandomID()
+        private int GenerateRandomID()
         {
             int min = 10000;
             int max = 99999;
             return new Random().Next(min, max);
         }
-        public string GenerateNewImageAddress(string title, string existingImageAddressInput)
+        private string GenerateNewImageAddress(string title, string existingImageAddressInput)
         {
-            string imageDirectory = @"CoverImages\";                                                                                                                                       //Folder to contain new Image
-            string cleanedExistingAddressInput = string.Join("_", System.IO.Path.GetInvalidPathChars().Aggregate(existingImageAddressInput, (current, c) => current.Replace(c.ToString(), "")));    //Removes illegal path characters.
-            string fileExtension = System.IO.Path.GetExtension(cleanedExistingAddressInput);                                                                                      //gets file extension of existing image       
-            //string imageExtension = fileExtension.TrimStart('\\');
-            string cleanedTitle = string.Join("_", System.IO.Path.GetInvalidFileNameChars().Aggregate(title, (current, c) => current.Replace(c.ToString(), ""))).Replace(" ", "_");                  //Removes illegal filename characters from book title.                                                                                                                                                                                        //makes an address and name for the new copy, preserves existing filetype. (does NOT save a copy yet)
-            string newImageAddress = $"{imageDirectory}{cleanedTitle}{fileExtension}";
-            return newImageAddress;
+            string folderPath = @"CoverImages\";//Folder to contain new Image
+            string cleanedExistingAddressInput = string.Join("_", System.IO.Path.GetInvalidPathChars().Aggregate(existingImageAddressInput, (current, c) => current.Replace(c.ToString(), "")));//Removes illegal path characters.
+            string fileExtension = System.IO.Path.GetExtension(cleanedExistingAddressInput);//gets file extension of existing image       
+            string cleanedTitle = string.Join("_", System.IO.Path.GetInvalidFileNameChars().Aggregate(title, (current, c) => current.Replace(c.ToString(), ""))).Replace(" ", "_");//Removes illegal filename characters from book title.                                                                                                                                                                                        //makes an address and name for the new copy, preserves existing filetype. (does NOT save a copy yet)
+            
+            return $"{folderPath}{cleanedTitle}{fileExtension}";
         }
 
         //Select Image File button handler
-        public void SelectImageButtonClick(object sender, RoutedEventArgs e)
+        private void SelectImageButtonClick(object sender, RoutedEventArgs e)
         {
             selectedFile = SelectImageDialog();
-
         }
-        public string SelectImageDialog()
+        private string SelectImageDialog()
         {
             OpenFileDialog openFileDialog = new OpenFileDialog
             {

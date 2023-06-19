@@ -22,8 +22,8 @@ namespace LMS.Pages.AdminPages
     {
         public delegate void NavigateToViewMemberPage (object send, RoutedEventArgs e);
         public event NavigateToViewMemberPage navigateToViewMemberPage;
-        public DataGrid memberDataGridInfo { get; internal set;}
-        internal Member selectedMember { get; set; }
+        public DataGrid memberDataGridInfo;
+        public Member selectedMember;
         public MemberTable()
         {
             InitializeComponent();

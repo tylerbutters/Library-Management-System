@@ -20,7 +20,7 @@ namespace LMS.Pages.AdminPages
     /// </summary>
     public partial class ViewBookPage : Page
     {
-        public Book bookInfo { get; set; }
+        public Book bookInfo;
         public ViewBookPage(Book book)
         {
             bookInfo = book;

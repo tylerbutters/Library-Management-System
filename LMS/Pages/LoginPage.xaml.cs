@@ -26,8 +26,8 @@ namespace LMS.Pages
         public event NavigateToMemberMainPage navigateToMemberMainPage;
         public delegate void NavigateToAdminMainPage(object sender, RoutedEventArgs e);
         public event NavigateToAdminMainPage navigateToAdminMainPage;
-        
-        public Member loggedInMember { get; set; }
+
+        public Member loggedInMember;
         public LoginPage()
         {
             InitializeComponent();
@@ -62,11 +62,11 @@ namespace LMS.Pages
                 {
                     loggedInMember = (Member)authenticatedAccount;
 
-                        navigateToMemberMainPage(sender, e);
+                    navigateToMemberMainPage(sender, e);
                 }
                 else if (authenticatedAccount is Admin)
                 {
-                        navigateToAdminMainPage(sender, e);                  
+                    navigateToAdminMainPage(sender, e);
                 }
             }
             else

@@ -21,8 +21,8 @@ namespace LMS.Pages.AdminPages
     /// </summary>
     public partial class ViewMemberPage : Page
     {
-  
-        public Member memberInfo { get; set; }
+
+        private Member memberInfo;
 
         //Member info from login and member class's are passed through parameters and displayed in each text example.
         public ViewMemberPage(Member member)

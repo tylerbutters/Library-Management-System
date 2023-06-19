@@ -10,9 +10,8 @@ namespace LMS
 {
     public class FileManagement
     {
-        private static string AccountFile { get; set; } = @".\Database\accountInformation.csv";
-        public static string BookFile { get; set; } = @".\Database\bookInformation.csv";
-        
+        private const string AccountFile = @".\Database\accountInformation.csv";
+        private const string BookFile = @".\Database\bookInformation.csv";
         public static List<Account> LoadAccounts()
         {
             string[] rows = File.ReadAllLines(AccountFile);
