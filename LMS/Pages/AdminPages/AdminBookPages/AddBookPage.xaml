@@ -36,27 +36,25 @@
         </Button>
         <Border CornerRadius="10" Background="#E7EAD4" Height="745" Width="1276">
             <Border CornerRadius="10" Background="White" Height="700" Width="1226">
-
-                <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Width="1000">
+                <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Height="620" Width="auto">
                     <TextBlock Text="Add Book" FontFamily="Inter" FontSize="40" FontWeight="Black" HorizontalAlignment="Center"/>
                 
                 
-                <StackPanel Orientation="Horizontal">
-
-
-                        <StackPanel Width="490" Margin="00 0 10 0">
-                        <TextBlock Text="Title" Margin="0 20 0 5" FontFamily="Inter" FontSize="25" FontWeight="Black"/>
-                        <TextBox  Name="titleInput" Padding="20 0 0 0" Height="60" FontSize="20" Background="#e7ead4" BorderThickness="0" VerticalContentAlignment="Center">
-                            <TextBox.Resources>
-                                <Style TargetType="Border">
-                                    <Setter Property="CornerRadius" Value="10"/>
-                                </Style>
-                            </TextBox.Resources>
-                        </TextBox>
-                        <StackPanel Orientation="Horizontal">
-                            <StackPanel VerticalAlignment="Bottom" Margin="0 0 10 0" Width="235">
-                                <TextBlock Text="Author First Name" Margin="0 20 0 5" FontFamily="Inter" FontSize="25" FontWeight="Black"/>
-                                <TextBox Name="authorFirstNameInput" Padding="20 0 0 0" Height="60" FontSize="20" Background="#e7ead4" BorderThickness="0" VerticalContentAlignment="Center">
+                <Grid Width="1100" Height="auto">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*"></ColumnDefinition>
+                            <ColumnDefinition Width="1*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid Grid.Column="0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="1*"></RowDefinition>
+                                <RowDefinition Height="1*"></RowDefinition>
+                                <RowDefinition Height="1*"></RowDefinition>
+                                <RowDefinition Height="1*"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <StackPanel Grid.Row="0">
+                                <TextBlock Text="Title" Margin="0 20 0 5" FontFamily="Inter" FontSize="25" FontWeight="Black"/>
+                                <TextBox  Name="titleInput" Padding="20 0 0 0" Height="60" FontSize="20" Background="#e7ead4" BorderThickness="0" VerticalContentAlignment="Center">
                                     <TextBox.Resources>
                                         <Style TargetType="Border">
                                             <Setter Property="CornerRadius" Value="10"/>
@@ -64,9 +62,33 @@
                                     </TextBox.Resources>
                                 </TextBox>
                             </StackPanel>
-                            <StackPanel VerticalAlignment="Bottom" Margin="10 0 0 0" Width="235">
-                                <TextBlock Text="Author Last Name" Margin="0 20 0 5" FontFamily="Inter" FontSize="25" FontWeight="Black"/>
-                                <TextBox Name="authorLastNameInput" Padding="20 0 0 0" Height="60" FontSize="20" Background="#e7ead4" BorderThickness="0" VerticalContentAlignment="Center">
+
+                            <StackPanel Grid.Row="1"  Orientation="Horizontal">
+                                <StackPanel VerticalAlignment="Bottom" Margin="0 0 10 0" Width="235">
+                                    <TextBlock Text="Author First Name" Margin="0 20 0 5" FontFamily="Inter" FontSize="25" FontWeight="Black"/>
+                                    <TextBox Name="authorFirstNameInput" Padding="20 0 0 0" Height="60" FontSize="20" Background="#e7ead4" BorderThickness="0" VerticalContentAlignment="Center">
+                                        <TextBox.Resources>
+                                            <Style TargetType="Border">
+                                                <Setter Property="CornerRadius" Value="10"/>
+                                            </Style>
+                                        </TextBox.Resources>
+                                    </TextBox>
+                                </StackPanel>
+                                <StackPanel VerticalAlignment="Bottom" Margin="10 0 0 0" Width="235">
+                                    <TextBlock Text="Author Last Name" Margin="0 20 0 5" FontFamily="Inter" FontSize="25" FontWeight="Black"/>
+                                    <TextBox Name="authorLastNameInput" Padding="20 0 0 0" Height="60" FontSize="20" Background="#e7ead4" BorderThickness="0" VerticalContentAlignment="Center">
+                                        <TextBox.Resources>
+                                            <Style TargetType="Border">
+                                                <Setter Property="CornerRadius" Value="10"/>
+                                            </Style>
+                                        </TextBox.Resources>
+                                    </TextBox>
+                                </StackPanel>
+                            </StackPanel>
+
+                            <StackPanel Grid.Row="2" >
+                                <TextBlock Text="Tag" Margin="0 20 0 5" FontFamily="Inter" FontSize="25" FontWeight="Black"/>
+                                <TextBox Name="tagInput" Padding="20 0 0 0" Height="60" FontSize="20" Background="#e7ead4" BorderThickness="0" VerticalContentAlignment="Center">
                                     <TextBox.Resources>
                                         <Style TargetType="Border">
                                             <Setter Property="CornerRadius" Value="10"/>
@@ -74,19 +96,54 @@
                                     </TextBox.Resources>
                                 </TextBox>
                             </StackPanel>
-                        </StackPanel>
-                        <TextBlock Text="Tag" Margin="0 20 0 5" FontFamily="Inter" FontSize="25" FontWeight="Black"/>
-                        <TextBox Name="tagInput" Padding="20 0 0 0" Height="60" FontSize="20" Background="#e7ead4" BorderThickness="0" VerticalContentAlignment="Center">
-                            <TextBox.Resources>
-                                <Style TargetType="Border">
-                                    <Setter Property="CornerRadius" Value="10"/>
-                                </Style>
-                            </TextBox.Resources>
-                        </TextBox>
-                    </StackPanel>
-                    <StackPanel Width="490" Margin="10 0 0 0">
+                            <StackPanel Grid.Row="3">
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="Cover" Margin="0 20 0 5" FontFamily="Inter" FontSize="25" FontWeight="Black"/>
+                                    <Button Content="Select Image" Click="SelectImageButtonClick" Width="200" Height="40" Margin="30 0 0 5" FontFamily="inter" FontSize="20" FontWeight="Medium" Foreground="White" BorderThickness="0" VerticalAlignment="Bottom">
+                                        <Button.Style>
+                                            <Style TargetType="{x:Type Button}">
+                                                <Setter Property="Background" Value="#bcce50"/>
+                                                <Setter Property="Template">
+                                                    <Setter.Value>
+                                                        <ControlTemplate TargetType="{x:Type Button}">
+                                                            <Border Background="{TemplateBinding Background}">
+                                                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                            </Border>
+                                                        </ControlTemplate>
+                                                    </Setter.Value>
+                                                </Setter>
+                                                <Style.Triggers>
+                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                        <Setter Property="Background" Value="#A5AE38"/>
+                                                    </Trigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Button.Style>
+                                        <Button.Resources>
+                                            <Style TargetType="Border">
+                                                <Setter Property="CornerRadius" Value="10"/>
+                                            </Style>
+                                        </Button.Resources>
+                                    </Button>
+                                </StackPanel>
+                                
+                                <TextBox Name="selectedImageAddress" IsReadOnly="True" TextWrapping="Wrap"  Padding="20 0 0 0"  Height="60" FontSize="20" Background="#e7ead4" BorderThickness="0" VerticalContentAlignment="Center">
+                                    <TextBox.Resources>
+                                        <Style TargetType="Border">
+                                            <Setter Property="CornerRadius" Value="10"/>
+                                        </Style>
+                                    </TextBox.Resources>
+                                </TextBox>
+                                
+                            </StackPanel>
+                        </Grid>
+
+
+
+                        
+                    <StackPanel Grid.Column="1" Width="490" Margin="10 0 0 0">
                         <TextBlock Text="Summary" Margin="0 20 0 5" FontFamily="Inter" FontSize="25" FontWeight="Black"/>
-                            <TextBox Name="summaryInput" Padding="20" Height="290" FontSize="20" Background="#e7ead4" BorderThickness="0" TextWrapping="Wrap">
+                            <TextBox Name="summaryInput" Padding="20" Height="400" FontSize="20" Background="#e7ead4" BorderThickness="0" TextWrapping="Wrap">
                             <TextBox.Resources>
                                 <Style TargetType="Border">
                                     <Setter Property="CornerRadius" Value="10"/>
@@ -94,9 +151,8 @@
                             </TextBox.Resources>
                         </TextBox>
                     </StackPanel>
-                    
-                    </StackPanel>
-                    <Button Content="Save" Click="SaveNewBookButtonClick" Width="200" Height="75" Margin="0 60 0 0" FontFamily="inter" FontSize="30" FontWeight="Black" Foreground="White" BorderThickness="0">
+                        </Grid>
+                            <Button Content="Save" Click="SaveNewBookButtonClick" Width="200" Height="75" Margin="0 30 0 0" FontFamily="inter" FontSize="30" FontWeight="Black" Foreground="White" BorderThickness="0">
                         <Button.Style>
                             <Style TargetType="{x:Type Button}">
                                 <Setter Property="Background" Value="#bcce50"/>
