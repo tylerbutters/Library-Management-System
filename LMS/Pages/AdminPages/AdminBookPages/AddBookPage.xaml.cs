@@ -13,6 +13,10 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.ComponentModel;
+using System.Reflection;
+using Microsoft.Win32;
+using System.Runtime.CompilerServices;
 
 namespace LMS.Pages.AdminPages
 {
@@ -23,15 +27,56 @@ namespace LMS.Pages.AdminPages
     {
         public delegate void NavigateToBookPage(object sender, RoutedEventArgs e);
         public event NavigateToBookPage navigateToBookPage;
+        public string selectedFile;
         public AddBookPage()
         {
             InitializeComponent();
         }
         public int GenerateRandomID()
         {
-            int min = 10000; 
+            int min = 10000;
             int max = 99999;
             return new Random().Next(min, max);
+        }
+        public string GenerateNewImageAddress(string title, string existingImageAddressInput)
+        {
+            string imageDirectory = @"Database\CoverImages\";                                                                                                                                       //Folder to contain new Image
+            string cleanedExistingAddressInput = string.Join("_", System.IO.Path.GetInvalidPathChars().Aggregate(existingImageAddressInput, (current, c) => current.Replace(c.ToString(), "")));    //Removes illegal path characters.
+            string fileExtension = System.IO.Path.GetExtension(cleanedExistingAddressInput);                                                                                      //gets file extension of existing image       
+            //string imageExtension = fileExtension.TrimStart('\\');
+            string cleanedTitle = string.Join("_", System.IO.Path.GetInvalidFileNameChars().Aggregate(title, (current, c) => current.Replace(c.ToString(), ""))).Replace(" ", "_");                  //Removes illegal filename characters from book title.                                                                                                                                                                                        //makes an address and name for the new copy, preserves existing filetype. (does NOT save a copy yet)
+            string newImageAddress = $"{imageDirectory}{cleanedTitle}{fileExtension}";
+            return newImageAddress;
+        }
+
+        //Select Image File button handler
+        public void SelectImageButtonClick(object sender, RoutedEventArgs e)
+        {
+            selectedFile = SelectImageDialog();
+
+        }
+        public string SelectImageDialog()
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog
+            {
+                Filter = "All Files (*.*)|*.*",
+                InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop),
+                Title = "Select a cover image"
+            };
+
+            bool? result = openFileDialog.ShowDialog();
+
+            if (result == true)
+            {
+                string selectedFile = openFileDialog.FileName;
+                selectedImageAddress.Text = selectedFile;
+                return selectedFile;
+            }
+            else
+            {
+                MessageBox.Show("No Image Selected");
+                return null;
+            }
         }
         private void SaveNewBookButtonClick(object sender, RoutedEventArgs e)
         {
@@ -44,9 +89,13 @@ namespace LMS.Pages.AdminPages
                 return;
             }
 
+            string newImageAddress = GenerateNewImageAddress(titleInput.Text, selectedFile); //creates new image address and filename
+            File.Copy(selectedFile, newImageAddress);
+
             Book newBook = new Book
             {
                 id = GenerateRandomID().ToString(),
+                cover = newImageAddress,
                 title = titleInput.Text,
                 authorFirstName = authorFirstNameInput.Text,
                 authorLastName = authorLastNameInput.Text,
@@ -75,6 +124,7 @@ namespace LMS.Pages.AdminPages
             authorLastNameInput.Text = "";
             tagInput.Text = "";
             summaryInput.Text = "";
+            selectedImageAddress.Text = "";
         }
         private void BackButtonClick(object sender, RoutedEventArgs e)
         {

@@ -170,5 +170,8 @@
   <ItemGroup>
     <Resource Include="Images\searchIcon.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Database\CoverImages\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
