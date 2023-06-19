@@ -40,7 +40,7 @@ namespace LMS.Pages.AdminPages
         }
         public string GenerateNewImageAddress(string title, string existingImageAddressInput)
         {
-            string imageDirectory = @"Database\CoverImages\";                                                                                                                                       //Folder to contain new Image
+            string imageDirectory = @"CoverImages\";                                                                                                                                       //Folder to contain new Image
             string cleanedExistingAddressInput = string.Join("_", System.IO.Path.GetInvalidPathChars().Aggregate(existingImageAddressInput, (current, c) => current.Replace(c.ToString(), "")));    //Removes illegal path characters.
             string fileExtension = System.IO.Path.GetExtension(cleanedExistingAddressInput);                                                                                      //gets file extension of existing image       
             //string imageExtension = fileExtension.TrimStart('\\');

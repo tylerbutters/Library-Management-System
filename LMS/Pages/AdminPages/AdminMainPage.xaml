@@ -12,7 +12,7 @@
             <DockPanel Name="TopNavBar" VerticalAlignment="Bottom" Margin="0 70 0 45">
                 <Grid Width="450">
                     <Button Name="AddBookButton" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0 0 50 0" Width="75" Height="75" BorderThickness="0" Click="AddButtonClick">
-                        <Image Source="pack://application:,,,/Images/addIcon.png" Width="45"/>
+                        <Image Source="pack://application:,,,/Assets/addIcon.png" Width="45"/>
                         <Button.Style>
                             <Style TargetType="{x:Type Button}">
                                 <Setter Property="Background" Value="#BFCA43"/>
@@ -48,7 +48,7 @@
                                 <ColumnDefinition />
                             </Grid.ColumnDefinitions>
                             <Button Grid.Column="0" Background="Transparent" BorderThickness="0" Margin="15 0 0 0" Width="50" Click="SearchIconButtonClick">
-                                <Image Source="pack://application:,,,/Images/searchIcon.png"/>
+                                <Image Source="pack://application:,,,/Assets/searchIcon.png"/>
                             </Button>
                             <TextBox FontSize="25" x:Name="SearchBar" Background="Transparent" FontWeight="Medium" BorderThickness="0" Margin="15 0 0 0" Grid.Column="1" VerticalContentAlignment="Center" Text="Search..." Foreground="Gray" LostFocus="SearchBarLostFocus" GotFocus="SearchBarGotFocus"/>
                         </Grid>
