@@ -24,32 +24,45 @@ namespace LMS
     /// </summary>
     public partial class MainWindow : Window
     {
-        public LoginPage loginPage = new LoginPage();
-        public MemberHomepage memberHomepage = new MemberHomepage();
-        public AdminMainPage adminMainPage = new AdminMainPage();
-  
+        public LoginPage loginPage;
+        public MemberMainPage memberMainPage;
+        public AdminMainPage adminMainPage;
+
         public MainWindow()
         {
             InitializeComponent();
-            //Display Login in frame at startup
-            MainWindowFrame.Content = adminMainPage;
-            //MainWindowFrame.Content = loginPage;
+            loginPage = new LoginPage();
+            MainWindowFrame.Content = loginPage;
 
-            loginPage.navigateToMemberHomepage += NavigateToMemberHomepage;
+            loginPage.navigateToMemberMainPage += NavigateToMemberMainPage;
             loginPage.navigateToAdminMainPage += NavigateToAdminMainPage;
-            adminMainPage.navigateToLoginPage += NavigateToLoginPage;
         }
-        public void NavigateToMemberHomepage(object sender, RoutedEventArgs e)
+
+
+        public void NavigateToMemberMainPage(object sender, RoutedEventArgs e)
         {
-            MainWindowFrame.Content = new MemberHomepage();
+            memberMainPage = new MemberMainPage(loginPage.loggedInMember);
+            memberMainPage.navigateToLoginPage += NavigateToLoginPage;
+            MainWindowFrame.Content = memberMainPage;
         }
+
+
         public void NavigateToAdminMainPage(object sender, RoutedEventArgs e)
         {
+            adminMainPage = new AdminMainPage();
+            adminMainPage.navigateToLoginPage += NavigateToLoginPage;
             MainWindowFrame.Content = adminMainPage;
         }
-        public void NavigateToLoginPage(object send, RoutedEventArgs e)
+
+        public void NavigateToLoginPage(object sender, RoutedEventArgs e)
         {
+            loginPage = new LoginPage();
+            loginPage.navigateToMemberMainPage += NavigateToMemberMainPage;
+            loginPage.navigateToAdminMainPage += NavigateToAdminMainPage;
             MainWindowFrame.Content = loginPage;
+            
         }
     }
+
+
 }

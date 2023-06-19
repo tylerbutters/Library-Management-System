@@ -21,6 +21,9 @@ namespace LMS.Pages.AdminPages
     /// </summary>
     public partial class AdminMainPage : Page
     {
+        public delegate void NavigateToLoginPage(object sender, RoutedEventArgs e);
+        public event NavigateToLoginPage navigateToLoginPage;
+
         public bool isOnMemberPage = true;
 
         public MemberTable memberTable = new MemberTable();
@@ -47,9 +50,6 @@ namespace LMS.Pages.AdminPages
             addMemberPage.navigateToMemberPage += MemberPageButtonClick;
             addBookPage.navigateToBookPage += BookPageButtonClick;
         }
-
-        public delegate void NavigateToLogin(object sender, RoutedEventArgs e);
-        public event NavigateToLogin navigateToLoginPage;  
         private void LogoutButtonClick(object sender, RoutedEventArgs e)
         {
             navigateToLoginPage(sender, e);
@@ -153,10 +153,10 @@ namespace LMS.Pages.AdminPages
             {
                 List<Book> searchResults = FileManagement.LoadBooks().Where(book =>
                     book.id.IndexOf(searchInput, StringComparison.OrdinalIgnoreCase) >= 0 ||
+                    book.title.IndexOf(searchInput, StringComparison.OrdinalIgnoreCase) >= 0 ||
                     book.authorFirstName.IndexOf(searchInput, StringComparison.OrdinalIgnoreCase) >= 0 ||
                     book.authorLastName.IndexOf(searchInput, StringComparison.OrdinalIgnoreCase) >= 0 ||
-                    book.tag.IndexOf(searchInput, StringComparison.OrdinalIgnoreCase) >= 0 ||
-                    book.isAvailable.IndexOf(searchInput, StringComparison.OrdinalIgnoreCase) >= 0
+                    book.tag.IndexOf(searchInput, StringComparison.OrdinalIgnoreCase) >= 0
                 ).ToList();
 
                 bookDataGrid.ItemsSource = searchResults;
@@ -175,7 +175,6 @@ namespace LMS.Pages.AdminPages
                 SearchBar.Foreground = Brushes.Black;
             }
         }
-
         private void SearchBarLostFocus(object sender, RoutedEventArgs e)
         {
             if (string.IsNullOrEmpty(SearchBar.Text))
@@ -184,6 +183,5 @@ namespace LMS.Pages.AdminPages
                 SearchBar.Foreground = Brushes.Gray;
             }
         }
-
     }
 }

@@ -16,13 +16,20 @@ using System.Windows.Shapes;
 namespace LMS.Pages.MemberPages
 {
     /// <summary>
-    /// Interaction logic for MemberHomepage.xaml
+    /// Interaction logic for MemberHomePage.xaml
     /// </summary>
-    public partial class MemberHomepage : Page
+    public partial class MemberHomePage : Page
     {
-        public MemberHomepage()
+        public Member memberInfo;
+        public MemberHomePage(Member loggedInMember)
         {
             InitializeComponent();
+            memberInfo = loggedInMember;
+            ID.Text = memberInfo.id;
+            FirstName.Text = memberInfo.firstName;
+            LastName.Text = memberInfo.lastName;
+            Email.Text = memberInfo.email;
+            
         }
     }
 }
