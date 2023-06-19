@@ -22,10 +22,12 @@ namespace LMS.Pages
     /// </summary>
     public partial class LoginPage : Page
     {
-        public delegate void NavigateToMemberHomepage(object sender, RoutedEventArgs e);
-        public event NavigateToMemberHomepage navigateToMemberHomepage;
+        public delegate void NavigateToMemberMainPage(object sender, RoutedEventArgs e);
+        public event NavigateToMemberMainPage navigateToMemberMainPage;
         public delegate void NavigateToAdminMainPage(object sender, RoutedEventArgs e);
         public event NavigateToAdminMainPage navigateToAdminMainPage;
+        
+        public Member loggedInMember { get; set; }
         public LoginPage()
         {
             InitializeComponent();
@@ -58,7 +60,8 @@ namespace LMS.Pages
             {
                 if (authenticatedAccount is Member)
                 {
-                    navigateToMemberHomepage(sender, e);
+                    loggedInMember = (Member)authenticatedAccount;
+                    navigateToMemberMainPage(sender, e);
                 }
                 else if (authenticatedAccount is Admin)
                 {

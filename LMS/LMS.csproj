@@ -116,7 +116,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\MemberPages\MemberHomepage.xaml">
+    <Page Include="Pages\MemberPages\MemberHomePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\MemberPages\MemberMainPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -133,8 +137,11 @@
     <Compile Include="Pages\LoginPage.xaml.cs">
       <DependentUpon>LoginPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\MemberPages\MemberHomepage.xaml.cs">
-      <DependentUpon>MemberHomepage.xaml</DependentUpon>
+    <Compile Include="Pages\MemberPages\MemberHomePage.xaml.cs">
+      <DependentUpon>MemberHomePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\MemberPages\MemberMainPage.xaml.cs">
+      <DependentUpon>MemberMainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>

@@ -25,30 +25,37 @@ namespace LMS
     public partial class MainWindow : Window
     {
         public LoginPage loginPage = new LoginPage();
-        public MemberHomepage memberHomepage = new MemberHomepage();
+        public MemberMainPage memberMainPage = new MemberMainPage(new Member());
         public AdminMainPage adminMainPage = new AdminMainPage();
+
         public MainWindow()
         {
             InitializeComponent();
-            //Display Login in frame at startup
-            MainWindowFrame.Content = adminMainPage;
-            //MainWindowFrame.Content = loginPage;
 
-            loginPage.navigateToMemberHomepage += NavigateToMemberHomepage;
+            MainWindowFrame.Content = loginPage;
+            
+            loginPage.navigateToMemberMainPage += NavigateToMemberMainPage;
             loginPage.navigateToAdminMainPage += NavigateToAdminMainPage;
             adminMainPage.navigateToLoginPage += NavigateToLoginPage;
+            memberMainPage.navigateToLoginPage += NavigateToLoginPage;
         }
-        public void NavigateToMemberHomepage(object sender, RoutedEventArgs e)
+
+        public void NavigateToMemberMainPage(object sender, RoutedEventArgs e)
         {
-            MainWindowFrame.Content = memberHomepage;
+            memberMainPage = new MemberMainPage(loginPage.loggedInMember);
+            MainWindowFrame.Content = memberMainPage;
         }
+
         public void NavigateToAdminMainPage(object sender, RoutedEventArgs e)
         {
             MainWindowFrame.Content = adminMainPage;
         }
-        public void NavigateToLoginPage(object send, RoutedEventArgs e)
+
+        public void NavigateToLoginPage(object sender, RoutedEventArgs e)
         {
             MainWindowFrame.Content = loginPage;
         }
     }
+
+
 }

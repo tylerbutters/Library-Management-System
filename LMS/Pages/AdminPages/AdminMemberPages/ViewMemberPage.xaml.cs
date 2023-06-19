@@ -25,6 +25,7 @@ namespace LMS.Pages.AdminPages
         {
             memberInfo = member;
             InitializeComponent();
+            memberName.Text = memberInfo.firstName;
         }
     }
 }
