@@ -84,6 +84,6 @@
                 </Button>
             </Grid>
         </StackPanel>
-        <Frame Name="PageContent" Height="800" VerticalAlignment="Bottom"></Frame>
+        <Frame Name="PageContent" Height="750" VerticalAlignment="Bottom" Margin="0 0 0 30"></Frame>
     </Grid>
 </Page>

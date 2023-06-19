@@ -61,11 +61,12 @@ namespace LMS.Pages
                 if (authenticatedAccount is Member)
                 {
                     loggedInMember = (Member)authenticatedAccount;
-                    navigateToMemberMainPage(sender, e);
+
+                        navigateToMemberMainPage(sender, e);
                 }
                 else if (authenticatedAccount is Admin)
                 {
-                    navigateToAdminMainPage(sender, e);
+                        navigateToAdminMainPage(sender, e);                  
                 }
             }
             else
