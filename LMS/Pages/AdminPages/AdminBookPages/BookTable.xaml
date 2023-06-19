@@ -54,8 +54,7 @@
                 <DataGridTextColumn Header="Title" Binding="{Binding title}" Width="2*"></DataGridTextColumn>
                 <DataGridTextColumn Header="First Name" Binding="{Binding authorFirstName}" Width="1*"></DataGridTextColumn>
                 <DataGridTextColumn Header="Last Name" Binding="{Binding authorLastName}" Width="1*"></DataGridTextColumn>
-                <DataGridTextColumn Header="Type" Binding="{Binding type}" Width="1*"></DataGridTextColumn>
-                <DataGridTextColumn Header="Genres" Binding="{Binding genre}" Width="1*"></DataGridTextColumn>
+                <DataGridTextColumn Header="Tag" Binding="{Binding tag}" Width="1*"></DataGridTextColumn>
                 <DataGridTextColumn Header="Available" Binding="{Binding isAvailable}" Width="1*"></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>

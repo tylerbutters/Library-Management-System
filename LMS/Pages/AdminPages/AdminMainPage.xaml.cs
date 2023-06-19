@@ -153,10 +153,10 @@ namespace LMS.Pages.AdminPages
             {
                 List<Book> searchResults = FileManagement.LoadBooks().Where(book =>
                     book.id.IndexOf(searchInput, StringComparison.OrdinalIgnoreCase) >= 0 ||
+                    book.title.IndexOf(searchInput, StringComparison.OrdinalIgnoreCase) >= 0 ||
                     book.authorFirstName.IndexOf(searchInput, StringComparison.OrdinalIgnoreCase) >= 0 ||
                     book.authorLastName.IndexOf(searchInput, StringComparison.OrdinalIgnoreCase) >= 0 ||
-                    book.tag.IndexOf(searchInput, StringComparison.OrdinalIgnoreCase) >= 0 ||
-                    book.isAvailable.IndexOf(searchInput, StringComparison.OrdinalIgnoreCase) >= 0
+                    book.tag.IndexOf(searchInput, StringComparison.OrdinalIgnoreCase) >= 0
                 ).ToList();
 
                 bookDataGrid.ItemsSource = searchResults;
