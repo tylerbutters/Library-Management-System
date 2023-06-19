@@ -160,9 +160,8 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="Database\adminLogins.csv" />
     <None Include="Database\bookInformation.csv" />
-    <None Include="Database\memberInformation.csv" />
+    <None Include="Database\accountInformation.csv" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -172,10 +171,13 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\addIcon.png" />
+    <Resource Include="Assets\addIcon.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\searchIcon.png" />
+    <Resource Include="Assets\searchIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="CoverImages\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

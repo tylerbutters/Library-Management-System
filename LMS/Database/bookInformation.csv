@@ -1,5 +1,7 @@
 id,cover,title,authorFirstName,authorLastName,tag,summary,isAvailable
-212341,NO_COVER,the lazerman,johnathan,shaw,fiction,thriller,lasdhjflkjashjdf,true
+212341,NO_COVER,the lazerman,johnathan,shaw,fiction,lasdhjflkjashjdf,true
 41578,NO_COVER,tyler the man,tyler,butters,awesome book, nothing, true
 61700,NO_COVER,book 2,tyler,butters,another aweosme, nothing, true
 79113,NO_COVER,book 3,tlyer,buets,woeaijfjsd,dhlakshflkkajshdkjhsakjfsfdfas,true
+84404,NO_COVER,teset,tyler,butters,horror,metlink thing,true
+97952,Database\CoverImages\laserman2.PNG,laserman2,tyler,butters,1234142134,gefda,true

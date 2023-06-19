@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
+
 namespace LMS.Pages.AdminPages
 {
     /// <summary>
@@ -20,12 +21,34 @@ namespace LMS.Pages.AdminPages
     /// </summary>
     public partial class ViewMemberPage : Page
     {
+  
         public Member memberInfo { get; set; }
+
+        //Member info from login and member class's are passed through parameters and displayed in each text example.
         public ViewMemberPage(Member member)
         {
             memberInfo = member;
             InitializeComponent();
-            memberName.Text = memberInfo.firstName;
+
+            ID.Text = memberInfo.id;
+            FirstName.Text = memberInfo.firstName;
+            LastName.Text = memberInfo.lastName;
+            Email.Text = memberInfo.email;
+            Password.Text = memberInfo.pin;
+            
+        }
+
+        private void BackButtonClick(object sender, RoutedEventArgs e)
+        {
+            if (NavigationService != null && NavigationService.CanGoBack)
+            {
+                NavigationService.GoBack();
+            }
+        }
+
+        private void EditButtonClick(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
