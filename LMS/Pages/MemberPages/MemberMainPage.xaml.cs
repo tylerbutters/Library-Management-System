@@ -24,6 +24,7 @@ namespace LMS.Pages.MemberPages
         public event NavigateToLoginPage navigateToLoginPage;
 
         private MemberHomePage memberHomePage;
+        private BookResultsPage bookResultsPage;
 
         public MemberMainPage(Member loggedInMember)
         {
@@ -35,29 +36,30 @@ namespace LMS.Pages.MemberPages
         {
             if (e.Key == Key.Enter)
             {
+                MessageBox.Show("no");
                 SearchBooks(sender, e);
             }
         }
         private void SearchIconButtonClick(object sender, RoutedEventArgs e)
         {
-                SearchBooks(sender, e);
+            SearchBooks(sender, e);
         }
         private void SearchBooks(object sender, RoutedEventArgs e)
         {
-            //PageContent.Content = "";
+            MessageBox.Show("yes");
             string searchInput = SearchBar.Text.Trim();
 
             if (!string.IsNullOrEmpty(searchInput))
             {
                 List<Book> searchResults = FileManagement.LoadBooks().Where(book =>
-                    book.id.IndexOf(searchInput, StringComparison.OrdinalIgnoreCase) >= 0 ||
+                    book.title.IndexOf(searchInput, StringComparison.OrdinalIgnoreCase) >= 0 ||
                     book.authorFirstName.IndexOf(searchInput, StringComparison.OrdinalIgnoreCase) >= 0 ||
                     book.authorLastName.IndexOf(searchInput, StringComparison.OrdinalIgnoreCase) >= 0 ||
-                    book.tag.IndexOf(searchInput, StringComparison.OrdinalIgnoreCase) >= 0 ||
-                    book.isAvailable.IndexOf(searchInput, StringComparison.OrdinalIgnoreCase) >= 0
+                    book.tag.IndexOf(searchInput, StringComparison.OrdinalIgnoreCase) >= 0
                 ).ToList();
+                bookResultsPage = new BookResultsPage(searchResults);
 
-                //bookDataGrid.ItemsSource = searchResults;
+                PageContent.Content = bookResultsPage;
             }
         }
         private void SearchBarGotFocus(object sender, RoutedEventArgs e)

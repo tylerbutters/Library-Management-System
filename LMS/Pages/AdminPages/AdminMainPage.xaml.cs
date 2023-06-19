@@ -44,7 +44,6 @@ namespace LMS.Pages.AdminPages
             memberDataGrid = memberTable.memberDataGridInfo;
             bookDataGrid = bookTable.bookDataGridInfo;
 
-            SearchBar.KeyDown += SearchbarKeyDown;
             memberTable.navigateToViewMemberPage += NavigateToViewMemberPage;
             bookTable.navigateToViewBookPage += NavigateToViewBookPage;
             addMemberPage.navigateToMemberPage += MemberPageButtonClick;
@@ -141,6 +140,7 @@ namespace LMS.Pages.AdminPages
             }
             else
             {
+                MessageBox.Show("no");
                 memberDataGrid.ItemsSource = null;
             }
         }

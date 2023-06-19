@@ -10,8 +10,8 @@ namespace LMS
 {
     public class FileManagement
     {
-        private const string AccountFile = @".\Database\accountInformation.csv";
-        private const string BookFile = @".\Database\bookInformation.csv";
+        private const string AccountFile = @".\Databases\accountInformation.csv";
+        private const string BookFile = @".\Databases\bookInformation.csv";
         public static List<Account> LoadAccounts()
         {
             string[] rows = File.ReadAllLines(AccountFile);
@@ -81,7 +81,7 @@ namespace LMS
 
         public static void SaveMembers(Member newMember)
         {
-            string newMemberInfo = $"{newMember.id},{newMember.pin},{newMember.firstName},{newMember.lastName},{newMember.email}";
+            string newMemberInfo = $"{newMember.isAdmin},{newMember.id},{newMember.pin},{newMember.firstName},{newMember.lastName},{newMember.email}";
             string[] currentRows = File.ReadAllLines(AccountFile);
             string[] newRows = currentRows.Append(newMemberInfo).ToArray();
             File.WriteAllLines(AccountFile, newRows);

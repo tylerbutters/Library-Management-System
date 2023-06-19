@@ -55,7 +55,7 @@
                             <Button Grid.Column="0" Background="Transparent" BorderThickness="0" Margin="15 0 0 0" Width="50" Click="SearchIconButtonClick">
                                 <Image Source="pack://application:,,,/Assets/searchIcon.png"/>
                             </Button>
-                            <TextBox FontSize="25" x:Name="SearchBar" Background="Transparent" FontWeight="Medium" BorderThickness="0" Margin="15 0 0 0" Grid.Column="1" VerticalContentAlignment="Center" Text="Search..." Foreground="Gray" LostFocus="SearchBarLostFocus" GotFocus="SearchBarGotFocus"/>
+                            <TextBox FontSize="25" x:Name="SearchBar" Background="Transparent" FontWeight="Medium" BorderThickness="0" Margin="15 0 0 0" Grid.Column="1" VerticalContentAlignment="Center" Text="Search..." Foreground="Gray" LostFocus="SearchBarLostFocus" GotFocus="SearchBarGotFocus" KeyDown="SearchbarKeyDown"/>
                         </Grid>
                     </Grid>
 
