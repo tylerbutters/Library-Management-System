@@ -27,20 +27,17 @@ namespace LMS.Pages.AdminPages
     {
         public delegate void NavigateToBookPage(object sender, RoutedEventArgs e);
         public event NavigateToBookPage navigateToBookPage;
-        public string selectedFile = null;
+        public string selectedFile;
         public AddBookPage()
         {
             InitializeComponent();
         }
         public int GenerateRandomID()
         {
-            int min = 10000; 
+            int min = 10000;
             int max = 99999;
             return new Random().Next(min, max);
         }
-        
-        private void AddBookPageScrollChanged(object sender, ScrollChangedEventArgs e)
-        { }
         public string GenerateNewImageAddress(string title, string existingImageAddressInput)
         {
             string imageDirectory = @"Database\CoverImages\";                                                                                                                                       //Folder to contain new Image
@@ -58,20 +55,19 @@ namespace LMS.Pages.AdminPages
             selectedFile = SelectImageDialog();
 
         }
-
         public string SelectImageDialog()
         {
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-
-            openFileDialog.Filter = "All Files (*.*)|*.*";
-            openFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-            openFileDialog.Title = "Select a cover image";
+            OpenFileDialog openFileDialog = new OpenFileDialog
+            {
+                Filter = "All Files (*.*)|*.*",
+                InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop),
+                Title = "Select a cover image"
+            };
 
             bool? result = openFileDialog.ShowDialog();
 
             if (result == true)
             {
-                MessageBox.Show("Image Selected");
                 string selectedFile = openFileDialog.FileName;
                 selectedImageAddress.Text = selectedFile;
                 return selectedFile;
@@ -81,9 +77,7 @@ namespace LMS.Pages.AdminPages
                 MessageBox.Show("No Image Selected");
                 return null;
             }
-
         }
-
         private void SaveNewBookButtonClick(object sender, RoutedEventArgs e)
         {
             //only filters in accounts of type Book
