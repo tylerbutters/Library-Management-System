@@ -160,13 +160,13 @@
                             <TextBlock FontSize="25" FontWeight="Black" Text="Email" />
                             <TextBlock Margin="0 10 0 0" Name="Email" Text="example" FontWeight="Medium" FontSize="20"/>
                         </StackPanel>
-                        
 
-                        
 
-                        
 
-                        
+
+
+
+
                     </Grid>
 
                     <StackPanel Grid.Column="1">

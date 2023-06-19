@@ -18,13 +18,61 @@ namespace LMS.Pages.AdminPages
     /// <summary>
     /// Interaction logic for ViewMemberPage.xaml
     /// </summary>
+    /// 
     public partial class ViewBookPage : Page
     {
+        private bool isEditing = false;
+        private bool isConfirmed = false;
+
         public Book bookInfo;
         public ViewBookPage(Book book)
         {
             bookInfo = book;
             InitializeComponent();
         }
+        private void BackButtonClick(object sender, RoutedEventArgs e)
+        {
+            if (NavigationService != null && NavigationService.CanGoBack)
+            {
+                NavigationService.GoBack();
+            }
+        }
+
+        private void EditCancelButtonClick(object sender, RoutedEventArgs e)
+        {
+            if (!isEditing)
+            {
+                isEditing = true;
+                SaveButton.Visibility = Visibility.Visible;
+                DeleteButton.Visibility = Visibility.Visible;
+                EditCancelButton.Content = "Cancel";
+            }
+            else
+            {
+                isEditing = false;
+                SaveButton.Visibility = Visibility.Hidden;
+                DeleteButton.Visibility = Visibility.Hidden;
+                EditCancelButton.Content = "Edit";
+            }
+        }
+
+        private void SaveButtonClick(object sender, RoutedEventArgs e)
+        {
+
+        }
+        private void DeleteButtonClick(object sender, RoutedEventArgs e)
+        {
+            if (!isConfirmed)
+            {
+                isConfirmed = true;
+                DeleteButton.Content = "Confirm?";
+            }
+            else
+            {
+                //delete user
+                isConfirmed = false;
+            }
+        }
     }
+    
 }
