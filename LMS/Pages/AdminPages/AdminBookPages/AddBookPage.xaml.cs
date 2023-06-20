@@ -27,7 +27,7 @@ namespace LMS.Pages.AdminPages
     {
         public delegate void NavigateToBookPage(object sender, RoutedEventArgs e);
         public event NavigateToBookPage navigateToBookPage;
-        public string selectedFile;
+        public string imageAddress { get; set; }
         public AddBookPage()
         {
             InitializeComponent();
@@ -51,7 +51,7 @@ namespace LMS.Pages.AdminPages
         //Select Image File button handler
         private void SelectImageButtonClick(object sender, RoutedEventArgs e)
         {
-            selectedFile = SelectImageDialog();
+            imageAddress = SelectImageDialog();
         }
         private string SelectImageDialog()
         {
@@ -87,8 +87,8 @@ namespace LMS.Pages.AdminPages
                 return;
             }
 
-            string newImageAddress = GenerateNewImageAddress(titleInput.Text, selectedFile); //creates new image address and filename
-            File.Copy(selectedFile, newImageAddress);
+            string newImageAddress = GenerateNewImageAddress(titleInput.Text, imageAddress); //creates new image address and filename
+            File.Copy(imageAddress, newImageAddress);
 
             Book newBook = new Book
             {

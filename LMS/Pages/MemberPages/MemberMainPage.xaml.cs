@@ -22,9 +22,8 @@ namespace LMS.Pages.MemberPages
     {
         public delegate void NavigateToLoginPage(object sender, RoutedEventArgs e);
         public event NavigateToLoginPage navigateToLoginPage;
-
-        private MemberHomePage memberHomePage;
-        private BookResultsPage bookResultsPage;
+        private MemberHomePage memberHomePage { get; set; }
+        private BookResultsPage bookResultsPage { get; set; }
 
         public MemberMainPage(Member loggedInMember)
         {
@@ -55,7 +54,7 @@ namespace LMS.Pages.MemberPages
                     book.authorLastName.IndexOf(searchInput, StringComparison.OrdinalIgnoreCase) >= 0 ||
                     book.tag.IndexOf(searchInput, StringComparison.OrdinalIgnoreCase) >= 0
                 ).ToList();
-                bookResultsPage = new BookResultsPage(searchResults);
+                bookResultsPage = new BookResultsPage(searchResults, searchInput);
 
                 PageContent.Content = bookResultsPage;
             }

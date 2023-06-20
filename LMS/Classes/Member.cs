@@ -13,5 +13,7 @@ namespace LMS
         public string email { get; set; }
         public int reserveCounter { get; set; } = 0;
         public int loanCounter { get; set; } = 0;
+        public List<Reserve> reservedBooks { get; set; }
+        public List<Loan> loanedBooks { get; set; }
     }
 }

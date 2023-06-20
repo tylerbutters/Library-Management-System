@@ -23,13 +23,13 @@ namespace LMS.Pages.MemberPages
     {
         private List<Book> results { get; set; }
        
-        public BookResultsPage(List<Book> searchResults)
+        public BookResultsPage(List<Book> searchResults, string searchInput)
         {
             InitializeComponent();
             
             results = searchResults;
             ResultsContainer.ItemsSource = results;
-            ResultText.Text = "yes";
+            ResultText.Text = searchInput;
         }
     }
 }

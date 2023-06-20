@@ -24,18 +24,15 @@ namespace LMS.Pages.AdminPages
         public delegate void NavigateToLoginPage(object sender, RoutedEventArgs e);
         public event NavigateToLoginPage navigateToLoginPage;
 
-        private bool isOnMemberPage = true;
-
-        private MemberTable memberTable = new MemberTable();
-        private AddMemberPage addMemberPage = new AddMemberPage();
-        private ViewMemberPage viewMemberPage;
-
-        private BookTable bookTable = new BookTable();
-        private AddBookPage addBookPage = new AddBookPage();
-        private ViewBookPage viewBookPage;
-
-        private DataGrid bookDataGrid;
-        private DataGrid memberDataGrid;
+        private bool isOnMemberPage { get; set; } = true;
+        private MemberTable memberTable { get; set; } = new MemberTable();
+        private AddMemberPage addMemberPage { get; set; } = new AddMemberPage();
+        private ViewMemberPage viewMemberPage { get; set; }
+        private BookTable bookTable { get; set; } = new BookTable();
+        private AddBookPage addBookPage { get; set; } = new AddBookPage();
+        private ViewBookPage viewBookPage { get; set; }
+        private DataGrid bookDataGrid { get; set; }
+        private DataGrid memberDataGrid { get; set; }
         public AdminMainPage()
         {
             InitializeComponent();

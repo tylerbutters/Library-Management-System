@@ -21,9 +21,9 @@ namespace LMS.Pages.AdminPages
     /// </summary>
     public partial class ViewMemberPage : Page
     {
-        private bool isEditing = false;
-        private bool isConfirmed = false;
-        private Member memberInfo;
+        private bool isEditing { get; set; } = false;
+        private bool isConfirmed { get; set; } = false;
+        private Member memberInfo { get; set; }
 
         //Member info from login and member class's are passed through parameters and displayed in each text example.
         public ViewMemberPage(Member member)
@@ -51,6 +51,7 @@ namespace LMS.Pages.AdminPages
             if (!isEditing)
             {
                 isEditing = true;
+                isConfirmed = false;
                 SaveButton.Visibility = Visibility.Visible;
                 DeleteButton.Visibility = Visibility.Visible;
                 EditCancelButton.Content = "Cancel";

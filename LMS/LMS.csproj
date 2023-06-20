@@ -85,6 +85,8 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Classes\FileManagement.cs" />
+    <Compile Include="Classes\Loan.cs" />
+    <Compile Include="Classes\Reserve.cs" />
     <Compile Include="Pages\AdminPages\AdminBookPages\AddBookPage.xaml.cs">
       <DependentUpon>AddBookPage.xaml</DependentUpon>
     </Compile>
