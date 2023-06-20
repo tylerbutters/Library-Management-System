@@ -9,7 +9,6 @@
       Title="ViewMemberPage">
 
     <Grid Height="745" Width="1600">
-
         <Grid Height="250" VerticalAlignment="Top">
             <Grid.RowDefinitions>
                 <RowDefinition></RowDefinition>
@@ -123,60 +122,53 @@
                 </Button.Resources>
             </Button>
         </Grid>
-        <Border CornerRadius="10" Grid.Column="1" Background="#E7EAD4" Height="745" Width="1276">
-            <Border CornerRadius="10" Background="White" Height="700" Width="1226" Padding="30">
+        <Grid>
+            <Border CornerRadius="10" Grid.Column="1" Background="#E7EAD4" Height="745" Width="1276">
+                <Border CornerRadius="10" Background="White" Height="700" Width="1226" Padding="30">
 
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
 
-                    <Grid Grid.Column="0" Margin="20">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="*"></RowDefinition>
-                            <RowDefinition Height="*"></RowDefinition>
-                            <RowDefinition Height="*"></RowDefinition>
-                            <RowDefinition Height="*"></RowDefinition>
-                            <RowDefinition Height="*"></RowDefinition>
-                        </Grid.RowDefinitions>
-                        <StackPanel Grid.Row="0" VerticalAlignment="Center">
-                            <TextBlock FontSize="25" FontWeight="Black" Text="ID" />
-                            <TextBlock Margin="0 10 0 0" Name="ID" Text="example" FontWeight="Medium" FontSize="20"/>
+                        <Grid Grid.Column="0" Margin="20">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"></RowDefinition>
+                                <RowDefinition Height="*"></RowDefinition>
+                                <RowDefinition Height="*"></RowDefinition>
+                                <RowDefinition Height="*"></RowDefinition>
+                                <RowDefinition Height="*"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <StackPanel Grid.Row="0" VerticalAlignment="Center">
+                                <TextBlock FontSize="25" FontWeight="Black" Text="ID" />
+                                <TextBlock Margin="0 10 0 0" Name="ID" Text="example" FontWeight="Medium" FontSize="20"/>
+                            </StackPanel>
+                            <StackPanel Grid.Row="1" VerticalAlignment="Center">
+                                <TextBlock FontSize="25" FontWeight="Black" Text="Title" />
+                                <TextBlock Margin="0 10 0 0" Name="Title" Text="example" FontWeight="Medium" FontSize="20"/>
+                            </StackPanel>
+                            <StackPanel Grid.Row="2" VerticalAlignment="Center">
+                                <TextBlock FontSize="25" FontWeight="Black" Text="Author First Name" />
+                                <TextBlock Margin="0 10 0 0" Name="AuthorFirstName" Text="example" FontWeight="Medium" FontSize="20"/>
+                            </StackPanel>
+                            <StackPanel Grid.Row="3" VerticalAlignment="Center">
+                                <TextBlock FontSize="25" FontWeight="Black" Text="Author Last Name" />
+                                <TextBlock Margin="0 10 0 0" Name="AuthorLastName" Text="example" FontWeight="Medium" FontSize="20" />
+                            </StackPanel>
+                            <StackPanel Grid.Row="4" VerticalAlignment="Center">
+                                <TextBlock FontSize="25" FontWeight="Black" Text="Tags" />
+                                <TextBlock Margin="0 10 0 0" Name="Tag" Text="example" FontWeight="Medium" FontSize="20"/>
+                            </StackPanel>
+                        </Grid>
+
+                        <StackPanel Grid.Column="1" Margin="20">
+                            <TextBlock FontSize="25" FontWeight="Black" Text="Summary" />
+                            <TextBlock Margin="0 10 0 0" Name="Summary" Text="example" FontWeight="Medium" FontSize="20"/>
                         </StackPanel>
-                        <StackPanel Grid.Row="1" VerticalAlignment="Center">
-                            <TextBlock FontSize="25" FontWeight="Black" Text="PIN" />
-                            <TextBlock Margin="0 10 0 0" Name="PIN" Text="example" FontWeight="Medium" FontSize="20"/>
-                        </StackPanel>
-                        <StackPanel Grid.Row="2" VerticalAlignment="Center">
-                            <TextBlock FontSize="25" FontWeight="Black" Text="First Name" />
-                            <TextBlock Margin="0 10 0 0" Name="FirstName" Text="example" FontWeight="Medium" FontSize="20"/>
-                        </StackPanel>
-                        <StackPanel Grid.Row="3" VerticalAlignment="Center">
-                            <TextBlock FontSize="25" FontWeight="Black" Text="Last Name" />
-                            <TextBlock Margin="0 10 0 0" Name="LastName" Text="example" FontWeight="Medium" FontSize="20"/>
-                        </StackPanel>
-                        <StackPanel Grid.Row="4" VerticalAlignment="Center">
-                            <TextBlock FontSize="25" FontWeight="Black" Text="Email" />
-                            <TextBlock Margin="0 10 0 0" Name="Email" Text="example" FontWeight="Medium" FontSize="20"/>
-                        </StackPanel>
-
-
-
-
-
-
-
                     </Grid>
-
-                    <StackPanel Grid.Column="1">
-                        <TextBlock FontSize="25" HorizontalAlignment="Center" FontWeight="Black" Text="Loans" />
-                        <Border CornerRadius="10" Background="#e7ead4" Height="561" Margin="10">
-
-                        </Border>
-                    </StackPanel>
-                </Grid>
+                </Border>
             </Border>
-        </Border>
+        </Grid>
     </Grid>
 </Page>

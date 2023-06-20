@@ -27,8 +27,15 @@ namespace LMS.Pages.AdminPages
         public Book bookInfo;
         public ViewBookPage(Book book)
         {
-            bookInfo = book;
             InitializeComponent();
+
+            bookInfo = book;
+            ID.Text = bookInfo.id;
+            Title.Text = bookInfo.title;
+            AuthorFirstName.Text = bookInfo.authorFirstName;
+            AuthorLastName.Text = bookInfo.authorLastName;
+            Tag.Text = bookInfo.tag;
+            Summary.Text = bookInfo.summary;
         }
         private void BackButtonClick(object sender, RoutedEventArgs e)
         {
