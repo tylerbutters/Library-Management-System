@@ -21,14 +21,15 @@ namespace LMS.Pages.MemberPages
     /// </summary>
     public partial class BookResultsPage : Page
     {
-        //private ObservableCollection<Book> results;
-        private List<Book> results;
+        private List<Book> results { get; set; }
+       
         public BookResultsPage(List<Book> searchResults)
         {
             InitializeComponent();
-            //results = new ObservableCollection<Book>(searchResults);
-            //DataContext = results;
+            
             results = searchResults;
+            ResultsContainer.ItemsSource = results;
+            ResultText.Text = "yes";
         }
     }
 }

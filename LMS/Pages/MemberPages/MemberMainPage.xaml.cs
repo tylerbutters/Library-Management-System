@@ -36,7 +36,6 @@ namespace LMS.Pages.MemberPages
         {
             if (e.Key == Key.Enter)
             {
-                MessageBox.Show("no");
                 SearchBooks(sender, e);
             }
         }
@@ -46,7 +45,6 @@ namespace LMS.Pages.MemberPages
         }
         private void SearchBooks(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("yes");
             string searchInput = SearchBar.Text.Trim();
 
             if (!string.IsNullOrEmpty(searchInput))
