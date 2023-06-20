@@ -85,6 +85,8 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Classes\FileManagement.cs" />
+    <Compile Include="Classes\Loan.cs" />
+    <Compile Include="Classes\Reserve.cs" />
     <Compile Include="Pages\AdminPages\AdminBookPages\AddBookPage.xaml.cs">
       <DependentUpon>AddBookPage.xaml</DependentUpon>
     </Compile>
@@ -116,6 +118,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Pages\MemberPages\BookResultsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\MemberPages\MemberHomePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -136,6 +142,9 @@
     </Compile>
     <Compile Include="Pages\LoginPage.xaml.cs">
       <DependentUpon>LoginPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\MemberPages\BookResultsPage.xaml.cs">
+      <DependentUpon>BookResultsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\MemberPages\MemberHomePage.xaml.cs">
       <DependentUpon>MemberHomePage.xaml</DependentUpon>

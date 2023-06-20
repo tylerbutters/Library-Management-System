@@ -8,7 +8,7 @@ namespace LMS
 {
     public class Account
     {
-        public bool isAdmin { get; set; }
+        public bool isAdmin { get; set; } = false;
         public string id { get; set; }
         public string pin { get; set; }
     }

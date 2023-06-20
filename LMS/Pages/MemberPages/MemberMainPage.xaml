@@ -9,7 +9,11 @@
 
 
     <Grid Background="#fdffee">
-        <Grid Name="Navbar" Background="#417422" VerticalAlignment="Top" Height="200">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="200"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid Name="Navbar" Grid.Row="0" Background="#417422" VerticalAlignment="Top" Height="200">
             <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1*"></ColumnDefinition>
                     <ColumnDefinition Width="2.6*"></ColumnDefinition>
@@ -21,7 +25,8 @@
                         <Button.Style>
                             <Style TargetType="{x:Type Button}">
                                 <Setter Property="Background" Value="#BFCA43"/>
-                                <Setter Property="Template">
+                            <Setter Property="Cursor" Value="Hand"/>
+                            <Setter Property="Template">
                                     <Setter.Value>
                                         <ControlTemplate TargetType="{x:Type Button}">
                                             <Border Background="{TemplateBinding Background}">
@@ -33,6 +38,7 @@
                                 <Style.Triggers>
                                     <Trigger Property="IsMouseOver" Value="True">
                                         <Setter Property="Background" Value="#933618"/>
+                                        
                                     </Trigger>
                                 </Style.Triggers>
                             </Style>
@@ -55,7 +61,7 @@
                             <Button Grid.Column="0" Background="Transparent" BorderThickness="0" Margin="15 0 0 0" Width="50" Click="SearchIconButtonClick">
                                 <Image Source="pack://application:,,,/Assets/searchIcon.png"/>
                             </Button>
-                            <TextBox FontSize="25" x:Name="SearchBar" Background="Transparent" FontWeight="Medium" BorderThickness="0" Margin="15 0 0 0" Grid.Column="1" VerticalContentAlignment="Center" Text="Search..." Foreground="Gray" LostFocus="SearchBarLostFocus" GotFocus="SearchBarGotFocus"/>
+                            <TextBox FontSize="25" x:Name="SearchBar" Background="Transparent" FontWeight="Medium" BorderThickness="0" Margin="15 0 0 0" Grid.Column="1" VerticalContentAlignment="Center" Text="Search..." Foreground="Gray" LostFocus="SearchBarLostFocus" GotFocus="SearchBarGotFocus" KeyDown="SearchbarKeyDown"/>
                         </Grid>
                     </Grid>
 
@@ -65,6 +71,7 @@
                     <Button.Style>
                         <Style TargetType="{x:Type Button}">
                             <Setter Property="Background" Value="#C84920"/>
+                            <Setter Property="Cursor" Value="Hand"/>
                             <Setter Property="Template">
                                 <Setter.Value>
                                     <ControlTemplate TargetType="{x:Type Button}">
@@ -89,6 +96,6 @@
                 </Button>
             </Grid>
         </Grid>
-        <Frame Name="PageContent" Height="750" VerticalAlignment="Bottom" Margin="0 0 0 30"></Frame>
+        <Frame Grid.Row="1" Name="PageContent" Height="820" VerticalAlignment="Bottom" Margin="0 0 0 30"></Frame>
     </Grid>
 </Page>

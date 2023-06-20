@@ -22,8 +22,8 @@ namespace LMS.Pages.AdminPages
     {
         public delegate void NavigateToViewBookPage(object send, RoutedEventArgs e);
         public event NavigateToViewBookPage navigateToViewBookPage;
-        public DataGrid bookDataGridInfo;
-        public Book selectedBook;
+        public DataGrid bookDataGridInfo { get; set; }
+        public Book selectedBook { get; set; }
         public BookTable()
         {
             InitializeComponent();

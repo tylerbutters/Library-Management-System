@@ -22,13 +22,15 @@ namespace LMS.Pages.MemberPages
     {
         public delegate void NavigateToLoginPage(object sender, RoutedEventArgs e);
         public event NavigateToLoginPage navigateToLoginPage;
-
-        private MemberHomePage memberHomePage;
+        private MemberHomePage memberHomePage { get; set; }
+        private BookResultsPage bookResultsPage { get; set; }
+        public Member memberInfo { get; set; }
 
         public MemberMainPage(Member loggedInMember)
         {
             InitializeComponent();
-            memberHomePage = new MemberHomePage(loggedInMember);
+            memberInfo = loggedInMember;
+            memberHomePage = new MemberHomePage(memberInfo);
             PageContent.Content = memberHomePage;
         }
         private void SearchbarKeyDown(object sender, KeyEventArgs e)
@@ -40,24 +42,23 @@ namespace LMS.Pages.MemberPages
         }
         private void SearchIconButtonClick(object sender, RoutedEventArgs e)
         {
-                SearchBooks(sender, e);
+            SearchBooks(sender, e);
         }
         private void SearchBooks(object sender, RoutedEventArgs e)
         {
-            //PageContent.Content = "";
             string searchInput = SearchBar.Text.Trim();
 
             if (!string.IsNullOrEmpty(searchInput))
             {
                 List<Book> searchResults = FileManagement.LoadBooks().Where(book =>
-                    book.id.IndexOf(searchInput, StringComparison.OrdinalIgnoreCase) >= 0 ||
+                    book.title.IndexOf(searchInput, StringComparison.OrdinalIgnoreCase) >= 0 ||
                     book.authorFirstName.IndexOf(searchInput, StringComparison.OrdinalIgnoreCase) >= 0 ||
                     book.authorLastName.IndexOf(searchInput, StringComparison.OrdinalIgnoreCase) >= 0 ||
-                    book.tag.IndexOf(searchInput, StringComparison.OrdinalIgnoreCase) >= 0 ||
-                    book.isAvailable.IndexOf(searchInput, StringComparison.OrdinalIgnoreCase) >= 0
+                    book.tag.IndexOf(searchInput, StringComparison.OrdinalIgnoreCase) >= 0
                 ).ToList();
+                bookResultsPage = new BookResultsPage(searchResults, searchInput);
 
-                //bookDataGrid.ItemsSource = searchResults;
+                PageContent.Content = bookResultsPage;
             }
         }
         private void SearchBarGotFocus(object sender, RoutedEventArgs e)

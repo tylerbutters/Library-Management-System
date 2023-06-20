@@ -20,7 +20,7 @@ namespace LMS.Pages.MemberPages
     /// </summary>
     public partial class MemberHomePage : Page
     {
-        public Member memberInfo;
+        public Member memberInfo { get; set; }
         public MemberHomePage(Member loggedInMember)
         {
             InitializeComponent();

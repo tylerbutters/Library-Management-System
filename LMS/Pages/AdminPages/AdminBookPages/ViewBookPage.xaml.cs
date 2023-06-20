@@ -21,10 +21,9 @@ namespace LMS.Pages.AdminPages
     /// 
     public partial class ViewBookPage : Page
     {
-        private bool isEditing = false;
-        private bool isConfirmed = false;
-
-        public Book bookInfo;
+        private bool isEditing { get; set; } = false;
+        private bool isConfirmed { get; set; } = false;
+        public Book bookInfo { get; set; }
         public ViewBookPage(Book book)
         {
             InitializeComponent();
@@ -50,6 +49,7 @@ namespace LMS.Pages.AdminPages
             if (!isEditing)
             {
                 isEditing = true;
+                isConfirmed = false;
                 SaveButton.Visibility = Visibility.Visible;
                 DeleteButton.Visibility = Visibility.Visible;
                 EditCancelButton.Content = "Cancel";
