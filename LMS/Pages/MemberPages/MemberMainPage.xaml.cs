@@ -37,7 +37,9 @@ namespace LMS.Pages.MemberPages
         }
         private void PlaceReserve(object sender, Book book)
         {
-            memberInfo.reservedBooks.Add(new Reserve(book));
+            Reserve newReserve = new Reserve(book, memberInfo);
+            memberInfo.reservedBooks.Add(newReserve);
+            FileManagement.SaveNewReserve(newReserve);
         }
         private void SearchbarKeyDown(object sender, KeyEventArgs e)
         {

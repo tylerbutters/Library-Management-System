@@ -115,7 +115,7 @@ namespace LMS.Pages.AdminPages
                 }
             }
 
-            FileManagement.SaveBooks(newBook);
+            FileManagement.SaveNewBook(newBook);
 
             titleInput.Text = "";
             authorFirstNameInput.Text = "";

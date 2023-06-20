@@ -11,8 +11,8 @@ namespace LMS
         public string firstName { get; set; }
         public string lastName { get; set; }
         public string email { get; set; }
-        public int reserveCounter { get; set; } = 0;
-        public int loanCounter { get; set; } = 0;
+        public int reserveCounter { get; set; }
+        public int loanCounter { get; set; }
         public List<Reserve> reservedBooks { get; set; }
         public List<Loan> loanedBooks { get; set; }
 
@@ -20,6 +20,8 @@ namespace LMS
         {
             reservedBooks = new List<Reserve>();
             loanedBooks = new List<Loan>();
+            reserveCounter = reservedBooks.Count;
+            loanCounter = loanedBooks.Count;
         }
     }
 }

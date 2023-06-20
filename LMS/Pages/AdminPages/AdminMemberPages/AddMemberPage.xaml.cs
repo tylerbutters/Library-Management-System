@@ -72,7 +72,7 @@ namespace LMS.Pages.AdminPages
                 return;
             }
 
-            FileManagement.SaveMembers(newMember);
+            FileManagement.SaveNewMember(newMember);
 
             firstNameInput.Text = "";
             lastNameInput.Text = "";
