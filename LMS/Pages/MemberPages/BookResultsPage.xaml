@@ -61,7 +61,7 @@
                                                             <ColumnDefinition Width="1.5*"></ColumnDefinition>
                                                         </Grid.ColumnDefinitions>
                                                         <TextBlock Grid.Column="0" Name="Availablity" Text="example" Foreground="#3AA220" FontWeight="Bold" FontSize="20" VerticalAlignment="Center"/>
-                                                        <Button Grid.Column="1" Content="Reserve" Name="ReserveButton" Click="ReserveButtonClick" Width="136" Height="44"  FontSize="25" FontWeight="Black" Foreground="White" BorderThickness="0">
+                                                        <Button Grid.Column="1" Content="Reserve" Name="ReserveButton" Click="ReserveButtonClick" Width="136" Height="44" FontSize="25" FontWeight="Black" Foreground="White" BorderThickness="0">
                                                             <Button.Style>
                                                                 <Style TargetType="{x:Type Button}">
                                                                     <Setter Property="Background" Value="#BFCA43"/>

@@ -11,5 +11,9 @@ namespace LMS
         public string dateLoaned { get; set; }
         public string dateDue { get; set; }
         public Book book { get; set; }
+        public Reserve(Book _book)
+        {
+            book = _book;
+        }
     }
 }

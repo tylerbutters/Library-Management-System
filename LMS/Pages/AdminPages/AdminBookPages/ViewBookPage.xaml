@@ -157,7 +157,7 @@
                                 <TextBlock Margin="0 10 0 0" Name="AuthorLastName" Text="example" FontWeight="Medium" FontSize="20" />
                             </StackPanel>
                             <StackPanel Grid.Row="4" VerticalAlignment="Center">
-                                <TextBlock FontSize="25" FontWeight="Black" Text="Tags" />
+                                <TextBlock FontSize="25" FontWeight="Black" Text="Tag" />
                                 <TextBlock Margin="0 10 0 0" Name="Tag" Text="example" FontWeight="Medium" FontSize="20"/>
                             </StackPanel>
                         </Grid>
