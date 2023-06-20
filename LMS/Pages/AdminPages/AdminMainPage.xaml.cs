@@ -137,7 +137,6 @@ namespace LMS.Pages.AdminPages
             }
             else
             {
-                MessageBox.Show("no");
                 memberDataGrid.ItemsSource = null;
             }
         }

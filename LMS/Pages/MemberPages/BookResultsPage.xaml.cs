@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Collections.ObjectModel;
+using System.Globalization;
 
 namespace LMS.Pages.MemberPages
 {
@@ -28,8 +29,23 @@ namespace LMS.Pages.MemberPages
             InitializeComponent();
             
             results = searchResults;
+
+            //CultureInfo cultureInfo = CultureInfo.CurrentCulture;
+            //TextInfo textInfo = cultureInfo.TextInfo;
+            //foreach (Book book in results)
+            //{
+            //    book.title = textInfo.ToTitleCase(book.title);
+            //    book.authorFirstName = textInfo.ToTitleCase(book.authorFirstName);
+            //    book.authorLastName = textInfo.ToTitleCase(book.authorLastName);
+            //    book.tag = textInfo.ToTitleCase(book.tag);
+            //}
             ResultsContainer.ItemsSource = results;
             ResultText.Text = searchInput;
+        }
+
+        private void ReserveButtonClick(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

@@ -24,11 +24,13 @@ namespace LMS.Pages.MemberPages
         public event NavigateToLoginPage navigateToLoginPage;
         private MemberHomePage memberHomePage { get; set; }
         private BookResultsPage bookResultsPage { get; set; }
+        public Member memberInfo { get; set; }
 
         public MemberMainPage(Member loggedInMember)
         {
             InitializeComponent();
-            memberHomePage = new MemberHomePage(loggedInMember);
+            memberInfo = loggedInMember;
+            memberHomePage = new MemberHomePage(memberInfo);
             PageContent.Content = memberHomePage;
         }
         private void SearchbarKeyDown(object sender, KeyEventArgs e)
