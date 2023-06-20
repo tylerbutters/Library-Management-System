@@ -27,7 +27,6 @@ namespace LMS.Pages.AdminPages
             Title.Text = bookInfo.title;
             AuthorFirstName.Text = bookInfo.authorFirstName;
             AuthorLastName.Text = bookInfo.authorLastName;
-            Type.Text = bookInfo.type;
             Tag.Text = bookInfo.tag;
             Summary.Text = bookInfo.summary;
             
