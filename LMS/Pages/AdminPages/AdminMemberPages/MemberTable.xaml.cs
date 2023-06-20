@@ -27,7 +27,10 @@ namespace LMS.Pages.AdminPages
         public MemberTable()
         {
             InitializeComponent();
+            //Assigns Datagrid object with the MemberGrid
             memberDataGridInfo = MemberGrid;
+
+            //Creates event listener for whenever an item in the datagrid is selected, then runs the selectionchanged function.
             memberDataGridInfo.SelectionChanged += MemberDataGridSelectionChanged;
         }
         private void MemberDataGridSelectionChanged(object sender, SelectionChangedEventArgs e)

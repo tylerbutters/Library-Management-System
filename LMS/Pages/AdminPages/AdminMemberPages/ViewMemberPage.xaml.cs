@@ -16,9 +16,6 @@ using System.Windows.Shapes;
 
 namespace LMS.Pages.AdminPages
 {
-    /// <summary>
-    /// Interaction logic for ViewMemberPage.xaml
-    /// </summary>
     public partial class ViewMemberPage : Page
     {
   

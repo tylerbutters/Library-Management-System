@@ -31,7 +31,7 @@ namespace LMS
         public MainWindow()
         {
             InitializeComponent();
-            //Display Login in frame at startup
+            
             MainWindowFrame.Content = adminMainPage;
             //MainWindowFrame.Content = loginPage;
 
@@ -41,7 +41,7 @@ namespace LMS
         }
         public void NavigateToMemberHomepage(object sender, RoutedEventArgs e)
         {
-            MainWindowFrame.Content = new MemberHomepage();
+            MainWindowFrame.Content = memberHomepage;
         }
         public void NavigateToAdminMainPage(object sender, RoutedEventArgs e)
         {

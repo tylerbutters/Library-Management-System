@@ -5,10 +5,93 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:LMS.Pages.AdminPages"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="745" d:DesignWidth="1920"
       Title="ViewMemberPage">
 
-    <Grid Background="red" Width="1000" Height="1000">
-        
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="1276" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <StackPanel Grid.Column="0">
+            <Button Content="Back" Click="BackButtonClick" Width="137" Height="62" FontFamily="inter" FontSize="30" FontWeight="Black" Foreground="White" BorderThickness="0" HorizontalAlignment="right" VerticalAlignment="Top" Margin="0 0 5 0">
+                <Button.Style>
+                    <Style TargetType="{x:Type Button}">
+                        <Setter Property="Background" Value="#417422"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type Button}">
+                                    <Border Background="{TemplateBinding Background}">
+                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#A5AE38"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="10"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
+
+        </StackPanel>
+
+        <Border CornerRadius="10" Grid.Column="1" Background="#E7EAD4" Height="745" Width="1276">
+            <Border CornerRadius="10" Background="White" Height="700" Width="1226">
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel Grid.Column="0" Margin="20">
+                        <StackPanel.Resources>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="FontSize" Value="18" />
+                                <Setter Property="Margin" Value="0 10" />
+                            </Style>
+                        </StackPanel.Resources>
+
+                        <TextBlock FontSize="25" FontWeight="Black" Text="ID" />
+                        <TextBlock Margin="0 10 0 0" Name="ID" />
+
+                        <TextBlock FontSize="25" FontWeight="Black" Text="Title" />
+                        <TextBlock Margin="0 10 0 0" Name="Title" />
+
+                        <TextBlock FontSize="25" FontWeight="Black" Text="Author First Name" />
+                        <TextBlock Margin="0 10 0 0" Name="AuthorFirstName" />
+
+                        <TextBlock FontSize="25" FontWeight="Black" Text="Author Last Name" />
+                        <TextBlock Margin="0 10 0 0" Name="AuthorLastName" />
+
+                        <TextBlock FontSize="25" FontWeight="Black" Text="Type" />
+                        <TextBlock Margin="0 10 0 0" Name="Type" />
+
+                        <TextBlock FontSize="25" FontWeight="Black" Text="Tags" />
+                        <TextBlock Margin="0 10 0 0" Name="Tag" />
+
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="1" Margin="20">
+
+                        <TextBlock FontSize="25" FontWeight="Black" Text="Summary" />
+                        <TextBlock Margin="0 10 0 0" Name="Summary" />
+
+                    </StackPanel>
+                </Grid>
+            </Border>
+        </Border>
+
+
     </Grid>
 </Page>

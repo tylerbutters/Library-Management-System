@@ -15,9 +15,6 @@ using System.Windows.Shapes;
 
 namespace LMS.Pages.AdminPages
 {
-    /// <summary>
-    /// Interaction logic for ViewMemberPage.xaml
-    /// </summary>
     public partial class ViewBookPage : Page
     {
         public Book bookInfo { get; set; }
@@ -25,6 +22,23 @@ namespace LMS.Pages.AdminPages
         {
             bookInfo = book;
             InitializeComponent();
+
+            ID.Text = bookInfo.id;
+            Title.Text = bookInfo.title;
+            AuthorFirstName.Text = bookInfo.authorFirstName;
+            AuthorLastName.Text = bookInfo.authorLastName;
+            Type.Text = bookInfo.type;
+            Tag.Text = bookInfo.tag;
+            Summary.Text = bookInfo.summary;
+            
+        }
+
+        private void BackButtonClick(object sender, RoutedEventArgs e)
+        {
+            if (NavigationService != null && NavigationService.CanGoBack)
+            {
+                NavigationService.GoBack();
+            }
         }
     }
 }

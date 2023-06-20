@@ -22,6 +22,7 @@ namespace LMS.Pages
     /// </summary>
     public partial class LoginPage : Page
     {
+        //Event handlers for navigating to Member, or Admin homepages.
         public delegate void NavigateToMemberHomepage(object sender, RoutedEventArgs e);
         public event NavigateToMemberHomepage navigateToMemberHomepage;
         public delegate void NavigateToAdminMainPage(object sender, RoutedEventArgs e);
