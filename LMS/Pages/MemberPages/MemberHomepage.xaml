@@ -46,8 +46,14 @@
                                                     <Run Text="{Binding book.authorFirstName}" />
                                                     <Run Text="{Binding book.authorLastName}" />
                                                     </TextBlock>
-                                                    <TextBlock Name="DateReserved" Text="{Binding book.dateReserved}" Foreground="Gray" FontWeight="Medium" Margin="0 0 0 5" FontSize="15"/>
-                                                    <TextBlock Name="DateAvailable" Text="{Binding book.dateAvailable}" Foreground="Gray" FontWeight="Medium" Margin="0 0 0 5" FontSize="15"/>
+                                                    <TextBlock Text="Date reserved:"  Foreground="Gray" FontWeight="Medium" Margin="0 0 0 5" FontSize="15">
+                                                        <Run Text="" />
+                                                        <Run Text="{Binding book.dateReserved}" FontWeight="Medium" FontSize="25" FontStyle="Italic" Foreground="White"/>
+                                                    </TextBlock>
+                                                    <TextBlock Text="Date available:" Foreground="Gray" FontWeight="Medium" Margin="0 0 0 5" FontSize="15">
+                                                        <Run Text="" />
+                                                        <Run Text="{Binding book.dateAvailable}" FontWeight="Medium" FontSize="25" FontStyle="Italic" Foreground="White"/>
+                                                    </TextBlock>
                                                 </StackPanel>
                                                 <Grid Grid.Row="1">
                                                     <Grid.ColumnDefinitions>
