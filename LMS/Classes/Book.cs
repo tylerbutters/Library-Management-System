@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.ComponentModel;
 
 namespace LMS
 {
-    public class Book
+    public class Book : INotifyPropertyChanged
     {
         public string id { get; set; }
         public string cover { get; set; }
@@ -16,5 +17,25 @@ namespace LMS
         public string tag { get; set; }
         public string summary { get; set; }
         public string isAvailable { get; set; } = "true";
+
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        private bool _isReserved;
+        public bool isReserved
+        {
+            get { return _isReserved; }
+            set
+            {
+                if (_isReserved != value)
+                {
+                    _isReserved = value;
+                    OnPropertyChanged("isReserved");
+                }
+            }
+        }
+        protected virtual void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
     }
 }

@@ -33,26 +33,26 @@ namespace LMS
             loginPage = new LoginPage();
             MainWindowFrame.Content = loginPage;
 
-            loginPage.navigateToMemberMainPage += NavigateToMemberMainPage;
-            loginPage.navigateToAdminMainPage += NavigateToAdminMainPage;
+            loginPage.NavigateToMemberMainPage += NavigateToMemberMainPage;
+            loginPage.NavigateToAdminMainPage += NavigateToAdminMainPage;
         }
         public void NavigateToMemberMainPage(object sender, RoutedEventArgs e)
         {
             memberMainPage = new MemberMainPage(loginPage.loggedInMember);
-            memberMainPage.navigateToLoginPage += NavigateToLoginPage;
+            memberMainPage.NavigateToLoginPage += NavigateToLoginPage;
             MainWindowFrame.Content = memberMainPage;
         }
         public void NavigateToAdminMainPage(object sender, RoutedEventArgs e)
         {
             adminMainPage = new AdminMainPage();
-            adminMainPage.navigateToLoginPage += NavigateToLoginPage;
+            adminMainPage.NavigateToLoginPage += NavigateToLoginPage;
             MainWindowFrame.Content = adminMainPage;
         }
         public void NavigateToLoginPage(object sender, RoutedEventArgs e)
         {
             loginPage = new LoginPage();
-            loginPage.navigateToMemberMainPage += NavigateToMemberMainPage;
-            loginPage.navigateToAdminMainPage += NavigateToAdminMainPage;
+            loginPage.NavigateToMemberMainPage += NavigateToMemberMainPage;
+            loginPage.NavigateToAdminMainPage += NavigateToAdminMainPage;
             MainWindowFrame.Content = loginPage;
         }
     }

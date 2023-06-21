@@ -203,7 +203,7 @@
                         <TextBlock FontSize="25" HorizontalAlignment="Center" FontWeight="Black" Text="Reserves" />
                         <Border CornerRadius="10" Background="#e7ead4" Height="561" Margin="10" Padding="10">
                             <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Hidden">
-                                <ItemsControl Name="ReservesArea" ItemsSource="{Binding memberInfo.reservedBooks}">
+                                <ItemsControl Name="ReservesArea" ItemsSource="{Binding member.reservedBooks}">
                                     <ItemsControl.ItemTemplate>
                                         <DataTemplate>
                                             <StackPanel Margin="5">
@@ -239,7 +239,7 @@
                                                         <Run Text="{Binding book.dateAvailable}" FontWeight="Medium" FontSize="25" FontStyle="Italic" />
                                                                     </TextBlock>
                                                                 </StackPanel>
-                                                                <Button Grid.Column="1" Content="Cancel" HorizontalAlignment="Right" Name="CancelButton" VerticalAlignment="Bottom" Width="110" Height="30" FontSize="20" FontWeight="Black" Foreground="White" BorderThickness="0" Margin="5">
+                                                                <Button Grid.Column="1" Content="Cancel" Click="CancelButtonClick" HorizontalAlignment="Right" Name="CancelButton" VerticalAlignment="Bottom" Width="110" Height="30" FontSize="20" FontWeight="Black" Foreground="White" BorderThickness="0" Margin="5">
                                                                     <Button.Style>
                                                                         <Style TargetType="{x:Type Button}">
                                                                             <Setter Property="Background" Value="#BFCA43"/>

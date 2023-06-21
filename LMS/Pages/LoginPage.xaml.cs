@@ -22,11 +22,8 @@ namespace LMS.Pages
     /// </summary>
     public partial class LoginPage : Page
     {
-        public delegate void NavigateToMemberMainPage(object sender, RoutedEventArgs e);
-        public event NavigateToMemberMainPage navigateToMemberMainPage;
-        public delegate void NavigateToAdminMainPage(object sender, RoutedEventArgs e);
-        public event NavigateToAdminMainPage navigateToAdminMainPage;
-
+        public event EventHandler<RoutedEventArgs> NavigateToMemberMainPage;
+        public event EventHandler<RoutedEventArgs> NavigateToAdminMainPage;
         public Member loggedInMember { get; set; }
         public LoginPage()
         {
@@ -51,7 +48,7 @@ namespace LMS.Pages
 
             return null;
         }
-        //checks the account type and navigates them to their respective page
+        //checks the account type and Navigates them to their respective page
         private void HandleAuthentication(object sender, RoutedEventArgs e)
         {
             Account authenticatedAccount = AuthenticateLoginDetails();
@@ -62,11 +59,11 @@ namespace LMS.Pages
                 {
                     loggedInMember = member;
 
-                    navigateToMemberMainPage(sender, e);
+                    NavigateToMemberMainPage?.Invoke(sender, e);
                 }
                 else if (authenticatedAccount is Admin)
                 {
-                    navigateToAdminMainPage(sender, e);
+                    NavigateToAdminMainPage?.Invoke(sender, e);
                 }
             }
             else

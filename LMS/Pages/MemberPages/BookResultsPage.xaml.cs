@@ -22,34 +22,43 @@ namespace LMS.Pages.MemberPages
     /// </summary>
     public partial class BookResultsPage : Page
     {
-        public bool isReserved = false;
+        public event EventHandler<Book> PlaceReserve;
+        public event EventHandler<Book> CancelReserve;
         private List<Book> results { get; set; }
-        public event EventHandler<Book> ReserveButtonClicked;
-
-        public BookResultsPage(List<Book> searchResults, string searchInput)
+        public BookResultsPage(List<Book> searchResults, string searchInput, Member member)
         {
             InitializeComponent();
-            
             results = searchResults;
+
+            foreach (Book book in results)
+            {
+                Reserve reserve = member.reservedBooks.FirstOrDefault(r => r.bookId == book.id);
+                if (reserve != null)
+                {
+                    book.isReserved = true;
+                }
+            }
 
             ResultsContainer.ItemsSource = results;
             ResultText.Text = searchInput;
         }
 
-        private void ReserveButtonClick(object sender, RoutedEventArgs e)
+        private void ReserveCancelButtonClick(object sender, RoutedEventArgs e)
         {
-            if (!isReserved)
+            Book selectedBook = (sender as Button).DataContext as Book;
+
+            if (!selectedBook.isReserved)
             {
-                var selectedBook = (sender as Button).DataContext as Book;
-                ReserveButtonClicked?.Invoke(this, selectedBook);
-                MessageBox.Show("Reserved!");
-                isReserved = false;
+                PlaceReserve?.Invoke(sender, selectedBook);
+                selectedBook.isReserved = true;
             }
             else
             {
-                MessageBox.Show("Already Reserved");
+                CancelReserve?.Invoke(sender, selectedBook);
+                selectedBook.isReserved = false;
             }
-            
+            ResultsContainer.ItemsSource = null;
+            ResultsContainer.ItemsSource = results;
         }
     }
 }

@@ -20,23 +20,29 @@ namespace LMS.Pages.MemberPages
     /// </summary>
     public partial class MemberMainPage : Page
     {
-        public delegate void NavigateToLoginPage(object sender, RoutedEventArgs e);
-        public event NavigateToLoginPage navigateToLoginPage;
+        public event EventHandler<RoutedEventArgs> NavigateToLoginPage;
         private MemberHomePage memberHomePage { get; set; }
         private BookResultsPage bookResultsPage { get; set; }
-        public Member memberInfo { get; set; }
+        public Member member { get; set; }
 
         public MemberMainPage(Member loggedInMember)
         {
             InitializeComponent();
-            memberInfo = loggedInMember;
-            memberHomePage = new MemberHomePage(memberInfo);
+            member = loggedInMember;
+            memberHomePage = new MemberHomePage(member);
             PageContent.Content = memberHomePage;
+            memberHomePage.CancelReserve += CancelReserve;
+        }
+        private void CancelReserve(object sender, Book book)
+        {
+            Reserve reserve = member.reservedBooks.FirstOrDefault(r => r.bookId == book.id);
+            member.reservedBooks.Remove(reserve);
+            FileManagement.RemoveReserve(reserve);
         }
         private void PlaceReserve(object sender, Book book)
         {
-            Reserve newReserve = new Reserve(book, memberInfo);
-            memberInfo.reservedBooks.Add(newReserve);
+            Reserve newReserve = new Reserve(book, member);
+            member.reservedBooks.Add(newReserve);
             FileManagement.SaveNewReserve(newReserve);
         }
         private void SearchbarKeyDown(object sender, KeyEventArgs e)
@@ -62,8 +68,9 @@ namespace LMS.Pages.MemberPages
                     book.authorLastName.IndexOf(searchInput, StringComparison.OrdinalIgnoreCase) >= 0 ||
                     book.tag.IndexOf(searchInput, StringComparison.OrdinalIgnoreCase) >= 0
                 ).ToList();
-                bookResultsPage = new BookResultsPage(searchResults, searchInput);
-                bookResultsPage.ReserveButtonClicked += PlaceReserve;
+                bookResultsPage = new BookResultsPage(searchResults, searchInput, member);
+                bookResultsPage.PlaceReserve += PlaceReserve;
+                bookResultsPage.CancelReserve += CancelReserve;
                 PageContent.Content = bookResultsPage;
             }
         }
@@ -87,12 +94,14 @@ namespace LMS.Pages.MemberPages
         }
         private void LogoutButtonClick(object sender, RoutedEventArgs e)
         {
-            navigateToLoginPage(sender, e);
+            NavigateToLoginPage?.Invoke(sender, e);
         }
 
         private void HomeButtonClick(object send, RoutedEventArgs e)
         {
-            PageContent.Content = new MemberHomePage(memberInfo);
+            memberHomePage = new MemberHomePage(member);
+            memberHomePage.CancelReserve += CancelReserve;
+            PageContent.Content = memberHomePage;
         }
     }
 }
