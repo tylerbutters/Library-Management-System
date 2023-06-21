@@ -36,6 +36,7 @@ namespace LMS.Pages.AdminPages
             FirstName.Text = memberInfo.firstName;
             LastName.Text = memberInfo.lastName;
             Email.Text = memberInfo.email;
+            ReservesArea.ItemsSource = member.reservedBooks;
         }
 
         private void BackButtonClick(object sender, RoutedEventArgs e)
