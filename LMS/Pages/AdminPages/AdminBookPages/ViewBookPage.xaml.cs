@@ -53,6 +53,25 @@ namespace LMS.Pages.AdminPages
                 SaveButton.Visibility = Visibility.Visible;
                 DeleteButton.Visibility = Visibility.Visible;
                 EditCancelButton.Content = "Cancel";
+
+                ID.Background = (Brush)new BrushConverter().ConvertFrom("#e7ead4");
+                ID.Padding = new Thickness(20, 0, 0, 0);
+                ID.IsReadOnly = false;
+                Title.Background = (Brush)new BrushConverter().ConvertFrom("#e7ead4");
+                Title.Padding = new Thickness(20, 0, 0, 0);
+                Title.IsReadOnly = false;
+                AuthorFirstName.Background = (Brush)new BrushConverter().ConvertFrom("#e7ead4");
+                AuthorFirstName.Padding = new Thickness(20, 0, 0, 0);
+                AuthorFirstName.IsReadOnly = false;
+                AuthorLastName.Background = (Brush)new BrushConverter().ConvertFrom("#e7ead4");
+                AuthorLastName.Padding = new Thickness(20, 0, 0, 0);
+                AuthorLastName.IsReadOnly = false;
+                Tag.Background = (Brush)new BrushConverter().ConvertFrom("#e7ead4");
+                Tag.Padding = new Thickness(20, 0, 0, 0);
+                Tag.IsReadOnly = false;
+                Summary.Background = (Brush)new BrushConverter().ConvertFrom("#e7ead4");
+                Summary.Padding = new Thickness(20);
+                Summary.IsReadOnly = false;
             }
             else
             {
@@ -60,6 +79,25 @@ namespace LMS.Pages.AdminPages
                 SaveButton.Visibility = Visibility.Hidden;
                 DeleteButton.Visibility = Visibility.Hidden;
                 EditCancelButton.Content = "Edit";
+
+                ID.Background = Brushes.Transparent;
+                ID.Padding = new Thickness(0);
+                ID.IsReadOnly = true;
+                Title.Background = Brushes.Transparent;
+                Title.Padding = new Thickness(0);
+                Title.IsReadOnly = true;
+                AuthorFirstName.Background = Brushes.Transparent;
+                AuthorFirstName.Padding = new Thickness(0);
+                AuthorFirstName.IsReadOnly = true;
+                AuthorLastName.Background = Brushes.Transparent;
+                AuthorLastName.Padding = new Thickness(0);
+                AuthorLastName.IsReadOnly = true;
+                Tag.Background = Brushes.Transparent;
+                Tag.Padding = new Thickness(0);
+                Tag.IsReadOnly = true;
+                Summary.Background = Brushes.Transparent;
+                Summary.Padding = new Thickness(0, 20, 0, 0);
+                Summary.IsReadOnly = true;
             }
         }
 
@@ -81,5 +119,5 @@ namespace LMS.Pages.AdminPages
             }
         }
     }
-    
+
 }

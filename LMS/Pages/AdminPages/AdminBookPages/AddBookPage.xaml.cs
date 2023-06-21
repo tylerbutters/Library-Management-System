@@ -32,11 +32,11 @@ namespace LMS.Pages.AdminPages
         {
             InitializeComponent();
         }
-        private int GenerateRandomID()
+        private string GenerateBookID()
         {
             int min = 10000;
             int max = 99999;
-            return new Random().Next(min, max);
+            return "B" + new Random().Next(min, max);
         }
         private string GenerateNewImageAddress(string title, string existingImageAddressInput)
         {
@@ -92,7 +92,7 @@ namespace LMS.Pages.AdminPages
 
             Book newBook = new Book
             {
-                id = GenerateRandomID().ToString(),
+                id = GenerateBookID(),
                 cover = newImageAddress,
                 title = titleInput.Text,
                 authorFirstName = authorFirstNameInput.Text,
@@ -111,11 +111,11 @@ namespace LMS.Pages.AdminPages
                 }
                 else if (currentBook.id == newBook.id)
                 {
-                    newBook.id = GenerateRandomID().ToString();
+                    newBook.id = GenerateBookID().ToString();
                 }
             }
 
-            FileManagement.SaveBooks(newBook);
+            FileManagement.SaveNewBook(newBook);
 
             titleInput.Text = "";
             authorFirstNameInput.Text = "";

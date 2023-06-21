@@ -29,7 +29,14 @@ namespace LMS.Pages.MemberPages
             FirstName.Text = memberInfo.firstName;
             LastName.Text = memberInfo.lastName;
             Email.Text = memberInfo.email;
-            
+
+            ReservesArea.ItemsSource = memberInfo.reservedBooks;
+
+        }
+
+        private void CancelButtonClick(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

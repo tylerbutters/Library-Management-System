@@ -22,30 +22,34 @@ namespace LMS.Pages.MemberPages
     /// </summary>
     public partial class BookResultsPage : Page
     {
+        public bool isReserved = false;
         private List<Book> results { get; set; }
-       
+        public event EventHandler<Book> ReserveButtonClicked;
+
         public BookResultsPage(List<Book> searchResults, string searchInput)
         {
             InitializeComponent();
             
             results = searchResults;
 
-            //CultureInfo cultureInfo = CultureInfo.CurrentCulture;
-            //TextInfo textInfo = cultureInfo.TextInfo;
-            //foreach (Book book in results)
-            //{
-            //    book.title = textInfo.ToTitleCase(book.title);
-            //    book.authorFirstName = textInfo.ToTitleCase(book.authorFirstName);
-            //    book.authorLastName = textInfo.ToTitleCase(book.authorLastName);
-            //    book.tag = textInfo.ToTitleCase(book.tag);
-            //}
             ResultsContainer.ItemsSource = results;
             ResultText.Text = searchInput;
         }
 
         private void ReserveButtonClick(object sender, RoutedEventArgs e)
         {
-
+            if (!isReserved)
+            {
+                var selectedBook = (sender as Button).DataContext as Book;
+                ReserveButtonClicked?.Invoke(this, selectedBook);
+                MessageBox.Show("Reserved!");
+                isReserved = false;
+            }
+            else
+            {
+                MessageBox.Show("Already Reserved");
+            }
+            
         }
     }
 }

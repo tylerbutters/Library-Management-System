@@ -33,6 +33,12 @@ namespace LMS.Pages.MemberPages
             memberHomePage = new MemberHomePage(memberInfo);
             PageContent.Content = memberHomePage;
         }
+        private void PlaceReserve(object sender, Book book)
+        {
+            Reserve newReserve = new Reserve(book, memberInfo);
+            memberInfo.reservedBooks.Add(newReserve);
+            FileManagement.SaveNewReserve(newReserve);
+        }
         private void SearchbarKeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
@@ -57,7 +63,7 @@ namespace LMS.Pages.MemberPages
                     book.tag.IndexOf(searchInput, StringComparison.OrdinalIgnoreCase) >= 0
                 ).ToList();
                 bookResultsPage = new BookResultsPage(searchResults, searchInput);
-
+                bookResultsPage.ReserveButtonClicked += PlaceReserve;
                 PageContent.Content = bookResultsPage;
             }
         }
@@ -86,7 +92,7 @@ namespace LMS.Pages.MemberPages
 
         private void HomeButtonClick(object send, RoutedEventArgs e)
         {
-            PageContent.Content = memberHomePage;
+            PageContent.Content = new MemberHomePage(memberInfo);
         }
     }
 }
