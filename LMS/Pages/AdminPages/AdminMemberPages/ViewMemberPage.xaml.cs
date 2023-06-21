@@ -55,6 +55,21 @@ namespace LMS.Pages.AdminPages
                 SaveButton.Visibility = Visibility.Visible;
                 DeleteButton.Visibility = Visibility.Visible;
                 EditCancelButton.Content = "Cancel";
+                ID.Background = (Brush)new BrushConverter().ConvertFrom("#e7ead4");
+                ID.Padding = new Thickness(20, 0, 0, 0);
+
+                PIN.Background = (Brush)new BrushConverter().ConvertFrom("#e7ead4");
+                PIN.Padding = new Thickness(20, 0, 0, 0);
+                PIN.IsReadOnly = false;
+                FirstName.Background = (Brush)new BrushConverter().ConvertFrom("#e7ead4");
+                FirstName.Padding = new Thickness(20, 0, 0, 0);
+                FirstName.IsReadOnly = false;
+                LastName.Background = (Brush)new BrushConverter().ConvertFrom("#e7ead4");
+                LastName.Padding = new Thickness(20, 0, 0, 0);
+                LastName.IsReadOnly = false;
+                Email.Background = (Brush)new BrushConverter().ConvertFrom("#e7ead4");
+                Email.Padding = new Thickness(20, 0, 0, 0);
+                Email.IsReadOnly = false;
             }
             else
             {
@@ -62,6 +77,22 @@ namespace LMS.Pages.AdminPages
                 SaveButton.Visibility = Visibility.Hidden;
                 DeleteButton.Visibility = Visibility.Hidden;
                 EditCancelButton.Content = "Edit";
+
+                ID.Background = Brushes.Transparent;
+                ID.Padding = new Thickness(0);
+                ID.IsReadOnly = true;
+                PIN.Background = Brushes.Transparent;
+                PIN.Padding = new Thickness(0);
+                PIN.IsReadOnly = true;
+                FirstName.Background = Brushes.Transparent;
+                FirstName.Padding = new Thickness(0);
+                FirstName.IsReadOnly = true;
+                LastName.Background = Brushes.Transparent;
+                LastName.Padding = new Thickness(0);
+                LastName.IsReadOnly = true;
+                Email.Background = Brushes.Transparent;
+                Email.Padding = new Thickness(0);
+                Email.IsReadOnly = true;
             }
         }
 

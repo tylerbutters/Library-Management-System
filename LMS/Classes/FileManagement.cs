@@ -65,7 +65,6 @@ namespace LMS
         {
             return LoadAccounts().OfType<Member>().ToList();
         }
-
         public static List<Book> LoadBooks()
         {
             CultureInfo cultureInfo = CultureInfo.CurrentCulture;

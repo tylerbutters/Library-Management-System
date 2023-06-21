@@ -142,29 +142,65 @@
                             </Grid.RowDefinitions>
                             <StackPanel Grid.Row="0" VerticalAlignment="Center">
                                 <TextBlock FontSize="25" FontWeight="Black" Text="ID" />
-                                <TextBlock Margin="0 10 0 0" Name="ID" Text="example" FontWeight="Medium" FontSize="20"/>
+                                <TextBox IsReadOnly="True" Margin="0 10 0 0" Name="ID" Text="example" FontWeight="Medium" FontSize="20" Height="60" BorderThickness="0" VerticalContentAlignment="Center">
+                                    <TextBox.Resources>
+                                        <Style TargetType="Border">
+                                            <Setter Property="CornerRadius" Value="10"/>
+                                        </Style>
+                                    </TextBox.Resources>
+                                </TextBox>
                             </StackPanel>
                             <StackPanel Grid.Row="1" VerticalAlignment="Center">
                                 <TextBlock FontSize="25" FontWeight="Black" Text="Title" />
-                                <TextBlock Margin="0 10 0 0" Name="Title" Text="example" FontWeight="Medium" FontSize="20"/>
+                                <TextBox IsReadOnly="True" Margin="0 10 0 0" Name="Title" Text="example" FontWeight="Medium" FontSize="20" Height="60" BorderThickness="0" VerticalContentAlignment="Center">
+                                    <TextBox.Resources>
+                                        <Style TargetType="Border">
+                                            <Setter Property="CornerRadius" Value="10"/>
+                                        </Style>
+                                    </TextBox.Resources>
+                                </TextBox>
                             </StackPanel>
                             <StackPanel Grid.Row="2" VerticalAlignment="Center">
                                 <TextBlock FontSize="25" FontWeight="Black" Text="Author First Name" />
-                                <TextBlock Margin="0 10 0 0" Name="AuthorFirstName" Text="example" FontWeight="Medium" FontSize="20"/>
+                                <TextBox IsReadOnly="True" Margin="0 10 0 0" Name="AuthorFirstName" Text="example" FontWeight="Medium" FontSize="20" Height="60" BorderThickness="0" VerticalContentAlignment="Center">
+                                    <TextBox.Resources>
+                                        <Style TargetType="Border">
+                                            <Setter Property="CornerRadius" Value="10"/>
+                                        </Style>
+                                    </TextBox.Resources>
+                                </TextBox>
                             </StackPanel>
                             <StackPanel Grid.Row="3" VerticalAlignment="Center">
                                 <TextBlock FontSize="25" FontWeight="Black" Text="Author Last Name" />
-                                <TextBlock Margin="0 10 0 0" Name="AuthorLastName" Text="example" FontWeight="Medium" FontSize="20" />
+                                <TextBox IsReadOnly="True" Margin="0 10 0 0" Name="AuthorLastName" Text="example" FontWeight="Medium" FontSize="20" Height="60" BorderThickness="0" VerticalContentAlignment="Center">
+                                    <TextBox.Resources>
+                                        <Style TargetType="Border">
+                                            <Setter Property="CornerRadius" Value="10"/>
+                                        </Style>
+                                    </TextBox.Resources>
+                                </TextBox>
                             </StackPanel>
                             <StackPanel Grid.Row="4" VerticalAlignment="Center">
                                 <TextBlock FontSize="25" FontWeight="Black" Text="Tag" />
-                                <TextBlock Margin="0 10 0 0" Name="Tag" Text="example" FontWeight="Medium" FontSize="20"/>
+                                <TextBox IsReadOnly="True" Margin="0 10 0 0" Name="Tag" Text="example" FontWeight="Medium" FontSize="20" Height="60" BorderThickness="0" VerticalContentAlignment="Center">
+                                    <TextBox.Resources>
+                                        <Style TargetType="Border">
+                                            <Setter Property="CornerRadius" Value="10"/>
+                                        </Style>
+                                    </TextBox.Resources>
+                                </TextBox>
                             </StackPanel>
                         </Grid>
 
                         <StackPanel Grid.Column="1" Margin="20">
                             <TextBlock FontSize="25" FontWeight="Black" Text="Summary" />
-                            <TextBlock Margin="0 10 0 0" Name="Summary" Text="example" FontWeight="Medium" FontSize="20"/>
+                            <TextBox IsReadOnly="True" Margin="0 10 0 0" Name="Summary" Text="example" FontWeight="Medium" FontSize="20" Padding="0, 20, 0, 0" Height="550" BorderThickness="0" TextWrapping="Wrap">
+                                <TextBox.Resources>
+                                    <Style TargetType="Border">
+                                        <Setter Property="CornerRadius" Value="10"/>
+                                    </Style>
+                                </TextBox.Resources>
+                            </TextBox>
                         </StackPanel>
                     </Grid>
                 </Border>
