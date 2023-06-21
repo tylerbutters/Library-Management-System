@@ -81,7 +81,7 @@ namespace LMS
                                           title = textInfo.ToTitleCase(split[2]),
                                           authorFirstName = textInfo.ToTitleCase(split[3]),
                                           authorLastName = textInfo.ToTitleCase(split[4]),
-                                          tag = textInfo.ToTitleCase(split[5]),
+                                          subject= textInfo.ToTitleCase(split[5]),
                                           summary = split[6],
                                           isAvailable = split[7],
                                       };
@@ -134,7 +134,7 @@ namespace LMS
         }
         public static void SaveNewBook(Book newBook)
         {
-            string bookString = $"{newBook.id},{newBook.cover},{newBook.title.ToLower()},{newBook.authorFirstName.ToLower()},{newBook.authorLastName.ToLower()},{newBook.tag.ToLower()},{newBook.summary.ToLower()},{newBook.isAvailable}";
+            string bookString = $"{newBook.id},{newBook.cover},{newBook.title.ToLower()},{newBook.authorFirstName.ToLower()},{newBook.authorLastName.ToLower()},{newBook.subject.ToLower()},{newBook.summary.ToLower()},{newBook.isAvailable}";
             string[] currentRows = File.ReadAllLines(BookFile);
             string[] newRows = currentRows.Append(bookString).ToArray();
             File.WriteAllLines(BookFile, newRows);

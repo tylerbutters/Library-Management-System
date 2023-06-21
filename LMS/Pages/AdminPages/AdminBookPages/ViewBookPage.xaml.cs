@@ -33,7 +33,7 @@ namespace LMS.Pages.AdminPages
             Title.Text = bookInfo.title;
             AuthorFirstName.Text = bookInfo.authorFirstName;
             AuthorLastName.Text = bookInfo.authorLastName;
-            Subject.Text = bookInfo.tag;
+            Subject.Text = bookInfo.subject;
             Summary.Text = bookInfo.summary;
         }
         private void BackButtonClick(object sender, RoutedEventArgs e)
