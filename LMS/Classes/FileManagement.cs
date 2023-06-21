@@ -7,6 +7,7 @@ using System.IO;
 using System.Windows;
 using System.Globalization;
 
+
 namespace LMS
 {
     public class FileManagement
@@ -141,9 +142,9 @@ namespace LMS
         }
         public static void SaveNewMember(Member newMember)
         {
-            string newMemberInfo = $"{newMember.isAdmin},{newMember.id},{newMember.pin},{newMember.firstName.ToLower()},{newMember.lastName.ToLower()},{newMember.email}";
+            string newmember = $"{newMember.isAdmin},{newMember.id},{newMember.pin},{newMember.firstName.ToLower()},{newMember.lastName.ToLower()},{newMember.email}";
             string[] currentRows = File.ReadAllLines(AccountFile);
-            string[] newRows = currentRows.Append(newMemberInfo).ToArray();
+            string[] newRows = currentRows.Append(newmember).ToArray();
             File.WriteAllLines(AccountFile, newRows);
             MessageBox.Show("Member Added Successfully!\nID: " + newMember.id + "\nPIN: " + newMember.pin);
         }
@@ -153,6 +154,14 @@ namespace LMS
 
             string[] currentRows = File.ReadAllLines(ReserveFile);
             string[] newRows = currentRows.Append(reserveString).ToArray();
+            File.WriteAllLines(ReserveFile, newRows);
+        }
+        public static void RemoveReserve(Reserve reserve)
+        {
+            string reserveString = $"{reserve.bookId},{reserve.memberId},{reserve.dateReserved},{reserve.dateAvailable}";
+
+            string[] currentRows = File.ReadAllLines(ReserveFile);
+            string[] newRows = currentRows.Where(row => row != reserveString).ToArray();
             File.WriteAllLines(ReserveFile, newRows);
         }
     }

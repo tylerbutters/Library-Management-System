@@ -203,7 +203,7 @@
                         <TextBlock FontSize="25" HorizontalAlignment="Center" FontWeight="Black" Text="Reserves" />
                         <Border CornerRadius="10" Background="#e7ead4" Height="561" Margin="10" Padding="10">
                             <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Hidden">
-                                <ItemsControl Name="ReservesArea" ItemsSource="{Binding memberInfo.reservedBooks}">
+                                <ItemsControl Name="ReservesArea" ItemsSource="{Binding member.reservedBooks}">
                                     <ItemsControl.ItemTemplate>
                                         <DataTemplate>
                                             <StackPanel Margin="5">

@@ -20,8 +20,7 @@ namespace LMS.Pages.AdminPages
     /// </summary>
     public partial class MemberTable : Page
     {
-        public delegate void NavigateToViewMemberPage (object send, RoutedEventArgs e);
-        public event NavigateToViewMemberPage navigateToViewMemberPage;
+        public event EventHandler<RoutedEventArgs> NavigateToViewMemberPage;
         public DataGrid memberDataGridInfo { get; set; }
         public Member selectedMember { get; set; }
         public MemberTable()
@@ -34,7 +33,7 @@ namespace LMS.Pages.AdminPages
         {
             selectedMember = (Member)memberDataGridInfo.SelectedItem;
 
-            navigateToViewMemberPage(sender, e);
+            NavigateToViewMemberPage(sender, e);
         }
     }
 }

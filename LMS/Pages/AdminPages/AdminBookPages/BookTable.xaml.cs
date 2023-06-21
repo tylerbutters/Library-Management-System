@@ -20,8 +20,7 @@ namespace LMS.Pages.AdminPages
     /// </summary>
     public partial class BookTable : Page
     {
-        public delegate void NavigateToViewBookPage(object send, RoutedEventArgs e);
-        public event NavigateToViewBookPage navigateToViewBookPage;
+        public event EventHandler<RoutedEventArgs> NavigateToViewBookPage;
         public DataGrid bookDataGridInfo { get; set; }
         public Book selectedBook { get; set; }
         public BookTable()
@@ -34,7 +33,7 @@ namespace LMS.Pages.AdminPages
         {
             selectedBook = (Book)bookDataGridInfo.SelectedItem;
 
-            navigateToViewBookPage(sender, e);
+            NavigateToViewBookPage(sender, e);
         }
     }
 }

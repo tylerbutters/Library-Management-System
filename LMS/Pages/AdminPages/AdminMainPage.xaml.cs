@@ -21,9 +21,7 @@ namespace LMS.Pages.AdminPages
     /// </summary>
     public partial class AdminMainPage : Page
     {
-        public delegate void NavigateToLoginPage(object sender, RoutedEventArgs e);
-        public event NavigateToLoginPage navigateToLoginPage;
-
+        public event EventHandler<RoutedEventArgs> NavigateToLoginPage;
         private bool isOnMemberPage { get; set; } = true;
         private MemberTable memberTable { get; set; } = new MemberTable();
         private AddMemberPage addMemberPage { get; set; } = new AddMemberPage();
@@ -41,10 +39,10 @@ namespace LMS.Pages.AdminPages
             memberDataGrid = memberTable.memberDataGridInfo;
             bookDataGrid = bookTable.bookDataGridInfo;
 
-            memberTable.navigateToViewMemberPage += NavigateToViewMemberPage;
-            bookTable.navigateToViewBookPage += NavigateToViewBookPage;
-            addMemberPage.navigateToMemberPage += MemberPageButtonClick;
-            addBookPage.navigateToBookPage += BookPageButtonClick;
+            memberTable.NavigateToViewMemberPage += NavigateToViewMemberPage;
+            bookTable.NavigateToViewBookPage += NavigateToViewBookPage;
+            addMemberPage.NavigateToMemberPage += MemberPageButtonClick;
+            addBookPage.NavigateToBookPage += BookPageButtonClick;
         }
         public void NavigateToViewMemberPage(object sender, RoutedEventArgs e)
         {
@@ -59,7 +57,7 @@ namespace LMS.Pages.AdminPages
         }
         private void LogoutButtonClick(object sender, RoutedEventArgs e)
         {
-            navigateToLoginPage(sender, e);
+            NavigateToLoginPage(sender, e);
         }
         private void AddButtonClick(object sender, RoutedEventArgs e)
         {

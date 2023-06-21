@@ -25,8 +25,7 @@ namespace LMS.Pages.AdminPages
     /// </summary>
     public partial class AddBookPage : Page
     {
-        public delegate void NavigateToBookPage(object sender, RoutedEventArgs e);
-        public event NavigateToBookPage navigateToBookPage;
+        public event EventHandler<RoutedEventArgs> NavigateToBookPage;
         public string imageAddress { get; set; }
         public AddBookPage()
         {
@@ -126,7 +125,7 @@ namespace LMS.Pages.AdminPages
         }
         private void BackButtonClick(object sender, RoutedEventArgs e)
         {
-            navigateToBookPage(sender, e);
+            NavigateToBookPage(sender, e);
         }
     }
 }

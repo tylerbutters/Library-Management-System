@@ -20,23 +20,29 @@ namespace LMS.Pages.MemberPages
     /// </summary>
     public partial class MemberHomePage : Page
     {
-        public Member memberInfo { get; set; }
+        public event EventHandler<Book> CancelReserve;
+        public Member member { get; set; }
         public MemberHomePage(Member loggedInMember)
         {
             InitializeComponent();
-            memberInfo = loggedInMember;
-            ID.Text = memberInfo.id;
-            FirstName.Text = memberInfo.firstName;
-            LastName.Text = memberInfo.lastName;
-            Email.Text = memberInfo.email;
+            member = loggedInMember;
+            ID.Text = member.id;
+            FirstName.Text = member.firstName;
+            LastName.Text = member.lastName;
+            Email.Text = member.email;
 
-            ReservesArea.ItemsSource = memberInfo.reservedBooks;
+            ReservesArea.ItemsSource = member.reservedBooks;
 
         }
 
         private void CancelButtonClick(object sender, RoutedEventArgs e)
         {
+            Reserve selectedReserve = (sender as Button).DataContext as Reserve;
+            selectedReserve.book.isReserved = false;
+            CancelReserve(this, selectedReserve.book);
 
+            ReservesArea.ItemsSource = null;
+            ReservesArea.ItemsSource = member.reservedBooks;
         }
     }
 }

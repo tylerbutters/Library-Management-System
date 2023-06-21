@@ -21,8 +21,7 @@ namespace LMS.Pages.AdminPages
     /// </summary>
     public partial class AddMemberPage : Page
     {
-        public delegate void NavigateToMemberPage(object sender, RoutedEventArgs e);
-        public event NavigateToMemberPage navigateToMemberPage;
+        public event EventHandler<RoutedEventArgs> NavigateToMemberPage;
         public AddMemberPage()
         {
             InitializeComponent();
@@ -80,7 +79,7 @@ namespace LMS.Pages.AdminPages
         }
         private void BackButtonClick(object sender, RoutedEventArgs e)
         {
-            navigateToMemberPage(sender, e);
+            NavigateToMemberPage(sender, e);
         }
     }
 }

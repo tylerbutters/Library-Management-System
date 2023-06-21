@@ -61,9 +61,9 @@
                                                             <ColumnDefinition Width="1.5*"></ColumnDefinition>
                                                         </Grid.ColumnDefinitions>
                                                         <TextBlock Grid.Column="0" Name="Availablity" Text="example" Foreground="#3AA220" FontWeight="Bold" FontSize="20" VerticalAlignment="Center"/>
-                                                        <Button Grid.Column="1" Content="Reserve" Name="ReserveButton" Click="ReserveButtonClick" Width="136" Height="44" FontSize="25" FontWeight="Black" Foreground="White" BorderThickness="0">
+                                                        <Button Grid.Column="1" Content="{Binding}" Click="ReserveCancelButtonClick" Width="136" Height="44" FontSize="25" FontWeight="Black" Foreground="White" BorderThickness="0">
                                                             <Button.Style>
-                                                                <Style TargetType="{x:Type Button}">
+                                                                <Style TargetType="Button">
                                                                     <Setter Property="Background" Value="#BFCA43"/>
                                                                     <Setter Property="Template">
                                                                         <Setter.Value>
@@ -78,6 +78,28 @@
                                                                         <Trigger Property="IsMouseOver" Value="True">
                                                                             <Setter Property="Background" Value="#A5AE38"/>
                                                                         </Trigger>
+                                                                        <DataTrigger Binding="{Binding isReserved}" Value="True">
+                                                                            <DataTrigger.EnterActions>
+                                                                                <BeginStoryboard>
+                                                                                    <Storyboard>
+                                                                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Content">
+                                                                                            <DiscreteObjectKeyFrame KeyTime="0" Value="Cancel" />
+                                                                                        </ObjectAnimationUsingKeyFrames>
+                                                                                    </Storyboard>
+                                                                                </BeginStoryboard>
+                                                                            </DataTrigger.EnterActions>
+                                                                        </DataTrigger>
+                                                                        <DataTrigger Binding="{Binding isReserved}" Value="False">
+                                                                            <DataTrigger.EnterActions>
+                                                                                <BeginStoryboard>
+                                                                                    <Storyboard>
+                                                                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Content">
+                                                                                            <DiscreteObjectKeyFrame KeyTime="0" Value="Reserve" />
+                                                                                        </ObjectAnimationUsingKeyFrames>
+                                                                                    </Storyboard>
+                                                                                </BeginStoryboard>
+                                                                            </DataTrigger.EnterActions>
+                                                                        </DataTrigger>
                                                                     </Style.Triggers>
                                                                 </Style>
                                                             </Button.Style>
@@ -86,7 +108,12 @@
                                                                     <Setter Property="CornerRadius" Value="10"/>
                                                                 </Style>
                                                             </Button.Resources>
+                                                            <Button.Tag>
+                                                                <Binding RelativeSource="{RelativeSource AncestorType={x:Type local:BookResultsPage}}" Path="DataContext"/>
+                                                            </Button.Tag>
                                                         </Button>
+
+
                                                     </Grid>
                                                 </Grid>
                                             </Grid>

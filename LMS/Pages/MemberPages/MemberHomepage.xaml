@@ -23,7 +23,7 @@
                 <TextBlock Text="Reserves" FontWeight="Black" FontSize="40" HorizontalAlignment="Center" Margin="10"/>
                 <Border  CornerRadius="10" Background="#e7ead4" Height="530" Width="530" Padding="10">
                     <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Hidden">
-                        <ItemsControl Name="ReservesArea" ItemsSource="{Binding memberInfo.reservedBooks}">
+                        <ItemsControl Name="ReservesArea" ItemsSource="{Binding member.reservedBooks}">
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
                                     <StackPanel Margin="10">
@@ -104,7 +104,7 @@
         </Grid>
 
 
-        <Grid Name="memberInfoArea" VerticalAlignment="Bottom" Margin="50" Width="1100">
+        <Grid Name="memberArea" VerticalAlignment="Bottom" Margin="50" Width="1100">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*"></ColumnDefinition>
                 <ColumnDefinition Width="1*"></ColumnDefinition>
