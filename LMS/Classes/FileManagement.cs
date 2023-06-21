@@ -20,44 +20,42 @@ namespace LMS
         {
             CultureInfo cultureInfo = CultureInfo.CurrentCulture;
             TextInfo textInfo = cultureInfo.TextInfo;
-            string[] rows = File.ReadAllLines(AccountFile);
+            List<string> rows = File.ReadAllLines(AccountFile).ToList();
 
-            List<Account> accounts = rows.Skip(1).Select(l =>
-               {
-                   string[] split = l.Split(',');
+            List<Account> accounts = new List<Account>();
 
-                   Account account;
-                   //bool isAdmin = split[0] == "true";
-
-                   if (split[0].Contains("M"))
-                   {
-                       Member member = new Member
-                       {
-                           id = split[0],
-                           pin = split[1],
-                           firstName = textInfo.ToTitleCase(split[2]),
-                           lastName = textInfo.ToTitleCase(split[3]),
-                           email = split[4],
-                       };
-
-                       account = member;
-                   }
-                   else
-                   {
-                       account = new Admin();
-                   }
-
-                   account.id = split[0];
-                   account.pin = split[1];
-
-                   return account;
-               }).ToList();
-
-            foreach (Member member in accounts.OfType<Member>())
+            foreach (string row in rows.Skip(1))
             {
-                member.reservedBooks = LoadMembersReserves(member);
-            }
+                string[] split = row.Split(',');
 
+                string accountId = split[0];
+                string accountPin = split[1];
+
+                if (accountId.StartsWith("M"))
+                {
+                    Member member = new Member
+                    {
+                        id = accountId,
+                        pin = accountPin,
+                        firstName = textInfo.ToTitleCase(split[2]),
+                        lastName = textInfo.ToTitleCase(split[3]),
+                        email = split[4]
+                    };
+
+                    member.reservedBooks = LoadMembersReserves(member);
+                    accounts.Add(member);
+                }
+                else
+                {
+                    Admin admin = new Admin
+                    {
+                        id = accountId,
+                        pin = accountPin
+                    };
+
+                    accounts.Add(admin);
+                }
+            }
 
             return accounts;
         }
@@ -70,43 +68,59 @@ namespace LMS
         {
             CultureInfo cultureInfo = CultureInfo.CurrentCulture;
             TextInfo textInfo = cultureInfo.TextInfo;
-            string[] rows = File.ReadAllLines(BookFile);
+            List<string> rows = File.ReadAllLines(BookFile).ToList();
 
-            IEnumerable<Book> books = from l in rows.Skip(1)
-                                      let split = l.Split(',')
-                                      select new Book()
-                                      {
-                                          id = split[0],
-                                          cover = split[1],
-                                          title = textInfo.ToTitleCase(split[2]),
-                                          authorFirstName = textInfo.ToTitleCase(split[3]),
-                                          authorLastName = textInfo.ToTitleCase(split[4]),
-                                          subject= textInfo.ToTitleCase(split[5]),
-                                          summary = split[6],
-                                          isAvailable = split[7],
-                                      };
-            return books.ToList();
+            List<Book> books = new List<Book>();
+
+            foreach (string row in rows.Skip(1))
+            {
+                string[] split = row.Split(',');
+
+                Book book = new Book()
+                {
+                    id = split[0],
+                    cover = split[1],
+                    title = textInfo.ToTitleCase(split[2]),
+                    authorFirstName = textInfo.ToTitleCase(split[3]),
+                    authorLastName = textInfo.ToTitleCase(split[4]),
+                    subject = textInfo.ToTitleCase(split[5]),
+                    summary = split[6],
+                    isAvailable = split[7]
+                };
+
+                books.Add(book);
+            }
+
+            return books;
         }
+
         public static List<Reserve> LoadReserves(Member member)
         {
-            string[] rows = File.ReadAllLines(ReserveFile);
+            List<string> rows = File.ReadAllLines(ReserveFile).ToList();
 
-            IEnumerable<Reserve> reserves = from l in rows.Skip(1)
-                                            let split = l.Split(',')
-                                            let bookId = split[0]
-                                            let book = LoadBookById(bookId)
-                                            select new Reserve(book, member)
-                                            {
-                                                bookId = bookId,
-                                                memberId = split[1],
-                                                dateReserved = split[2],
-                                                dateAvailable = split[3],
-                                                book = book,
-                                            };
+            List<Reserve> reserves = new List<Reserve>();
 
+            foreach (string row in rows.Skip(1))
+            {
+                string[] split = row.Split(',');
+                string bookId = split[0];
+                Book book = LoadBookById(bookId);
 
-            return reserves.ToList();
+                Reserve reserve = new Reserve(book, member)
+                {
+                    bookId = bookId,
+                    memberId = split[1],
+                    dateReserved = split[2],
+                    dateAvailable = split[3],
+                    book = book
+                };
+
+                reserves.Add(reserve);
+            }
+
+            return reserves;
         }
+
         public static List<Reserve> LoadMembersReserves(Member member)
         {
             List<Reserve> reserves = LoadReserves(member);
@@ -135,19 +149,21 @@ namespace LMS
         public static void SaveNewBook(Book newBook)
         {
             string bookString = $"{newBook.id},{newBook.cover},{newBook.title.ToLower()},{newBook.authorFirstName.ToLower()},{newBook.authorLastName.ToLower()},{newBook.subject.ToLower()},{newBook.summary.ToLower()},{newBook.isAvailable}";
-            string[] currentRows = File.ReadAllLines(BookFile);
-            string[] newRows = currentRows.Append(bookString).ToArray();
-            File.WriteAllLines(BookFile, newRows);
+            List<string> rows = File.ReadAllLines(BookFile).ToList();
+            rows.Add(bookString);
+            File.WriteAllLines(BookFile, rows);
             MessageBox.Show("Book Added Successfully!\n");
         }
+
         public static void SaveNewMember(Member newMember)
         {
             string memberString = $"{newMember.isAdmin},{newMember.id},{newMember.pin},{newMember.firstName.ToLower()},{newMember.lastName.ToLower()},{newMember.email}";
-            string[] currentRows = File.ReadAllLines(AccountFile);
-            string[] newRows = currentRows.Append(memberString).ToArray();
-            File.WriteAllLines(AccountFile, newRows);
+            List<string> rows = File.ReadAllLines(AccountFile).ToList();
+            rows.Add(memberString);
+            File.WriteAllLines(AccountFile, rows);
             MessageBox.Show("Member Added Successfully!\nID: " + newMember.id + "\nPIN: " + newMember.pin);
         }
+
         public static void DeleteBook(Book book)
         {
             string bookString = $"{book.id},{book.cover},{book.title.ToLower()},{book.authorFirstName.ToLower()},{book.authorLastName.ToLower()},{book.subject.ToLower()},{book.summary.ToLower()},{book.isAvailable}";
@@ -156,6 +172,7 @@ namespace LMS
             File.WriteAllLines(BookFile, rows);
             MessageBox.Show("Book Deleted Successfully!\n");
         }
+
         public static void DeleteMember(Member member)
         {
             string memberString = $"{member.isAdmin},{member.id},{member.pin},{member.firstName.ToLower()},{member.lastName.ToLower()},{member.email}";
@@ -164,31 +181,33 @@ namespace LMS
             File.WriteAllLines(AccountFile, rows);
             MessageBox.Show("Member Deleted Successfully!\n");
         }
+
         public static void SaveNewReserve(Reserve reserve)
         {
             string reserveString = $"{reserve.bookId},{reserve.memberId},{reserve.dateReserved},{reserve.dateAvailable}";
 
-            string[] currentRows = File.ReadAllLines(ReserveFile);
-            string[] newRows = currentRows.Append(reserveString).ToArray();
-            File.WriteAllLines(ReserveFile, newRows);
+            List<string> rows = File.ReadAllLines(ReserveFile).ToList();
+            rows.Add(reserveString);
+            File.WriteAllLines(ReserveFile, rows);
         }
+
         public static void RemoveReserve(Reserve reserve)
         {
             string reserveString = $"{reserve.bookId},{reserve.memberId},{reserve.dateReserved},{reserve.dateAvailable}";
 
-            string[] currentRows = File.ReadAllLines(ReserveFile);
-            string[] newRows = currentRows.Where(row => row != reserveString).ToArray();
-            File.WriteAllLines(ReserveFile, newRows);
+            List<string> rows = File.ReadAllLines(ReserveFile).ToList();
+            rows.Remove(reserveString);
+            File.WriteAllLines(ReserveFile, rows);
         }
+
         public static void RemoveLoan(Loan loan)
         {
             string loanString = $"{loan.bookId},{loan.memberId},{loan.dateLoaned},{loan.dateDue}";
 
-            string[] currentRows = File.ReadAllLines(LoanFile);
-            string[] newRows = currentRows.Where(row => row != loanString).ToArray();
-            File.WriteAllLines(LoanFile, newRows);
+            List<string> rows = File.ReadAllLines(LoanFile).ToList();
+            rows.Remove(loanString);
+            File.WriteAllLines(LoanFile, rows);
         }
-
 
     }
 }
