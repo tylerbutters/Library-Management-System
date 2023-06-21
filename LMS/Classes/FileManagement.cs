@@ -148,6 +148,22 @@ namespace LMS
             File.WriteAllLines(AccountFile, newRows);
             MessageBox.Show("Member Added Successfully!\nID: " + newMember.id + "\nPIN: " + newMember.pin);
         }
+        public static void DeleteBook(Book book)
+        {
+            string bookString = $"{book.id},{book.cover},{book.title.ToLower()},{book.authorFirstName.ToLower()},{book.authorLastName.ToLower()},{book.subject.ToLower()},{book.summary.ToLower()},{book.isAvailable}";
+            List<string> rows = File.ReadAllLines(BookFile).ToList();
+            rows.Remove(bookString);
+            File.WriteAllLines(BookFile, rows);
+            MessageBox.Show("Book Deleted Successfully!\n");
+        }
+        public static void DeleteMember(Member member)
+        {
+            string memberString = $"{member.isAdmin},{member.id},{member.pin},{member.firstName.ToLower()},{member.lastName.ToLower()},{member.email}";
+            List<string> rows = File.ReadAllLines(AccountFile).ToList();
+            rows.Remove(memberString);
+            File.WriteAllLines(AccountFile, rows);
+            MessageBox.Show("Member Deleted Successfully!\n");
+        }
         public static void SaveNewReserve(Reserve reserve)
         {
             string reserveString = $"{reserve.bookId},{reserve.memberId},{reserve.dateReserved},{reserve.dateAvailable}";
@@ -172,5 +188,7 @@ namespace LMS
             string[] newRows = currentRows.Where(row => row != loanString).ToArray();
             File.WriteAllLines(LoanFile, newRows);
         }
+
+
     }
 }
