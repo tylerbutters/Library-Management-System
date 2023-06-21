@@ -9,8 +9,18 @@ namespace LMS
 {
     public class Book : INotifyPropertyChanged
     {
-        private bool _isReserved;
+        public string id { get; set; }
+        public string cover { get; set; }
+        public string title { get; set; }
+        public string authorFirstName { get; set; }
+        public string authorLastName { get; set; }
+        public string tag { get; set; }
+        public string summary { get; set; }
+        public string isAvailable { get; set; } = "true";
 
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        private bool _isReserved;
         public bool isReserved
         {
             get { return _isReserved; }
@@ -23,17 +33,6 @@ namespace LMS
                 }
             }
         }
-        public string id { get; set; }
-        public string cover { get; set; }
-        public string title { get; set; }
-        public string authorFirstName { get; set; }
-        public string authorLastName { get; set; }
-        public string tag { get; set; }
-        public string summary { get; set; }
-        public string isAvailable { get; set; } = "true";
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
         protected virtual void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));

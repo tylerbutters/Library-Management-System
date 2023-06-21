@@ -57,7 +57,7 @@ namespace LMS.Pages.AdminPages
         }
         private void LogoutButtonClick(object sender, RoutedEventArgs e)
         {
-            NavigateToLoginPage(sender, e);
+            NavigateToLoginPage?.Invoke(sender, e);
         }
         private void AddButtonClick(object sender, RoutedEventArgs e)
         {

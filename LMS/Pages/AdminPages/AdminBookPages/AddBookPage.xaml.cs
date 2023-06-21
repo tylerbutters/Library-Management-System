@@ -125,7 +125,7 @@ namespace LMS.Pages.AdminPages
         }
         private void BackButtonClick(object sender, RoutedEventArgs e)
         {
-            NavigateToBookPage(sender, e);
+            NavigateToBookPage?.Invoke(sender, e);
         }
     }
 }

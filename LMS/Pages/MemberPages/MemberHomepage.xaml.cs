@@ -39,7 +39,7 @@ namespace LMS.Pages.MemberPages
         {
             Reserve selectedReserve = (sender as Button).DataContext as Reserve;
             selectedReserve.book.isReserved = false;
-            CancelReserve(this, selectedReserve.book);
+            CancelReserve?.Invoke(sender, selectedReserve.book);
 
             ReservesArea.ItemsSource = null;
             ReservesArea.ItemsSource = member.reservedBooks;

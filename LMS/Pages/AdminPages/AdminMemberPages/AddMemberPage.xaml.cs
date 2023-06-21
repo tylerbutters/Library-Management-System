@@ -79,7 +79,7 @@ namespace LMS.Pages.AdminPages
         }
         private void BackButtonClick(object sender, RoutedEventArgs e)
         {
-            NavigateToMemberPage(sender, e);
+            NavigateToMemberPage?.Invoke(sender, e);
         }
     }
 }

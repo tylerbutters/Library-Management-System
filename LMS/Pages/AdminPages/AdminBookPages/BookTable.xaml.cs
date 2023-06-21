@@ -33,7 +33,7 @@ namespace LMS.Pages.AdminPages
         {
             selectedBook = (Book)bookDataGridInfo.SelectedItem;
 
-            NavigateToViewBookPage(sender, e);
+            NavigateToViewBookPage?.Invoke(sender, e);
         }
     }
 }

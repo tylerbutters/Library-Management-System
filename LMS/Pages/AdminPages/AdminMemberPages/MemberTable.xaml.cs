@@ -33,7 +33,7 @@ namespace LMS.Pages.AdminPages
         {
             selectedMember = (Member)memberDataGridInfo.SelectedItem;
 
-            NavigateToViewMemberPage(sender, e);
+            NavigateToViewMemberPage?.Invoke(sender, e);
         }
     }
 }

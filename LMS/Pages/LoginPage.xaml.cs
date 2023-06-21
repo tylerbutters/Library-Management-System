@@ -59,11 +59,11 @@ namespace LMS.Pages
                 {
                     loggedInMember = member;
 
-                    NavigateToMemberMainPage(sender, e);
+                    NavigateToMemberMainPage?.Invoke(sender, e);
                 }
                 else if (authenticatedAccount is Admin)
                 {
-                    NavigateToAdminMainPage(sender, e);
+                    NavigateToAdminMainPage?.Invoke(sender, e);
                 }
             }
             else

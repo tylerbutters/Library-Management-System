@@ -49,12 +49,12 @@ namespace LMS.Pages.MemberPages
 
             if (!selectedBook.isReserved)
             {
-                PlaceReserve(this, selectedBook);
+                PlaceReserve?.Invoke(sender, selectedBook);
                 selectedBook.isReserved = true;
             }
             else
             {
-                CancelReserve(this, selectedBook);
+                CancelReserve?.Invoke(sender, selectedBook);
                 selectedBook.isReserved = false;
             }
             ResultsContainer.ItemsSource = null;

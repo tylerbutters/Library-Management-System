@@ -94,7 +94,7 @@ namespace LMS.Pages.MemberPages
         }
         private void LogoutButtonClick(object sender, RoutedEventArgs e)
         {
-            NavigateToLoginPage(sender, e);
+            NavigateToLoginPage?.Invoke(sender, e);
         }
 
         private void HomeButtonClick(object send, RoutedEventArgs e)
