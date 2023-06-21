@@ -26,9 +26,9 @@ namespace LMS.Pages.AdminPages
         private Member member { get; set; }
 
         //Member info from login and member class's are passed through parameters and displayed in each text example.
-        public ViewMemberPage(Member member)
+        public ViewMemberPage(Member _member)
         {
-            member = member;
+            member = _member;
             InitializeComponent();
 
             ID.Text = member.id;
@@ -113,6 +113,17 @@ namespace LMS.Pages.AdminPages
                 //delete user
                 isConfirmed = false;
             }
+        }
+
+        private void CancelButtonClick(object sender, RoutedEventArgs e)
+        {
+            Reserve selectedReserve = (sender as Button).DataContext as Reserve;
+            selectedReserve.book.isReserved = false;
+            member.reservedBooks.Remove(selectedReserve);
+            FileManagement.RemoveReserve(selectedReserve);
+
+            ReservesArea.ItemsSource = null;
+            ReservesArea.ItemsSource = member.reservedBooks;
         }
     }
 }
