@@ -29,12 +29,12 @@ namespace LMS.Pages.AdminPages
             InitializeComponent();
 
             book = _book;
-            ID.Text = this.book.id;
-            Title.Text = this.book.title;
-            AuthorFirstName.Text = this.book.authorFirstName;
-            AuthorLastName.Text = this.book.authorLastName;
-            Subject.Text = this.book.subject;
-            Summary.Text = this.book.summary;
+            ID.Text = book.id;
+            Title.Text = book.title;
+            AuthorFirstName.Text = book.authorFirstName;
+            AuthorLastName.Text = book.authorLastName;
+            Subject.Text = book.subject;
+            Summary.Text = book.summary;
         }
         private void BackButtonClick(object sender, RoutedEventArgs e)
         {
