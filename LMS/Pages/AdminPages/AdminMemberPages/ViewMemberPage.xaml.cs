@@ -111,8 +111,12 @@ namespace LMS.Pages.AdminPages
             }
             else
             {
-                //delete user
+                FileManagement.DeleteMember(member);
                 isConfirmed = false;
+                if (NavigationService != null && NavigationService.CanGoBack)
+                {
+                    NavigationService.GoBack();
+                }
             }
         }
 

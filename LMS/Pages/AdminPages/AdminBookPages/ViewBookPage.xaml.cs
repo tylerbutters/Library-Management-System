@@ -23,18 +23,18 @@ namespace LMS.Pages.AdminPages
     {
         private bool isEditing { get; set; } = false;
         private bool isConfirmed { get; set; } = false;
-        public Book bookInfo { get; set; }
-        public ViewBookPage(Book book)
+        public Book book { get; set; }
+        public ViewBookPage(Book _book)
         {
             InitializeComponent();
 
-            bookInfo = book;
-            ID.Text = bookInfo.id;
-            Title.Text = bookInfo.title;
-            AuthorFirstName.Text = bookInfo.authorFirstName;
-            AuthorLastName.Text = bookInfo.authorLastName;
-            Subject.Text = bookInfo.subject;
-            Summary.Text = bookInfo.summary;
+            book = _book;
+            ID.Text = this.book.id;
+            Title.Text = this.book.title;
+            AuthorFirstName.Text = this.book.authorFirstName;
+            AuthorLastName.Text = this.book.authorLastName;
+            Subject.Text = this.book.subject;
+            Summary.Text = this.book.summary;
         }
         private void BackButtonClick(object sender, RoutedEventArgs e)
         {
@@ -114,8 +114,12 @@ namespace LMS.Pages.AdminPages
             }
             else
             {
-                //delete user
+                FileManagement.DeleteBook(book);
                 isConfirmed = false;
+                if (NavigationService != null && NavigationService.CanGoBack)
+                {
+                    NavigationService.GoBack();
+                }
             }
         }
     }
