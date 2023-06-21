@@ -26,31 +26,37 @@ namespace LMS
                    string[] split = l.Split(',');
 
                    Account account;
-                   bool isAdmin = split[0] == "true";
+                   //bool isAdmin = split[0] == "true";
 
-                   if (isAdmin)
+                   if (split[0].Contains("M"))
                    {
-                       account = new Admin();
+                       Member member = new Member
+                       {
+                           id = split[0],
+                           pin = split[1],
+                           firstName = textInfo.ToTitleCase(split[2]),
+                           lastName = textInfo.ToTitleCase(split[3]),
+                           email = split[4],
+                       };
+
+                       account = member;
                    }
                    else
                    {
-                       account = new Member();
+                       account = new Admin();
                    }
 
-                   account.id = split[1];
-                   account.pin = split[2];
-
-                   if (!isAdmin)
-                   {
-                       Member member = (Member)account;
-                       member.firstName = textInfo.ToTitleCase(split[3]);
-                       member.firstName = textInfo.ToTitleCase(split[4]);
-                       member.email = split[5];
-                       member.reservedBooks = LoadMembersReserves(member);
-                   }
+                   account.id = split[0];
+                   account.pin = split[1];
 
                    return account;
                }).ToList();
+
+            foreach (Member member in accounts.OfType<Member>())
+            {
+                member.reservedBooks = LoadMembersReserves(member);
+            }
+
 
             return accounts;
         }
@@ -112,7 +118,7 @@ namespace LMS
                     membersReserves.Add(reserve);
                 }
             }
-            return null;
+            return membersReserves;
         }
         private static Book LoadBookById(string bookId)
         {

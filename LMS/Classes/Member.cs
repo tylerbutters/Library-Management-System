@@ -15,7 +15,6 @@ namespace LMS
         public int loanCounter { get; set; }
         public List<Reserve> reservedBooks { get; set; }
         public List<Loan> loanedBooks { get; set; }
-
         public Member()
         {
             reservedBooks = new List<Reserve>();

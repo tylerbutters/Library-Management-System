@@ -32,8 +32,6 @@ namespace LMS.Pages.MemberPages
             memberInfo = loggedInMember;
             memberHomePage = new MemberHomePage(memberInfo);
             PageContent.Content = memberHomePage;
-
-            
         }
         private void PlaceReserve(object sender, Book book)
         {

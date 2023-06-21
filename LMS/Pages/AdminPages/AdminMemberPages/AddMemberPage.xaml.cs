@@ -27,24 +27,24 @@ namespace LMS.Pages.AdminPages
         {
             InitializeComponent();
         }
-        public int GenerateRandomID()
+        public string GenerateMemberID()
         {
             int min = 10000; 
             int max = 99999;
-            return new Random().Next(min, max);
+            return "M" + new Random().Next(min, max);
         }
-        public int GenerateRandomPIN()
+        public string GenerateMemberPIN()
         {
             int min = 1000;
             int max = 9999;
-            return new Random(Guid.NewGuid().GetHashCode()).Next(min, max);
+            return new Random().Next(min, max).ToString();
         }
         private void SaveNewMemberButtonClick(object sender, RoutedEventArgs e)
         {
             Member newMember = new Member
             {
-                id = GenerateRandomID().ToString(),
-                pin = GenerateRandomPIN().ToString(),
+                id = GenerateMemberID(),
+                pin = GenerateMemberPIN(),
                 firstName = firstNameInput.Text,
                 lastName = lastNameInput.Text,
                 email = emailInput.Text
@@ -62,7 +62,7 @@ namespace LMS.Pages.AdminPages
                 }
                 else if (currentMember.id == newMember.id)
                 {
-                    newMember.id = GenerateRandomID().ToString();
+                    newMember.id = GenerateMemberID();
                 }
             }
 
