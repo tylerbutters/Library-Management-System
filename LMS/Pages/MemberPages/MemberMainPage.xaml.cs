@@ -66,7 +66,7 @@ namespace LMS.Pages.MemberPages
                     book.title.IndexOf(searchInput, StringComparison.OrdinalIgnoreCase) >= 0 ||
                     book.authorFirstName.IndexOf(searchInput, StringComparison.OrdinalIgnoreCase) >= 0 ||
                     book.authorLastName.IndexOf(searchInput, StringComparison.OrdinalIgnoreCase) >= 0 ||
-                    book.tag.IndexOf(searchInput, StringComparison.OrdinalIgnoreCase) >= 0
+                    book.subject.IndexOf(searchInput, StringComparison.OrdinalIgnoreCase) >= 0
                 ).ToList();
                 bookResultsPage = new BookResultsPage(searchResults, searchInput, member);
                 bookResultsPage.PlaceReserve += PlaceReserve;

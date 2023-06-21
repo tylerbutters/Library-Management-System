@@ -169,6 +169,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include=".editorconfig" />
     <None Include="Databases\accountInformation.csv" />
     <None Include="Databases\bookInformation.csv" />
     <None Include="Databases\loanInformation.csv" />

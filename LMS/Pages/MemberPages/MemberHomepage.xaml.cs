@@ -44,5 +44,9 @@ namespace LMS.Pages.MemberPages
             ReservesArea.ItemsSource = null;
             ReservesArea.ItemsSource = member.reservedBooks;
         }
+        private void RenewButtonClick(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

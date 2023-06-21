@@ -80,7 +80,7 @@ namespace LMS.Pages.AdminPages
             //only filters in accounts of type Book
             List<Book> currentBooks = FileManagement.LoadBooks();
 
-            if (titleInput.Text == "" || authorFirstNameInput.Text == "" || authorLastNameInput.Text == "" || tagInput.Text == "" || summaryInput.Text == "")
+            if (titleInput.Text == "" || authorFirstNameInput.Text == "" || authorLastNameInput.Text == "" || subjectInput.Text == "" || summaryInput.Text == "")
             {
                 MessageBox.Show("Please Enter all feilds");
                 return;
@@ -96,7 +96,7 @@ namespace LMS.Pages.AdminPages
                 title = titleInput.Text,
                 authorFirstName = authorFirstNameInput.Text,
                 authorLastName = authorLastNameInput.Text,
-                tag = tagInput.Text,
+                subject = subjectInput.Text,
                 summary = summaryInput.Text,
             };
 
@@ -119,7 +119,7 @@ namespace LMS.Pages.AdminPages
             titleInput.Text = "";
             authorFirstNameInput.Text = "";
             authorLastNameInput.Text = "";
-            tagInput.Text = "";
+            subjectInput.Text = "";
             summaryInput.Text = "";
             selectedImageAddress.Text = "";
         }

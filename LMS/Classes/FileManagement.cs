@@ -81,7 +81,7 @@ namespace LMS
                                           title = textInfo.ToTitleCase(split[2]),
                                           authorFirstName = textInfo.ToTitleCase(split[3]),
                                           authorLastName = textInfo.ToTitleCase(split[4]),
-                                          tag = textInfo.ToTitleCase(split[5]),
+                                          subject= textInfo.ToTitleCase(split[5]),
                                           summary = split[6],
                                           isAvailable = split[7],
                                       };
@@ -134,17 +134,17 @@ namespace LMS
         }
         public static void SaveNewBook(Book newBook)
         {
-            string newBookInfo = $"{newBook.id},{newBook.cover},{newBook.title.ToLower()},{newBook.authorFirstName.ToLower()},{newBook.authorLastName.ToLower()},{newBook.tag.ToLower()},{newBook.summary.ToLower()},{newBook.isAvailable}";
+            string bookString = $"{newBook.id},{newBook.cover},{newBook.title.ToLower()},{newBook.authorFirstName.ToLower()},{newBook.authorLastName.ToLower()},{newBook.subject.ToLower()},{newBook.summary.ToLower()},{newBook.isAvailable}";
             string[] currentRows = File.ReadAllLines(BookFile);
-            string[] newRows = currentRows.Append(newBookInfo).ToArray();
+            string[] newRows = currentRows.Append(bookString).ToArray();
             File.WriteAllLines(BookFile, newRows);
             MessageBox.Show("Book Added Successfully!\n");
         }
         public static void SaveNewMember(Member newMember)
         {
-            string newmember = $"{newMember.isAdmin},{newMember.id},{newMember.pin},{newMember.firstName.ToLower()},{newMember.lastName.ToLower()},{newMember.email}";
+            string memberString = $"{newMember.isAdmin},{newMember.id},{newMember.pin},{newMember.firstName.ToLower()},{newMember.lastName.ToLower()},{newMember.email}";
             string[] currentRows = File.ReadAllLines(AccountFile);
-            string[] newRows = currentRows.Append(newmember).ToArray();
+            string[] newRows = currentRows.Append(memberString).ToArray();
             File.WriteAllLines(AccountFile, newRows);
             MessageBox.Show("Member Added Successfully!\nID: " + newMember.id + "\nPIN: " + newMember.pin);
         }
@@ -163,6 +163,14 @@ namespace LMS
             string[] currentRows = File.ReadAllLines(ReserveFile);
             string[] newRows = currentRows.Where(row => row != reserveString).ToArray();
             File.WriteAllLines(ReserveFile, newRows);
+        }
+        public static void RemoveLoan(Loan loan)
+        {
+            string loanString = $"{loan.bookId},{loan.memberId},{loan.dateLoaned},{loan.dateDue}";
+
+            string[] currentRows = File.ReadAllLines(LoanFile);
+            string[] newRows = currentRows.Where(row => row != loanString).ToArray();
+            File.WriteAllLines(LoanFile, newRows);
         }
     }
 }

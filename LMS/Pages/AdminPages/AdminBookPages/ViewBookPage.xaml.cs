@@ -33,7 +33,7 @@ namespace LMS.Pages.AdminPages
             Title.Text = bookInfo.title;
             AuthorFirstName.Text = bookInfo.authorFirstName;
             AuthorLastName.Text = bookInfo.authorLastName;
-            Tag.Text = bookInfo.tag;
+            Subject.Text = bookInfo.subject;
             Summary.Text = bookInfo.summary;
         }
         private void BackButtonClick(object sender, RoutedEventArgs e)
@@ -66,9 +66,9 @@ namespace LMS.Pages.AdminPages
                 AuthorLastName.Background = (Brush)new BrushConverter().ConvertFrom("#e7ead4");
                 AuthorLastName.Padding = new Thickness(20, 0, 0, 0);
                 AuthorLastName.IsReadOnly = false;
-                Tag.Background = (Brush)new BrushConverter().ConvertFrom("#e7ead4");
-                Tag.Padding = new Thickness(20, 0, 0, 0);
-                Tag.IsReadOnly = false;
+                Subject.Background = (Brush)new BrushConverter().ConvertFrom("#e7ead4");
+                Subject.Padding = new Thickness(20, 0, 0, 0);
+                Subject.IsReadOnly = false;
                 Summary.Background = (Brush)new BrushConverter().ConvertFrom("#e7ead4");
                 Summary.Padding = new Thickness(20);
                 Summary.IsReadOnly = false;
@@ -92,9 +92,9 @@ namespace LMS.Pages.AdminPages
                 AuthorLastName.Background = Brushes.Transparent;
                 AuthorLastName.Padding = new Thickness(0);
                 AuthorLastName.IsReadOnly = true;
-                Tag.Background = Brushes.Transparent;
-                Tag.Padding = new Thickness(0);
-                Tag.IsReadOnly = true;
+                Subject.Background = Brushes.Transparent;
+                Subject.Padding = new Thickness(0);
+                Subject.IsReadOnly = true;
                 Summary.Background = Brushes.Transparent;
                 Summary.Padding = new Thickness(0, 20, 0, 0);
                 Summary.IsReadOnly = true;
