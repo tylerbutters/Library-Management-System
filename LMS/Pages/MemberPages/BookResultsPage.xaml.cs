@@ -24,7 +24,9 @@ namespace LMS.Pages.MemberPages
     {
         public event EventHandler<Book> PlaceReserve;
         public event EventHandler<Book> CancelReserve;
+
         private List<Book> results { get; set; }
+
         public BookResultsPage(List<Book> searchResults, string searchInput, Member member)
         {
             InitializeComponent();
@@ -43,18 +45,19 @@ namespace LMS.Pages.MemberPages
             ResultText.Text = searchInput;
         }
 
-        private void ReserveCancelButtonClick(object sender, RoutedEventArgs e)
+        private void ReserveButtonClick(object sender, RoutedEventArgs e)
         {
-            Book selectedBook = (sender as Button).DataContext as Book;
+            Button reserveButton = (Button)sender;
+            Book selectedBook = (Book)reserveButton.DataContext;
 
             if (!selectedBook.isReserved)
             {
-                PlaceReserve?.Invoke(sender, selectedBook);
+                PlaceReserve(this, selectedBook);
                 selectedBook.isReserved = true;
             }
             else
             {
-                CancelReserve?.Invoke(sender, selectedBook);
+                CancelReserve(this, selectedBook);
                 selectedBook.isReserved = false;
             }
             ResultsContainer.ItemsSource = null;

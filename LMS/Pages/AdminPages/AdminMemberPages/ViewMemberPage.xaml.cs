@@ -37,6 +37,7 @@ namespace LMS.Pages.AdminPages
             LastName.Text = member.lastName;
             Email.Text = member.email;
             ReservesArea.ItemsSource = member.reservedBooks;
+            LoansArea.ItemsSource = member.loanedBooks;
         }
 
         private void BackButtonClick(object sender, RoutedEventArgs e)
@@ -124,6 +125,16 @@ namespace LMS.Pages.AdminPages
 
             ReservesArea.ItemsSource = null;
             ReservesArea.ItemsSource = member.reservedBooks;
+        }
+        private void ReturnButtonClick(object sender, RoutedEventArgs e)
+        {
+            Loan selectedLoan = (sender as Button).DataContext as Loan;
+            selectedLoan.book.isLoaned = false;
+            member.loanedBooks.Remove(selectedLoan);
+            FileManagement.RemoveLoan(selectedLoan);
+
+            LoansArea.ItemsSource = null;
+            LoansArea.ItemsSource = member.loanedBooks;
         }
     }
 }

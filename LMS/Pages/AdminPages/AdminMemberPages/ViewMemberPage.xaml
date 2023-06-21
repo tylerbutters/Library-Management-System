@@ -195,7 +195,78 @@
                     <StackPanel Grid.Column="1">
                         <TextBlock FontSize="25" HorizontalAlignment="Center" FontWeight="Black" Text="Loans" />
                         <Border CornerRadius="10" Background="#e7ead4" Height="561" Margin="10">
-
+                            <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Hidden">
+                                <ItemsControl Name="LoansArea" ItemsSource="{Binding member.loanedBooks}">
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <StackPanel Margin="5">
+                                                <Border Name="BookCard" CornerRadius="10" Background="White" Height="122">
+                                                    <Grid>
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="1*"></ColumnDefinition>
+                                                            <ColumnDefinition Width="3*"></ColumnDefinition>
+                                                        </Grid.ColumnDefinitions>
+                                                        <Border Grid.Column="0" CornerRadius="10 0 0 10" Background="Gray">
+                                                            <Image Source="{Binding cover}"/>
+                                                        </Border>
+                                                        <Grid Grid.Column="1" Margin="15 10 10 10">
+                                                            <Grid.RowDefinitions>
+                                                                <RowDefinition Height="1*"></RowDefinition>
+                                                                <RowDefinition Height="2*"></RowDefinition>
+                                                            </Grid.RowDefinitions>
+                                                            <Grid Grid.Row="0">
+                                                                <TextBlock Name="Title" Text="{Binding book.title}" FontWeight="Black" FontSize="20"/>
+                                                            </Grid>
+                                                            <Grid Grid.Row="1">
+                                                                <Grid.ColumnDefinitions>
+                                                                    <ColumnDefinition Width="1*"></ColumnDefinition>
+                                                                    <ColumnDefinition Width="1.5*"></ColumnDefinition>
+                                                                </Grid.ColumnDefinitions>
+                                                                <StackPanel Grid.Column="0">
+                                                                    <TextBlock Text="Reserved:" FontWeight="Medium"  FontSize="15">
+                                                        <Run Text="" />
+                                                        <Run Text="{Binding book.dateLoaned}" FontWeight="Medium" FontSize="25" FontStyle="Italic"/>
+                                                                    </TextBlock>
+                                                                    <TextBlock Text="Available:"  FontWeight="Medium"  FontSize="15">
+                                                        <Run Text="" />
+                                                        <Run Text="{Binding book.dateDue}" FontWeight="Medium" FontSize="25" FontStyle="Italic"/>
+                                                                    </TextBlock>
+                                                                </StackPanel>
+                                                                <Button Grid.Column="1" Content="Return" Click="ReturnButtonClick" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="110" Height="30" FontSize="20" FontWeight="Black" Foreground="White" BorderThickness="0" Margin="5">
+                                                                    <Button.Style>
+                                                                        <Style TargetType="{x:Type Button}">
+                                                                            <Setter Property="Background" Value="#BFCA43"/>
+                                                                            <Setter Property="Template">
+                                                                                <Setter.Value>
+                                                                                    <ControlTemplate TargetType="{x:Type Button}">
+                                                                                        <Border Background="{TemplateBinding Background}">
+                                                                                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                                                        </Border>
+                                                                                    </ControlTemplate>
+                                                                                </Setter.Value>
+                                                                            </Setter>
+                                                                            <Style.Triggers>
+                                                                                <Trigger Property="IsMouseOver" Value="True">
+                                                                                    <Setter Property="Background" Value="#A5AE38"/>
+                                                                                </Trigger>
+                                                                            </Style.Triggers>
+                                                                        </Style>
+                                                                    </Button.Style>
+                                                                    <Button.Resources>
+                                                                        <Style TargetType="Border">
+                                                                            <Setter Property="CornerRadius" Value="10"/>
+                                                                        </Style>
+                                                                    </Button.Resources>
+                                                                </Button>
+                                                            </Grid>
+                                                        </Grid>
+                                                    </Grid>
+                                                </Border>
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                            </ScrollViewer>
                         </Border>
                     </StackPanel>
 
@@ -239,7 +310,7 @@
                                                         <Run Text="{Binding book.dateAvailable}" FontWeight="Medium" FontSize="25" FontStyle="Italic" />
                                                                     </TextBlock>
                                                                 </StackPanel>
-                                                                <Button Grid.Column="1" Content="Cancel" Click="CancelButtonClick" HorizontalAlignment="Right" Name="CancelButton" VerticalAlignment="Bottom" Width="110" Height="30" FontSize="20" FontWeight="Black" Foreground="White" BorderThickness="0" Margin="5">
+                                                                <Button Grid.Column="1" Content="Cancel" Click="CancelButtonClick" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="110" Height="30" FontSize="20" FontWeight="Black" Foreground="White" BorderThickness="0" Margin="5">
                                                                     <Button.Style>
                                                                         <Style TargetType="{x:Type Button}">
                                                                             <Setter Property="Background" Value="#BFCA43"/>
