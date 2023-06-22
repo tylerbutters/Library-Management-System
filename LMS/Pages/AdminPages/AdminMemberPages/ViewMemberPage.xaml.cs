@@ -140,5 +140,9 @@ namespace LMS.Pages.AdminPages
             LoansArea.ItemsSource = null;
             LoansArea.ItemsSource = member.loanedBooks;
         }
+        private void LoanButtonClick(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
