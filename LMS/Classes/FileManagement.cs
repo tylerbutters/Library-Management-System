@@ -182,6 +182,17 @@ namespace LMS
             MessageBox.Show("Member Deleted Successfully!\n");
         }
 
+        public static void EditMember(Member currntMemberinfo, Member newMemberInfo)
+        {
+            string currentMemberString = $"{currntMemberinfo.isAdmin},{currntMemberinfo.id},{currntMemberinfo.pin},{currntMemberinfo.firstName.ToLower()},{currntMemberinfo.lastName.ToLower()},{currntMemberinfo.email}";
+            string newMemberString = $"{newMemberInfo.isAdmin},{newMemberInfo.id},{newMemberInfo.pin},{newMemberInfo.firstName.ToLower()},{newMemberInfo.lastName.ToLower()},{newMemberInfo.email}";
+            List<string> rows = File.ReadAllLines(AccountFile).ToList();
+            rows.Remove(currentMemberString);
+            rows.Add(newMemberString);
+            File.WriteAllLines(AccountFile, rows);
+            MessageBox.Show("Details Saved Successfully!\n");
+        }
+
         public static void SaveNewReserve(Reserve reserve)
         {
             string reserveString = $"{reserve.bookId},{reserve.memberId},{reserve.dateReserved},{reserve.dateAvailable}";
