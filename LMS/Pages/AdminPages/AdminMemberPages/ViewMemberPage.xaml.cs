@@ -102,7 +102,8 @@ namespace LMS.Pages.AdminPages
             Member changedInfo = new Member { id = ID.Text, pin = PIN.Text, firstName = FirstName.Text, lastName = LastName.Text, email = Email.Text };
 
             FileManagement.EditMember(member, changedInfo);
-            isEditing = false;
+            
+            EditCancelButtonClick(sender, e);
 
         }
         private void DeleteButtonClick(object sender, RoutedEventArgs e)
@@ -116,10 +117,7 @@ namespace LMS.Pages.AdminPages
             {
                 FileManagement.DeleteMember(member);
                 isConfirmed = false;
-                if (NavigationService != null && NavigationService.CanGoBack)
-                {
-                    NavigationService.GoBack();
-                }
+                NavigateToMemberPage?.Invoke(sender, e);
             }
         }
 
@@ -137,7 +135,7 @@ namespace LMS.Pages.AdminPages
         {
             Loan selectedLoan = (sender as Button).DataContext as Loan;
             selectedLoan.book.isLoaned = false;
-            member.loanedBooks.Remove(selectedLoan);
+            _ = member.loanedBooks.Remove(selectedLoan);
             FileManagement.RemoveLoan(selectedLoan);
 
             LoansArea.ItemsSource = null;

@@ -256,10 +256,9 @@ namespace LMS
         {
             string currentInfoString = $"{currentInfo.id},{currentInfo.pin},{currentInfo.firstName.ToLower()},{currentInfo.lastName.ToLower()},{currentInfo.email}";
             string changedInfoString = $"{changedInfo.id},{changedInfo.pin},{changedInfo.firstName.ToLower()},{changedInfo.lastName.ToLower()},{changedInfo.email}";
-            List<string> rows = File.ReadAllLines(AccountFile).ToList();
-            rows.RemoveAll(row => row == currentInfoString);
-            rows.Add(changedInfoString);
-            File.WriteAllLines(AccountFile, rows);
+            string[] rows = File.ReadAllLines(AccountFile);
+            string[] updatedRows = rows.Select(row => row == currentInfoString ? changedInfoString : row).ToArray();
+            File.WriteAllLines(AccountFile, updatedRows);
             MessageBox.Show("Details Saved Successfully!\n");
         }
         public static void EditBook(Book currentInfo, Book newInfo)
