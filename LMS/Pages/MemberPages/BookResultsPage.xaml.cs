@@ -27,19 +27,11 @@ namespace LMS.Pages.MemberPages
 
         private List<Book> results { get; set; }
 
-        public BookResultsPage(List<Book> searchResults, string searchInput, Member member)
+        public BookResultsPage(List<Book> searchResults, string searchInput)
         {
             InitializeComponent();
             results = searchResults;
 
-            foreach (Book book in results)
-            {
-                Reserve reserve = member.reservedBooks.FirstOrDefault(r => r.bookId == book.id);
-                if (reserve != null)
-                {
-                    book.isReserved = true;
-                }
-            }
 
             ResultsContainer.ItemsSource = results;
             ResultText.Text = searchInput;
@@ -47,20 +39,17 @@ namespace LMS.Pages.MemberPages
 
         private void ReserveButtonClick(object sender, RoutedEventArgs e)
         {
-            Button reserveButton = (Button)sender;
-            Book selectedBook = (Book)reserveButton.DataContext;
+            Book selectedBook = (sender as Button).DataContext as Book;
 
             if (!selectedBook.isReserved)
             {
                 PlaceReserve(this, selectedBook);
                 selectedBook.isReserved = true;
-                selectedBook.isAvailable  = false;
             }
             else
             {
                 CancelReserve(this, selectedBook);
                 selectedBook.isReserved = false;
-                selectedBook.isAvailable = true;
             }
             ResultsContainer.ItemsSource = null;
             ResultsContainer.ItemsSource = results;
