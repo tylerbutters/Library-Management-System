@@ -70,7 +70,7 @@ namespace LMS
             CultureInfo cultureInfo = CultureInfo.CurrentCulture;
             TextInfo textInfo = cultureInfo.TextInfo;
             List<string> rows = File.ReadAllLines(BookFile).ToList();
-
+            
             List<Book> books = new List<Book>();
 
             foreach (string row in rows.Skip(1))
@@ -86,7 +86,8 @@ namespace LMS
                     authorLastName = textInfo.ToTitleCase(split[4]),
                     subject = textInfo.ToTitleCase(split[5]),
                     summary = split[6],
-                    isAvailableToReserve = bool.Parse(split[7]),
+                    isLoaned = bool.Parse(split[7]),
+                    isReserved = bool.Parse(split[8]),
                 };
 
                 books.Add(book);
@@ -140,12 +141,13 @@ namespace LMS
 
                 Loan loan = new Loan(book, member)
                 {
-                    bookId = bookId,
+                    //bookId = bookId,
                     memberId = split[1],
                     dateDue = split[2],
-                    book = book
-                };
+                    //book = book,
 
+                };
+                loan.book.isLoaned = true;
                 //if (dueDate >= currentDate)
                 //{
                 //    loan.isDue = true;
@@ -156,6 +158,7 @@ namespace LMS
 
             return loans;
         }
+
 
         public static List<Reserve> LoadMembersReserves(Member member)
         {
@@ -195,9 +198,22 @@ namespace LMS
             }
             return null;
         }
+        public static void WriteAllBooks()
+        {
+            List<Book> books = LoadBooks();
+            List<string> bookRows = new List<string>();
+
+            foreach (Book book in books)
+            {
+                string bookRow = $"{book.id},{book.cover},{book.title},{book.authorFirstName},{book.authorLastName},{book.subject},{book.summary},{book.isLoaned},{book.isReserved}";
+                bookRows.Add(bookRow);
+            }
+
+            File.WriteAllLines(BookFile, bookRows);
+        }
         public static void SaveNewBook(Book newBook)
         {
-            string bookString = $"{newBook.id},{newBook.cover},{newBook.title.ToLower()},{newBook.authorFirstName.ToLower()},{newBook.authorLastName.ToLower()},{newBook.subject.ToLower()},{newBook.summary.ToLower()},{newBook.isAvailableToReserve}";
+            string bookString = $"{newBook.id},{newBook.cover},{newBook.title.ToLower()},{newBook.authorFirstName.ToLower()},{newBook.authorLastName.ToLower()},{newBook.subject.ToLower()},{newBook.summary.ToLower()},,{newBook.isLoaned},{newBook.isReserved}";
             List<string> rows = File.ReadAllLines(BookFile).ToList();
             rows.Add(bookString);
             File.WriteAllLines(BookFile, rows);
@@ -215,7 +231,7 @@ namespace LMS
 
         public static void DeleteBook(Book book)
         {
-            string bookString = $"{book.id},{book.cover},{book.title.ToLower()},{book.authorFirstName.ToLower()},{book.authorLastName.ToLower()},{book.subject.ToLower()},{book.summary.ToLower()},{book.isAvailableToReserve}";
+            string bookString = $"{book.id},{book.cover},{book.title.ToLower()},{book.authorFirstName.ToLower()},{book.authorLastName.ToLower()},{book.subject.ToLower()},{book.summary.ToLower()},{book.isLoaned},{book.isReserved}";
             List<string> rows = File.ReadAllLines(BookFile).ToList();
             rows.Remove(bookString);
             File.WriteAllLines(BookFile, rows);

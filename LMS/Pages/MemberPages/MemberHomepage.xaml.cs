@@ -32,6 +32,7 @@ namespace LMS.Pages.MemberPages
             Email.Text = member.email;
 
             ReservesArea.ItemsSource = member.reservedBooks;
+            LoansArea.ItemsSource = member.loanedBooks;
 
         }
 

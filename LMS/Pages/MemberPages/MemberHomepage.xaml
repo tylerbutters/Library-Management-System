@@ -15,7 +15,7 @@
                 <ColumnDefinition Width="1*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
             
-            <StackPanel>
+            <StackPanel Grid.Column="0">
                 <TextBlock Text="Loans" FontWeight="Black" FontSize="40" HorizontalAlignment="Center" Margin="10"/>
                 <Border CornerRadius="10" Background="#e7ead4" Height="530" Width="530">
                     <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Hidden">

@@ -68,7 +68,7 @@ namespace LMS.Pages.MemberPages
                     book.authorLastName.IndexOf(searchInput, StringComparison.OrdinalIgnoreCase) >= 0 ||
                     book.subject.IndexOf(searchInput, StringComparison.OrdinalIgnoreCase) >= 0
                 ).ToList();
-                bookResultsPage = new BookResultsPage(searchResults, searchInput, member);
+                bookResultsPage = new BookResultsPage(searchResults, searchInput);
                 bookResultsPage.PlaceReserve += PlaceReserve;
                 bookResultsPage.CancelReserve += CancelReserve;
                 PageContent.Content = bookResultsPage;

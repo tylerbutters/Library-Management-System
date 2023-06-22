@@ -27,17 +27,16 @@ namespace LMS.Pages.MemberPages
 
         private List<Book> results { get; set; }
 
-        public BookResultsPage(List<Book> searchResults, string searchInput, Member member)
+        public BookResultsPage(List<Book> searchResults, string searchInput)
         {
             InitializeComponent();
             results = searchResults;
 
             foreach (Book book in results)
             {
-                Reserve reserve = member.reservedBooks.FirstOrDefault(r => r.bookId == book.id);
-                if (reserve != null)
+                if (book.isLoaned)
                 {
-                    book.isReserved = true;
+                    book.isAvailableToReserve = false;
                 }
             }
 
