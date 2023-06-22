@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,7 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-
+using Microsoft.Win32;
 namespace LMS.Pages.AdminPages
 {
     /// <summary>
@@ -35,6 +36,8 @@ namespace LMS.Pages.AdminPages
             AuthorLastName.Text = book.authorLastName;
             Subject.Text = book.subject;
             Summary.Text = book.summary;
+            selectedImageAddress.Text = book.cover;
+           
         }
         private void BackButtonClick(object sender, RoutedEventArgs e)
         {
@@ -52,11 +55,13 @@ namespace LMS.Pages.AdminPages
                 isConfirmed = false;
                 SaveButton.Visibility = Visibility.Visible;
                 DeleteButton.Visibility = Visibility.Visible;
+                SelectImageButton.Visibility = Visibility.Visible;
+
                 EditCancelButton.Content = "Cancel";
 
                 ID.Background = (Brush)new BrushConverter().ConvertFrom("#e7ead4");
                 ID.Padding = new Thickness(20, 0, 0, 0);
-                ID.IsReadOnly = false;
+                ID.IsReadOnly = true;
                 Title.Background = (Brush)new BrushConverter().ConvertFrom("#e7ead4");
                 Title.Padding = new Thickness(20, 0, 0, 0);
                 Title.IsReadOnly = false;
@@ -70,8 +75,12 @@ namespace LMS.Pages.AdminPages
                 Subject.Padding = new Thickness(20, 0, 0, 0);
                 Subject.IsReadOnly = false;
                 Summary.Background = (Brush)new BrushConverter().ConvertFrom("#e7ead4");
-                Summary.Padding = new Thickness(20);
+                Summary.Padding = new Thickness(20,0,0,0);
                 Summary.IsReadOnly = false;
+                selectedImageAddress.Background = (Brush)new BrushConverter().ConvertFrom("#e7ead4");
+                selectedImageAddress.Padding = new Thickness(20,0,0,0);
+                selectedImageAddress.IsReadOnly = true;
+
             }
             else
             {
@@ -79,6 +88,7 @@ namespace LMS.Pages.AdminPages
                 SaveButton.Visibility = Visibility.Hidden;
                 DeleteButton.Visibility = Visibility.Hidden;
                 EditCancelButton.Content = "Edit";
+                SelectImageButton.Visibility = Visibility.Hidden;
 
                 ID.Background = Brushes.Transparent;
                 ID.Padding = new Thickness(0);
@@ -98,12 +108,49 @@ namespace LMS.Pages.AdminPages
                 Summary.Background = Brushes.Transparent;
                 Summary.Padding = new Thickness(0, 20, 0, 0);
                 Summary.IsReadOnly = true;
+                selectedImageAddress.Background = Brushes.Transparent;
+                selectedImageAddress.Padding = new Thickness(0);
+                selectedImageAddress.IsReadOnly = true;
+
             }
         }
+        string imageAddress = null;
+        private void SelectImageButtonClick(object sender, RoutedEventArgs e)
+        {
+           imageAddress = SelectImageDialog();
+        }
+        private string SelectImageDialog()
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog
+            {
+                Filter = "All Files (*.*)|*.*",
+                InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop),
+                Title = "Select a cover image"
+            };
 
+            bool? result = openFileDialog.ShowDialog();
+
+            if (result == true)
+            {
+                string selectedFile = openFileDialog.FileName;
+                selectedImageAddress.Text = selectedFile;
+                return selectedFile;
+            }
+            else
+            {
+                MessageBox.Show("No Image Selected");
+                return null;
+            }
+        }
         private void SaveButtonClick(object sender, RoutedEventArgs e)
         {
 
+            
+            File.Copy(imageAddress, book.cover, true);
+            Book newInfo = new Book { id = ID.Text, cover=book.cover, title=Title.Text, authorFirstName=AuthorFirstName.Text, authorLastName=AuthorLastName.Text, subject=Subject.Text,summary=Summary.Text };
+            FileManagement.EditBook(book, newInfo);
+
+            isEditing = false;
         }
         private void DeleteButtonClick(object sender, RoutedEventArgs e)
         {

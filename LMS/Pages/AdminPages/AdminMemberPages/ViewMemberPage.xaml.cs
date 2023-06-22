@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -58,8 +60,7 @@ namespace LMS.Pages.AdminPages
                 SaveButton.Visibility = Visibility.Visible;
                 DeleteButton.Visibility = Visibility.Visible;
                 EditCancelButton.Content = "Cancel";
-                ID.Background = (Brush)new BrushConverter().ConvertFrom("#e7ead4");
-                ID.Padding = new Thickness(20, 0, 0, 0);
+
 
                 PIN.Background = (Brush)new BrushConverter().ConvertFrom("#e7ead4");
                 PIN.Padding = new Thickness(20, 0, 0, 0);
@@ -81,9 +82,7 @@ namespace LMS.Pages.AdminPages
                 DeleteButton.Visibility = Visibility.Hidden;
                 EditCancelButton.Content = "Edit";
 
-                ID.Background = Brushes.Transparent;
-                ID.Padding = new Thickness(0);
-                ID.IsReadOnly = true;
+
                 PIN.Background = Brushes.Transparent;
                 PIN.Padding = new Thickness(0);
                 PIN.IsReadOnly = true;
@@ -99,8 +98,13 @@ namespace LMS.Pages.AdminPages
             }
         }
 
-        private void SaveButtonClick(object sender, RoutedEventArgs e)
+
+        public void SaveButtonClick(object sender, RoutedEventArgs e)
         {
+            Member changedInfo = new Member { id = ID.Text, pin = PIN.Text, firstName = FirstName.Text, lastName = LastName.Text, email = Email.Text };
+
+            FileManagement.EditMember(member, changedInfo);
+            isEditing = false;
 
         }
         private void DeleteButtonClick(object sender, RoutedEventArgs e)
@@ -153,3 +157,4 @@ namespace LMS.Pages.AdminPages
         }
     }
 }
+

@@ -189,8 +189,10 @@
     <Resource Include="Assets\searchIcon.png" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="CoverImages\" />
     <Folder Include="Logs\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="CoverImages\haitus.jpeg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

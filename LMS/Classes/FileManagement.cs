@@ -227,7 +227,7 @@ namespace LMS
 
         public static void SaveNewMember(Member newMember)
         {
-            string memberString = $"{newMember.isAdmin},{newMember.id},{newMember.pin},{newMember.firstName.ToLower()},{newMember.lastName.ToLower()},{newMember.email}";
+            string memberString = $"{newMember.id},{newMember.pin},{newMember.firstName.ToLower()},{newMember.lastName.ToLower()},{newMember.email}";
             List<string> rows = File.ReadAllLines(AccountFile).ToList();
             rows.Add(memberString);
             File.WriteAllLines(AccountFile, rows);
@@ -238,20 +238,40 @@ namespace LMS
         {
             string bookString = $"{book.id},{book.cover},{book.title.ToLower()},{book.authorFirstName.ToLower()},{book.authorLastName.ToLower()},{book.subject.ToLower()},{book.summary.ToLower()},{book.isLoaned},{book.isReserved}";
             List<string> rows = File.ReadAllLines(BookFile).ToList();
-            rows.Remove(bookString);
+            rows.RemoveAll(row => row == bookString);
             File.WriteAllLines(BookFile, rows);
             MessageBox.Show("Book Deleted Successfully!\n");
         }
 
         public static void DeleteMember(Member member)
         {
-            string memberString = $"{member.isAdmin},{member.id},{member.pin},{member.firstName.ToLower()},{member.lastName.ToLower()},{member.email}";
+            string memberString = $"{member.id},{member.pin},{member.firstName.ToLower()},{member.lastName.ToLower()},{member.email}";
             List<string> rows = File.ReadAllLines(AccountFile).ToList();
-            rows.Remove(memberString);
+            rows.RemoveAll(row => row == memberString);
             File.WriteAllLines(AccountFile, rows);
             MessageBox.Show("Member Deleted Successfully!\n");
         }
 
+        public static void EditMember(Member currentInfo, Member changedInfo)
+        {
+            string currentInfoString = $"{currentInfo.id},{currentInfo.pin},{currentInfo.firstName.ToLower()},{currentInfo.lastName.ToLower()},{currentInfo.email}";
+            string changedInfoString = $"{changedInfo.id},{changedInfo.pin},{changedInfo.firstName.ToLower()},{changedInfo.lastName.ToLower()},{changedInfo.email}";
+            List<string> rows = File.ReadAllLines(AccountFile).ToList();
+            rows.RemoveAll(row => row == currentInfoString);
+            rows.Add(changedInfoString);
+            File.WriteAllLines(AccountFile, rows);
+            MessageBox.Show("Details Saved Successfully!\n");
+        }
+        public static void EditBook(Book currentInfo, Book newInfo)
+        {
+            string currentBookString = $"{currentInfo.id},{currentInfo.cover},{currentInfo.title.ToLower()},{currentInfo.authorFirstName.ToLower()},{currentInfo.authorLastName.ToLower()},{currentInfo.subject.ToLower()},{currentInfo.summary.ToLower()}";
+            string newBookString = $"{newInfo.id},{newInfo.cover},{newInfo.title.ToLower()},{newInfo.authorFirstName.ToLower()},{newInfo.authorLastName.ToLower()},{newInfo.subject.ToLower()},{newInfo.summary.ToLower()}";
+            List<string> rows = File.ReadAllLines(BookFile).ToList();
+            rows.RemoveAll(row => row == currentBookString);
+            rows.Add(newBookString);
+            File.WriteAllLines(BookFile, rows);
+            MessageBox.Show("Book Edited Successfully!\n");
+        }
         public static void SaveNewReserve(Reserve reserve)
         {
             string reserveString = $"{reserve.bookId},{reserve.memberId},{reserve.dateDueBack}";
