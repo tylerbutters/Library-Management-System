@@ -23,7 +23,7 @@ namespace LMS.Pages.AdminPages
     {
         public event EventHandler<RoutedEventArgs> NavigateToLoginPage;
         private bool isOnMemberPage { get; set; } = true;
-        private MemberTable memberTable { get; set; } 
+        private MemberTable memberTable { get; set; } = new MemberTable();
         private AddMemberPage addMemberPage { get; set; } = new AddMemberPage();
         private ViewMemberPage viewMemberPage { get; set; }
         private BookTable bookTable { get; set; } = new BookTable();
@@ -36,16 +36,16 @@ namespace LMS.Pages.AdminPages
         public AdminMainPage()
         {
             InitializeComponent();
-            memberTable = new MemberTable(new List<Member>());
             PageContent.Content = memberTable;
 
-            //memberDataGrid = memberTable.memberDataGridInfo;
+            memberDataGrid = memberTable.memberDataGridInfo;
             bookDataGrid = bookTable.bookDataGridInfo;
 
             memberTable.NavigateToViewMemberPage += NavigateToViewMemberPage;
             bookTable.NavigateToViewBookPage += NavigateToViewBookPage;
             addMemberPage.NavigateToMemberPage += MemberPageButtonClick;
             addBookPage.NavigateToBookPage += BookPageButtonClick;
+            
 
         }
         private void PlaceLoan(object sender, Reserve reserve)
@@ -71,6 +71,7 @@ namespace LMS.Pages.AdminPages
         {
             member = memberTable.selectedMember;
             viewMemberPage = new ViewMemberPage(member);
+            viewMemberPage.NavigateToMemberPage += MemberPageButtonClick;
             viewMemberPage.PlaceLoan += PlaceLoan;
             PageContent.Content = viewMemberPage;
         }
@@ -155,12 +156,12 @@ namespace LMS.Pages.AdminPages
                     member.lastName.IndexOf(searchInput, StringComparison.OrdinalIgnoreCase) >= 0 ||
                     member.email.IndexOf(searchInput, StringComparison.OrdinalIgnoreCase) >= 0
                 ).ToList();
-                memberTable = new MemberTable(searchResults);
-                //memberDataGrid.ItemsSource = searchResults;
+
+                memberDataGrid.ItemsSource = searchResults;
             }
             else
             {
-                memberTable = new MemberTable(new List<Member>());
+                memberDataGrid.ItemsSource = null;
             }
         }
         private void SearchBooks(object sender, RoutedEventArgs e)

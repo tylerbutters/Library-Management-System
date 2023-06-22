@@ -23,6 +23,7 @@ namespace LMS.Pages.AdminPages
     /// </summary>
     public partial class ViewMemberPage : Page
     {
+        public event EventHandler<RoutedEventArgs> NavigateToMemberPage;
         public event EventHandler<Reserve> PlaceLoan;
         private bool isEditing { get; set; } = false;
         private bool isConfirmed { get; set; } = false;
@@ -45,10 +46,7 @@ namespace LMS.Pages.AdminPages
 
         private void BackButtonClick(object sender, RoutedEventArgs e)
         {
-            if (NavigationService != null && NavigationService.CanGoBack)
-            {
-                NavigationService.GoBack();
-            }
+            NavigateToMemberPage?.Invoke(sender, e);
         }
 
         private void EditCancelButtonClick(object sender, RoutedEventArgs e)
