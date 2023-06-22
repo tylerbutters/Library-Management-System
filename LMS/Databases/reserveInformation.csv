@@ -1,4 +1,2 @@
-bookid,memberid,datareserved,dataavailable
-B97952,M73154,,
-B212341,M88043,,
-B61700,M17711,,
+bookid,memberid,datedueback
+B79113,M1234,

@@ -7,6 +7,9 @@
       mc:Ignorable="d" 
       d:DesignHeight="745" d:DesignWidth="1920"
       Title="ViewMemberPage">
+    <Page.Resources>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+    </Page.Resources>
     <Grid Height="745" Width="1600">
 
         <Grid Height="250" VerticalAlignment="Top">
@@ -127,9 +130,9 @@
 
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="1*" />
+                        <ColumnDefinition Width="1.2*" />
+                        <ColumnDefinition Width="1.2*" />
                     </Grid.ColumnDefinitions>
 
                     <Grid Grid.Column="0" Margin="20">
@@ -194,7 +197,7 @@
 
                     <StackPanel Grid.Column="1">
                         <TextBlock FontSize="25" HorizontalAlignment="Center" FontWeight="Black" Text="Loans" />
-                        <Border CornerRadius="10" Background="#e7ead4" Height="561" Margin="10">
+                        <Border CornerRadius="10" Background="#e7ead4" Height="561" Margin="10" Padding="10">
                             <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Hidden">
                                 <ItemsControl Name="LoansArea" ItemsSource="{Binding member.loanedBooks}">
                                     <ItemsControl.ItemTemplate>
@@ -222,14 +225,26 @@
                                                                     <ColumnDefinition Width="1*"></ColumnDefinition>
                                                                     <ColumnDefinition Width="1.5*"></ColumnDefinition>
                                                                 </Grid.ColumnDefinitions>
-                                                                <StackPanel Grid.Column="0">
-                                                                    <TextBlock Text="Reserved:" FontWeight="Medium"  FontSize="15">
+                                                                <StackPanel Grid.Column="0" Margin="0 5 0 0">
+                                                                    <TextBlock Text="Due from:" FontWeight="Medium"  FontSize="15">
                                                         <Run Text="" />
-                                                        <Run Text="{Binding book.dateLoaned}" FontWeight="Medium" FontSize="25" FontStyle="Italic"/>
+                                                        <Run Text="{Binding book.dateDue}" FontWeight="Medium" FontSize="15" FontStyle="Italic"/>
                                                                     </TextBlock>
-                                                                    <TextBlock Text="Available:"  FontWeight="Medium"  FontSize="15">
-                                                        <Run Text="" />
-                                                        <Run Text="{Binding book.dateDue}" FontWeight="Medium" FontSize="25" FontStyle="Italic"/>
+                                                                    <TextBlock Name="DueChecker"  FontWeight="Bold" FontSize="17" VerticalAlignment="Center" Margin="0 10 0 0">
+                                                                        <TextBlock.Style>
+                                                                            <Style TargetType="TextBlock">
+                                                                                <Style.Triggers>
+                                                                                    <DataTrigger Binding="{Binding isDue}" Value="False">
+                                                                                        <Setter Property="Text" Value="Due!" />
+                                                                                        <Setter Property="Foreground" Value="red"/>
+                                                                                    </DataTrigger>
+                                                                                    <DataTrigger Binding="{Binding isDue}" Value="True">
+                                                                                        <Setter Property="Text" Value="Not Due" />
+                                                                                        <Setter Property="Foreground" Value="#3AA220"/>
+                                                                                    </DataTrigger>
+                                                                                </Style.Triggers>
+                                                                            </Style>
+                                                                        </TextBlock.Style>
                                                                     </TextBlock>
                                                                 </StackPanel>
                                                                 <Button Grid.Column="1" Content="Return" Click="ReturnButtonClick" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="110" Height="30" FontSize="20" FontWeight="Black" Foreground="White" BorderThickness="0" Margin="5">
@@ -300,42 +315,83 @@
                                                                     <ColumnDefinition Width="1*"></ColumnDefinition>
                                                                     <ColumnDefinition Width="1.5*"></ColumnDefinition>
                                                                 </Grid.ColumnDefinitions>
-                                                                <StackPanel Grid.Column="0">
-                                                                    <TextBlock Text="Reserved:" FontWeight="Medium"  FontSize="15">
+                                                                <StackPanel Grid.Column="0" Margin="0 5 0 0">
+                                                                    <TextBlock Text="Due back:" FontWeight="Medium"  FontSize="15">
                                                         <Run Text="" />
-                                                        <Run Text="{Binding book.dateReserved}" FontWeight="Medium" FontSize="25" FontStyle="Italic"/>
+                                                        <Run Text="{Binding dateDueBack}" FontWeight="Medium" FontSize="15" FontStyle="Italic"/>
                                                                     </TextBlock>
-                                                                    <TextBlock Text="Available:"  FontWeight="Medium"  FontSize="15">
-                                                        <Run Text="" />
-                                                        <Run Text="{Binding book.dateAvailable}" FontWeight="Medium" FontSize="25" FontStyle="Italic" />
+                                                                    <TextBlock Grid.Column="1" Name="Availablity"  FontWeight="Bold" FontSize="17" VerticalAlignment="Center" Margin="0 10 0 0">
+                                                                        <TextBlock.Style>
+                                                                            <Style TargetType="TextBlock">
+                                                                                <Style.Triggers>
+                                                                                    <DataTrigger Binding="{Binding isAvailableToLoan}" Value="False">
+                                                                                        <Setter Property="Text" Value="Unavailable" />
+                                                                                        <Setter Property="Foreground" Value="red"/>
+                                                                                    </DataTrigger>
+                                                                                    <DataTrigger Binding="{Binding isAvailableToLoan}" Value="True">
+                                                                                        <Setter Property="Text" Value="Available" />
+                                                                                        <Setter Property="Foreground" Value="#3AA220"/>
+                                                                                    </DataTrigger>
+                                                                                </Style.Triggers>
+                                                                            </Style>
+                                                                        </TextBlock.Style>
                                                                     </TextBlock>
                                                                 </StackPanel>
-                                                                <Button Grid.Column="1" Content="Cancel" Click="CancelButtonClick" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="110" Height="30" FontSize="20" FontWeight="Black" Foreground="White" BorderThickness="0" Margin="5">
-                                                                    <Button.Style>
-                                                                        <Style TargetType="{x:Type Button}">
-                                                                            <Setter Property="Background" Value="#BFCA43"/>
-                                                                            <Setter Property="Template">
-                                                                                <Setter.Value>
-                                                                                    <ControlTemplate TargetType="{x:Type Button}">
-                                                                                        <Border Background="{TemplateBinding Background}">
-                                                                                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                                                                        </Border>
-                                                                                    </ControlTemplate>
-                                                                                </Setter.Value>
-                                                                            </Setter>
-                                                                            <Style.Triggers>
-                                                                                <Trigger Property="IsMouseOver" Value="True">
-                                                                                    <Setter Property="Background" Value="#A5AE38"/>
-                                                                                </Trigger>
-                                                                            </Style.Triggers>
-                                                                        </Style>
-                                                                    </Button.Style>
-                                                                    <Button.Resources>
-                                                                        <Style TargetType="Border">
-                                                                            <Setter Property="CornerRadius" Value="10"/>
-                                                                        </Style>
-                                                                    </Button.Resources>
-                                                                </Button>
+                                                                <StackPanel Grid.Column="1">
+                                                                    <Button Content="Loan" Click="LoanButtonClick" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="110" Height="30" FontSize="20" FontWeight="Black" Foreground="White" BorderThickness="0" Margin="5 0 0 2.5" Visibility="{Binding isAvailableToLoan, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                                                        <Button.Style>
+                                                                            <Style TargetType="{x:Type Button}">
+                                                                                <Setter Property="Background" Value="#417422"/>
+                                                                                <Setter Property="Template">
+                                                                                    <Setter.Value>
+                                                                                        <ControlTemplate TargetType="{x:Type Button}">
+                                                                                            <Border Background="{TemplateBinding Background}">
+                                                                                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                                                            </Border>
+                                                                                        </ControlTemplate>
+                                                                                    </Setter.Value>
+                                                                                </Setter>
+                                                                                <Style.Triggers>
+                                                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                                                        <Setter Property="Background" Value="#A5AE38"/>
+                                                                                    </Trigger>
+                                                                                </Style.Triggers>
+                                                                            </Style>
+                                                                        </Button.Style>
+                                                                        <Button.Resources>
+                                                                            <Style TargetType="Border">
+                                                                                <Setter Property="CornerRadius" Value="10"/>
+                                                                            </Style>
+                                                                        </Button.Resources>
+                                                                    </Button>
+                                                                    <Button Content="Cancel" Click="CancelButtonClick" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="110" Height="30" FontSize="20" FontWeight="Black" Foreground="White" BorderThickness="0" Margin="5 2.5 0 0">
+                                                                        <Button.Style>
+                                                                            <Style TargetType="{x:Type Button}">
+                                                                                <Setter Property="Background" Value="#BFCA43"/>
+                                                                                <Setter Property="Template">
+                                                                                    <Setter.Value>
+                                                                                        <ControlTemplate TargetType="{x:Type Button}">
+                                                                                            <Border Background="{TemplateBinding Background}">
+                                                                                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                                                            </Border>
+                                                                                        </ControlTemplate>
+                                                                                    </Setter.Value>
+                                                                                </Setter>
+                                                                                <Style.Triggers>
+                                                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                                                        <Setter Property="Background" Value="#A5AE38"/>
+                                                                                    </Trigger>
+                                                                                </Style.Triggers>
+                                                                            </Style>
+                                                                        </Button.Style>
+                                                                        <Button.Resources>
+                                                                            <Style TargetType="Border">
+                                                                                <Setter Property="CornerRadius" Value="10"/>
+                                                                            </Style>
+                                                                        </Button.Resources>
+                                                                    </Button>
+                                                                </StackPanel>
+                                                                
                                                             </Grid>
                                                         </Grid>
                                                     </Grid>

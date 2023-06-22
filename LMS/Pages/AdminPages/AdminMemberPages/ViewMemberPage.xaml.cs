@@ -23,6 +23,7 @@ namespace LMS.Pages.AdminPages
     /// </summary>
     public partial class ViewMemberPage : Page
     {
+        public event EventHandler<Reserve> PlaceLoan;
         private bool isEditing { get; set; } = false;
         private bool isConfirmed { get; set; } = false;
         private Member member { get; set; }
@@ -59,8 +60,7 @@ namespace LMS.Pages.AdminPages
                 SaveButton.Visibility = Visibility.Visible;
                 DeleteButton.Visibility = Visibility.Visible;
                 EditCancelButton.Content = "Cancel";
-                ID.Background = (Brush)new BrushConverter().ConvertFrom("#e7ead4");
-                ID.Padding = new Thickness(20, 0, 0, 0);
+
 
                 PIN.Background = (Brush)new BrushConverter().ConvertFrom("#e7ead4");
                 PIN.Padding = new Thickness(20, 0, 0, 0);
@@ -82,9 +82,7 @@ namespace LMS.Pages.AdminPages
                 DeleteButton.Visibility = Visibility.Hidden;
                 EditCancelButton.Content = "Edit";
 
-                ID.Background = Brushes.Transparent;
-                ID.Padding = new Thickness(0);
-                ID.IsReadOnly = true;
+
                 PIN.Background = Brushes.Transparent;
                 PIN.Padding = new Thickness(0);
                 PIN.IsReadOnly = true;
@@ -99,13 +97,13 @@ namespace LMS.Pages.AdminPages
                 Email.IsReadOnly = true;
             }
         }
-      
+
 
         public void SaveButtonClick(object sender, RoutedEventArgs e)
         {
-            Member newMemberInfo = new Member {id=ID.Text, pin=PIN.Text, firstName=FirstName.Text, lastName=LastName.Text, email=Email.Text};
+            Member changedInfo = new Member { id = ID.Text, pin = PIN.Text, firstName = FirstName.Text, lastName = LastName.Text, email = Email.Text };
 
-            FileManagement.EditMember(member, newMemberInfo);
+            FileManagement.EditMember(member, changedInfo);
             isEditing = false;
 
         }
@@ -146,6 +144,16 @@ namespace LMS.Pages.AdminPages
 
             LoansArea.ItemsSource = null;
             LoansArea.ItemsSource = member.loanedBooks;
+        }
+        private void LoanButtonClick(object sender, RoutedEventArgs e)
+        {
+            Reserve selectedReserve = (sender as Button).DataContext as Reserve;
+            PlaceLoan?.Invoke(sender, selectedReserve);
+
+            LoansArea.ItemsSource = null;
+            LoansArea.ItemsSource = member.loanedBooks;
+            ReservesArea.ItemsSource = null;
+            ReservesArea.ItemsSource = member.reservedBooks;
         }
     }
 }

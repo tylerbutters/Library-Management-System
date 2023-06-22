@@ -1,7 +1,6 @@
 id,pin,firstName,lastName,email
-M1234,5678,tyler,butters,tylerbutters@gmail.com
+M12345,5678,tyler2,butters2,tylerbutters@gmail.com2
 M312874,23413,tom,morrison,emaisldfassaf
-False,M312874,23413,Tom,Morrison,TEST
 M76521,3957,Hiram,McDaniels,Hiram@NightVale.com
 M17711,8478,tyler,butters,johntyler@gmai.com
 M41757,1950,john,bob,SUMMY
@@ -14,4 +13,4 @@ M82787,2628,another,member,yes
 M88043,2821,john,martin,emial
 M73154,9966,michael,saw,email
 M67297,6729,john,stark,emaisld
-False,M312874,23413,tom,morrison,TESTING TESTING
+M1234,5678,tyler,butter,tylerbutters@gmail.com

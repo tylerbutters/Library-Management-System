@@ -10,14 +10,15 @@ namespace LMS
     {
         public string bookId { get; set; }
         public string memberId { get; set; }
-        public string dateReserved { get; set; }
-        public string dateAvailable { get; set; }
+        public string dateDueBack { get; set; }
+        public bool isAvailableToLoan { get; set; }
         public Book book { get; set; }
         public Reserve(Book _book, Member member)
         {
             book = _book;
             bookId = book.id;
             memberId = member.id;
+
         }
     }
 }

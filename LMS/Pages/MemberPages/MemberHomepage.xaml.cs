@@ -31,14 +31,14 @@ namespace LMS.Pages.MemberPages
             LastName.Text = member.lastName;
             Email.Text = member.email;
 
-            ReservesArea.ItemsSource = member.reservedBooks;
+            ReservesArea.ItemsSource = FileManagement.LoadMembersReserves(member);
+            LoansArea.ItemsSource = FileManagement.LoadMembersLoans(member);
 
         }
 
         private void CancelButtonClick(object sender, RoutedEventArgs e)
         {
             Reserve selectedReserve = (sender as Button).DataContext as Reserve;
-            selectedReserve.book.isReserved = false;
             CancelReserve?.Invoke(sender, selectedReserve.book);
 
             ReservesArea.ItemsSource = null;

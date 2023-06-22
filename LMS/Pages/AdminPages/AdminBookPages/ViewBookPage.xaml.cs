@@ -147,8 +147,8 @@ namespace LMS.Pages.AdminPages
 
             
             File.Copy(imageAddress, book.cover, true);
-            Book newBookInfo = new Book { id = ID.Text, cover=book.cover, title=Title.Text, authorFirstName=AuthorFirstName.Text, authorLastName=AuthorLastName.Text, subject=Subject.Text,summary=Summary.Text };
-            FileManagement.EditBook(book, newBookInfo);
+            Book newInfo = new Book { id = ID.Text, cover=book.cover, title=Title.Text, authorFirstName=AuthorFirstName.Text, authorLastName=AuthorLastName.Text, subject=Subject.Text,summary=Summary.Text };
+            FileManagement.EditBook(book, newInfo);
 
             isEditing = false;
         }

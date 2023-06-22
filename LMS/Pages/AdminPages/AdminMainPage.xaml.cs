@@ -31,6 +31,8 @@ namespace LMS.Pages.AdminPages
         private ViewBookPage viewBookPage { get; set; }
         private DataGrid bookDataGrid { get; set; }
         private DataGrid memberDataGrid { get; set; }
+        private Member member { get; set; }
+        
         public AdminMainPage()
         {
             InitializeComponent();
@@ -43,10 +45,32 @@ namespace LMS.Pages.AdminPages
             bookTable.NavigateToViewBookPage += NavigateToViewBookPage;
             addMemberPage.NavigateToMemberPage += MemberPageButtonClick;
             addBookPage.NavigateToBookPage += BookPageButtonClick;
+
+        }
+        private void PlaceLoan(object sender, Reserve reserve)
+        {
+            
+            Loan newLoan = new Loan(reserve.book, member);
+            member.loanedBooks.Add(newLoan);
+            List<Book> books = FileManagement.LoadBooks();
+            foreach (Book book in books)
+            {
+                if(book.id == newLoan.bookId)
+                {
+                    book.isLoaned = true;
+                    book.isReserved = false;
+                }
+            }
+            member.reservedBooks.Remove(reserve);
+            FileManagement.RemoveReserve(reserve);
+            FileManagement.SaveNewLoan(newLoan);
+            FileManagement.WriteAllBooks(books);
         }
         public void NavigateToViewMemberPage(object sender, RoutedEventArgs e)
         {
-            viewMemberPage = new ViewMemberPage(memberTable.selectedMember);
+            member = memberTable.selectedMember;
+            viewMemberPage = new ViewMemberPage(member);
+            viewMemberPage.PlaceLoan += PlaceLoan;
             PageContent.Content = viewMemberPage;
         }
         public void NavigateToViewBookPage(object sender, RoutedEventArgs e)
