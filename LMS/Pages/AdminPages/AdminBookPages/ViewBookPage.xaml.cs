@@ -22,6 +22,7 @@ namespace LMS.Pages.AdminPages
     /// 
     public partial class ViewBookPage : Page
     {
+        public event EventHandler<RoutedEventArgs> NavigateToBookPage;
         private bool isEditing { get; set; } = false;
         private bool isConfirmed { get; set; } = false;
         public Book book { get; set; }
@@ -37,14 +38,11 @@ namespace LMS.Pages.AdminPages
             Subject.Text = book.subject;
             Summary.Text = book.summary;
             selectedImageAddress.Text = book.cover;
-           
+
         }
         private void BackButtonClick(object sender, RoutedEventArgs e)
         {
-            if (NavigationService != null && NavigationService.CanGoBack)
-            {
-                NavigationService.GoBack();
-            }
+            NavigateToBookPage?.Invoke(sender, e);
         }
 
         private void EditCancelButtonClick(object sender, RoutedEventArgs e)
@@ -56,12 +54,8 @@ namespace LMS.Pages.AdminPages
                 SaveButton.Visibility = Visibility.Visible;
                 DeleteButton.Visibility = Visibility.Visible;
                 SelectImageButton.Visibility = Visibility.Visible;
-
                 EditCancelButton.Content = "Cancel";
 
-                ID.Background = (Brush)new BrushConverter().ConvertFrom("#e7ead4");
-                ID.Padding = new Thickness(20, 0, 0, 0);
-                ID.IsReadOnly = true;
                 Title.Background = (Brush)new BrushConverter().ConvertFrom("#e7ead4");
                 Title.Padding = new Thickness(20, 0, 0, 0);
                 Title.IsReadOnly = false;
@@ -75,10 +69,10 @@ namespace LMS.Pages.AdminPages
                 Subject.Padding = new Thickness(20, 0, 0, 0);
                 Subject.IsReadOnly = false;
                 Summary.Background = (Brush)new BrushConverter().ConvertFrom("#e7ead4");
-                Summary.Padding = new Thickness(20,0,0,0);
+                Summary.Padding = new Thickness(20, 20, 0, 0);
                 Summary.IsReadOnly = false;
                 selectedImageAddress.Background = (Brush)new BrushConverter().ConvertFrom("#e7ead4");
-                selectedImageAddress.Padding = new Thickness(20,0,0,0);
+                selectedImageAddress.Padding = new Thickness(20, 0, 0, 0);
                 selectedImageAddress.IsReadOnly = true;
 
             }
@@ -90,9 +84,6 @@ namespace LMS.Pages.AdminPages
                 EditCancelButton.Content = "Edit";
                 SelectImageButton.Visibility = Visibility.Hidden;
 
-                ID.Background = Brushes.Transparent;
-                ID.Padding = new Thickness(0);
-                ID.IsReadOnly = true;
                 Title.Background = Brushes.Transparent;
                 Title.Padding = new Thickness(0);
                 Title.IsReadOnly = true;
@@ -114,10 +105,11 @@ namespace LMS.Pages.AdminPages
 
             }
         }
-        string imageAddress = null;
+        
         private void SelectImageButtonClick(object sender, RoutedEventArgs e)
         {
-           imageAddress = SelectImageDialog();
+            string imageAddress = SelectImageDialog();
+            File.Copy(imageAddress, book.cover, true);
         }
         private string SelectImageDialog()
         {
@@ -144,13 +136,10 @@ namespace LMS.Pages.AdminPages
         }
         private void SaveButtonClick(object sender, RoutedEventArgs e)
         {
+            Book changedInfo = new Book { id = ID.Text, cover = book.cover, title = Title.Text, authorFirstName = AuthorFirstName.Text, authorLastName = AuthorLastName.Text, subject = Subject.Text, summary = Summary.Text };
+            FileManagement.EditBook(book, changedInfo);
 
-            
-            File.Copy(imageAddress, book.cover, true);
-            Book newInfo = new Book { id = ID.Text, cover=book.cover, title=Title.Text, authorFirstName=AuthorFirstName.Text, authorLastName=AuthorLastName.Text, subject=Subject.Text,summary=Summary.Text };
-            FileManagement.EditBook(book, newInfo);
-
-            isEditing = false;
+            EditCancelButtonClick(sender, e);
         }
         private void DeleteButtonClick(object sender, RoutedEventArgs e)
         {

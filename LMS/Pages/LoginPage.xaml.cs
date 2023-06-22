@@ -25,6 +25,7 @@ namespace LMS.Pages
         public event EventHandler<RoutedEventArgs> NavigateToMemberMainPage;
         public event EventHandler<RoutedEventArgs> NavigateToAdminMainPage;
         public Member loggedInMember { get; set; }
+        private List<Account> accounts { get; set; } = FileManagement.LoadAccounts();
         public LoginPage()
         {
             InitializeComponent();
@@ -34,7 +35,6 @@ namespace LMS.Pages
         }
         public Account AuthenticateLoginDetails()
         {
-            List<Account> accounts = FileManagement.LoadAccounts();
             string idInput = IDInput.Text;
             string pinInput = PINInput.Text;
 
