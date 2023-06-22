@@ -49,14 +49,16 @@ namespace LMS.Pages.AdminPages
         }
         private void PlaceLoan(object sender, Reserve reserve)
         {
-            List<Book> books = FileManagement.LoadBooks();
+            
             Loan newLoan = new Loan(reserve.book, member);
             member.loanedBooks.Add(newLoan);
-            foreach(Book book in books)
+            List<Book> books = FileManagement.LoadBooks();
+            foreach (Book book in books)
             {
                 if(book.id == newLoan.bookId)
                 {
                     book.isLoaned = true;
+                    book.isReserved = false;
                 }
             }
             member.reservedBooks.Remove(reserve);

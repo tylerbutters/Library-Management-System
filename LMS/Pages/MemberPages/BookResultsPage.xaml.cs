@@ -32,13 +32,6 @@ namespace LMS.Pages.MemberPages
             InitializeComponent();
             results = searchResults;
 
-            foreach (Book book in results)
-            {
-                if (book.isLoaned)
-                {
-                    book.isAvailableToReserve = false;
-                }
-            }
 
             ResultsContainer.ItemsSource = results;
             ResultText.Text = searchInput;

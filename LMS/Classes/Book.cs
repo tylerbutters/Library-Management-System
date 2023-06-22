@@ -16,7 +16,7 @@ namespace LMS
         public string authorLastName { get; set; }
         public string subject{ get; set; }
         public string summary { get; set; }
-        public bool isAvailableToReserve { get; set; } = true;
+        //public bool isAvailableToReserve { get; set; } = true;
         
 
         public event PropertyChangedEventHandler PropertyChanged;

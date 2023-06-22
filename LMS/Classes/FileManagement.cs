@@ -108,6 +108,11 @@ namespace LMS
                 string bookId = split[0];
                 Book book = LoadBookById(bookId);
 
+                if (book == null)
+                {
+                    Console.WriteLine($"Warning: Book with ID {bookId} not found.");
+                    continue;
+                }
                 Reserve reserve = new Reserve(book, member)
                 {
                     bookId = bookId,
@@ -147,7 +152,7 @@ namespace LMS
                     //book = book,
 
                 };
-                loan.book.isLoaned = true;
+                //loan.book.isLoaned = true;
                 //if (dueDate >= currentDate)
                 //{
                 //    loan.isDue = true;
@@ -161,7 +166,7 @@ namespace LMS
 
 
         public static List<Reserve> LoadMembersReserves(Member member)
-        {
+         {
             List<Reserve> reserves = LoadReserves(member);
             List<Reserve> membersReserves = new List<Reserve>();
             foreach (Reserve reserve in reserves)
@@ -201,14 +206,15 @@ namespace LMS
         public static void WriteAllBooks(List<Book> books)
         {
             List<string> bookRows = new List<string>();
-
+            string headerRow = "id,cover,title,authorFirstName,authorLastName,subject,summary,isLoaned,isReserved";
+            bookRows.Add(headerRow);
             foreach (Book book in books)
             {
                 string bookRow = $"{book.id},{book.cover},{book.title},{book.authorFirstName},{book.authorLastName},{book.subject},{book.summary},{book.isLoaned},{book.isReserved}";
                 bookRows.Add(bookRow);
             }
 
-            File.WriteAllLines(BookFile, bookRows.Skip(1));
+            File.WriteAllLines(BookFile, bookRows);
         }
         public static void SaveNewBook(Book newBook)
         {

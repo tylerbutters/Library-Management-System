@@ -36,14 +36,33 @@ namespace LMS.Pages.MemberPages
         private void CancelReserve(object sender, Book book)
         {
             Reserve reserve = member.reservedBooks.FirstOrDefault(r => r.bookId == book.id);
+            List<Book> books = FileManagement.LoadBooks();
+            foreach (Book _book in books)
+            {
+                if (_book.id == reserve.bookId)
+                {
+                    _book.isReserved = false;
+                }
+            }
+            FileManagement.WriteAllBooks(books);
             member.reservedBooks.Remove(reserve);
             FileManagement.RemoveReserve(reserve);
+
         }
         private void PlaceReserve(object sender, Book book)
         {
             Reserve newReserve = new Reserve(book, member);
+            List<Book> books = FileManagement.LoadBooks();
+            foreach (Book _book in books)
+            {
+                if (_book.id == newReserve.bookId)
+                {
+                    _book.isReserved = true;
+                }
+            }
             member.reservedBooks.Add(newReserve);
             FileManagement.SaveNewReserve(newReserve);
+            FileManagement.WriteAllBooks(books);
         }
         private void SearchbarKeyDown(object sender, KeyEventArgs e)
         {
