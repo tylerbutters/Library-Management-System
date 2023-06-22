@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -97,9 +99,50 @@ namespace LMS.Pages.AdminPages
                 Email.IsReadOnly = true;
             }
         }
-
-        private void SaveButtonClick(object sender, RoutedEventArgs e)
+        //start of edit functions
+        static int FindRowNumber(string filePath, string Targetvalue)
         {
+            using (StreamReader reader = new StreamReader(filePath))               //initiates csv reader (does not read CSV to memory)
+            {
+                string line;
+                int currentRowNumber = 1;                                       //CSV rows start from 1. 
+
+                while ((line = reader.ReadLine()) != null)
+                {
+                    string[] rowData = line.Split(',');                         //splits each row
+                    for (int i = 0; i < rowData.Length; i++)                         //carries out check for each row in turn
+                    {
+                        if (rowData[i] == Targetvalue)                            //checks to see if ID exists on that row
+                        {
+                            MessageBox.Show(currentRowNumber.ToString());
+                            return currentRowNumber;                            //returns current row if ID found
+                        }
+                    }
+                    currentRowNumber++;                                         //iterates row number if ID not found
+                }
+
+
+            }
+            return -1;                                                          //returns -1 if id not found
+        }
+
+        public void ReplaceRow(string filePath, int rowNumber, string replacementData)
+        {
+            List<string> lines = File.ReadAllLines(filePath).ToList();                            //reads CSV into a list
+            lines[rowNumber] = string.Join(",", replacementData);                                 //replace the row in list with new data
+            File.WriteAllLines(filePath, lines);                                                  //writes the list back to the csv
+
+        }
+
+              //finds row number containing current ID
+
+        public void SaveButtonClick(object sender, RoutedEventArgs e)
+        {
+            int rowNumber = FindRowNumber(@"Database\\memberInformation.csv", member.id);
+            string isAdmin = member.isAdmin.ToString();
+            string[] newData = { isAdmin, ID.Text, PIN.Text, FirstName.Text, LastName.Text, Email.Text }; //collects inputs from textboxes when clicked
+            string newRow = string.Join(",", newData);                                                    //joins textbox data into a new string
+            ReplaceRow(@"Database\\memberInformation.csv", rowNumber, newRow);                            // replaces the row with new string then writes it back to the CSV. 
 
         }
         private void DeleteButtonClick(object sender, RoutedEventArgs e)
@@ -142,3 +185,4 @@ namespace LMS.Pages.AdminPages
         }
     }
 }
+
