@@ -32,6 +32,7 @@ namespace LMS.Pages.AdminPages
         private DataGrid bookDataGrid { get; set; }
         private DataGrid memberDataGrid { get; set; }
         private Member member { get; set; }
+        
         public AdminMainPage()
         {
             InitializeComponent();
@@ -44,15 +45,24 @@ namespace LMS.Pages.AdminPages
             bookTable.NavigateToViewBookPage += NavigateToViewBookPage;
             addMemberPage.NavigateToMemberPage += MemberPageButtonClick;
             addBookPage.NavigateToBookPage += BookPageButtonClick;
-            
+
         }
-        private void PlaceLoan(object sender,Reserve reserve)
+        private void PlaceLoan(object sender, Reserve reserve)
         {
-            Loan newLoan = new Loan(reserve.book,member);
+            List<Book> books = FileManagement.LoadBooks();
+            Loan newLoan = new Loan(reserve.book, member);
             member.loanedBooks.Add(newLoan);
+            foreach(Book book in books)
+            {
+                if(book.id == newLoan.bookId)
+                {
+                    book.isLoaned = true;
+                }
+            }
             member.reservedBooks.Remove(reserve);
             FileManagement.RemoveReserve(reserve);
             FileManagement.SaveNewLoan(newLoan);
+            FileManagement.WriteAllBooks(books);
         }
         public void NavigateToViewMemberPage(object sender, RoutedEventArgs e)
         {

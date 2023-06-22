@@ -198,9 +198,8 @@ namespace LMS
             }
             return null;
         }
-        public static void WriteAllBooks()
+        public static void WriteAllBooks(List<Book> books)
         {
-            List<Book> books = LoadBooks();
             List<string> bookRows = new List<string>();
 
             foreach (Book book in books)
@@ -209,7 +208,7 @@ namespace LMS
                 bookRows.Add(bookRow);
             }
 
-            File.WriteAllLines(BookFile, bookRows);
+            File.WriteAllLines(BookFile, bookRows.Skip(1));
         }
         public static void SaveNewBook(Book newBook)
         {
