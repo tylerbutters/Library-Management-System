@@ -43,6 +43,7 @@ namespace LMS
                     };
 
                     member.reservedBooks = LoadMembersReserves(member);
+                    member.loanedBooks = LoadMembersLoans(member);
                     accounts.Add(member);
                 }
                 else
@@ -111,7 +112,6 @@ namespace LMS
                     bookId = bookId,
                     memberId = split[1],
                     dateDueBack = split[2],
-                    //isAvailableToLoan = bool.Parse(split[3]),
                     book = book
                 };
 
@@ -126,6 +126,37 @@ namespace LMS
             return reserves;
         }
 
+        public static List<Loan> LoadLoans(Member member)
+        {
+            List<string> rows = File.ReadAllLines(LoanFile).ToList();
+
+            List<Loan> loans = new List<Loan>();
+
+            foreach (string row in rows.Skip(1))
+            {
+                string[] split = row.Split(',');
+                string bookId = split[0];
+                Book book = LoadBookById(bookId);
+
+                Loan loan = new Loan(book, member)
+                {
+                    bookId = bookId,
+                    memberId = split[1],
+                    dateDue = split[2],
+                    book = book
+                };
+
+                //if (dueDate >= currentDate)
+                //{
+                //    loan.isDue = true;
+                //}
+
+                loans.Add(loan);
+            }
+
+            return loans;
+        }
+
         public static List<Reserve> LoadMembersReserves(Member member)
         {
             List<Reserve> reserves = LoadReserves(member);
@@ -138,6 +169,19 @@ namespace LMS
                 }
             }
             return membersReserves;
+        }
+        public static List<Loan> LoadMembersLoans(Member member)
+        {
+            List<Loan> loans = LoadLoans(member);
+            List<Loan> membersLoans = new List<Loan>();
+            foreach (Loan loan in loans)
+            {
+                if (loan.memberId == member.id)
+                {
+                    membersLoans.Add(loan);
+                }
+            }
+            return membersLoans;
         }
         private static Book LoadBookById(string bookId)
         {
@@ -189,16 +233,24 @@ namespace LMS
 
         public static void SaveNewReserve(Reserve reserve)
         {
-            string reserveString = $"{reserve.bookId},{reserve.memberId},{reserve.dateDueBack},{reserve.isAvailableToLoan}";
+            string reserveString = $"{reserve.bookId},{reserve.memberId},{reserve.dateDueBack}";
 
             List<string> rows = File.ReadAllLines(ReserveFile).ToList();
             rows.Add(reserveString);
             File.WriteAllLines(ReserveFile, rows);
         }
 
+        public static void SaveNewLoan(Loan loan)
+        {
+            string loanString = $"{loan.bookId},{loan.memberId},{loan.dateDue}";
+
+            List<string> rows = File.ReadAllLines(LoanFile).ToList();
+            rows.Add(loanString);
+            File.WriteAllLines(LoanFile, rows);
+        }
         public static void RemoveReserve(Reserve reserve)
         {
-            string reserveString = $"{reserve.bookId},{reserve.memberId},{reserve.dateDueBack},{reserve.isAvailableToLoan}";
+            string reserveString = $"{reserve.bookId},{reserve.memberId},{reserve.dateDueBack}";
 
             List<string> rows = File.ReadAllLines(ReserveFile).ToList();
             rows.Remove(reserveString);
@@ -207,7 +259,7 @@ namespace LMS
 
         public static void RemoveLoan(Loan loan)
         {
-            string loanString = $"{loan.bookId},{loan.memberId},{loan.dateDue},{loan.isDue}";
+            string loanString = $"{loan.bookId},{loan.memberId},{loan.dateDue}";
 
             List<string> rows = File.ReadAllLines(LoanFile).ToList();
             rows.Remove(loanString);

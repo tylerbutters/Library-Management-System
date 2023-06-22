@@ -197,7 +197,7 @@
 
                     <StackPanel Grid.Column="1">
                         <TextBlock FontSize="25" HorizontalAlignment="Center" FontWeight="Black" Text="Loans" />
-                        <Border CornerRadius="10" Background="#e7ead4" Height="561" Margin="10">
+                        <Border CornerRadius="10" Background="#e7ead4" Height="561" Margin="10" Padding="10">
                             <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Hidden">
                                 <ItemsControl Name="LoansArea" ItemsSource="{Binding member.loanedBooks}">
                                     <ItemsControl.ItemTemplate>
@@ -225,14 +225,26 @@
                                                                     <ColumnDefinition Width="1*"></ColumnDefinition>
                                                                     <ColumnDefinition Width="1.5*"></ColumnDefinition>
                                                                 </Grid.ColumnDefinitions>
-                                                                <StackPanel Grid.Column="0">
-                                                                    <TextBlock Text="Reserved:" FontWeight="Medium"  FontSize="15">
+                                                                <StackPanel Grid.Column="0" Margin="0 5 0 0">
+                                                                    <TextBlock Text="Due from:" FontWeight="Medium"  FontSize="15">
                                                         <Run Text="" />
-                                                        <Run Text="{Binding book.dateLoaned}" FontWeight="Medium" FontSize="25" FontStyle="Italic"/>
+                                                        <Run Text="{Binding book.dateDue}" FontWeight="Medium" FontSize="15" FontStyle="Italic"/>
                                                                     </TextBlock>
-                                                                    <TextBlock Text="Available:"  FontWeight="Medium"  FontSize="15">
-                                                        <Run Text="" />
-                                                        <Run Text="{Binding book.dateDue}" FontWeight="Medium" FontSize="25" FontStyle="Italic"/>
+                                                                    <TextBlock Name="DueChecker"  FontWeight="Bold" FontSize="17" VerticalAlignment="Center" Margin="0 10 0 0">
+                                                                        <TextBlock.Style>
+                                                                            <Style TargetType="TextBlock">
+                                                                                <Style.Triggers>
+                                                                                    <DataTrigger Binding="{Binding isDue}" Value="False">
+                                                                                        <Setter Property="Text" Value="Due!" />
+                                                                                        <Setter Property="Foreground" Value="red"/>
+                                                                                    </DataTrigger>
+                                                                                    <DataTrigger Binding="{Binding isDue}" Value="True">
+                                                                                        <Setter Property="Text" Value="Not Due" />
+                                                                                        <Setter Property="Foreground" Value="#3AA220"/>
+                                                                                    </DataTrigger>
+                                                                                </Style.Triggers>
+                                                                            </Style>
+                                                                        </TextBlock.Style>
                                                                     </TextBlock>
                                                                 </StackPanel>
                                                                 <Button Grid.Column="1" Content="Return" Click="ReturnButtonClick" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="110" Height="30" FontSize="20" FontWeight="Black" Foreground="White" BorderThickness="0" Margin="5">
@@ -304,7 +316,7 @@
                                                                     <ColumnDefinition Width="1.5*"></ColumnDefinition>
                                                                 </Grid.ColumnDefinitions>
                                                                 <StackPanel Grid.Column="0" Margin="0 5 0 0">
-                                                                    <TextBlock Text="Due back:" FontWeight="Medium"  FontSize="15" Margin="-5 0 0 0">
+                                                                    <TextBlock Text="Due back:" FontWeight="Medium"  FontSize="15">
                                                         <Run Text="" />
                                                         <Run Text="{Binding dateDueBack}" FontWeight="Medium" FontSize="15" FontStyle="Italic"/>
                                                                     </TextBlock>

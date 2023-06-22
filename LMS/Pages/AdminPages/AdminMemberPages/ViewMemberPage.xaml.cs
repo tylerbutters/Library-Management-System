@@ -21,6 +21,7 @@ namespace LMS.Pages.AdminPages
     /// </summary>
     public partial class ViewMemberPage : Page
     {
+        public event EventHandler<Reserve> PlaceLoan;
         private bool isEditing { get; set; } = false;
         private bool isConfirmed { get; set; } = false;
         private Member member { get; set; }
@@ -142,7 +143,13 @@ namespace LMS.Pages.AdminPages
         }
         private void LoanButtonClick(object sender, RoutedEventArgs e)
         {
+            Reserve selectedReserve = (sender as Button).DataContext as Reserve;
+            PlaceLoan?.Invoke(sender, selectedReserve);
 
+            LoansArea.ItemsSource = null;
+            LoansArea.ItemsSource = member.loanedBooks;
+            ReservesArea.ItemsSource = null;
+            ReservesArea.ItemsSource = member.reservedBooks;
         }
     }
 }

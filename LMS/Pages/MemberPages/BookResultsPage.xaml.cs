@@ -47,8 +47,7 @@ namespace LMS.Pages.MemberPages
 
         private void ReserveButtonClick(object sender, RoutedEventArgs e)
         {
-            Button reserveButton = (Button)sender;
-            Book selectedBook = (Book)reserveButton.DataContext;
+            Book selectedBook = (sender as Button).DataContext as Book;
 
             if (!selectedBook.isReserved)
             {
