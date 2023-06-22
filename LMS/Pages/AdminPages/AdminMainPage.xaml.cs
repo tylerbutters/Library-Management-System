@@ -23,7 +23,7 @@ namespace LMS.Pages.AdminPages
     {
         public event EventHandler<RoutedEventArgs> NavigateToLoginPage;
         private bool isOnMemberPage { get; set; } = true;
-        private MemberTable memberTable { get; set; } = new MemberTable();
+        private MemberTable memberTable { get; set; } 
         private AddMemberPage addMemberPage { get; set; } = new AddMemberPage();
         private ViewMemberPage viewMemberPage { get; set; }
         private BookTable bookTable { get; set; } = new BookTable();
@@ -36,9 +36,10 @@ namespace LMS.Pages.AdminPages
         public AdminMainPage()
         {
             InitializeComponent();
+            memberTable = new MemberTable(new List<Member>());
             PageContent.Content = memberTable;
 
-            memberDataGrid = memberTable.memberDataGridInfo;
+            //memberDataGrid = memberTable.memberDataGridInfo;
             bookDataGrid = bookTable.bookDataGridInfo;
 
             memberTable.NavigateToViewMemberPage += NavigateToViewMemberPage;
@@ -154,12 +155,12 @@ namespace LMS.Pages.AdminPages
                     member.lastName.IndexOf(searchInput, StringComparison.OrdinalIgnoreCase) >= 0 ||
                     member.email.IndexOf(searchInput, StringComparison.OrdinalIgnoreCase) >= 0
                 ).ToList();
-
-                memberDataGrid.ItemsSource = searchResults;
+                memberTable = new MemberTable(searchResults);
+                //memberDataGrid.ItemsSource = searchResults;
             }
             else
             {
-                memberDataGrid.ItemsSource = null;
+                memberTable = new MemberTable(new List<Member>());
             }
         }
         private void SearchBooks(object sender, RoutedEventArgs e)
