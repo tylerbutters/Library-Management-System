@@ -39,11 +39,11 @@ namespace LMS.Pages.AdminPages
         }
         private string GenerateNewImageAddress(string title, string existingImageAddressInput)
         {
-            string folderPath = @"CoverImages\";//Folder to contain new Image
+            string folderPath = @".\CoverImages\";//Folder to contain new Image
             string cleanedExistingAddressInput = string.Join("_", System.IO.Path.GetInvalidPathChars().Aggregate(existingImageAddressInput, (current, c) => current.Replace(c.ToString(), "")));//Removes illegal path characters.
             string fileExtension = System.IO.Path.GetExtension(cleanedExistingAddressInput);//gets file extension of existing image       
             string cleanedTitle = string.Join("_", System.IO.Path.GetInvalidFileNameChars().Aggregate(title, (current, c) => current.Replace(c.ToString(), ""))).Replace(" ", "_");//Removes illegal filename characters from book title.                                                                                                                                                                                        //makes an address and name for the new copy, preserves existing filetype. (does NOT save a copy yet)
-            
+           
             return $"{folderPath}{cleanedTitle}{fileExtension}";
         }
 

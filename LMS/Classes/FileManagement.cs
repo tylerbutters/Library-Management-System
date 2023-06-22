@@ -172,6 +172,16 @@ namespace LMS
             File.WriteAllLines(BookFile, rows);
             MessageBox.Show("Book Deleted Successfully!\n");
         }
+        public static void EditBook(Book currentBookInfo, Book newBookInfo)
+        {
+            string currentBookString = $"{currentBookInfo.id},{currentBookInfo.cover},{currentBookInfo.title.ToLower()},{currentBookInfo.authorFirstName.ToLower()},{currentBookInfo.authorLastName.ToLower()},{currentBookInfo.subject.ToLower()},{currentBookInfo.summary.ToLower()},{currentBookInfo.isAvailable}";
+            string newBookString = $"{newBookInfo.id},{newBookInfo.cover},{newBookInfo.title.ToLower()},{newBookInfo.authorFirstName.ToLower()},{newBookInfo.authorLastName.ToLower()},{newBookInfo.subject.ToLower()},{newBookInfo.summary.ToLower()},{newBookInfo.isAvailable}";
+            List<string> rows = File.ReadAllLines(BookFile).ToList();
+            rows.Remove(currentBookString);
+            rows.Add(newBookString);
+            File.WriteAllLines(BookFile, rows);
+            MessageBox.Show("Book Edited Successfully!\n");
+        }
 
         public static void DeleteMember(Member member)
         {
