@@ -85,7 +85,7 @@ namespace LMS
                     authorLastName = textInfo.ToTitleCase(split[4]),
                     subject = textInfo.ToTitleCase(split[5]),
                     summary = split[6],
-                    isAvailable = split[7]
+                    isAvailable = bool.Parse(split[7]),
                 };
 
                 books.Add(book);

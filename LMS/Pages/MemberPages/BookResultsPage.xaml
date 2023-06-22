@@ -37,7 +37,7 @@
                                             <Grid>
                                                 <Grid.ColumnDefinitions>
                                                     <ColumnDefinition Width="1*"></ColumnDefinition>
-                                                    <ColumnDefinition Width="2*"></ColumnDefinition>
+                                                    <ColumnDefinition Width="2.5*"></ColumnDefinition>
                                                 </Grid.ColumnDefinitions>
                                                 <Border Grid.Column="0" CornerRadius="10 0 0 10" Background="Gray">
                                                     <Image Source="{Binding cover}"/>
@@ -58,10 +58,26 @@
                                                     <Grid Grid.Row="1">
                                                         <Grid.ColumnDefinitions>
                                                             <ColumnDefinition Width="1*"></ColumnDefinition>
-                                                            <ColumnDefinition Width="1.5*"></ColumnDefinition>
+                                                            <ColumnDefinition Width="1*"></ColumnDefinition>
                                                         </Grid.ColumnDefinitions>
-                                                        <TextBlock Grid.Column="0" Name="Availablity" Text="example" Foreground="#3AA220" FontWeight="Bold" FontSize="20" VerticalAlignment="Center"/>
-                                                        <Button Grid.Column="1" Content="{Binding}" Click="ReserveButtonClick" Width="136" Height="44" FontSize="25" FontWeight="Black" Foreground="White" BorderThickness="0">
+                                                        <TextBlock Grid.Column="0" Name="Availablity"  FontWeight="Bold" FontSize="20" VerticalAlignment="Center">
+                                                            <TextBlock.Style>
+                                                                <Style TargetType="TextBlock">
+                                                                    <Setter Property="Text" Value="Available" />
+                                                                    <Setter Property="Foreground" Value="#3AA220"/>
+                                                                    <!-- Default value when isAvailable is true -->
+                                                                    <Style.Triggers>
+                                                                        <DataTrigger Binding="{Binding isAvailable}" Value="False">
+                                                                            <Setter Property="Text" Value="Unavailable" />
+                                                                            <Setter Property="Foreground" Value="red"/>
+                                                                            <!-- Value to set when isAvailable is false -->
+                                                                        </DataTrigger>
+                                                                    </Style.Triggers>
+                                                                </Style>
+                                                            </TextBlock.Style>
+                                                        </TextBlock>
+
+                                                        <Button Grid.Column="1" Content="{Binding}" Click="ReserveButtonClick" Width="125" Height="44" FontSize="25" FontWeight="Black" Foreground="White" BorderThickness="0">
                                                             <Button.Style>
                                                                 <Style TargetType="Button">
                                                                     <Setter Property="Background" Value="#BFCA43"/>
@@ -83,7 +99,7 @@
                                                                                 <BeginStoryboard>
                                                                                     <Storyboard>
                                                                                         <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Content">
-                                                                                            <DiscreteObjectKeyFrame KeyTime="0" Value="sf" />
+                                                                                            <DiscreteObjectKeyFrame KeyTime="0" Value="Cancel" />
                                                                                         </ObjectAnimationUsingKeyFrames>
                                                                                     </Storyboard>
                                                                                 </BeginStoryboard>

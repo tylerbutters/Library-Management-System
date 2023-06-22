@@ -190,6 +190,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="CoverImages\" />
+    <Folder Include="Logs\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

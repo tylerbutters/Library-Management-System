@@ -54,11 +54,13 @@ namespace LMS.Pages.MemberPages
             {
                 PlaceReserve(this, selectedBook);
                 selectedBook.isReserved = true;
+                selectedBook.isAvailable  = false;
             }
             else
             {
                 CancelReserve(this, selectedBook);
                 selectedBook.isReserved = false;
+                selectedBook.isAvailable = true;
             }
             ResultsContainer.ItemsSource = null;
             ResultsContainer.ItemsSource = results;
