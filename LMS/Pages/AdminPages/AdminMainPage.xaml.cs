@@ -23,25 +23,26 @@ namespace LMS.Pages.AdminPages
     {
         public event EventHandler<RoutedEventArgs> NavigateToLoginPage;
         private bool isOnMemberPage { get; set; } = true;
-        private MemberTable memberTable { get; set; } = new MemberTable();
+        private MemberTable memberTable { get; set; }
         private AddMemberPage addMemberPage { get; set; } = new AddMemberPage();
         private ViewMemberPage viewMemberPage { get; set; }
         private BookTable bookTable { get; set; } = new BookTable();
         private AddBookPage addBookPage { get; set; } = new AddBookPage();
         private ViewBookPage viewBookPage { get; set; }
         private DataGrid bookDataGrid { get; set; }
-        private DataGrid memberDataGrid { get; set; }
+        //private DataGrid memberDataGrid { get; set; }
         private Member member { get; set; }
         
         public AdminMainPage()
         {
             InitializeComponent();
+            memberTable = new MemberTable(new List<Member>());
             PageContent.Content = memberTable;
 
-            memberDataGrid = memberTable.memberDataGridInfo;
+           // memberDataGrid = memberTable.memberDataGridInfo;
             bookDataGrid = bookTable.bookDataGridInfo;
 
-            memberTable.NavigateToViewMemberPage += NavigateToViewMemberPage;
+            //memberTable.NavigateToViewMemberPage += NavigateToViewMemberPage;
             bookTable.NavigateToViewBookPage += NavigateToViewBookPage;
             addMemberPage.NavigateToMemberPage += MemberPageButtonClick;
             addBookPage.NavigateToBookPage += BookPageButtonClick;
@@ -69,11 +70,19 @@ namespace LMS.Pages.AdminPages
         }
         public void NavigateToViewMemberPage(object sender, RoutedEventArgs e)
         {
-            member = memberTable.selectedMember;
-            viewMemberPage = new ViewMemberPage(member);
+            //memberTable = (MemberTable)sender;
+            Member selectedMember = memberTable.selectedMember;
+
+            viewMemberPage = new ViewMemberPage(selectedMember);
             viewMemberPage.NavigateToMemberPage += MemberPageButtonClick;
             viewMemberPage.PlaceLoan += PlaceLoan;
             PageContent.Content = viewMemberPage;
+
+            //member = memberTable.selectedMember;
+            //viewMemberPage = new ViewMemberPage(member);
+            //viewMemberPage.NavigateToMemberPage += MemberPageButtonClick;
+            //viewMemberPage.PlaceLoan += PlaceLoan;
+            //PageContent.Content = viewMemberPage;
         }
         public void NavigateToViewBookPage(object sender, RoutedEventArgs e)
         {
@@ -105,6 +114,7 @@ namespace LMS.Pages.AdminPages
             BookPageButton.Foreground = Brushes.White;
             MemberPageButton.Background = (Brush)new BrushConverter().ConvertFrom("#FDFEEE");
             MemberPageButton.Foreground = Brushes.Black;
+            memberTable = new MemberTable(new List<Member>());
             PageContent.Content = memberTable;
         }
         private void BookPageButtonClick(object sender, RoutedEventArgs e)
@@ -145,7 +155,7 @@ namespace LMS.Pages.AdminPages
         }
         private void SearchMembers(object sender, RoutedEventArgs e)
         {
-            PageContent.Content = memberTable;
+            
             string searchInput = SearchBar.Text.Trim();
 
             if (!string.IsNullOrEmpty(searchInput))
@@ -156,12 +166,16 @@ namespace LMS.Pages.AdminPages
                     member.lastName.IndexOf(searchInput, StringComparison.OrdinalIgnoreCase) >= 0 ||
                     member.email.IndexOf(searchInput, StringComparison.OrdinalIgnoreCase) >= 0
                 ).ToList();
-
-                memberDataGrid.ItemsSource = searchResults;
+                memberTable = new MemberTable(searchResults);
+                memberTable.MemberGrid.SelectionChanged += memberTable.MemberDataGridSelectionChanged;
+                memberTable.NavigateToViewMemberPage += NavigateToViewMemberPage;
+                PageContent.Content = memberTable;
+                //memberTable.MemberGrid.ItemsSource = searchResults;
+                //memberDataGrid.ItemsSource = searchResults;
             }
             else
             {
-                memberDataGrid.ItemsSource = null;
+                //memberDataGrid.ItemsSource = null;
             }
         }
         private void SearchBooks(object sender, RoutedEventArgs e)
