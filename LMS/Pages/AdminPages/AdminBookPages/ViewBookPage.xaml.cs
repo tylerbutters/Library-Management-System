@@ -32,6 +32,7 @@ namespace LMS.Pages.AdminPages
 
             book = _book;
             ID.Text = book.id;
+            CoverImage.Source = new BitmapImage(new Uri(book.cover, UriKind.Relative));
             Title.Text = book.title;
             AuthorFirstName.Text = book.authorFirstName;
             AuthorLastName.Text = book.authorLastName;
@@ -103,13 +104,21 @@ namespace LMS.Pages.AdminPages
                 selectedImageAddress.Padding = new Thickness(0);
                 selectedImageAddress.IsReadOnly = true;
 
+                ID.Text = book.id;
+                CoverImage.Source = new BitmapImage(new Uri(book.cover, UriKind.Relative));
+                Title.Text = book.title;
+                AuthorFirstName.Text = book.authorFirstName;
+                AuthorLastName.Text = book.authorLastName;
+                Subject.Text = book.subject;
+                Summary.Text = book.summary;
+                selectedImageAddress.Text = book.cover;
             }
         }
         
         private void SelectImageButtonClick(object sender, RoutedEventArgs e)
         {
             string imageAddress = SelectImageDialog();
-            File.Copy(imageAddress, book.cover, true);
+            CoverImage.Source = new BitmapImage(new Uri(imageAddress, UriKind.Relative));
         }
         private string SelectImageDialog()
         {
@@ -117,7 +126,7 @@ namespace LMS.Pages.AdminPages
             {
                 Filter = "All Files (*.*)|*.*",
                 InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop),
-                Title = "Select a cover image"
+                Title = "Select a Cover Image"
             };
 
             bool? result = openFileDialog.ShowDialog();

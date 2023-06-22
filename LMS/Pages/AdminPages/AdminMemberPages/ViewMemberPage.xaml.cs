@@ -93,6 +93,12 @@ namespace LMS.Pages.AdminPages
                 Email.Background = Brushes.Transparent;
                 Email.Padding = new Thickness(0);
                 Email.IsReadOnly = true;
+
+                ID.Text = member.id;
+                PIN.Text = member.pin;
+                FirstName.Text = member.firstName;
+                LastName.Text = member.lastName;
+                Email.Text = member.email;
             }
         }
 

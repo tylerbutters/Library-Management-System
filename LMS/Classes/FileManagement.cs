@@ -146,11 +146,8 @@ namespace LMS
 
                 Loan loan = new Loan(book, member)
                 {
-                    //bookId = bookId,
                     memberId = split[1],
                     dateDue = split[2],
-                    //book = book,
-
                 };
                 //loan.book.isLoaned = true;
                 //if (dueDate >= currentDate)

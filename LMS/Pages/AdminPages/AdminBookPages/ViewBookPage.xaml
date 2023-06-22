@@ -239,13 +239,21 @@
                                         </Button.Resources>
                                     </Button>
                                 </StackPanel>
-                                <TextBox Name="selectedImageAddress" Text="example" IsReadOnly="True"  TextWrapping="Wrap"  FontWeight="Medium"  Height="60" FontSize="20" BorderThickness="0" VerticalContentAlignment="Center" Width="auto">
-                                    <TextBox.Resources>
-                                        <Style TargetType="Border">
-                                            <Setter Property="CornerRadius" Value="10"/>
-                                        </Style>
-                                    </TextBox.Resources>
-                                </TextBox>
+
+                                <StackPanel Orientation="Horizontal">
+                                    <Grid Background="Gray" Height="60" Width="50">
+                                        <Image x:Name="CoverImage"/>
+                                    </Grid>
+
+                                    <TextBox Margin="10 0 0 0" Name="selectedImageAddress" Width="480" Text="example" IsReadOnly="True"  TextWrapping="Wrap"  FontWeight="Medium"  Height="60" FontSize="20"  BorderThickness="0" VerticalContentAlignment="Center">
+                                        <TextBox.Resources>
+                                            <Style TargetType="Border">
+                                                <Setter Property="CornerRadius" Value="10"/>
+                                            </Style>
+                                        </TextBox.Resources>
+                                    </TextBox>
+                                </StackPanel>
+                               
                             </StackPanel>
                             <!--<StackPanel Orientation="Horizontal">
                                     <Image Name="CoverImage" Margin="10"  Width="115" Height="161"></Image>

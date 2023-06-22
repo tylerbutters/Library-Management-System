@@ -33,7 +33,6 @@ namespace LMS.Pages.MemberPages
 
             ReservesArea.ItemsSource = FileManagement.LoadMembersReserves(member);
             LoansArea.ItemsSource = FileManagement.LoadMembersLoans(member);
-
         }
 
         private void CancelButtonClick(object sender, RoutedEventArgs e)
