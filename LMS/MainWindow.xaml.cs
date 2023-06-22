@@ -24,6 +24,7 @@ namespace LMS
     /// </summary>
     public partial class MainWindow : Window
     {
+        public static DateTime currentDate { get; set; } = new DateTime();
         private LoginPage loginPage { get; set; }
         private MemberMainPage memberMainPage { get; set; }
         private AdminMainPage adminMainPage { get; set; }

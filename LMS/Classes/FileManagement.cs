@@ -121,10 +121,7 @@ namespace LMS
                     book = book
                 };
 
-                if (book.isLoaned == false)
-                {
-                    reserve.isAvailableToLoan = true;
-                }
+                reserve.isAvailableToLoan = book.isLoaned == false;
 
                 reserves.Add(reserve);
             }
@@ -134,6 +131,7 @@ namespace LMS
 
         public static List<Loan> LoadLoans(Member member)
         {
+            DateTime dateDue;
             List<string> rows = File.ReadAllLines(LoanFile).ToList();
 
             List<Loan> loans = new List<Loan>();
@@ -149,11 +147,9 @@ namespace LMS
                     memberId = split[1],
                     dateDue = split[2],
                 };
-                //loan.book.isLoaned = true;
-                //if (dueDate >= currentDate)
-                //{
-                //    loan.isDue = true;
-                //}
+                
+                dateDue = DateTime.Parse(loan.dateDue);
+                loan.isDue = dateDue > MainWindow.currentDate;
 
                 loans.Add(loan);
             }
