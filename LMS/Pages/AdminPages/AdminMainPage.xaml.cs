@@ -26,11 +26,9 @@ namespace LMS.Pages.AdminPages
         private MemberTable memberTable { get; set; }
         private AddMemberPage addMemberPage { get; set; } = new AddMemberPage();
         private ViewMemberPage viewMemberPage { get; set; }
-        private BookTable bookTable { get; set; } = new BookTable();
+        private BookTable bookTable { get; set; }
         private AddBookPage addBookPage { get; set; } = new AddBookPage();
         private ViewBookPage viewBookPage { get; set; }
-        private DataGrid bookDataGrid { get; set; }
-        //private DataGrid memberDataGrid { get; set; }
         private Member member { get; set; }
         
         public AdminMainPage()
@@ -40,10 +38,10 @@ namespace LMS.Pages.AdminPages
             PageContent.Content = memberTable;
 
            // memberDataGrid = memberTable.memberDataGridInfo;
-            bookDataGrid = bookTable.bookDataGridInfo;
+            //bookDataGrid = bookTable.bookDataGridInfo;
 
             //memberTable.NavigateToViewMemberPage += NavigateToViewMemberPage;
-            bookTable.NavigateToViewBookPage += NavigateToViewBookPage;
+            //bookTable.NavigateToViewBookPage += NavigateToViewBookPage;
             addMemberPage.NavigateToMemberPage += MemberPageButtonClick;
             addBookPage.NavigateToBookPage += BookPageButtonClick;
             
@@ -70,24 +68,15 @@ namespace LMS.Pages.AdminPages
         }
         public void NavigateToViewMemberPage(object sender, RoutedEventArgs e)
         {
-            //memberTable = (MemberTable)sender;
-            Member selectedMember = memberTable.selectedMember;
-
-            viewMemberPage = new ViewMemberPage(selectedMember);
+            viewMemberPage = new ViewMemberPage(memberTable.selectedMember);
             viewMemberPage.NavigateToMemberPage += MemberPageButtonClick;
             viewMemberPage.PlaceLoan += PlaceLoan;
             PageContent.Content = viewMemberPage;
-
-            //member = memberTable.selectedMember;
-            //viewMemberPage = new ViewMemberPage(member);
-            //viewMemberPage.NavigateToMemberPage += MemberPageButtonClick;
-            //viewMemberPage.PlaceLoan += PlaceLoan;
-            //PageContent.Content = viewMemberPage;
         }
         public void NavigateToViewBookPage(object sender, RoutedEventArgs e)
         {
-
             viewBookPage = new ViewBookPage(bookTable.selectedBook);
+            viewBookPage.NavigateToBookPage += BookPageButtonClick;
             PageContent.Content = viewBookPage;
         }
         private void LogoutButtonClick(object sender, RoutedEventArgs e)
@@ -126,6 +115,7 @@ namespace LMS.Pages.AdminPages
             BookPageButton.Foreground = Brushes.Black;
             MemberPageButton.Background = (Brush)new BrushConverter().ConvertFrom("#6FAB4A");
             MemberPageButton.Foreground = Brushes.White;
+            bookTable = new BookTable(new List<Book>());
             PageContent.Content = bookTable;
         }
         private void SearchbarKeyDown(object sender, KeyEventArgs e)
@@ -170,12 +160,6 @@ namespace LMS.Pages.AdminPages
                 memberTable.MemberGrid.SelectionChanged += memberTable.MemberDataGridSelectionChanged;
                 memberTable.NavigateToViewMemberPage += NavigateToViewMemberPage;
                 PageContent.Content = memberTable;
-                //memberTable.MemberGrid.ItemsSource = searchResults;
-                //memberDataGrid.ItemsSource = searchResults;
-            }
-            else
-            {
-                //memberDataGrid.ItemsSource = null;
             }
         }
         private void SearchBooks(object sender, RoutedEventArgs e)
@@ -193,11 +177,10 @@ namespace LMS.Pages.AdminPages
                     book.subject.IndexOf(searchInput, StringComparison.OrdinalIgnoreCase) >= 0
                 ).ToList();
 
-                bookDataGrid.ItemsSource = searchResults;
-            }
-            else
-            {
-                bookDataGrid.ItemsSource = null;
+                bookTable = new BookTable(searchResults);
+                bookTable.BookGrid.SelectionChanged += bookTable.BookDataGridSelectionChanged;
+                bookTable.NavigateToViewBookPage += NavigateToViewBookPage;
+                PageContent.Content = bookTable;
             }
         }
         private void SearchBarGotFocus(object sender, RoutedEventArgs e)

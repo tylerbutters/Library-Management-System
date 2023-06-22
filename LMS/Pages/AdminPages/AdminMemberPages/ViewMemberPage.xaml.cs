@@ -32,9 +32,9 @@ namespace LMS.Pages.AdminPages
         //Member info from login and member class's are passed through parameters and displayed in each text example.
         public ViewMemberPage(Member _member)
         {
-            member = _member;
             InitializeComponent();
 
+            member = _member;
             ID.Text = member.id;
             PIN.Text = member.pin;
             FirstName.Text = member.firstName;
@@ -100,7 +100,6 @@ namespace LMS.Pages.AdminPages
         public void SaveButtonClick(object sender, RoutedEventArgs e)
         {
             Member changedInfo = new Member { id = ID.Text, pin = PIN.Text, firstName = FirstName.Text, lastName = LastName.Text, email = Email.Text };
-
             FileManagement.EditMember(member, changedInfo);
             
             EditCancelButtonClick(sender, e);

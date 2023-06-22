@@ -208,14 +208,16 @@ namespace LMS
             List<string> bookRows = new List<string>();
             string headerRow = "id,cover,title,authorFirstName,authorLastName,subject,summary,isLoaned,isReserved";
             bookRows.Add(headerRow);
+
             foreach (Book book in books)
             {
-                string bookRow = $"{book.id},{book.cover},{book.title},{book.authorFirstName},{book.authorLastName},{book.subject},{book.summary},{book.isLoaned},{book.isReserved}";
+                string bookRow = $"{book.id},{book.cover},{book.title.ToLower()},{book.authorFirstName.ToLower().ToLower()},{book.authorLastName.ToLower()},{book.subject.ToLower()},{book.summary.ToLower()},{book.isLoaned},{book.isReserved}";
                 bookRows.Add(bookRow);
             }
 
             File.WriteAllLines(BookFile, bookRows);
         }
+
         public static void SaveNewBook(Book newBook)
         {
             string bookString = $"{newBook.id},{newBook.cover},{newBook.title.ToLower()},{newBook.authorFirstName.ToLower()},{newBook.authorLastName.ToLower()},{newBook.subject.ToLower()},{newBook.summary.ToLower()},,{newBook.isLoaned},{newBook.isReserved}";
@@ -256,21 +258,22 @@ namespace LMS
         {
             string currentInfoString = $"{currentInfo.id},{currentInfo.pin},{currentInfo.firstName.ToLower()},{currentInfo.lastName.ToLower()},{currentInfo.email}";
             string changedInfoString = $"{changedInfo.id},{changedInfo.pin},{changedInfo.firstName.ToLower()},{changedInfo.lastName.ToLower()},{changedInfo.email}";
-            string[] rows = File.ReadAllLines(AccountFile);
-            string[] updatedRows = rows.Select(row => row == currentInfoString ? changedInfoString : row).ToArray();
-            File.WriteAllLines(AccountFile, updatedRows);
+            List<string> rows = File.ReadAllLines(AccountFile).ToList();
+            List<string> newRows = rows.Select(row => row == currentInfoString ? changedInfoString : row).ToList();
+            File.WriteAllLines(AccountFile, newRows);
             MessageBox.Show("Details Saved Successfully!\n");
         }
+
         public static void EditBook(Book currentInfo, Book newInfo)
         {
-            string currentBookString = $"{currentInfo.id},{currentInfo.cover},{currentInfo.title.ToLower()},{currentInfo.authorFirstName.ToLower()},{currentInfo.authorLastName.ToLower()},{currentInfo.subject.ToLower()},{currentInfo.summary.ToLower()}";
-            string newBookString = $"{newInfo.id},{newInfo.cover},{newInfo.title.ToLower()},{newInfo.authorFirstName.ToLower()},{newInfo.authorLastName.ToLower()},{newInfo.subject.ToLower()},{newInfo.summary.ToLower()}";
+            string currentInfoString = $"{currentInfo.id},{currentInfo.cover},{currentInfo.title.ToLower()},{currentInfo.authorFirstName.ToLower()},{currentInfo.authorLastName.ToLower()},{currentInfo.subject.ToLower()},{currentInfo.summary.ToLower()},{currentInfo.isLoaned},{currentInfo.isReserved}";
+            string changedInfoString = $"{newInfo.id},{newInfo.cover},{newInfo.title.ToLower()},{newInfo.authorFirstName.ToLower()},{newInfo.authorLastName.ToLower()},{newInfo.subject.ToLower()},{newInfo.summary.ToLower()},{newInfo.isLoaned},{newInfo.isReserved}";
             List<string> rows = File.ReadAllLines(BookFile).ToList();
-            rows.RemoveAll(row => row == currentBookString);
-            rows.Add(newBookString);
-            File.WriteAllLines(BookFile, rows);
+            List<string> newRows = rows.Select(row => row == currentInfoString ? changedInfoString : row).ToList();
+            File.WriteAllLines(BookFile, newRows);
             MessageBox.Show("Book Edited Successfully!\n");
         }
+
         public static void SaveNewReserve(Reserve reserve)
         {
             string reserveString = $"{reserve.bookId},{reserve.memberId},{reserve.dateDueBack}";
@@ -288,6 +291,7 @@ namespace LMS
             rows.Add(loanString);
             File.WriteAllLines(LoanFile, rows);
         }
+
         public static void RemoveReserve(Reserve reserve)
         {
             string reserveString = $"{reserve.bookId},{reserve.memberId},{reserve.dateDueBack}";
@@ -305,6 +309,5 @@ namespace LMS
             rows.Remove(loanString);
             File.WriteAllLines(LoanFile, rows);
         }
-
     }
 }

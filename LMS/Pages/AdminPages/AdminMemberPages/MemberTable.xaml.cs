@@ -21,13 +21,11 @@ namespace LMS.Pages.AdminPages
     public partial class MemberTable : Page
     {
         public event EventHandler<RoutedEventArgs> NavigateToViewMemberPage;
-        //public DataGrid memberDataGridInfo { get; set; }
         public Member selectedMember { get; set; }
-        public MemberTable(List<Member> memberData)
+        public MemberTable(List<Member> searchResults)
         {
             InitializeComponent();
-            //memberDataGridInfo = MemberGrid;
-            MemberGrid.ItemsSource = memberData;
+            MemberGrid.ItemsSource = searchResults;
             MemberGrid.SelectionChanged += MemberDataGridSelectionChanged;
         }
         public void MemberDataGridSelectionChanged(object sender, SelectionChangedEventArgs e)
