@@ -18,25 +18,29 @@ using System.Globalization;
 namespace LMS.Pages.MemberPages
 {
     /// <summary>
-    /// Interaction logic for BookResultsPage.xaml
+    /// Displays search results
     /// </summary>
     public partial class BookResultsPage : Page
     {
+        //Events enable 'MemberHomePage' methods to subscribe to it when 'ReserveButtonClick' is clicked.
         public event EventHandler<Book> PlaceReserve;
         public event EventHandler<Book> CancelReserve;
 
+        //holds the list of search results. It is used to store the books that match the search criteria provided to the page.
         private List<Book> results { get; set; }
 
+        //'searchResults' represents the list of books that match the search criteria, and 'searchInput' is the text used for the search.
+        //Inside the constructor, 'searchresults' are assigned to 'results', and the UI elements (ResultsContainer and ResultText) are populated with the search results and search input information     
         public BookResultsPage(List<Book> searchResults, string searchInput)
         {
             InitializeComponent();
             results = searchResults;
-
-
             ResultsContainer.ItemsSource = results;
             ResultText.Text = searchInput;
         }
 
+        //Extracts 'selectedBook' from 'DataContext' and invokes 'PlaceReserve' or 'CancelReserve' depending on the books reserve status.S
+        //Updates UI using 'ResultsContainer.ItemsSource'.
         private void ReserveButtonClick(object sender, RoutedEventArgs e)
         {
             Book selectedBook = (sender as Button).DataContext as Book;

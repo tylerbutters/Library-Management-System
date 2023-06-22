@@ -65,6 +65,9 @@ namespace LMS
         {
             return LoadAccounts().OfType<Member>().ToList();
         }
+
+
+        //reads book data from file, splits the data into individual properties and adds them to a list. The list of Book objects is then returned as the result of the method.
         public static List<Book> LoadBooks()
         {
             CultureInfo cultureInfo = CultureInfo.CurrentCulture;
@@ -96,6 +99,10 @@ namespace LMS
             return books;
         }
 
+        //takes a Member object as a parameter, representing the member for whom the reserves are being loaded.
+        //Reads 'ReserveInformation.csv' (ReserveFile) and stores in 'reserves' list.
+        //Loads book inforamtion corresponding to any 'bookID' found in 'reserves' list.
+        //
         public static List<Reserve> LoadReserves(Member member)
         {
             List<string> rows = File.ReadAllLines(ReserveFile).ToList();
