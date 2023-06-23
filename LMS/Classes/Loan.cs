@@ -18,6 +18,7 @@ namespace LMS
             book = _book;
             bookId = book.id;
             memberId = member.id;
+            dateDue = DateTime.Parse(MainWindow.datestr).AddDays(14).ToString("yyyy-MM-dd");
         }
 
     }

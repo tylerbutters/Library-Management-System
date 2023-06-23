@@ -99,10 +99,7 @@ namespace LMS
             return books;
         }
 
-        //takes a Member object as a parameter, representing the member for whom the reserves are being loaded.
-        //Reads 'ReserveInformation.csv' (ReserveFile) and stores in 'reserves' list.
-        //Loads book inforamtion corresponding to any 'bookID' found in 'reserves' list.
-        //
+        //Searches 'reserveInformation' database and adds all reserves into the 'reserves' list.
         public static List<Reserve> LoadReserves(Member member)
         {
             List<string> rows = File.ReadAllLines(ReserveFile).ToList();
@@ -164,6 +161,7 @@ namespace LMS
         }
 
 
+        //Loads all reserves and returns all 'memberReserves' that match the logged-in member's i.d
         public static List<Reserve> LoadMembersReserves(Member member)
          {
             List<Reserve> reserves = LoadReserves(member);
