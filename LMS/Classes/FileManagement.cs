@@ -278,7 +278,15 @@ namespace LMS
 
         public static void SaveNewReserve(Reserve reserve)
         {
-            string reserveString = $"{reserve.bookId},{reserve.memberId},{reserve.dateDueBack}";
+            string reserveString = $"{reserve.bookId},{reserve.memberId},";
+            if (reserve.dateDueBack == "Now")
+            {
+                reserveString += $"{reserve.dateDueBack}";
+            }
+            else
+            {
+                reserveString += $"{MainWindow.currentDate.Year}/{reserve.dateDueBack}";
+            }
 
             List<string> rows = File.ReadAllLines(ReserveFile).ToList();
             rows.Add(reserveString);
