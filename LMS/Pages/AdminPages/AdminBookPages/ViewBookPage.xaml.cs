@@ -162,27 +162,6 @@ namespace LMS.Pages.AdminPages
 
             string newimageAddress = GenerateNewImageAddress(Title.Text, imageAddress);
             File.Copy(imageAddress, newimageAddress, true);
-            //if (File.Exists(imageAddress))
-            //{
-            //    if (imageAddress != book.cover)
-            //    {
-            //        try
-            //        {
-                        
-            //            Console.WriteLine("Image overwritten successfully.");
-            //        }
-            //        catch (Exception ex)
-            //        {
-            //            Console.WriteLine($"An error occurred while copying the image: {ex.Message}");
-            //            // Handle the error according to your application's requirements
-            //        }
-            //    }
-            //}
-            //else
-            //{
-            //    Console.WriteLine("Source image file does not exist.");
-            //    // Handle the case where the source image file does not exist
-            //}
 
             FileManagement.EditBook(book, changedInfo);
 
