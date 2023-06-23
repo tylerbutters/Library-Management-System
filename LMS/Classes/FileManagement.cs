@@ -65,6 +65,9 @@ namespace LMS
         {
             return LoadAccounts().OfType<Member>().ToList();
         }
+
+
+        //reads book data from file, splits the data into individual properties and adds them to a list. The list of Book objects is then returned as the result of the method.
         public static List<Book> LoadBooks()
         {
             CultureInfo cultureInfo = CultureInfo.CurrentCulture;
@@ -96,6 +99,7 @@ namespace LMS
             return books;
         }
 
+        //Searches 'reserveInformation' database and adds all reserves into the 'reserves' list.
         public static List<Reserve> LoadReserves(Member member)
         {
             List<string> rows = File.ReadAllLines(ReserveFile).ToList();
@@ -148,8 +152,7 @@ namespace LMS
                     dateDue = split[2],
                 };
                 
-                //dateDue = DateTime.Parse(loan.dateDue);
-                //loan.isDue = dateDue > MainWindow.currentDate;
+                loan.isDue = DateTime.Parse(loan.dateDue) <= MainWindow.currentDate;
 
                 loans.Add(loan);
             }
@@ -158,6 +161,7 @@ namespace LMS
         }
 
 
+        //Loads all reserves and returns all 'memberReserves' that match the logged-in member's i.d
         public static List<Reserve> LoadMembersReserves(Member member)
          {
             List<Reserve> reserves = LoadReserves(member);

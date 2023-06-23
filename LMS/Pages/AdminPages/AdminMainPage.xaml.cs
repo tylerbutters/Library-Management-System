@@ -37,20 +37,30 @@ namespace LMS.Pages.AdminPages
             memberTable = new MemberTable(new List<Member>());
             PageContent.Content = memberTable;
 
-           // memberDataGrid = memberTable.memberDataGridInfo;
-            //bookDataGrid = bookTable.bookDataGridInfo;
-
-            //memberTable.NavigateToViewMemberPage += NavigateToViewMemberPage;
-            //bookTable.NavigateToViewBookPage += NavigateToViewBookPage;
             addMemberPage.NavigateToMemberPage += MemberPageButtonClick;
             addBookPage.NavigateToBookPage += BookPageButtonClick;
             
 
         }
+        private void ReturnLoan(object sender, Loan loan)
+        {
+            member.loanedBooks.Remove(loan);
+
+            List<Book> books = FileManagement.LoadBooks();
+            foreach (Book book in books)
+            {
+                if (book.id == loan.bookId)
+                {
+                    book.isLoaned = false;
+                }
+            }
+            FileManagement.RemoveLoan(loan);
+            FileManagement.WriteAllBooks(books);
+        }
         private void PlaceLoan(object sender, Reserve reserve)
         {
-            
             Loan newLoan = new Loan(reserve.book, member);
+            newLoan.dateDue = MainWindow.currentDate.AddDays(14).ToString("MM/dd");
             member.loanedBooks.Add(newLoan);
             List<Book> books = FileManagement.LoadBooks();
             foreach (Book book in books)
@@ -68,9 +78,11 @@ namespace LMS.Pages.AdminPages
         }
         public void NavigateToViewMemberPage(object sender, RoutedEventArgs e)
         {
+            member = memberTable.selectedMember;
             viewMemberPage = new ViewMemberPage(memberTable.selectedMember);
             viewMemberPage.NavigateToMemberPage += MemberPageButtonClick;
             viewMemberPage.PlaceLoan += PlaceLoan;
+            viewMemberPage.ReturnLoan += ReturnLoan;
             PageContent.Content = viewMemberPage;
         }
         public void NavigateToViewBookPage(object sender, RoutedEventArgs e)

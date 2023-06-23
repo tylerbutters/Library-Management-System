@@ -16,15 +16,22 @@ using System.Windows.Shapes;
 namespace LMS.Pages.MemberPages
 {
     /// <summary>
-    /// Interaction logic for MemberMainPage.xaml
+    /// Contains methods for interacting with search bar, logout button and home button.
     /// </summary>
     public partial class MemberMainPage : Page
     {
         public event EventHandler<RoutedEventArgs> NavigateToLoginPage;
+
+        //memberHomePage and bookResultsPage are components within the MemberMainPage
         private MemberHomePage memberHomePage { get; set; }
         private BookResultsPage bookResultsPage { get; set; }
+
+        //holds the details of the currently logged-in member.
         public Member member { get; set; }
 
+        //loggedinMember is passed through during LoginPage authentication.
+        //'memberHomepage' is automatically initializaed and assigned to the PageContent.
+        //Subcribes to the 'memberHomePage.CancelReserve' event so 'CancelReserve' function runs if the 'CancelButtonClick' in 'MemberHomePage'  is clicked.
         public MemberMainPage(Member loggedInMember)
         {
             InitializeComponent();
@@ -33,6 +40,9 @@ namespace LMS.Pages.MemberPages
             PageContent.Content = memberHomePage;
             memberHomePage.CancelReserve += CancelReserve;
         }
+
+        //Searches for the book associated with the passed 'book' object
+        //updates the 'isReserved' status in 'bookInformation.csv' and Removes book from 'member.reservedBooks'
         private void CancelReserve(object sender, Book book)
         {
             Reserve reserve = member.reservedBooks.FirstOrDefault(r => r.bookId == book.id);
@@ -47,8 +57,10 @@ namespace LMS.Pages.MemberPages
             FileManagement.WriteAllBooks(books);
             member.reservedBooks.Remove(reserve);
             FileManagement.RemoveReserve(reserve);
-
         }
+
+        //initializes a new 'Reserve' object with the clicked 'book' and 'member'
+        //loads every book and checks which book matches the i.d of the selected book, updates the selected one with '_book.isReserved = true;' and saves changes using 'FileManagement'.
         private void PlaceReserve(object sender, Book _book)
         {
             Reserve newReserve = new Reserve(_book, member);
