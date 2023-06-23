@@ -16,6 +16,13 @@ namespace LMS
         private const string BookFile = @".\Databases\bookInformation.csv";
         private const string ReserveFile = @".\Databases\reserveInformation.csv";
         private const string LoanFile = @".\Databases\loanInformation.csv";
+
+        private const string ReturnLog = @".\Logs\returnLogs.csv";
+        private const string NearDueLog = @".\Logs\nearDueLogs.csv";
+        private const string OverdueLog = @".\Logs\overdueLogs.csv";
+
+        private static List<Loan> allLoans = LoadLoans();
+        private static List<Reserve> allReserves = LoadReserves();
         public static List<Account> LoadAccounts()
         {
             CultureInfo cultureInfo = CultureInfo.CurrentCulture;
@@ -28,15 +35,12 @@ namespace LMS
             {
                 string[] split = row.Split(',');
 
-                string accountId = split[0];
-                string accountPin = split[1];
-
-                if (accountId.StartsWith("M"))
+                if (split[0].StartsWith("M")) //if Id starts with M
                 {
                     Member member = new Member
                     {
-                        id = accountId,
-                        pin = accountPin,
+                        id = split[0],
+                        pin = split[1],
                         firstName = textInfo.ToTitleCase(split[2]),
                         lastName = textInfo.ToTitleCase(split[3]),
                         email = split[4]
@@ -50,8 +54,8 @@ namespace LMS
                 {
                     Admin admin = new Admin
                     {
-                        id = accountId,
-                        pin = accountPin
+                        id = split[0],
+                        pin = split[1]
                     };
 
                     accounts.Add(admin);
@@ -66,14 +70,13 @@ namespace LMS
             return LoadAccounts().OfType<Member>().ToList();
         }
 
-
         //reads book data from file, splits the data into individual properties and adds them to a list. The list of Book objects is then returned as the result of the method.
         public static List<Book> LoadBooks()
         {
             CultureInfo cultureInfo = CultureInfo.CurrentCulture;
             TextInfo textInfo = cultureInfo.TextInfo;
             List<string> rows = File.ReadAllLines(BookFile).ToList();
-            
+
             List<Book> books = new List<Book>();
 
             foreach (string row in rows.Skip(1))
@@ -125,8 +128,9 @@ namespace LMS
                     book = book
                 };
 
-                reserve.isAvailableToLoan = book.isLoaned == false;
-                if(reserve.dateDueBack != "Now")
+                reserve.isAvailableToLoan = !book.isLoaned;
+
+                if (reserve.dateDueBack != "Now")
                 {
                     reserve.dateDueBack = DateTime.Parse(reserve.dateDueBack).ToString("MM/dd");
                 }
@@ -139,7 +143,6 @@ namespace LMS
 
         public static List<Loan> LoadLoans()
         {
-            //DateTime dateDue;
             List<string> rows = File.ReadAllLines(LoanFile).ToList();
 
             List<Loan> loans = new List<Loan>();
@@ -155,8 +158,28 @@ namespace LMS
                     memberId = split[1],
                     dateDue = split[2],
                 };
-                
-                loan.isDue = DateTime.Parse(loan.dateDue) <= MainWindow.currentDate;
+
+                loan.isDue = DateTime.Parse(loan.dateDue) <= MainWindow.currentDate; //checks if duedate is past currentdate
+
+                DateTime dueDate = DateTime.Parse(loan.dateDue);
+                TimeSpan timeDifference = dueDate.Subtract(MainWindow.currentDate);
+                if (loan.isDue)
+                {
+                    string overdueMessage = "Book: " + loan.bookId + ", Loaned by: " + loan.memberId + ", Overdue at: " + MainWindow.currentDate;
+                    if (!File.ReadAllText(OverdueLog).Contains(overdueMessage)) //checks if the message is already in the log
+                    {
+                        File.AppendAllText(OverdueLog, overdueMessage + Environment.NewLine);
+                    }
+                }
+                else if (timeDifference.TotalDays <= 2 && timeDifference.TotalDays >= 0) //checks if book due date is within 2 days.
+                {
+                    string nearDueMessage = "Book: " + loan.bookId + ", Loaned by: " + loan.memberId + ", Due on: " + dueDate.ToString("MM/dd/yyyy");
+                    if (!File.ReadAllText(NearDueLog).Contains(nearDueMessage)) //checks if the message is already in the log
+                    {
+                        File.AppendAllText(NearDueLog, nearDueMessage + Environment.NewLine);
+                    }
+                }
+
                 loan.dateDue = DateTime.Parse(loan.dateDue).ToString("MM/dd");
 
                 loans.Add(loan);
@@ -166,12 +189,11 @@ namespace LMS
         }
 
 
-        //Loads all reserves and returns all 'memberReserves' that match the logged-in member's i.d
+        //Loads all reserves and returns all 'member's sReserves' that match the logged-in member's i.d
         public static List<Reserve> LoadMembersReserves(Member member)
-         {
-            List<Reserve> reserves = LoadReserves();
+        {
             List<Reserve> membersReserves = new List<Reserve>();
-            foreach (Reserve reserve in reserves)
+            foreach (Reserve reserve in allReserves) //checks what reserves match the members id
             {
                 if (reserve.memberId == member.id)
                 {
@@ -182,9 +204,8 @@ namespace LMS
         }
         public static List<Loan> LoadMembersLoans(Member member)
         {
-            List<Loan> loans = LoadLoans();
             List<Loan> membersLoans = new List<Loan>();
-            foreach (Loan loan in loans)
+            foreach (Loan loan in allLoans)
             {
                 if (loan.memberId == member.id)
                 {
@@ -278,6 +299,7 @@ namespace LMS
 
         public static void SaveNewReserve(Reserve reserve)
         {
+            //converts back to yyyy/MM/yy format unless date is "now"
             string reserveString = $"{reserve.bookId},{reserve.memberId},";
             if (reserve.dateDueBack == "Now")
             {
@@ -304,6 +326,7 @@ namespace LMS
 
         public static void RemoveReserve(Reserve reserve)
         {
+            //converts back to yyyy/MM/yy format unless date is "now"
             string reserveString = $"{reserve.bookId},{reserve.memberId},";
             if (reserve.dateDueBack == "Now")
             {
@@ -325,6 +348,8 @@ namespace LMS
 
             List<string> rows = File.ReadAllLines(LoanFile).ToList();
             rows.Remove(loanString);
+
+            File.AppendAllText(ReturnLog, "Book: " + loan.bookId + ", Loaned by: " + loan.memberId + ", Returned at: " + MainWindow.currentDate);
             File.WriteAllLines(LoanFile, rows);
         }
     }
