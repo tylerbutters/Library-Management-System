@@ -72,7 +72,7 @@ namespace LMS.Pages.MemberPages
                     book.isReserved = true;
                     if (book.isLoaned)
                     {
-                        List<Loan> loans = FileManagement.LoadLoans(new Member());
+                        List<Loan> loans = FileManagement.LoadLoans();
                         foreach (Loan loan in loans)
                         {
                             if (book.id == loan.bookId)
@@ -80,6 +80,10 @@ namespace LMS.Pages.MemberPages
                                 newReserve.dateDueBack = loan.dateDue;
                             }
                         }
+                    }
+                    else
+                    {
+                        newReserve.dateDueBack = "Now";
                     }
                 }
             }

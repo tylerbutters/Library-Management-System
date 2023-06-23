@@ -100,7 +100,7 @@ namespace LMS
         }
 
         //Searches 'reserveInformation' database and adds all reserves into the 'reserves' list.
-        public static List<Reserve> LoadReserves(Member member)
+        public static List<Reserve> LoadReserves()
         {
             List<string> rows = File.ReadAllLines(ReserveFile).ToList();
 
@@ -117,7 +117,7 @@ namespace LMS
                     Console.WriteLine($"Warning: Book with ID {bookId} not found.");
                     continue;
                 }
-                Reserve reserve = new Reserve(book, member)
+                Reserve reserve = new Reserve(book, new Member())
                 {
                     bookId = bookId,
                     memberId = split[1],
@@ -133,7 +133,7 @@ namespace LMS
             return reserves;
         }
 
-        public static List<Loan> LoadLoans(Member member)
+        public static List<Loan> LoadLoans()
         {
             //DateTime dateDue;
             List<string> rows = File.ReadAllLines(LoanFile).ToList();
@@ -146,7 +146,7 @@ namespace LMS
                 string bookId = split[0];
                 Book book = LoadBookById(bookId);
 
-                Loan loan = new Loan(book, member)
+                Loan loan = new Loan(book, new Member())
                 {
                     memberId = split[1],
                     dateDue = split[2],
@@ -164,7 +164,7 @@ namespace LMS
         //Loads all reserves and returns all 'memberReserves' that match the logged-in member's i.d
         public static List<Reserve> LoadMembersReserves(Member member)
          {
-            List<Reserve> reserves = LoadReserves(member);
+            List<Reserve> reserves = LoadReserves();
             List<Reserve> membersReserves = new List<Reserve>();
             foreach (Reserve reserve in reserves)
             {
@@ -177,7 +177,7 @@ namespace LMS
         }
         public static List<Loan> LoadMembersLoans(Member member)
         {
-            List<Loan> loans = LoadLoans(member);
+            List<Loan> loans = LoadLoans();
             List<Loan> membersLoans = new List<Loan>();
             foreach (Loan loan in loans)
             {

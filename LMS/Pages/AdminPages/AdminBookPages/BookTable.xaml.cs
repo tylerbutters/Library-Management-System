@@ -25,6 +25,10 @@ namespace LMS.Pages.AdminPages
         public BookTable(List<Book> searchResults)
         {
             InitializeComponent();
+            if (searchResults.Count == 0)
+            {
+                NoResultsText.Visibility = Visibility.Visible;
+            }
             BookGrid.ItemsSource = searchResults;
             BookGrid.SelectionChanged += BookDataGridSelectionChanged;
         }

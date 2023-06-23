@@ -39,8 +39,6 @@ namespace LMS.Pages.AdminPages
 
             addMemberPage.NavigateToMemberPage += MemberPageButtonClick;
             addBookPage.NavigateToBookPage += BookPageButtonClick;
-            
-
         }
         private void ReturnLoan(object sender, Loan loan)
         {
@@ -59,8 +57,10 @@ namespace LMS.Pages.AdminPages
         }
         private void PlaceLoan(object sender, Reserve reserve)
         {
-            Loan newLoan = new Loan(reserve.book, member);
-            newLoan.dateDue = MainWindow.currentDate.AddDays(14).ToString("MM/dd");
+            Loan newLoan = new Loan(reserve.book, member)
+            {
+                dateDue = MainWindow.currentDate.AddDays(14).ToString("yyyy/MM/dd")
+            };
             member.loanedBooks.Add(newLoan);
             List<Book> books = FileManagement.LoadBooks();
             foreach (Book book in books)
