@@ -61,15 +61,26 @@ namespace LMS.Pages.MemberPages
 
         //initializes a new 'Reserve' object with the clicked 'book' and 'member'
         //loads every book and checks which book matches the i.d of the selected book, updates the selected one with '_book.isReserved = true;' and saves changes using 'FileManagement'.
-        private void PlaceReserve(object sender, Book book)
+        private void PlaceReserve(object sender, Book _book)
         {
-            Reserve newReserve = new Reserve(book, member);
+            Reserve newReserve = new Reserve(_book, member);
             List<Book> books = FileManagement.LoadBooks();
-            foreach (Book _book in books)
+            foreach (Book book in books)
             {
-                if (_book.id == newReserve.bookId)
+                if (book.id == newReserve.bookId)
                 {
-                    _book.isReserved = true;
+                    book.isReserved = true;
+                    if (book.isLoaned)
+                    {
+                        List<Loan> loans = FileManagement.LoadLoans(new Member());
+                        foreach (Loan loan in loans)
+                        {
+                            if (book.id == loan.bookId)
+                            {
+                                newReserve.dateDueBack = loan.dateDue;
+                            }
+                        }
+                    }
                 }
             }
             member.reservedBooks.Add(newReserve);

@@ -33,7 +33,6 @@ namespace LMS.Pages.MemberPages
 
             ReservesArea.ItemsSource = FileManagement.LoadMembersReserves(member);
             LoansArea.ItemsSource = FileManagement.LoadMembersLoans(member);
-
         }
 
         //If the cancel button is clicked, CancelReserve event is raised by invoking the event. Also updates the UI using ItemsSource.

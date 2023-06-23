@@ -210,37 +210,39 @@
                                                             <ColumnDefinition Width="3*"></ColumnDefinition>
                                                         </Grid.ColumnDefinitions>
                                                         <Border Grid.Column="0" CornerRadius="10 0 0 10" Background="Gray">
-                                                            <Image Source="{Binding cover}"/>
+                                                            <Image Source="{Binding book.cover}"/>
                                                         </Border>
                                                         <Grid Grid.Column="1" Margin="15 10 10 10">
                                                             <Grid.RowDefinitions>
+                                                                <RowDefinition Height="1.5*"></RowDefinition>
                                                                 <RowDefinition Height="1*"></RowDefinition>
-                                                                <RowDefinition Height="2*"></RowDefinition>
                                                             </Grid.RowDefinitions>
-                                                            <Grid Grid.Row="0">
+                                                            <StackPanel Grid.Row="0">
                                                                 <TextBlock Name="Title" Text="{Binding book.title}" FontWeight="Black" FontSize="20"/>
-                                                            </Grid>
+                                                                <StackPanel Orientation="Horizontal" Margin="0 10 0 0">
+                                                                    <TextBlock Text="Date due: " FontWeight="Medium"  FontSize="15"/>
+                                                                    <TextBlock Text="{Binding dateDue}" FontWeight="Medium" FontSize="15" FontStyle="Italic" />
+                                                                </StackPanel>
+                                                            </StackPanel>
+                                                            
                                                             <Grid Grid.Row="1">
                                                                 <Grid.ColumnDefinitions>
                                                                     <ColumnDefinition Width="1*"></ColumnDefinition>
                                                                     <ColumnDefinition Width="1.5*"></ColumnDefinition>
                                                                 </Grid.ColumnDefinitions>
                                                                 <StackPanel Grid.Column="0" Margin="0 5 0 0">
-                                                                    <TextBlock Text="Due from:" FontWeight="Medium"  FontSize="15">
-                                                        <Run Text="" />
-                                                        <Run Text="{Binding book.dateDue}" FontWeight="Medium" FontSize="15" FontStyle="Italic"/>
-                                                                    </TextBlock>
-                                                                    <TextBlock Name="DueChecker"  FontWeight="Bold" FontSize="17" VerticalAlignment="Center" Margin="0 10 0 0">
+                                                                    
+                                                                    <TextBlock Name="DueChecker"  FontWeight="Bold" FontSize="17" VerticalAlignment="Center" >
                                                                         <TextBlock.Style>
                                                                             <Style TargetType="TextBlock">
                                                                                 <Style.Triggers>
-                                                                                    <DataTrigger Binding="{Binding isDue}" Value="False">
-                                                                                        <Setter Property="Text" Value="Due!" />
+                                                                                    <DataTrigger Binding="{Binding isDue}" Value="True">
+                                                                                        <Setter Property="Text" Value="OVERDUE!" />
                                                                                         <Setter Property="Foreground" Value="red"/>
                                                                                     </DataTrigger>
-                                                                                    <DataTrigger Binding="{Binding isDue}" Value="True">
+                                                                                    <DataTrigger Binding="{Binding isDue}" Value="False">
                                                                                         <Setter Property="Text" Value="Not Due" />
-                                                                                        <Setter Property="Foreground" Value="#3AA220"/>
+                                                                                        <Setter Property="Foreground" Value="Gray"/>
                                                                                     </DataTrigger>
                                                                                 </Style.Triggers>
                                                                             </Style>
@@ -300,7 +302,7 @@
                                                             <ColumnDefinition Width="3*"></ColumnDefinition>
                                                         </Grid.ColumnDefinitions>
                                                         <Border Grid.Column="0" CornerRadius="10 0 0 10" Background="Gray">
-                                                            <Image Source="{Binding cover}"/>
+                                                            <Image Source="{Binding book.cover}"/>
                                                         </Border>
                                                         <Grid Grid.Column="1" Margin="15 10 10 10">
                                                             <Grid.RowDefinitions>
@@ -313,7 +315,7 @@
                                                             <Grid Grid.Row="1">
                                                                 <Grid.ColumnDefinitions>
                                                                     <ColumnDefinition Width="1*"></ColumnDefinition>
-                                                                    <ColumnDefinition Width="1.5*"></ColumnDefinition>
+                                                                    <ColumnDefinition Width="1*"></ColumnDefinition>
                                                                 </Grid.ColumnDefinitions>
                                                                 <StackPanel Grid.Column="0" Margin="0 5 0 0">
                                                                     <TextBlock Text="Due back:" FontWeight="Medium"  FontSize="15">

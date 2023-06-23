@@ -23,7 +23,9 @@ namespace LMS.Pages.AdminPages
     /// </summary>
     public partial class ViewMemberPage : Page
     {
+        public event EventHandler<RoutedEventArgs> NavigateToMemberPage;
         public event EventHandler<Reserve> PlaceLoan;
+        public event EventHandler<Loan> ReturnLoan;
         private bool isEditing { get; set; } = false;
         private bool isConfirmed { get; set; } = false;
         private Member member { get; set; }
@@ -31,9 +33,9 @@ namespace LMS.Pages.AdminPages
         //Member info from login and member class's are passed through parameters and displayed in each text example.
         public ViewMemberPage(Member _member)
         {
-            member = _member;
             InitializeComponent();
 
+            member = _member;
             ID.Text = member.id;
             PIN.Text = member.pin;
             FirstName.Text = member.firstName;
@@ -45,10 +47,7 @@ namespace LMS.Pages.AdminPages
 
         private void BackButtonClick(object sender, RoutedEventArgs e)
         {
-            if (NavigationService != null && NavigationService.CanGoBack)
-            {
-                NavigationService.GoBack();
-            }
+            NavigateToMemberPage?.Invoke(sender, e);
         }
 
         private void EditCancelButtonClick(object sender, RoutedEventArgs e)
@@ -95,6 +94,12 @@ namespace LMS.Pages.AdminPages
                 Email.Background = Brushes.Transparent;
                 Email.Padding = new Thickness(0);
                 Email.IsReadOnly = true;
+
+                ID.Text = member.id;
+                PIN.Text = member.pin;
+                FirstName.Text = member.firstName;
+                LastName.Text = member.lastName;
+                Email.Text = member.email;
             }
         }
 
@@ -102,9 +107,9 @@ namespace LMS.Pages.AdminPages
         public void SaveButtonClick(object sender, RoutedEventArgs e)
         {
             Member changedInfo = new Member { id = ID.Text, pin = PIN.Text, firstName = FirstName.Text, lastName = LastName.Text, email = Email.Text };
-
             FileManagement.EditMember(member, changedInfo);
-            isEditing = false;
+            
+            EditCancelButtonClick(sender, e);
 
         }
         private void DeleteButtonClick(object sender, RoutedEventArgs e)
@@ -118,10 +123,7 @@ namespace LMS.Pages.AdminPages
             {
                 FileManagement.DeleteMember(member);
                 isConfirmed = false;
-                if (NavigationService != null && NavigationService.CanGoBack)
-                {
-                    NavigationService.GoBack();
-                }
+                NavigateToMemberPage?.Invoke(sender, e);
             }
         }
 
@@ -138,9 +140,8 @@ namespace LMS.Pages.AdminPages
         private void ReturnButtonClick(object sender, RoutedEventArgs e)
         {
             Loan selectedLoan = (sender as Button).DataContext as Loan;
-            selectedLoan.book.isLoaned = false;
-            member.loanedBooks.Remove(selectedLoan);
-            FileManagement.RemoveLoan(selectedLoan);
+            ReturnLoan?.Invoke(sender, selectedLoan);
+            
 
             LoansArea.ItemsSource = null;
             LoansArea.ItemsSource = member.loanedBooks;

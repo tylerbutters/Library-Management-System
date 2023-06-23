@@ -21,17 +21,16 @@ namespace LMS.Pages.AdminPages
     public partial class BookTable : Page
     {
         public event EventHandler<RoutedEventArgs> NavigateToViewBookPage;
-        public DataGrid bookDataGridInfo { get; set; }
         public Book selectedBook { get; set; }
-        public BookTable()
+        public BookTable(List<Book> searchResults)
         {
             InitializeComponent();
-            bookDataGridInfo = BookGrid;
-            bookDataGridInfo.SelectionChanged += BookDataGridSelectionChanged;
+            BookGrid.ItemsSource = searchResults;
+            BookGrid.SelectionChanged += BookDataGridSelectionChanged;
         }
-        private void BookDataGridSelectionChanged(object sender, SelectionChangedEventArgs e)
+        public void BookDataGridSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            selectedBook = (Book)bookDataGridInfo.SelectedItem;
+            selectedBook = (Book)BookGrid.SelectedItem;
 
             NavigateToViewBookPage?.Invoke(sender, e);
         }
