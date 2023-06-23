@@ -208,7 +208,7 @@
                                     </TextBox.Resources>
                                 </TextBox>
                             </StackPanel>
-                            
+
                             <StackPanel Grid.Row="1" VerticalAlignment="Bottom" Margin="0 0 0 10">
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock Text="Cover" Margin="0 20 0 5"  FontSize="25" FontWeight="Black"/>
@@ -245,7 +245,7 @@
                                         <Image x:Name="CoverImage"/>
                                     </Grid>
 
-                                    <TextBox Margin="10 0 0 0" Name="selectedImageAddress" Width="480" Text="example" IsReadOnly="True"  TextWrapping="Wrap"  FontWeight="Medium"  Height="60" FontSize="20"  BorderThickness="0" VerticalContentAlignment="Center">
+                                    <TextBox Margin="10 0 0 0" Name="Cover" Width="480" Text="example" IsReadOnly="True"  TextWrapping="Wrap"  FontWeight="Medium"  Height="60" FontSize="20"  BorderThickness="0" VerticalContentAlignment="Center">
                                         <TextBox.Resources>
                                             <Style TargetType="Border">
                                                 <Setter Property="CornerRadius" Value="10"/>
@@ -253,19 +253,8 @@
                                         </TextBox.Resources>
                                     </TextBox>
                                 </StackPanel>
-                               
+
                             </StackPanel>
-                            <!--<StackPanel Orientation="Horizontal">
-                                    <Image Name="CoverImage" Margin="10"  Width="115" Height="161"></Image>
-                                
-                                <TextBox Name="selectedImageAddress" IsReadOnly="True" TextWrapping="Wrap"  Padding="20 0 0 0"  Height="100" FontSize="20" BorderThickness="0" VerticalContentAlignment="Center" Width="auto">
-                                    <TextBox.Resources>
-                                        <Style TargetType="Border">
-                                            <Setter Property="CornerRadius" Value="10"/>
-                                        </Style>
-                                    </TextBox.Resources>
-                                </TextBox>
-                            </StackPanel>-->
                         </Grid>
                     </Grid>
                 </Border>

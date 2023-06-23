@@ -131,7 +131,7 @@ namespace LMS
 
         public static List<Loan> LoadLoans(Member member)
         {
-            DateTime dateDue;
+            //DateTime dateDue;
             List<string> rows = File.ReadAllLines(LoanFile).ToList();
 
             List<Loan> loans = new List<Loan>();
@@ -148,8 +148,8 @@ namespace LMS
                     dateDue = split[2],
                 };
                 
-                dateDue = DateTime.Parse(loan.dateDue);
-                loan.isDue = dateDue > MainWindow.currentDate;
+                //dateDue = DateTime.Parse(loan.dateDue);
+                //loan.isDue = dateDue > MainWindow.currentDate;
 
                 loans.Add(loan);
             }

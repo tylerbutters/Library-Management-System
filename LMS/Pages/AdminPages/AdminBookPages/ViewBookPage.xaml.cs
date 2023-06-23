@@ -26,6 +26,7 @@ namespace LMS.Pages.AdminPages
         private bool isEditing { get; set; } = false;
         private bool isConfirmed { get; set; } = false;
         public Book book { get; set; }
+        private string imageAddress { get; set; }
         public ViewBookPage(Book _book)
         {
             InitializeComponent();
@@ -38,7 +39,7 @@ namespace LMS.Pages.AdminPages
             AuthorLastName.Text = book.authorLastName;
             Subject.Text = book.subject;
             Summary.Text = book.summary;
-            selectedImageAddress.Text = book.cover;
+            Cover.Text = book.cover;
 
         }
         private void BackButtonClick(object sender, RoutedEventArgs e)
@@ -72,9 +73,9 @@ namespace LMS.Pages.AdminPages
                 Summary.Background = (Brush)new BrushConverter().ConvertFrom("#e7ead4");
                 Summary.Padding = new Thickness(20, 20, 0, 0);
                 Summary.IsReadOnly = false;
-                selectedImageAddress.Background = (Brush)new BrushConverter().ConvertFrom("#e7ead4");
-                selectedImageAddress.Padding = new Thickness(20, 0, 0, 0);
-                selectedImageAddress.IsReadOnly = true;
+                Cover.Background = (Brush)new BrushConverter().ConvertFrom("#e7ead4");
+                Cover.Padding = new Thickness(20, 0, 0, 0);
+                Cover.IsReadOnly = true;
 
             }
             else
@@ -100,9 +101,9 @@ namespace LMS.Pages.AdminPages
                 Summary.Background = Brushes.Transparent;
                 Summary.Padding = new Thickness(0, 20, 0, 0);
                 Summary.IsReadOnly = true;
-                selectedImageAddress.Background = Brushes.Transparent;
-                selectedImageAddress.Padding = new Thickness(0);
-                selectedImageAddress.IsReadOnly = true;
+                Cover.Background = Brushes.Transparent;
+                Cover.Padding = new Thickness(0);
+                Cover.IsReadOnly = true;
 
                 ID.Text = book.id;
                 CoverImage.Source = new BitmapImage(new Uri(book.cover, UriKind.Relative));
@@ -111,14 +112,16 @@ namespace LMS.Pages.AdminPages
                 AuthorLastName.Text = book.authorLastName;
                 Subject.Text = book.subject;
                 Summary.Text = book.summary;
-                selectedImageAddress.Text = book.cover;
+                Cover.Text = book.cover;
             }
         }
         
         private void SelectImageButtonClick(object sender, RoutedEventArgs e)
         {
-            string imageAddress = SelectImageDialog();
-            CoverImage.Source = new BitmapImage(new Uri(imageAddress, UriKind.Relative));
+            imageAddress = SelectImageDialog();
+            CoverImage.Source = new BitmapImage(new Uri(imageAddress));
+            
+
         }
         private string SelectImageDialog()
         {
@@ -134,7 +137,8 @@ namespace LMS.Pages.AdminPages
             if (result == true)
             {
                 string selectedFile = openFileDialog.FileName;
-                selectedImageAddress.Text = selectedFile;
+                Cover.Text = selectedFile;
+                
                 return selectedFile;
             }
             else
@@ -143,9 +147,43 @@ namespace LMS.Pages.AdminPages
                 return null;
             }
         }
+        private string GenerateNewImageAddress(string title, string existingImageAddressInput)
+        {
+            string folderPath = @"/CoverImages/";//Folder to contain new Image
+            string cleanedExistingAddressInput = string.Join("_", System.IO.Path.GetInvalidPathChars().Aggregate(existingImageAddressInput, (current, c) => current.Replace(c.ToString(), "")));//Removes illegal path characters.
+            string fileExtension = System.IO.Path.GetExtension(cleanedExistingAddressInput);//gets file extension of existing image       
+            string cleanedTitle = string.Join("_", System.IO.Path.GetInvalidFileNameChars().Aggregate(title, (current, c) => current.Replace(c.ToString(), ""))).Replace(" ", "_");//Removes illegal filename characters from book title.                                                                                                                                                                                        //makes an address and name for the new copy, preserves existing filetype. (does NOT save a copy yet)
+
+            return $"{folderPath}{cleanedTitle}{fileExtension}";
+        }
         private void SaveButtonClick(object sender, RoutedEventArgs e)
         {
             Book changedInfo = new Book { id = ID.Text, cover = book.cover, title = Title.Text, authorFirstName = AuthorFirstName.Text, authorLastName = AuthorLastName.Text, subject = Subject.Text, summary = Summary.Text };
+
+            string newimageAddress = GenerateNewImageAddress(Title.Text, imageAddress);
+            File.Copy(imageAddress, newimageAddress, true);
+            //if (File.Exists(imageAddress))
+            //{
+            //    if (imageAddress != book.cover)
+            //    {
+            //        try
+            //        {
+                        
+            //            Console.WriteLine("Image overwritten successfully.");
+            //        }
+            //        catch (Exception ex)
+            //        {
+            //            Console.WriteLine($"An error occurred while copying the image: {ex.Message}");
+            //            // Handle the error according to your application's requirements
+            //        }
+            //    }
+            //}
+            //else
+            //{
+            //    Console.WriteLine("Source image file does not exist.");
+            //    // Handle the case where the source image file does not exist
+            //}
+
             FileManagement.EditBook(book, changedInfo);
 
             EditCancelButtonClick(sender, e);
