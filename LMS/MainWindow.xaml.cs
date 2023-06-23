@@ -24,6 +24,9 @@ namespace LMS
     /// </summary>
     public partial class MainWindow : Window
     {
+        public static string datestr = "2023-04-13";
+        DateTime date = DateTime.Parse(datestr);
+
         private LoginPage loginPage { get; set; }
         private MemberMainPage memberMainPage { get; set; }
         private AdminMainPage adminMainPage { get; set; }

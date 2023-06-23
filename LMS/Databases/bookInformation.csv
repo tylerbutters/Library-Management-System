@@ -1,7 +1,7 @@
 id,cover,title,authorFirstName,authorLastName,subject,summary,isLoaned,isReserved
 B61700,NO_COVER,Book 2,Tyler,Butters,Another Aweosme, nothing,True,False
 B79113,NO_COVER,Book 3,Tlyer,Buets,Woeaijfjsd,dhlakshflkkajshdkjhsakjfsfdfas,False,True
-B84404,NO_COVER,Teset,Tyler,Butters,Horror,metlink thing,False,False
-B97952,Database\CoverImages\laserman2.PNG,Laserman2,Tyler,Butters,1234142134,gefda,False,False
+B84404,NO_COVER,Teset,Tyler,Butters,Horror,metlink thing,False,True
+B97952,Database\CoverImages\laserman2.PNG,Laserman2,Tyler,Butters,1234142134,gefda,False,True
 B73916,CoverImages\roads.jpg,Roads,Luther,Stark,Supercool,nothing,False,False
 B43081,CoverImages\tyler.jpg,Tyler,No,Yes,Something,yes,False,False
