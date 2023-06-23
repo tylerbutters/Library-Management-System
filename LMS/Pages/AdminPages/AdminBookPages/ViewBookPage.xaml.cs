@@ -120,8 +120,6 @@ namespace LMS.Pages.AdminPages
         {
             imageAddress = SelectImageDialog();
             CoverImage.Source = new BitmapImage(new Uri(imageAddress, UriKind.Relative));
-            
-
         }
         private string SelectImageDialog()
         {
@@ -149,7 +147,7 @@ namespace LMS.Pages.AdminPages
         }
         private string GenerateNewImageAddress(string title, string existingImageAddressInput)
         {
-            string folderPath = @"C:\Users\270010732\source\repos\106-LMS\LMS\CoverImages\";//Folder to contain new Image
+            string folderPath = @".\CoverImages\";//Folder to contain new Image
             string cleanedExistingAddressInput = string.Join("_", System.IO.Path.GetInvalidPathChars().Aggregate(existingImageAddressInput, (current, c) => current.Replace(c.ToString(), "")));//Removes illegal path characters.
             string fileExtension = System.IO.Path.GetExtension(cleanedExistingAddressInput);//gets file extension of existing image       
             string cleanedTitle = string.Join("_", System.IO.Path.GetInvalidFileNameChars().Aggregate(title, (current, c) => current.Replace(c.ToString(), ""))).Replace(" ", "_");//Removes illegal filename characters from book title.                                                                                                                                                                                        //makes an address and name for the new copy, preserves existing filetype. (does NOT save a copy yet)
@@ -163,30 +161,9 @@ namespace LMS.Pages.AdminPages
             if (imageAddress != book.cover)
             {
                 string newimageAddress = GenerateNewImageAddress(Title.Text, imageAddress);
-                MessageBox.Show(newimageAddress);
+               
                 File.Copy(imageAddress, newimageAddress, true);
             }
-            //if (File.Exists(imageAddress))
-            //{
-            //    if (imageAddress != book.cover)
-            //    {
-            //        try
-            //        {
-                        
-            //            Console.WriteLine("Image overwritten successfully.");
-            //        }
-            //        catch (Exception ex)
-            //        {
-            //            Console.WriteLine($"An error occurred while copying the image: {ex.Message}");
-            //            // Handle the error according to your application's requirements
-            //        }
-            //    }
-            //}
-            //else
-            //{
-            //    Console.WriteLine("Source image file does not exist.");
-            //    // Handle the case where the source image file does not exist
-            //}
 
             FileManagement.EditBook(book, changedInfo);
 
