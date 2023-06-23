@@ -57,10 +57,11 @@ namespace LMS.Pages.AdminPages
         }
         private void PlaceLoan(object sender, Reserve reserve)
         {
-            Loan newLoan = new Loan(reserve.book, member)
-            {
-                dateDue = MainWindow.currentDate.AddDays(14).ToString("yyyy/MM/dd")
-            };
+            Loan newLoan = new Loan(reserve.book, member);
+            newLoan.dateDue = MainWindow.currentDate.AddDays(14).ToString("yyyy/MM/dd");
+            FileManagement.SaveNewLoan(newLoan);
+            
+            newLoan.dateDue = DateTime.Parse(newLoan.dateDue).ToString("MM/dd");
             member.loanedBooks.Add(newLoan);
             List<Book> books = FileManagement.LoadBooks();
             foreach (Book book in books)
@@ -71,9 +72,8 @@ namespace LMS.Pages.AdminPages
                     book.isReserved = false;
                 }
             }
-            member.reservedBooks.Remove(reserve);
+            member.reservedBooks.Remove(reserve);            
             FileManagement.RemoveReserve(reserve);
-            FileManagement.SaveNewLoan(newLoan);
             FileManagement.WriteAllBooks(books);
         }
         public void NavigateToViewMemberPage(object sender, RoutedEventArgs e)

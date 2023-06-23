@@ -126,6 +126,10 @@ namespace LMS
                 };
 
                 reserve.isAvailableToLoan = book.isLoaned == false;
+                if(reserve.dateDueBack != "Now")
+                {
+                    reserve.dateDueBack = DateTime.Parse(reserve.dateDueBack).ToString("MM/dd");
+                }
 
                 reserves.Add(reserve);
             }
@@ -153,6 +157,7 @@ namespace LMS
                 };
                 
                 loan.isDue = DateTime.Parse(loan.dateDue) <= MainWindow.currentDate;
+                loan.dateDue = DateTime.Parse(loan.dateDue).ToString("MM/dd");
 
                 loans.Add(loan);
             }
@@ -291,7 +296,15 @@ namespace LMS
 
         public static void RemoveReserve(Reserve reserve)
         {
-            string reserveString = $"{reserve.bookId},{reserve.memberId},{reserve.dateDueBack}";
+            string reserveString = $"{reserve.bookId},{reserve.memberId},";
+            if (reserve.dateDueBack == "Now")
+            {
+                reserveString += $"{reserve.dateDueBack}";
+            }
+            else
+            {
+                reserveString += $"{MainWindow.currentDate.Year}/{reserve.dateDueBack}";
+            }
 
             List<string> rows = File.ReadAllLines(ReserveFile).ToList();
             rows.Remove(reserveString);
@@ -300,7 +313,7 @@ namespace LMS
 
         public static void RemoveLoan(Loan loan)
         {
-            string loanString = $"{loan.bookId},{loan.memberId},{loan.dateDue}";
+            string loanString = $"{loan.bookId},{loan.memberId},{MainWindow.currentDate.Year}/{loan.dateDue}";
 
             List<string> rows = File.ReadAllLines(LoanFile).ToList();
             rows.Remove(loanString);

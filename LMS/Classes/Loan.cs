@@ -13,11 +13,11 @@ namespace LMS
         public string dateDue { get; set; }
         public bool isDue { get;set; }
         public Book book { get; set; }
-        public Loan(Book _book, Member member)
+        public Loan(Book _book, Member _member)
         {
             book = _book;
             bookId = book.id;
-            memberId = member.id;
+            memberId = _member.id;
         }
 
     }

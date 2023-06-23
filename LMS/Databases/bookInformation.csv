@@ -1,5 +1,5 @@
 id,cover,title,authorFirstName,authorLastName,subject,summary,isLoaned,isReserved
-B61700,NO_COVER,book 2,tyler,butters,another aweosme, nothing,True,False
+B61700,NO_COVER,book 2,tyler,butters,another aweosme, nothing,False,False
 B79113,NO_COVER,book 3,tlyer,buets,woeaijfjsd,dhlakshflkkajshdkjhsakjfsfdfas,False,False
 B84404,NO_COVER,teset,tyler,butters,horror,metlink thing,False,False
 B97952,Database\CoverImages\laserman2.PNG,laserman2,tyler,butters,1234142134,gefda,False,True
