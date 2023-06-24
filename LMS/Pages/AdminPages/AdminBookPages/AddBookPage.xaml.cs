@@ -37,14 +37,6 @@ namespace LMS.Pages.AdminPages
             int max = 99999;
             return "B" + new Random().Next(min, max);
         }
-        private string GenerateNewImageAddress(string title)
-        {
-            string folderPath = @"/CoverImages/"; // Folder to contain the new image
-            string cleanedTitle = string.Join("_", System.IO.Path.GetInvalidFileNameChars().Aggregate(title, (current, c) => current.Replace(c.ToString(), ""))).Replace(" ", "_"); // Removes illegal filename characters from the book title and replaces spaces with underscores
-            string newImageAddress = System.IO.Path.Combine(folderPath, $"{cleanedTitle}.png"); // Create the new address and name for the PNG copy
-
-            return newImageAddress;
-        }
 
         //Select Image File button handler
         private void SelectImageButtonClick(object sender, RoutedEventArgs e)
@@ -86,13 +78,15 @@ namespace LMS.Pages.AdminPages
                 return;
             }
 
-            string newImageAddress = GenerateNewImageAddress(titleInput.Text); //creates new image address and filename
-            File.Copy(imageAddress, newImageAddress);
+            string cleanedTitle = string.Join("_", System.IO.Path.GetInvalidFileNameChars().Aggregate(titleInput.Text, (current, c) => current.Replace(c.ToString(), ""))).Replace(" ", "_");
+            string writeImagePath = System.IO.Path.Combine(@".\CoverImages\", $"{cleanedTitle}.png");
+            File.Copy(imageAddress, writeImagePath);
 
+            string readImagePath = System.IO.Path.Combine(@"/CoverImages/", $"{cleanedTitle}.png");
             Book newBook = new Book
             {
                 id = GenerateBookID(),
-                cover = newImageAddress,
+                cover = readImagePath,
                 title = titleInput.Text,
                 authorFirstName = authorFirstNameInput.Text,
                 authorLastName = authorLastNameInput.Text,
