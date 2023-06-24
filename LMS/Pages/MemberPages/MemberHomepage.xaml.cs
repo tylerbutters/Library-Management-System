@@ -16,7 +16,7 @@ using System.Windows.Shapes;
 namespace LMS.Pages.MemberPages
 {
     /// <summary>
-    /// Interaction logic for MemberHomePage.xaml
+    /// Contains methods for the Loan, Reserve and member information displayed within the MemberMainPage.
     /// </summary>
     public partial class MemberHomePage : Page
     {
@@ -30,11 +30,13 @@ namespace LMS.Pages.MemberPages
             FirstName.Text = member.firstName;
             LastName.Text = member.lastName;
             Email.Text = member.email;
-
-            ReservesArea.ItemsSource = FileManagement.LoadMembersReserves(member);
-            LoansArea.ItemsSource = FileManagement.LoadMembersLoans(member);
+            
+            ReservesArea.ItemsSource = member.reservedBooks;
+            LoansArea.ItemsSource = member.loanedBooks;
         }
 
+        //If the cancel button is clicked, CancelReserve event is raised by invoking the event. Also updates the UI using ItemsSource.
+        //Passes the 'selectedReserve.book' as an argument so the 'CancelReserve' method knows which book was selected.
         private void CancelButtonClick(object sender, RoutedEventArgs e)
         {
             Reserve selectedReserve = (sender as Button).DataContext as Reserve;

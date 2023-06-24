@@ -25,6 +25,10 @@ namespace LMS.Pages.AdminPages
         public MemberTable(List<Member> searchResults)
         {
             InitializeComponent();
+            if (searchResults.Count == 0)
+            {
+                NoResultsText.Visibility = Visibility.Visible;
+            }
             MemberGrid.ItemsSource = searchResults;
             MemberGrid.SelectionChanged += MemberDataGridSelectionChanged;
         }

@@ -9,6 +9,7 @@
       Title="MemberTable">
 
     <StackPanel Name="TableArea" Background="#E7EAD4" Width="1270" Height="720" HorizontalAlignment="Center">
+        <TextBlock x:Name="NoResultsText" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="30" FontWeight="Medium" Text="No results" Visibility="Collapsed"/>
         <DataGrid x:Name="BookGrid"
               Height="auto" 
               Width="auto"

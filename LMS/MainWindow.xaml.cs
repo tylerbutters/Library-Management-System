@@ -24,13 +24,15 @@ namespace LMS
     /// </summary>
     public partial class MainWindow : Window
     {
-        public static DateTime currentDate { get; set; } = new DateTime();
+        private static string dateString { get; set; } = "2023/05/25";
+        public static DateTime currentDate { get; set; } = DateTime.Parse(dateString);
         private LoginPage loginPage { get; set; }
         private MemberMainPage memberMainPage { get; set; }
         private AdminMainPage adminMainPage { get; set; }
         public MainWindow()
         {
             InitializeComponent();
+
             loginPage = new LoginPage();
             MainWindowFrame.Content = loginPage;
 

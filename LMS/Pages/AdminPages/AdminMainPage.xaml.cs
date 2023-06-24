@@ -37,20 +37,33 @@ namespace LMS.Pages.AdminPages
             memberTable = new MemberTable(new List<Member>());
             PageContent.Content = memberTable;
 
-           // memberDataGrid = memberTable.memberDataGridInfo;
-            //bookDataGrid = bookTable.bookDataGridInfo;
-
-            //memberTable.NavigateToViewMemberPage += NavigateToViewMemberPage;
-            //bookTable.NavigateToViewBookPage += NavigateToViewBookPage;
             addMemberPage.NavigateToMemberPage += MemberPageButtonClick;
             addBookPage.NavigateToBookPage += BookPageButtonClick;
-            
+        }
+        private void ReturnLoan(object sender, Loan loan)
+        {
+            member.loanedBooks.Remove(loan);
 
+            List<Book> books = FileManagement.LoadBooks();
+            foreach (Book book in books)
+            {
+                if (book.id == loan.bookId)
+                {
+                    book.isLoaned = false;
+                }
+            }
+            FileManagement.RemoveLoan(loan);
+            FileManagement.WriteAllBooks(books);
         }
         private void PlaceLoan(object sender, Reserve reserve)
         {
+            Loan newLoan = new Loan(reserve.book, member)
+            {
+                dateDue = MainWindow.currentDate.AddDays(14).ToString("yyyy/MM/dd") //initally sets the date to proper format
+            };
+            FileManagement.SaveNewLoan(newLoan);
             
-            Loan newLoan = new Loan(reserve.book, member);
+            newLoan.dateDue = DateTime.Parse(newLoan.dateDue).ToString("MM/dd"); //immediately changes format for viewing in program.
             member.loanedBooks.Add(newLoan);
             List<Book> books = FileManagement.LoadBooks();
             foreach (Book book in books)
@@ -61,16 +74,17 @@ namespace LMS.Pages.AdminPages
                     book.isReserved = false;
                 }
             }
-            member.reservedBooks.Remove(reserve);
+            member.reservedBooks.Remove(reserve);            
             FileManagement.RemoveReserve(reserve);
-            FileManagement.SaveNewLoan(newLoan);
             FileManagement.WriteAllBooks(books);
         }
         public void NavigateToViewMemberPage(object sender, RoutedEventArgs e)
         {
+            member = memberTable.selectedMember;
             viewMemberPage = new ViewMemberPage(memberTable.selectedMember);
             viewMemberPage.NavigateToMemberPage += MemberPageButtonClick;
             viewMemberPage.PlaceLoan += PlaceLoan;
+            viewMemberPage.ReturnLoan += ReturnLoan;
             PageContent.Content = viewMemberPage;
         }
         public void NavigateToViewBookPage(object sender, RoutedEventArgs e)

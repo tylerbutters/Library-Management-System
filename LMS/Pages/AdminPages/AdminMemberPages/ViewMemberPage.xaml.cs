@@ -25,6 +25,7 @@ namespace LMS.Pages.AdminPages
     {
         public event EventHandler<RoutedEventArgs> NavigateToMemberPage;
         public event EventHandler<Reserve> PlaceLoan;
+        public event EventHandler<Loan> ReturnLoan;
         private bool isEditing { get; set; } = false;
         private bool isConfirmed { get; set; } = false;
         private Member member { get; set; }
@@ -139,9 +140,8 @@ namespace LMS.Pages.AdminPages
         private void ReturnButtonClick(object sender, RoutedEventArgs e)
         {
             Loan selectedLoan = (sender as Button).DataContext as Loan;
-            selectedLoan.book.isLoaned = false;
-            _ = member.loanedBooks.Remove(selectedLoan);
-            FileManagement.RemoveLoan(selectedLoan);
+            ReturnLoan?.Invoke(sender, selectedLoan);
+            
 
             LoansArea.ItemsSource = null;
             LoansArea.ItemsSource = member.loanedBooks;

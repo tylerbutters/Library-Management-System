@@ -147,10 +147,10 @@ namespace LMS.Pages.AdminPages
         }
         private string GenerateNewImageAddress(string title, string existingImageAddressInput)
         {
-            string folderPath = @".\CoverImages\";//Folder to contain new Image
+            string folderPath = @"/CoverImages/";//Folder to contain new Image
             string cleanedExistingAddressInput = string.Join("_", System.IO.Path.GetInvalidPathChars().Aggregate(existingImageAddressInput, (current, c) => current.Replace(c.ToString(), "")));//Removes illegal path characters.
             string fileExtension = System.IO.Path.GetExtension(cleanedExistingAddressInput);//gets file extension of existing image       
-            string cleanedTitle = string.Join("_", System.IO.Path.GetInvalidFileNameChars().Aggregate(title, (current, c) => current.Replace(c.ToString(), ""))).Replace(" ", "_");//Removes illegal filename characters from book title.                                                                                                                                                                                        //makes an address and name for the new copy, preserves existing filetype. (does NOT save a copy yet)
+            string cleanedTitle = string.Join("_", System.IO.Path.GetInvalidFileNameChars().Aggregate(title, (current, c) => current.Replace(c.ToString(), ""))).Replace(" ", "_").ToLower();//Removes illegal filename characters from book title.                                                                                                                                                                                        //makes an address and name for the new copy, preserves existing filetype. (does NOT save a copy yet)
 
             MessageBox.Show($"{folderPath}{cleanedTitle}{fileExtension}");
             return $"{folderPath}{cleanedTitle}{fileExtension}";
@@ -158,11 +158,19 @@ namespace LMS.Pages.AdminPages
         private void SaveButtonClick(object sender, RoutedEventArgs e)
         {
             Book changedInfo = new Book { id = ID.Text, cover = book.cover, title = Title.Text, authorFirstName = AuthorFirstName.Text, authorLastName = AuthorLastName.Text, subject = Subject.Text, summary = Summary.Text };
-            if (imageAddress != book.cover)
+            if (imageAddress != book.cover) //if image gets changed
             {
                 string newimageAddress = GenerateNewImageAddress(Title.Text, imageAddress);
+                if (book.cover == "NO_COVER")
+                {
+                    File.Copy(imageAddress, newimageAddress);
+                }
+                else
+                {
+                    File.Copy(imageAddress, newimageAddress, true);
+                }
                
-                File.Copy(imageAddress, newimageAddress, true);
+                
             }
 
             FileManagement.EditBook(book, changedInfo);
