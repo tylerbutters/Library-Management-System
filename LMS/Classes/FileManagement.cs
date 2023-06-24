@@ -36,28 +36,28 @@ namespace LMS
                 {
                     string[] split = row.Split(',');
 
-                    if (split[0].StartsWith("M")) //if Id starts with M
+                if (split[0].StartsWith("M")) //if Id starts with M
+                {
+                    Member member = new Member
                     {
-                        Member member = new Member
-                        {
-                            id = split[0],
-                            pin = split[1],
-                            firstName = textInfo.ToTitleCase(split[2]),
-                            lastName = textInfo.ToTitleCase(split[3]),
-                            email = split[4]
-                        };
+                        id = split[0],
+                        pin = split[1],
+                        firstName = textInfo.ToTitleCase(split[2]),
+                        lastName = textInfo.ToTitleCase(split[3]),
+                        email = split[4]
+                    };
 
-                        member.reservedBooks = LoadMembersReserves(member);
-                        member.loanedBooks = LoadMembersLoans(member);
-                        accounts.Add(member);
-                    }
-                    else
+                    member.reservedBooks = LoadMembersReserves(member);
+                    member.loanedBooks = LoadMembersLoans(member);
+                    accounts.Add(member);
+                }
+                else
+                {
+                    Admin admin = new Admin
                     {
-                        Admin admin = new Admin
-                        {
-                            id = split[0],
-                            pin = split[1]
-                        };
+                        id = split[0],
+                        pin = split[1]
+                    };
 
                         accounts.Add(admin);
                     }
