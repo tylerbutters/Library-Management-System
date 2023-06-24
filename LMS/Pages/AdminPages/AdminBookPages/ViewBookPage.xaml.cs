@@ -25,6 +25,7 @@ namespace LMS.Pages.AdminPages
         public event EventHandler<RoutedEventArgs> NavigateToBookPage;
         private bool isEditing { get; set; } = false;
         private bool isConfirmed { get; set; } = false;
+        private bool isCoverChanged { get; set; } = false;
         public Book book { get; set; }
         private string imageAddress { get; set; }
         public ViewBookPage(Book _book)
@@ -80,6 +81,7 @@ namespace LMS.Pages.AdminPages
             }
             else
             {
+                isCoverChanged = false;
                 isEditing = false;
                 SaveButton.Visibility = Visibility.Hidden;
                 DeleteButton.Visibility = Visibility.Hidden;
@@ -136,7 +138,8 @@ namespace LMS.Pages.AdminPages
             {
                 string selectedFile = openFileDialog.FileName;
                 Cover.Text = selectedFile;
-                
+
+                isCoverChanged = true;
                 return selectedFile;
             }
             else
@@ -148,25 +151,23 @@ namespace LMS.Pages.AdminPages
         private void SaveButtonClick(object sender, RoutedEventArgs e)
         {
             string cleanedTitle = "";
-            if (imageAddress != book.cover) //if image gets changed
+            if (isCoverChanged)
             {
-                cleanedTitle = string.Join("_", System.IO.Path.GetInvalidFileNameChars().Aggregate(Title.Text, (current, c) => current.Replace(c.ToString(), ""))).Replace(" ", "_");
+                cleanedTitle = string.Join("_", System.IO.Path.GetInvalidFileNameChars().Aggregate(Title.Text, (current, c) => current.Replace(c.ToString(), ""))).Replace(" ", "_").ToLower();
                 string writeImagePath = System.IO.Path.Combine(@".\CoverImages\", $"{cleanedTitle}.png");
-                if (book.cover == "NO_COVER")
+                if (book.cover == "NO_COVER") //if theres no image
                 {
                     File.Copy(imageAddress, writeImagePath);
                 }
                 else
                 {
                     File.Copy(imageAddress, writeImagePath, true);
-                    
                 }
             }
             string readImagePath = System.IO.Path.Combine(@"/CoverImages/", $"{cleanedTitle}.png");
             Book changedInfo = new Book { id = ID.Text, cover = readImagePath, title = Title.Text, authorFirstName = AuthorFirstName.Text, authorLastName = AuthorLastName.Text, subject = Subject.Text, summary = Summary.Text };
 
             FileManagement.EditBook(book, changedInfo);
-
             EditCancelButtonClick(sender, e);
         }
         private void DeleteButtonClick(object sender, RoutedEventArgs e)

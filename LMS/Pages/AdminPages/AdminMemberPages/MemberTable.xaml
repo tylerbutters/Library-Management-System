@@ -56,8 +56,8 @@
                 <DataGridTextColumn Header="First Name" Binding="{Binding firstName}" Width="1*"></DataGridTextColumn>
                 <DataGridTextColumn Header="Last Name" Binding="{Binding lastName}" Width="1*"></DataGridTextColumn>
                 <DataGridTextColumn Header="Email" Binding="{Binding email}" Width="2*"></DataGridTextColumn>
-                <DataGridTextColumn Header="Reserves" Binding="{Binding reserveCounter}" Width="1*"></DataGridTextColumn>
-                <DataGridTextColumn Header="Loans" Binding="{Binding loanCounter}" Width="1*"></DataGridTextColumn>
+                <DataGridTextColumn Header="Reserves" Binding="{Binding reservedBooks.Count}" Width="1*"></DataGridTextColumn>
+                <DataGridTextColumn Header="Loans" Binding="{Binding loanedBooks.Count}" Width="1*"></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
     </Grid>

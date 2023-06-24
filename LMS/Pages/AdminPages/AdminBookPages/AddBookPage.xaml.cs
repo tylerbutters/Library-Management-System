@@ -78,7 +78,7 @@ namespace LMS.Pages.AdminPages
                 return;
             }
 
-            string cleanedTitle = string.Join("_", System.IO.Path.GetInvalidFileNameChars().Aggregate(titleInput.Text, (current, c) => current.Replace(c.ToString(), ""))).Replace(" ", "_");
+            string cleanedTitle = string.Join("_", System.IO.Path.GetInvalidFileNameChars().Aggregate(titleInput.Text, (current, c) => current.Replace(c.ToString(), ""))).Replace(" ", "_").ToLower();
             string writeImagePath = System.IO.Path.Combine(@".\CoverImages\", $"{cleanedTitle}.png");
             File.Copy(imageAddress, writeImagePath);
 
