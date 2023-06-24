@@ -40,7 +40,7 @@ namespace LMS.Pages.AdminPages
             Subject.Text = book.subject;
             Summary.Text = book.summary;
             Cover.Text = book.cover;
-
+            imageAddress = book.cover;
         }
         private void BackButtonClick(object sender, RoutedEventArgs e)
         {
@@ -115,13 +115,11 @@ namespace LMS.Pages.AdminPages
                 Cover.Text = book.cover;
             }
         }
-        
+       
         private void SelectImageButtonClick(object sender, RoutedEventArgs e)
         {
             imageAddress = SelectImageDialog();
-            CoverImage.Source = new BitmapImage(new Uri(imageAddress));
-            
-
+            CoverImage.Source = new BitmapImage(new Uri(imageAddress, UriKind.Relative));
         }
         private string SelectImageDialog()
         {
@@ -152,16 +150,28 @@ namespace LMS.Pages.AdminPages
             string folderPath = @"/CoverImages/";//Folder to contain new Image
             string cleanedExistingAddressInput = string.Join("_", System.IO.Path.GetInvalidPathChars().Aggregate(existingImageAddressInput, (current, c) => current.Replace(c.ToString(), "")));//Removes illegal path characters.
             string fileExtension = System.IO.Path.GetExtension(cleanedExistingAddressInput);//gets file extension of existing image       
-            string cleanedTitle = string.Join("_", System.IO.Path.GetInvalidFileNameChars().Aggregate(title, (current, c) => current.Replace(c.ToString(), ""))).Replace(" ", "_");//Removes illegal filename characters from book title.                                                                                                                                                                                        //makes an address and name for the new copy, preserves existing filetype. (does NOT save a copy yet)
+            string cleanedTitle = string.Join("_", System.IO.Path.GetInvalidFileNameChars().Aggregate(title, (current, c) => current.Replace(c.ToString(), ""))).Replace(" ", "_").ToLower();//Removes illegal filename characters from book title.                                                                                                                                                                                        //makes an address and name for the new copy, preserves existing filetype. (does NOT save a copy yet)
 
+            MessageBox.Show($"{folderPath}{cleanedTitle}{fileExtension}");
             return $"{folderPath}{cleanedTitle}{fileExtension}";
         }
         private void SaveButtonClick(object sender, RoutedEventArgs e)
         {
             Book changedInfo = new Book { id = ID.Text, cover = book.cover, title = Title.Text, authorFirstName = AuthorFirstName.Text, authorLastName = AuthorLastName.Text, subject = Subject.Text, summary = Summary.Text };
-
-            string newimageAddress = GenerateNewImageAddress(Title.Text, imageAddress);
-            File.Copy(imageAddress, newimageAddress, true);
+            if (imageAddress != book.cover) //if image gets changed
+            {
+                string newimageAddress = GenerateNewImageAddress(Title.Text, imageAddress);
+                if (book.cover == "NO_COVER")
+                {
+                    File.Copy(imageAddress, newimageAddress);
+                }
+                else
+                {
+                    File.Copy(imageAddress, newimageAddress, true);
+                }
+               
+                
+            }
 
             FileManagement.EditBook(book, changedInfo);
 

@@ -30,10 +30,11 @@ namespace LMS
             List<string> rows = File.ReadAllLines(AccountFile).ToList();
 
             List<Account> accounts = new List<Account>();
-
-            foreach (string row in rows.Skip(1))
+            if (rows.Count >= 2)
             {
-                string[] split = row.Split(',');
+                foreach (string row in rows.Skip(1))
+                {
+                    string[] split = row.Split(',');
 
                 if (split[0].StartsWith("M")) //if Id starts with M
                 {
@@ -58,7 +59,8 @@ namespace LMS
                         pin = split[1]
                     };
 
-                    accounts.Add(admin);
+                        accounts.Add(admin);
+                    }
                 }
             }
 
@@ -243,7 +245,7 @@ namespace LMS
 
         public static void SaveNewBook(Book newBook)
         {
-            string bookString = $"{newBook.id},{newBook.cover},{newBook.title.ToLower()},{newBook.authorFirstName.ToLower()},{newBook.authorLastName.ToLower()},{newBook.subject.ToLower()},{newBook.summary.ToLower()},,{newBook.isLoaned},{newBook.isReserved}";
+            string bookString = $"{newBook.id},{newBook.cover},{newBook.title.ToLower()},{newBook.authorFirstName.ToLower()},{newBook.authorLastName.ToLower()},{newBook.subject.ToLower()},{newBook.summary.ToLower()},{newBook.isLoaned},{newBook.isReserved}";
             List<string> rows = File.ReadAllLines(BookFile).ToList();
             rows.Add(bookString);
             File.WriteAllLines(BookFile, rows);

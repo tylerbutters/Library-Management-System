@@ -32,6 +32,7 @@ namespace LMS
         public MainWindow()
         {
             InitializeComponent();
+
             loginPage = new LoginPage();
             MainWindowFrame.Content = loginPage;
 

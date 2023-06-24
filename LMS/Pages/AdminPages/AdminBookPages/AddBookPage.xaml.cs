@@ -37,14 +37,13 @@ namespace LMS.Pages.AdminPages
             int max = 99999;
             return "B" + new Random().Next(min, max);
         }
-        private string GenerateNewImageAddress(string title, string existingImageAddressInput)
+        private string GenerateNewImageAddress(string title)
         {
-            string folderPath = @"/CoverImages/";//Folder to contain new Image
-            string cleanedExistingAddressInput = string.Join("_", System.IO.Path.GetInvalidPathChars().Aggregate(existingImageAddressInput, (current, c) => current.Replace(c.ToString(), "")));//Removes illegal path characters.
-            string fileExtension = System.IO.Path.GetExtension(cleanedExistingAddressInput);//gets file extension of existing image       
-            string cleanedTitle = string.Join("_", System.IO.Path.GetInvalidFileNameChars().Aggregate(title, (current, c) => current.Replace(c.ToString(), ""))).Replace(" ", "_");//Removes illegal filename characters from book title.                                                                                                                                                                                        //makes an address and name for the new copy, preserves existing filetype. (does NOT save a copy yet)
-           
-            return $"{folderPath}{cleanedTitle}{fileExtension}";
+            string folderPath = @"/CoverImages/"; // Folder to contain the new image
+            string cleanedTitle = string.Join("_", System.IO.Path.GetInvalidFileNameChars().Aggregate(title, (current, c) => current.Replace(c.ToString(), ""))).Replace(" ", "_"); // Removes illegal filename characters from the book title and replaces spaces with underscores
+            string newImageAddress = System.IO.Path.Combine(folderPath, $"{cleanedTitle}.png"); // Create the new address and name for the PNG copy
+
+            return newImageAddress;
         }
 
         //Select Image File button handler
@@ -87,7 +86,7 @@ namespace LMS.Pages.AdminPages
                 return;
             }
 
-            string newImageAddress = GenerateNewImageAddress(titleInput.Text, imageAddress); //creates new image address and filename
+            string newImageAddress = GenerateNewImageAddress(titleInput.Text); //creates new image address and filename
             File.Copy(imageAddress, newImageAddress);
 
             Book newBook = new Book
