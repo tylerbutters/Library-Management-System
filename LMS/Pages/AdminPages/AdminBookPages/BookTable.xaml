@@ -56,7 +56,23 @@
                 <DataGridTextColumn Header="First Name" Binding="{Binding authorFirstName}" Width="1*"></DataGridTextColumn>
                 <DataGridTextColumn Header="Last Name" Binding="{Binding authorLastName}" Width="1*"></DataGridTextColumn>
                 <DataGridTextColumn Header="Subject" Binding="{Binding subject}" Width="1*"></DataGridTextColumn>
-                <DataGridTextColumn Header="Available" Binding="{Binding isAvailable}" Width="1*"></DataGridTextColumn>
+                <DataGridTextColumn Header="Available" Width="1*">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="TextBlock">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding isLoaned}" Value="True">
+                                    <Setter Property="Foreground" Value="Red"/>
+                                    <Setter Property="Text" Value="Unavailable"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding isLoaned}" Value="False">
+                                    <Setter Property="Foreground" Value="Green"/>
+                                    <Setter Property="Text" Value="Available"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+
             </DataGrid.Columns>
         </DataGrid>
     </Grid>

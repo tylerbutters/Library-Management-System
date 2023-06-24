@@ -30,15 +30,15 @@ namespace LMS.Pages.AdminPages
         private AddBookPage addBookPage { get; set; } = new AddBookPage();
         private ViewBookPage viewBookPage { get; set; }
         private Member member { get; set; }
-        
+
         public AdminMainPage()
         {
             InitializeComponent();
             memberTable = new MemberTable(new List<Member>());
             PageContent.Content = memberTable;
 
-            addMemberPage.NavigateToMemberPage += MemberPageButtonClick;
-            addBookPage.NavigateToBookPage += BookPageButtonClick;
+            addMemberPage.NavigateToMemberPage += SearchMembers;
+            addBookPage.NavigateToBookPage += SearchBooks;
         }
         private void ReturnLoan(object sender, Loan loan)
         {
@@ -62,19 +62,19 @@ namespace LMS.Pages.AdminPages
                 dateDue = MainWindow.currentDate.AddDays(14).ToString("yyyy/MM/dd") //initally sets the date to proper format
             };
             FileManagement.SaveNewLoan(newLoan);
-            
+
             newLoan.dateDue = DateTime.Parse(newLoan.dateDue).ToString("MM/dd"); //immediately changes format for viewing in program.
             member.loanedBooks.Add(newLoan);
             List<Book> books = FileManagement.LoadBooks();
             foreach (Book book in books)
             {
-                if(book.id == newLoan.bookId)
+                if (book.id == newLoan.bookId)
                 {
                     book.isLoaned = true;
                     book.isReserved = false;
                 }
             }
-            member.reservedBooks.Remove(reserve);            
+            member.reservedBooks.Remove(reserve);
             FileManagement.RemoveReserve(reserve);
             FileManagement.WriteAllBooks(books);
         }
@@ -82,7 +82,7 @@ namespace LMS.Pages.AdminPages
         {
             member = memberTable.selectedMember;
             viewMemberPage = new ViewMemberPage(memberTable.selectedMember);
-            viewMemberPage.NavigateToMemberPage += MemberPageButtonClick;
+            viewMemberPage.NavigateToMemberPage += SearchMembers;
             viewMemberPage.PlaceLoan += PlaceLoan;
             viewMemberPage.ReturnLoan += ReturnLoan;
             PageContent.Content = viewMemberPage;
@@ -90,7 +90,7 @@ namespace LMS.Pages.AdminPages
         public void NavigateToViewBookPage(object sender, RoutedEventArgs e)
         {
             viewBookPage = new ViewBookPage(bookTable.selectedBook);
-            viewBookPage.NavigateToBookPage += BookPageButtonClick;
+            viewBookPage.NavigateToBookPage += SearchBooks;
             PageContent.Content = viewBookPage;
         }
         private void LogoutButtonClick(object sender, RoutedEventArgs e)
@@ -159,7 +159,7 @@ namespace LMS.Pages.AdminPages
         }
         private void SearchMembers(object sender, RoutedEventArgs e)
         {
-            
+
             string searchInput = SearchBar.Text.Trim();
 
             if (!string.IsNullOrEmpty(searchInput))
