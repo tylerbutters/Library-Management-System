@@ -37,8 +37,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-<Reference Include="System" />
-	<Reference Include="System.Data" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -206,7 +206,7 @@
     <Resource Include="CoverImages\laserman2.png" />
     <Content Include="CoverImages\asdf.png" />
     <Content Include="CoverImages\book.png" />
-    <Resource Include="CoverImages\Book_3.png" />
+    <Resource Include="CoverImages\book_3.png" />
     <Resource Include="CoverImages\Laserman22.png" />
     <Content Include="CoverImages\roads.png" />
     <Content Include="CoverImages\sdf.png" />

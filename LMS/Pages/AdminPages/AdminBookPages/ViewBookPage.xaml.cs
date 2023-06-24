@@ -145,32 +145,25 @@ namespace LMS.Pages.AdminPages
                 return null;
             }
         }
-        private string GenerateNewImageAddress(string title)
-        {
-            string folderPath = @"/CoverImages/"; // Folder to contain the new image
-            string cleanedTitle = string.Join("_", System.IO.Path.GetInvalidFileNameChars().Aggregate(title, (current, c) => current.Replace(c.ToString(), ""))).Replace(" ", "_"); // Removes illegal filename characters from the book title and replaces spaces with underscores
-            string newImageAddress = System.IO.Path.Combine(folderPath, $"{cleanedTitle}.png"); // Create the new address and name for the PNG copy
-
-            return newImageAddress;
-        }
         private void SaveButtonClick(object sender, RoutedEventArgs e)
-        { 
+        {
+            string cleanedTitle = "";
             if (imageAddress != book.cover) //if image gets changed
             {
-                string newimageAddress = GenerateNewImageAddress(Title.Text);
+                cleanedTitle = string.Join("_", System.IO.Path.GetInvalidFileNameChars().Aggregate(Title.Text, (current, c) => current.Replace(c.ToString(), ""))).Replace(" ", "_");
+                string writeImagePath = System.IO.Path.Combine(@".\CoverImages\", $"{cleanedTitle}.png");
                 if (book.cover == "NO_COVER")
                 {
-                    File.Copy(imageAddress, newimageAddress);
+                    File.Copy(imageAddress, writeImagePath);
                 }
                 else
                 {
-                    File.Copy(imageAddress, newimageAddress, true);
+                    File.Copy(imageAddress, writeImagePath, true);
                     
                 }
-
-                book.cover = newimageAddress;
             }
-            Book changedInfo = new Book { id = ID.Text, cover = book.cover, title = Title.Text, authorFirstName = AuthorFirstName.Text, authorLastName = AuthorLastName.Text, subject = Subject.Text, summary = Summary.Text };
+            string readImagePath = System.IO.Path.Combine(@"/CoverImages/", $"{cleanedTitle}.png");
+            Book changedInfo = new Book { id = ID.Text, cover = readImagePath, title = Title.Text, authorFirstName = AuthorFirstName.Text, authorLastName = AuthorLastName.Text, subject = Subject.Text, summary = Summary.Text };
 
             FileManagement.EditBook(book, changedInfo);
 
