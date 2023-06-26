@@ -24,7 +24,7 @@ namespace LMS.Pages.MemberPages
     {
         //Events enable 'MemberHomePage' methods to subscribe to it when 'ReserveButtonClick' is clicked.
         public event EventHandler<Book> PlaceReserve;
-        public event EventHandler<Book> CancelReserve;
+        public event EventHandler<Book> NavigateToBookInfoPage;
 
         //holds the list of search results. It is used to store the books that match the search criteria provided to the page.
         private List<Book> results { get; set; }
@@ -45,18 +45,17 @@ namespace LMS.Pages.MemberPages
         {
             Book selectedBook = (sender as Button).DataContext as Book;
 
-            if (!selectedBook.isReserved)
-            {
-                PlaceReserve(this, selectedBook);
-                selectedBook.isReserved = true;
-            }
-            else
-            {
-                CancelReserve(this, selectedBook);
-                selectedBook.isReserved = false;
-            }
+            PlaceReserve?.Invoke(sender, selectedBook);
+            selectedBook.isReserved = true;
+
             ResultsContainer.ItemsSource = null;
             ResultsContainer.ItemsSource = results;
         }
+        private void ItemClick(object sender, MouseButtonEventArgs e)
+        {
+            Book clickedItem = (sender as FrameworkElement).DataContext as Book;
+            NavigateToBookInfoPage?.Invoke(sender, clickedItem);
+        }
+
     }
 }

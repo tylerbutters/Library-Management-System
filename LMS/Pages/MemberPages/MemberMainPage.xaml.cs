@@ -23,6 +23,7 @@ namespace LMS.Pages.MemberPages
         public event EventHandler<RoutedEventArgs> NavigateToLoginPage;
         private MemberHomePage memberHomePage { get; set; }
         private BookResultsPage bookResultsPage { get; set; }
+        private BookInfoPage bookInfoPage { get; set; }
         public Member member { get; set; }
 
         public MemberMainPage(Member loggedInMember)
@@ -35,6 +36,13 @@ namespace LMS.Pages.MemberPages
             memberHomePage.CancelReserve += CancelReserve;
         }
 
+        private void NavigateToBookInfoPage(object sender, Book _book)
+        {
+            bookInfoPage = new BookInfoPage(_book);
+            bookInfoPage.NavigateBackToResults += SearchBooks;
+            bookInfoPage.PlaceReserve += PlaceReserve;
+            PageContent.Content = bookInfoPage;
+        }
         //initializes a new 'Reserve' object with the clicked 'book' and 'member'
         //loads every book and checks which book matches the i.d of the selected book, updates the selected one with '_book.isReserved = true;' and saves changes using 'FileManagement'.
         private void PlaceReserve(object sender, Book _book)
@@ -98,7 +106,7 @@ namespace LMS.Pages.MemberPages
             loan.dateDue = DateTime.Parse(loan.dateDue).ToString("MM/dd"); //immediately changes format for viewing in program.
             member.loanedBooks.Add(loan);
 
-            //MessageBox.Show("Book renewed for 7 days");
+            MessageBox.Show("Book renewed for 7 days");
         }
 
         private void SearchbarKeyDown(object sender, KeyEventArgs e)
@@ -129,6 +137,7 @@ namespace LMS.Pages.MemberPages
 
                 bookResultsPage = new BookResultsPage(searchResults, searchInput);
                 bookResultsPage.PlaceReserve += PlaceReserve;
+                bookResultsPage.NavigateToBookInfoPage += NavigateToBookInfoPage;
                 PageContent.Content = bookResultsPage;
             }
         }

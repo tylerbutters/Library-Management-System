@@ -120,6 +120,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Pages\MemberPages\BookInfoPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\MemberPages\BookResultsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -144,6 +148,9 @@
     </Compile>
     <Compile Include="Pages\LoginPage.xaml.cs">
       <DependentUpon>LoginPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\MemberPages\BookInfoPage.xaml.cs">
+      <DependentUpon>BookInfoPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\MemberPages\BookResultsPage.xaml.cs">
       <DependentUpon>BookResultsPage.xaml</DependentUpon>
