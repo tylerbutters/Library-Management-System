@@ -23,53 +23,91 @@ namespace LMS
 
         private static List<Loan> allLoans = LoadLoans();
         private static List<Reserve> allReserves = LoadReserves();
+        private static List<Book> allBooks = LoadBooks();
+
+        //READ METHODS
+
+        //loads all accounts, splits the members and admins. the members info is read from file then populates their loan and reserve lists with functions.
         public static List<Account> LoadAccounts()
         {
+            if (!File.Exists(AccountFile))
+            {
+                // Handle the scenario where the account file is missing
+                throw new FileNotFoundException("Account file not found.");
+            }
+
             CultureInfo cultureInfo = CultureInfo.CurrentCulture;
             TextInfo textInfo = cultureInfo.TextInfo;
             List<string> rows = File.ReadAllLines(AccountFile).ToList();
 
             List<Account> accounts = new List<Account>();
-            if (rows.Count >= 2)
+            if (rows.Count >= 2) //incase file is empty
             {
                 foreach (string row in rows.Skip(1))
                 {
                     string[] split = row.Split(',');
 
-                if (split[0].StartsWith("M")) //if Id starts with M
-                {
-                    Member member = new Member
+                    if (split.Length >= 5) //checks if row has out of range index
                     {
-                        id = split[0],
-                        pin = split[1],
-                        firstName = textInfo.ToTitleCase(split[2]),
-                        lastName = textInfo.ToTitleCase(split[3]),
-                        email = split[4]
-                    };
+                        if (split[0].StartsWith("M")) //if Id starts with M
+                        {
+                            Member member = new Member
+                            {
+                                id = split[0],
+                                pin = split[1],
+                                firstName = textInfo.ToTitleCase(split[2]),
+                                lastName = textInfo.ToTitleCase(split[3]),
+                                email = split[4]
+                            };
 
-                    member.reservedBooks = LoadMembersReserves(member);
-                    member.loanedBooks = LoadMembersLoans(member);
-                    accounts.Add(member);
-                }
-                else
-                {
-                    Admin admin = new Admin
+
+                            accounts.Add(member);
+                        }
+                        else
+                        {
+                            Admin admin = new Admin
+                            {
+                                id = split[0],
+                                pin = split[1]
+                            };
+
+                            accounts.Add(admin);
+                        }
+                    }
+                    else
                     {
-                        id = split[0],
-                        pin = split[1]
-                    };
-
-                        accounts.Add(admin);
+                        Console.WriteLine($"Invalid row: {row}");
                     }
                 }
+                LoadMembersReserves(accounts.OfType<Member>().ToList());
+                LoadMembersLoans(accounts.OfType<Member>().ToList());
             }
 
             return accounts;
         }
 
+        //simply a shorthand 
         public static List<Member> LoadMembers()
         {
             return LoadAccounts().OfType<Member>().ToList();
+        }
+
+        //Loads all reserves and returns all 'member's Reserves' that match the logged-in member's i.d
+        public static void LoadMembersReserves(List<Member> members)
+        {
+            foreach (Member member in members) //checks what reserves match the members id
+            {
+                member.reservedBooks = allReserves.Where(reserve => reserve.memberId == member.id).ToList();
+            }
+        }
+
+        //Loads all loans and returns all 'member's loans' that match the logged-in member's i.d
+        public static void LoadMembersLoans(List<Member> members)
+        {
+            foreach (Member member in members) //checks what reserves match the members id
+            {
+                member.loanedBooks = allLoans.Where(reserve => reserve.memberId == member.id).ToList();
+            }
         }
 
         //reads book data from file, splits the data into individual properties and adds them to a list. The list of Book objects is then returned as the result of the method.
@@ -77,34 +115,41 @@ namespace LMS
         {
             CultureInfo cultureInfo = CultureInfo.CurrentCulture;
             TextInfo textInfo = cultureInfo.TextInfo;
-            List<string> rows = File.ReadAllLines(BookFile).ToList();
 
+            List<string> rows = File.ReadAllLines(BookFile).ToList();
             List<Book> books = new List<Book>();
 
             foreach (string row in rows.Skip(1))
             {
                 string[] split = row.Split(',');
 
-                Book book = new Book()
+                if (split.Length >= 9) //checks if row has out of range index
                 {
-                    id = split[0],
-                    cover = split[1],
-                    title = textInfo.ToTitleCase(split[2]),
-                    authorFirstName = textInfo.ToTitleCase(split[3]),
-                    authorLastName = textInfo.ToTitleCase(split[4]),
-                    subject = textInfo.ToTitleCase(split[5]),
-                    summary = split[6],
-                    isLoaned = bool.Parse(split[7]),
-                    isReserved = bool.Parse(split[8]),
-                };
+                    Book book = new Book()
+                    {
+                        id = split[0],
+                        cover = split[1],
+                        title = textInfo.ToTitleCase(split[2]),
+                        authorFirstName = textInfo.ToTitleCase(split[3]),
+                        authorLastName = textInfo.ToTitleCase(split[4]),
+                        subject = textInfo.ToTitleCase(split[5]),
+                        summary = split[6],
+                        isLoaned = bool.Parse(split[7]),
+                        isReserved = bool.Parse(split[8])
+                    };
 
-                books.Add(book);
+                    books.Add(book);
+                }
+                else
+                {
+                    Console.WriteLine($"Invalid row: {row}");
+                }
             }
 
             return books;
         }
 
-        //Searches 'reserveInformation' database and adds all reserves into the 'reserves' list.
+        //reads all reserve info from file and adds to a list
         public static List<Reserve> LoadReserves()
         {
             List<string> rows = File.ReadAllLines(ReserveFile).ToList();
@@ -115,7 +160,7 @@ namespace LMS
             {
                 string[] split = row.Split(',');
                 string bookId = split[0];
-                Book book = LoadBookById(bookId);
+                Book book = LoadBookById(bookId); //links reserve to book
 
                 if (book == null)
                 {
@@ -130,11 +175,11 @@ namespace LMS
                     book = book
                 };
 
-                reserve.isAvailableToLoan = !book.isLoaned;
+                reserve.isAvailableToLoan = !reserve.book.isLoaned; //checks if reserve is available to loan by checking if it's book is loaned or not
 
                 if (reserve.dateDueBack != "Now")
                 {
-                    reserve.dateDueBack = DateTime.Parse(reserve.dateDueBack).ToString("MM/dd");
+                    reserve.dateDueBack = DateTime.Parse(reserve.dateDueBack).ToString("MM/dd"); //formats the date from yyyy/MM/dd to just MM/dd, unless the date is "now"
                 }
 
                 reserves.Add(reserve);
@@ -143,6 +188,7 @@ namespace LMS
             return reserves;
         }
 
+        //reads info from file and adds to list
         public static List<Loan> LoadLoans()
         {
             List<string> rows = File.ReadAllLines(LoanFile).ToList();
@@ -153,7 +199,7 @@ namespace LMS
             {
                 string[] split = row.Split(',');
                 string bookId = split[0];
-                Book book = LoadBookById(bookId);
+                Book book = LoadBookById(bookId); //links loan to book
 
                 Loan loan = new Loan(book, new Member())
                 {
@@ -161,11 +207,26 @@ namespace LMS
                     dateDue = split[2],
                 };
 
-                loan.isDue = DateTime.Parse(loan.dateDue) <= MainWindow.currentDate; //checks if duedate is past currentdate
+                loans.Add(loan);
+            }
 
-                DateTime dueDate = DateTime.Parse(loan.dateDue);
-                TimeSpan timeDifference = dueDate.Subtract(MainWindow.currentDate);
-                if (loan.isDue)
+            CheckLoanDates(loans);
+
+            return loans;
+        }
+
+        //checks the due date for the loans and writes logs to files accordingly
+        private static void CheckLoanDates(List<Loan> loans)
+        {
+            DateTime dueDate;
+            TimeSpan timeDifference;
+
+            foreach (Loan loan in loans)
+            {
+                dueDate = DateTime.Parse(loan.dateDue);
+                timeDifference = dueDate.Subtract(MainWindow.currentDate);
+
+                if (dueDate <= MainWindow.currentDate) //checks if duedate is past currentdate/due
                 {
                     string overdueMessage = "Book: " + loan.bookId + ", Loaned by: " + loan.memberId + ", Overdue at: " + MainWindow.currentDate;
                     if (!File.ReadAllText(OverdueLog).Contains(overdueMessage)) //checks if the message is already in the log
@@ -182,44 +243,13 @@ namespace LMS
                     }
                 }
 
-                loan.dateDue = DateTime.Parse(loan.dateDue).ToString("MM/dd");
-
-                loans.Add(loan);
+                loan.dateDue = DateTime.Parse(loan.dateDue).ToString("MM/dd"); //formats the date from yyyy/MM/dd to just MM/dd, unless the date is "now"
             }
-
-            return loans;
         }
 
-
-        //Loads all reserves and returns all 'member's sReserves' that match the logged-in member's i.d
-        public static List<Reserve> LoadMembersReserves(Member member)
-        {
-            List<Reserve> membersReserves = new List<Reserve>();
-            foreach (Reserve reserve in allReserves) //checks what reserves match the members id
-            {
-                if (reserve.memberId == member.id)
-                {
-                    membersReserves.Add(reserve);
-                }
-            }
-            return membersReserves;
-        }
-        public static List<Loan> LoadMembersLoans(Member member)
-        {
-            List<Loan> membersLoans = new List<Loan>();
-            foreach (Loan loan in allLoans)
-            {
-                if (loan.memberId == member.id)
-                {
-                    membersLoans.Add(loan);
-                }
-            }
-            return membersLoans;
-        }
         private static Book LoadBookById(string bookId)
         {
-            List<Book> books = LoadBooks();
-            foreach (Book book in books)
+            foreach (Book book in allBooks)
             {
                 if (book.id == bookId)
                 {
@@ -228,6 +258,9 @@ namespace LMS
             }
             return null;
         }
+
+        //WRITE METHODS
+
         public static void WriteAllBooks(List<Book> books)
         {
             List<string> bookRows = new List<string>();
