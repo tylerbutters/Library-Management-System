@@ -30,12 +30,28 @@ namespace LMS.Pages.AdminPages
         public AddBookPage()
         {
             InitializeComponent();
+
+            KeyDown += AddBookPageKeyDown;
         }
-        private string GenerateBookID()
+
+        private void AddBookPageKeyDown(object sender, KeyEventArgs e)
         {
-            int min = 10000;
-            int max = 99999;
-            return "B" + new Random().Next(min, max);
+            if (e.Key == Key.Enter)
+            {
+                if (!ValidateInputs())
+                {
+                    return;
+                }
+                SaveNewBook();
+            }
+        }
+        private void SaveButtonClick(object sender, RoutedEventArgs e)
+        {
+            if (!ValidateInputs())
+            {
+                return;
+            }
+            SaveNewBook();
         }
 
         //Select Image File button handler
@@ -44,16 +60,18 @@ namespace LMS.Pages.AdminPages
             imageAddress = SelectImageDialog();
             CoverImage.Source = new BitmapImage(new Uri(imageAddress));
         }
+
+        //brings up file explorer to choose image
         private string SelectImageDialog()
         {
             OpenFileDialog openFileDialog = new OpenFileDialog
             {
-                Filter = "All Files (*.*)|*.*",
+                Filter = "Image Files(*.jpg, *.jpeg, *.png, *.gif) | *.jpg; *.jpeg; *.png; *.gif",
                 InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop),
                 Title = "Select a cover image"
             };
 
-            bool? result = openFileDialog.ShowDialog();
+            bool? result = openFileDialog.ShowDialog(); //if user chose an image
 
             if (result == true)
             {
@@ -67,16 +85,10 @@ namespace LMS.Pages.AdminPages
                 return null;
             }
         }
-        private void SaveNewBookButtonClick(object sender, RoutedEventArgs e)
-        {
-            //only filters in accounts of type Book
-            List<Book> currentBooks = FileManagement.LoadBooks();
 
-            if (titleInput.Text == "" || authorFirstNameInput.Text == "" || authorLastNameInput.Text == "" || subjectInput.Text == "" || summaryInput.Text == "")
-            {
-                MessageBox.Show("Please Enter all feilds");
-                return;
-            }
+        private void SaveNewBook()
+        {
+            List<Book> currentBooks = FileManagement.LoadBooks();
 
             string cleanedTitle = string.Join("_", System.IO.Path.GetInvalidFileNameChars().Aggregate(titleInput.Text, (current, c) => current.Replace(c.ToString(), ""))).Replace(" ", "_").ToLower();
             string writeImagePath = System.IO.Path.Combine(@".\CoverImages\", $"{cleanedTitle}.png");
@@ -117,6 +129,29 @@ namespace LMS.Pages.AdminPages
             summaryInput.Text = "";
             selectedImageAddress.Text = "";
         }
+        private string GenerateBookID()
+        {
+            int min = 10000;
+            int max = 99999;
+            return "B" + new Random().Next(min, max);
+        }
+
+        //checks inputs in box
+        private bool ValidateInputs()
+        {
+            if (string.IsNullOrEmpty(titleInput.Text) ||
+                string.IsNullOrEmpty(authorFirstNameInput.Text) ||
+                string.IsNullOrEmpty(authorLastNameInput.Text) ||
+                string.IsNullOrEmpty(subjectInput.Text) ||
+                string.IsNullOrEmpty(summaryInput.Text))
+            {
+                MessageBox.Show("Please enter all fields.");
+                return false;
+            }
+
+            return true;
+        }
+
         private void BackButtonClick(object sender, RoutedEventArgs e)
         {
             NavigateToBookPage?.Invoke(sender, e);

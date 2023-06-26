@@ -40,6 +40,8 @@ namespace LMS.Pages.AdminPages
             addMemberPage.NavigateToMemberPage += SearchMembers;
             addBookPage.NavigateToBookPage += SearchBooks;
         }
+
+        //removes loan from file and updates book's status
         private void ReturnLoan(object sender, Loan loan)
         {
             member.loanedBooks.Remove(loan);
@@ -55,6 +57,8 @@ namespace LMS.Pages.AdminPages
             FileManagement.RemoveLoan(loan);
             FileManagement.WriteAllBooks(books);
         }
+
+        //creates new loan object, changes its book statuses accordingly, then writes to file.
         private void PlaceLoan(object sender, Reserve reserve)
         {
             Loan newLoan = new Loan(reserve.book, member)
@@ -78,6 +82,7 @@ namespace LMS.Pages.AdminPages
             FileManagement.RemoveReserve(reserve);
             FileManagement.WriteAllBooks(books);
         }
+
         public void NavigateToViewMemberPage(object sender, RoutedEventArgs e)
         {
             member = memberTable.selectedMember;
@@ -87,16 +92,19 @@ namespace LMS.Pages.AdminPages
             viewMemberPage.ReturnLoan += ReturnLoan;
             PageContent.Content = viewMemberPage;
         }
+
         public void NavigateToViewBookPage(object sender, RoutedEventArgs e)
         {
             viewBookPage = new ViewBookPage(bookTable.selectedBook);
             viewBookPage.NavigateToBookPage += SearchBooks;
             PageContent.Content = viewBookPage;
         }
+
         private void LogoutButtonClick(object sender, RoutedEventArgs e)
         {
             NavigateToLoginPage?.Invoke(sender, e);
         }
+
         private void AddButtonClick(object sender, RoutedEventArgs e)
         {
             if (isOnMemberPage)
@@ -120,6 +128,7 @@ namespace LMS.Pages.AdminPages
             memberTable = new MemberTable(new List<Member>());
             PageContent.Content = memberTable;
         }
+
         private void BookPageButtonClick(object sender, RoutedEventArgs e)
         {
             SearchBar.Text = "";
@@ -132,6 +141,7 @@ namespace LMS.Pages.AdminPages
             bookTable = new BookTable(new List<Book>());
             PageContent.Content = bookTable;
         }
+
         private void SearchbarKeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
@@ -146,6 +156,7 @@ namespace LMS.Pages.AdminPages
                 }
             }
         }
+
         private void SearchIconButtonClick(object sender, RoutedEventArgs e)
         {
             if (isOnMemberPage)
@@ -157,9 +168,9 @@ namespace LMS.Pages.AdminPages
                 SearchBooks(sender, e);
             }
         }
+
         private void SearchMembers(object sender, RoutedEventArgs e)
         {
-
             string searchInput = SearchBar.Text.Trim();
 
             if (!string.IsNullOrEmpty(searchInput))
@@ -170,15 +181,16 @@ namespace LMS.Pages.AdminPages
                     member.lastName.IndexOf(searchInput, StringComparison.OrdinalIgnoreCase) >= 0 ||
                     member.email.IndexOf(searchInput, StringComparison.OrdinalIgnoreCase) >= 0
                 ).ToList();
+
                 memberTable = new MemberTable(searchResults);
                 memberTable.MemberGrid.SelectionChanged += memberTable.MemberDataGridSelectionChanged;
                 memberTable.NavigateToViewMemberPage += NavigateToViewMemberPage;
                 PageContent.Content = memberTable;
             }
         }
+
         private void SearchBooks(object sender, RoutedEventArgs e)
         {
-            PageContent.Content = bookTable;
             string searchInput = SearchBar.Text.Trim();
 
             if (!string.IsNullOrEmpty(searchInput))
@@ -197,6 +209,7 @@ namespace LMS.Pages.AdminPages
                 PageContent.Content = bookTable;
             }
         }
+
         private void SearchBarGotFocus(object sender, RoutedEventArgs e)
         {
             if (SearchBar.Text == "Search...")
@@ -206,6 +219,7 @@ namespace LMS.Pages.AdminPages
                 SearchBar.Foreground = Brushes.Black;
             }
         }
+
         private void SearchBarLostFocus(object sender, RoutedEventArgs e)
         {
             if (string.IsNullOrEmpty(SearchBar.Text))

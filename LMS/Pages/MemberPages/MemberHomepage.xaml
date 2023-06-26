@@ -156,11 +156,11 @@
                                                                 <TextBlock.Style>
                                                                     <Style TargetType="TextBlock">
                                                                         <Style.Triggers>
-                                                                            <DataTrigger Binding="{Binding isAvailableToLoan}" Value="False">
+                                                                            <DataTrigger Binding="{Binding book.isLoaned}" Value="True">
                                                                                 <Setter Property="Text" Value="Unavailable" />
                                                                                 <Setter Property="Foreground" Value="red"/>
                                                                             </DataTrigger>
-                                                                            <DataTrigger Binding="{Binding isAvailableToLoan}" Value="True">
+                                                                            <DataTrigger Binding="{Binding book.isLoaned}" Value="False">
                                                                                 <Setter Property="Text" Value="Available" />
                                                                                 <Setter Property="Foreground" Value="#3AA220"/>
                                                                             </DataTrigger>

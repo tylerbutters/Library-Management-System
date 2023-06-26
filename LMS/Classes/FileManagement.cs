@@ -21,9 +21,10 @@ namespace LMS
         private const string NearDueLog = @".\Logs\nearDueLogs.csv";
         private const string OverdueLog = @".\Logs\overdueLogs.csv";
 
-        private static List<Loan> allLoans = LoadLoans();
-        private static List<Reserve> allReserves = LoadReserves();
-        private static List<Book> allBooks = LoadBooks();
+        //private static List<Book> allBooks = LoadBooks();
+        //private static List<Loan> allLoans = LoadLoans();
+        //private static List<Reserve> allReserves = LoadReserves();
+
 
         //READ METHODS
 
@@ -33,7 +34,7 @@ namespace LMS
             if (!File.Exists(AccountFile))
             {
                 // Handle the scenario where the account file is missing
-                throw new FileNotFoundException("Account file not found.");
+                throw new FileNotFoundException("file not found.");
             }
 
             CultureInfo cultureInfo = CultureInfo.CurrentCulture;
@@ -47,36 +48,29 @@ namespace LMS
                 {
                     string[] split = row.Split(',');
 
-                    if (split.Length >= 5) //checks if row has out of range index
+                    if (split[0].StartsWith("M")) //if Id starts with M
                     {
-                        if (split[0].StartsWith("M")) //if Id starts with M
+                        Member member = new Member
                         {
-                            Member member = new Member
-                            {
-                                id = split[0],
-                                pin = split[1],
-                                firstName = textInfo.ToTitleCase(split[2]),
-                                lastName = textInfo.ToTitleCase(split[3]),
-                                email = split[4]
-                            };
+                            id = split[0],
+                            pin = split[1],
+                            firstName = textInfo.ToTitleCase(split[2]),
+                            lastName = textInfo.ToTitleCase(split[3]),
+                            email = split[4]
+                        };
 
 
-                            accounts.Add(member);
-                        }
-                        else
-                        {
-                            Admin admin = new Admin
-                            {
-                                id = split[0],
-                                pin = split[1]
-                            };
-
-                            accounts.Add(admin);
-                        }
+                        accounts.Add(member);
                     }
                     else
                     {
-                        Console.WriteLine($"Invalid row: {row}");
+                        Admin admin = new Admin
+                        {
+                            id = split[0],
+                            pin = split[1]
+                        };
+
+                        accounts.Add(admin);
                     }
                 }
                 LoadMembersReserves(accounts.OfType<Member>().ToList());
@@ -95,24 +89,32 @@ namespace LMS
         //Loads all reserves and returns all 'member's Reserves' that match the logged-in member's i.d
         public static void LoadMembersReserves(List<Member> members)
         {
+            List<Reserve> reserves = LoadReserves();
             foreach (Member member in members) //checks what reserves match the members id
             {
-                member.reservedBooks = allReserves.Where(reserve => reserve.memberId == member.id).ToList();
+                member.reservedBooks = reserves.Where(reserve => reserve.memberId == member.id).ToList();
             }
         }
 
         //Loads all loans and returns all 'member's loans' that match the logged-in member's i.d
         public static void LoadMembersLoans(List<Member> members)
         {
+            List<Loan> loans = LoadLoans();
             foreach (Member member in members) //checks what reserves match the members id
             {
-                member.loanedBooks = allLoans.Where(reserve => reserve.memberId == member.id).ToList();
+                member.loanedBooks = loans.Where(reserve => reserve.memberId == member.id).ToList();
             }
         }
 
         //reads book data from file, splits the data into individual properties and adds them to a list. The list of Book objects is then returned as the result of the method.
         public static List<Book> LoadBooks()
         {
+            if (!File.Exists(BookFile))
+            {
+                // Handle the scenario where the account file is missing
+                throw new FileNotFoundException("file not found.");
+            }
+
             CultureInfo cultureInfo = CultureInfo.CurrentCulture;
             TextInfo textInfo = cultureInfo.TextInfo;
 
@@ -152,6 +154,12 @@ namespace LMS
         //reads all reserve info from file and adds to a list
         public static List<Reserve> LoadReserves()
         {
+            if (!File.Exists(ReserveFile))
+            {
+                // Handle the scenario where the account file is missing
+                throw new FileNotFoundException("file not found.");
+            }
+
             List<string> rows = File.ReadAllLines(ReserveFile).ToList();
 
             List<Reserve> reserves = new List<Reserve>();
@@ -160,7 +168,7 @@ namespace LMS
             {
                 string[] split = row.Split(',');
                 string bookId = split[0];
-                Book book = LoadBookById(bookId); //links reserve to book
+                Book book = LoadBooks().FirstOrDefault(b => b.id == bookId); //links reserve to book
 
                 if (book == null)
                 {
@@ -175,7 +183,7 @@ namespace LMS
                     book = book
                 };
 
-                reserve.isAvailableToLoan = !reserve.book.isLoaned; //checks if reserve is available to loan by checking if it's book is loaned or not
+                //reserve.isAvailableToLoan = !reserve.book.isLoaned; //checks if reserve is available to loan by checking if it's book is loaned or not
 
                 if (reserve.dateDueBack != "Now")
                 {
@@ -191,6 +199,12 @@ namespace LMS
         //reads info from file and adds to list
         public static List<Loan> LoadLoans()
         {
+            if (!File.Exists(LoanFile))
+            {
+                // Handle the scenario where the account file is missing
+                throw new FileNotFoundException("file not found.");
+            }
+
             List<string> rows = File.ReadAllLines(LoanFile).ToList();
 
             List<Loan> loans = new List<Loan>();
@@ -199,7 +213,7 @@ namespace LMS
             {
                 string[] split = row.Split(',');
                 string bookId = split[0];
-                Book book = LoadBookById(bookId); //links loan to book
+                Book book = LoadBooks().FirstOrDefault(b => b.id == bookId); //links loan to book
 
                 Loan loan = new Loan(book, new Member())
                 {
@@ -245,18 +259,6 @@ namespace LMS
 
                 loan.dateDue = DateTime.Parse(loan.dateDue).ToString("MM/dd"); //formats the date from yyyy/MM/dd to just MM/dd, unless the date is "now"
             }
-        }
-
-        private static Book LoadBookById(string bookId)
-        {
-            foreach (Book book in allBooks)
-            {
-                if (book.id == bookId)
-                {
-                    return book;
-                }
-            }
-            return null;
         }
 
         //WRITE METHODS

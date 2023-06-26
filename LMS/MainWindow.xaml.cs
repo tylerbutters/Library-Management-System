@@ -24,8 +24,9 @@ namespace LMS
     /// </summary>
     public partial class MainWindow : Window
     {
-        private static string dateString { get; set; } = "2023/05/25";
+        private static string dateString { get; set; } = "2023/05/25"; //simulated time for the application
         public static DateTime currentDate { get; set; } = DateTime.Parse(dateString);
+
         private LoginPage loginPage { get; set; }
         private MemberMainPage memberMainPage { get; set; }
         private AdminMainPage adminMainPage { get; set; }
@@ -39,18 +40,21 @@ namespace LMS
             loginPage.NavigateToMemberMainPage += NavigateToMemberMainPage;
             loginPage.NavigateToAdminMainPage += NavigateToAdminMainPage;
         }
+
         public void NavigateToMemberMainPage(object sender, RoutedEventArgs e)
         {
             memberMainPage = new MemberMainPage(loginPage.loggedInMember);
             memberMainPage.NavigateToLoginPage += NavigateToLoginPage;
             MainWindowFrame.Content = memberMainPage;
         }
+
         public void NavigateToAdminMainPage(object sender, RoutedEventArgs e)
         {
             adminMainPage = new AdminMainPage();
             adminMainPage.NavigateToLoginPage += NavigateToLoginPage;
             MainWindowFrame.Content = adminMainPage;
         }
+
         public void NavigateToLoginPage(object sender, RoutedEventArgs e)
         {
             loginPage = new LoginPage();

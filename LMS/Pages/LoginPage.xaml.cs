@@ -25,19 +25,29 @@ namespace LMS.Pages
         public event EventHandler<RoutedEventArgs> NavigateToMemberMainPage;
         public event EventHandler<RoutedEventArgs> NavigateToAdminMainPage;
         public Member loggedInMember { get; set; }
-        private List<Account> accounts { get; set; } = FileManagement.LoadAccounts();
         public LoginPage()
         {
             InitializeComponent();
 
-            IDInput.KeyDown += LoginFeildsKeyDown;
-            PINInput.KeyDown += LoginFeildsKeyDown;
+            KeyDown += LoginKeyDown;
         }
-        public Account AuthenticateLoginDetails()
+        private void LoginKeyDown(object sender, KeyEventArgs e)
         {
-            string idInput = IDInput.Text;
-            string pinInput = PINInput.Text;
+            if (e.Key == Key.Enter)
+            {
+                HandleAuthentication(sender, e);
+            }
+        }
 
+        private void LoginButtonClick(object sender, RoutedEventArgs e)
+        {
+            HandleAuthentication(sender, e);
+        }
+
+        //returns authenticated account
+        public Account AuthenticateLoginDetails(string idInput, string pinInput)
+        {
+            List<Account> accounts = FileManagement.LoadAccounts();
             foreach (Account account in accounts)
             {
                 if (account.id == idInput && account.pin == pinInput)
@@ -48,10 +58,20 @@ namespace LMS.Pages
 
             return null;
         }
+
         //checks the account type and Navigates them to their respective page
         private void HandleAuthentication(object sender, RoutedEventArgs e)
         {
-            Account authenticatedAccount = AuthenticateLoginDetails();
+            string idInput = IDInput.Text;
+            string pinInput = PINInput.Text;
+
+            if (string.IsNullOrEmpty(idInput) || string.IsNullOrEmpty(pinInput))
+            {
+                MessageBox.Show("Please enter both ID and PIN.");
+                return;
+            }
+
+            Account authenticatedAccount = AuthenticateLoginDetails(idInput, pinInput);
 
             if (authenticatedAccount != null)
             {
@@ -70,19 +90,6 @@ namespace LMS.Pages
             {
                 MessageBox.Show("Cannot find account with those details");
             }
-        }
-
-        private void LoginFeildsKeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key == Key.Enter)
-            {
-                HandleAuthentication(sender, e);
-            }
-        }
-
-        private void LoginButtonClick(object sender, RoutedEventArgs e)
-        {
-            HandleAuthentication(sender, e);
         }
 
         private void ExitButtonClick(object sender, RoutedEventArgs e)

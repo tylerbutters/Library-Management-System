@@ -161,7 +161,7 @@
                         </TextBox>
                     </StackPanel>
                         </Grid>
-                            <Button Content="Save" Click="SaveNewBookButtonClick" Width="200" Height="75" Margin="0 30 0 0"  FontSize="30" FontWeight="Black" Foreground="White" BorderThickness="0">
+                            <Button Content="Save" Click="SaveButtonClick" Width="200" Height="75" Margin="0 30 0 0"  FontSize="30" FontWeight="Black" Foreground="White" BorderThickness="0">
                         <Button.Style>
                             <Style TargetType="{x:Type Button}">
                                 <Setter Property="Background" Value="#bcce50"/>

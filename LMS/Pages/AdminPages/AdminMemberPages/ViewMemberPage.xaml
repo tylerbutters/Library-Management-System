@@ -326,11 +326,11 @@
                                                                         <TextBlock.Style>
                                                                             <Style TargetType="TextBlock">
                                                                                 <Style.Triggers>
-                                                                                    <DataTrigger Binding="{Binding isAvailableToLoan}" Value="False">
+                                                                                    <DataTrigger Binding="{Binding book.isLoaned}" Value="True">
                                                                                         <Setter Property="Text" Value="Unavailable" />
                                                                                         <Setter Property="Foreground" Value="red"/>
                                                                                     </DataTrigger>
-                                                                                    <DataTrigger Binding="{Binding isAvailableToLoan}" Value="True">
+                                                                                    <DataTrigger Binding="{Binding book.isLoaned}" Value="False">
                                                                                         <Setter Property="Text" Value="Available" />
                                                                                         <Setter Property="Foreground" Value="#3AA220"/>
                                                                                     </DataTrigger>
@@ -340,7 +340,7 @@
                                                                     </TextBlock>
                                                                 </StackPanel>
                                                                 <StackPanel Grid.Column="1">
-                                                                    <Button Content="Loan" Click="LoanButtonClick" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="110" Height="30" FontSize="20" FontWeight="Black" Foreground="White" BorderThickness="0" Margin="5 0 0 2.5" Visibility="{Binding isAvailableToLoan, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                                                    <Button Content="Loan" Click="LoanButtonClick" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="110" Height="30" FontSize="20" FontWeight="Black" Foreground="White" BorderThickness="0" Margin="5 0 0 2.5" Visibility="{Binding book.isLoaned}">
                                                                         <Button.Style>
                                                                             <Style TargetType="{x:Type Button}">
                                                                                 <Setter Property="Background" Value="#417422"/>

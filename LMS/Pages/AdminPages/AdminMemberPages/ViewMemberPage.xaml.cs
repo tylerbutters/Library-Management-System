@@ -26,8 +26,8 @@ namespace LMS.Pages.AdminPages
         public event EventHandler<RoutedEventArgs> NavigateToMemberPage;
         public event EventHandler<Reserve> PlaceLoan;
         public event EventHandler<Loan> ReturnLoan;
-        private bool isEditing { get; set; } = false;
-        private bool isConfirmed { get; set; } = false;
+        private bool isEditing { get; set; }
+        private bool isConfirmed { get; set; }
         private Member member { get; set; }
 
         //Member info from login and member class's are passed through parameters and displayed in each text example.
@@ -35,7 +35,10 @@ namespace LMS.Pages.AdminPages
         {
             InitializeComponent();
 
+            isEditing = false;
+            isConfirmed = false;
             member = _member;
+
             ID.Text = member.id;
             PIN.Text = member.pin;
             FirstName.Text = member.firstName;
@@ -43,11 +46,6 @@ namespace LMS.Pages.AdminPages
             Email.Text = member.email;
             ReservesArea.ItemsSource = member.reservedBooks;
             LoansArea.ItemsSource = member.loanedBooks;
-        }
-
-        private void BackButtonClick(object sender, RoutedEventArgs e)
-        {
-            NavigateToMemberPage?.Invoke(sender, e);
         }
 
         private void EditCancelButtonClick(object sender, RoutedEventArgs e)
@@ -59,7 +57,6 @@ namespace LMS.Pages.AdminPages
                 SaveButton.Visibility = Visibility.Visible;
                 DeleteButton.Visibility = Visibility.Visible;
                 EditCancelButton.Content = "Cancel";
-
 
                 PIN.Background = (Brush)new BrushConverter().ConvertFrom("#e7ead4");
                 PIN.Padding = new Thickness(20, 0, 0, 0);
@@ -80,7 +77,6 @@ namespace LMS.Pages.AdminPages
                 SaveButton.Visibility = Visibility.Hidden;
                 DeleteButton.Visibility = Visibility.Hidden;
                 EditCancelButton.Content = "Edit";
-
 
                 PIN.Background = Brushes.Transparent;
                 PIN.Padding = new Thickness(0);
@@ -103,15 +99,14 @@ namespace LMS.Pages.AdminPages
             }
         }
 
-
-        public void SaveButtonClick(object sender, RoutedEventArgs e)
+        private void SaveButtonClick(object sender, RoutedEventArgs e)
         {
             Member changedInfo = new Member { id = ID.Text, pin = PIN.Text, firstName = FirstName.Text, lastName = LastName.Text, email = Email.Text };
             FileManagement.EditMember(member, changedInfo);
-            
-            EditCancelButtonClick(sender, e);
 
+            EditCancelButtonClick(sender, e);
         }
+
         private void DeleteButtonClick(object sender, RoutedEventArgs e)
         {
             if (!isConfirmed)
@@ -137,15 +132,16 @@ namespace LMS.Pages.AdminPages
             ReservesArea.ItemsSource = null;
             ReservesArea.ItemsSource = member.reservedBooks;
         }
+
         private void ReturnButtonClick(object sender, RoutedEventArgs e)
         {
             Loan selectedLoan = (sender as Button).DataContext as Loan;
             ReturnLoan?.Invoke(sender, selectedLoan);
-            
 
             LoansArea.ItemsSource = null;
             LoansArea.ItemsSource = member.loanedBooks;
         }
+
         private void LoanButtonClick(object sender, RoutedEventArgs e)
         {
             Reserve selectedReserve = (sender as Button).DataContext as Reserve;
@@ -155,6 +151,11 @@ namespace LMS.Pages.AdminPages
             LoansArea.ItemsSource = member.loanedBooks;
             ReservesArea.ItemsSource = null;
             ReservesArea.ItemsSource = member.reservedBooks;
+        }
+
+        private void BackButtonClick(object sender, RoutedEventArgs e)
+        {
+            NavigateToMemberPage?.Invoke(sender, e);
         }
     }
 }

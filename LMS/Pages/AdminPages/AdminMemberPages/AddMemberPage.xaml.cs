@@ -25,21 +25,34 @@ namespace LMS.Pages.AdminPages
         public AddMemberPage()
         {
             InitializeComponent();
+
+            KeyDown += AddMemberPageKeyDown;
         }
-        public string GenerateMemberID()
+
+        private void AddMemberPageKeyDown(object sender, KeyEventArgs e)
         {
-            int min = 10000; 
-            int max = 99999;
-            return "M" + new Random().Next(min, max);
+            if (e.Key == Key.Enter)
+            {
+                if (!ValidateInputs())
+                {
+                    return;
+                }
+                SaveNewMember();
+            }
         }
-        public string GenerateMemberPIN()
+        private void SaveButtonClick(object sender, RoutedEventArgs e)
         {
-            int min = 1000;
-            int max = 9999;
-            return new Random().Next(min, max).ToString();
+            if (!ValidateInputs())
+            {
+                return;
+            }
+            SaveNewMember();
         }
-        private void SaveNewMemberButtonClick(object sender, RoutedEventArgs e)
+
+        private void SaveNewMember()
         {
+            List<Member> currentMembers = FileManagement.LoadMembers();
+
             Member newMember = new Member
             {
                 id = GenerateMemberID(),
@@ -48,8 +61,6 @@ namespace LMS.Pages.AdminPages
                 lastName = lastNameInput.Text,
                 email = emailInput.Text
             };
-
-            List<Member> currentMembers = FileManagement.LoadMembers();
 
             //Check to see if PIN or email already exist and generate new ones if they do
             foreach (Member currentMember in currentMembers)
@@ -65,18 +76,40 @@ namespace LMS.Pages.AdminPages
                 }
             }
 
-            if (firstNameInput.Text == "" || lastNameInput.Text == "" || emailInput.Text == "")
-            {
-                MessageBox.Show("Please Enter all feilds");
-                return;
-            }
-
             FileManagement.SaveNewMember(newMember);
 
             firstNameInput.Text = "";
             lastNameInput.Text = "";
             emailInput.Text = "";
         }
+
+        public string GenerateMemberID()
+        {
+            int min = 10000;
+            int max = 99999;
+            return "M" + new Random().Next(min, max);
+        }
+
+        public string GenerateMemberPIN()
+        {
+            int min = 1000;
+            int max = 9999;
+            return new Random().Next(min, max).ToString();
+        }
+
+        private bool ValidateInputs()
+        {
+            if (string.IsNullOrEmpty(firstNameInput.Text) ||
+                string.IsNullOrEmpty(lastNameInput.Text) ||
+                string.IsNullOrEmpty(emailInput.Text))
+            {
+                MessageBox.Show("Please enter all fields.");
+                return false;
+            }
+
+            return true;
+        }
+
         private void BackButtonClick(object sender, RoutedEventArgs e)
         {
             NavigateToMemberPage?.Invoke(sender, e);

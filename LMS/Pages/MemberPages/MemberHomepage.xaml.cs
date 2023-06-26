@@ -20,17 +20,19 @@ namespace LMS.Pages.MemberPages
     /// </summary>
     public partial class MemberHomePage : Page
     {
-        public event EventHandler<Book> CancelReserve;
+        public event EventHandler<Reserve> CancelReserve;
+        public event EventHandler<Loan> RenewLoan;
         public Member member { get; set; }
         public MemberHomePage(Member loggedInMember)
         {
             InitializeComponent();
             member = loggedInMember;
+
             ID.Text = member.id;
             FirstName.Text = member.firstName;
             LastName.Text = member.lastName;
             Email.Text = member.email;
-            
+
             ReservesArea.ItemsSource = member.reservedBooks;
             LoansArea.ItemsSource = member.loanedBooks;
         }
@@ -40,14 +42,19 @@ namespace LMS.Pages.MemberPages
         private void CancelButtonClick(object sender, RoutedEventArgs e)
         {
             Reserve selectedReserve = (sender as Button).DataContext as Reserve;
-            CancelReserve?.Invoke(sender, selectedReserve.book);
+            CancelReserve?.Invoke(sender, selectedReserve);
 
             ReservesArea.ItemsSource = null;
             ReservesArea.ItemsSource = member.reservedBooks;
         }
+
         private void RenewButtonClick(object sender, RoutedEventArgs e)
         {
+            Loan selectedLoan = (sender as Button).DataContext as Loan;
+            RenewLoan?.Invoke(sender, selectedLoan);
 
+            LoansArea.ItemsSource = null;
+            LoansArea.ItemsSource = member.loanedBooks;
         }
     }
 }

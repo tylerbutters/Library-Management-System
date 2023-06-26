@@ -23,16 +23,20 @@ namespace LMS.Pages.AdminPages
     public partial class ViewBookPage : Page
     {
         public event EventHandler<RoutedEventArgs> NavigateToBookPage;
-        private bool isEditing { get; set; } = false;
-        private bool isConfirmed { get; set; } = false;
-        private bool isCoverChanged { get; set; } = false;
+        private bool isEditing { get; set; }
+        private bool isConfirmed { get; set; }
+        private bool isCoverChanged { get; set; }
         public Book book { get; set; }
         private string imageAddress { get; set; }
         public ViewBookPage(Book _book)
         {
             InitializeComponent();
 
+            isEditing = false;
+            isConfirmed = false;
+            isCoverChanged = false;
             book = _book;
+
             ID.Text = book.id;
             CoverImage.Source = new BitmapImage(new Uri(book.cover, UriKind.Relative));
             Title.Text = book.title;
@@ -42,10 +46,6 @@ namespace LMS.Pages.AdminPages
             Summary.Text = book.summary;
             Cover.Text = book.cover;
             imageAddress = book.cover;
-        }
-        private void BackButtonClick(object sender, RoutedEventArgs e)
-        {
-            NavigateToBookPage?.Invoke(sender, e);
         }
 
         private void EditCancelButtonClick(object sender, RoutedEventArgs e)
@@ -117,12 +117,13 @@ namespace LMS.Pages.AdminPages
                 Cover.Text = book.cover;
             }
         }
-       
+
         private void SelectImageButtonClick(object sender, RoutedEventArgs e)
         {
             imageAddress = SelectImageDialog();
             CoverImage.Source = new BitmapImage(new Uri(imageAddress, UriKind.Relative));
         }
+
         private string SelectImageDialog()
         {
             OpenFileDialog openFileDialog = new OpenFileDialog
@@ -148,6 +149,7 @@ namespace LMS.Pages.AdminPages
                 return null;
             }
         }
+
         private void SaveButtonClick(object sender, RoutedEventArgs e)
         {
             string cleanedTitle = "";
@@ -170,6 +172,7 @@ namespace LMS.Pages.AdminPages
             FileManagement.EditBook(book, changedInfo);
             EditCancelButtonClick(sender, e);
         }
+
         private void DeleteButtonClick(object sender, RoutedEventArgs e)
         {
             if (!isConfirmed)
@@ -186,6 +189,10 @@ namespace LMS.Pages.AdminPages
                     NavigationService.GoBack();
                 }
             }
+        }
+        private void BackButtonClick(object sender, RoutedEventArgs e)
+        {
+            NavigateToBookPage?.Invoke(sender, e);
         }
     }
 

@@ -21,42 +21,18 @@ namespace LMS.Pages.MemberPages
     public partial class MemberMainPage : Page
     {
         public event EventHandler<RoutedEventArgs> NavigateToLoginPage;
-
-        //memberHomePage and bookResultsPage are components within the MemberMainPage
         private MemberHomePage memberHomePage { get; set; }
         private BookResultsPage bookResultsPage { get; set; }
-
-        //holds the details of the currently logged-in member.
         public Member member { get; set; }
 
-        //loggedinMember is passed through during LoginPage authentication.
-        //'memberHomepage' is automatically initializaed and assigned to the PageContent.
-        //Subcribes to the 'memberHomePage.CancelReserve' event so 'CancelReserve' function runs if the 'CancelButtonClick' in 'MemberHomePage'  is clicked.
         public MemberMainPage(Member loggedInMember)
         {
             InitializeComponent();
             member = loggedInMember;
             memberHomePage = new MemberHomePage(member);
             PageContent.Content = memberHomePage;
+            memberHomePage.RenewLoan += RenewLoan;
             memberHomePage.CancelReserve += CancelReserve;
-        }
-
-        //Searches for the book associated with the passed 'book' object
-        //updates the 'isReserved' status in 'bookInformation.csv' and Removes book from 'member.reservedBooks'
-        private void CancelReserve(object sender, Book book)
-        {
-            Reserve reserve = member.reservedBooks.FirstOrDefault(r => r.bookId == book.id);
-            List<Book> books = FileManagement.LoadBooks();
-            foreach (Book _book in books)
-            {
-                if (_book.id == reserve.bookId)
-                {
-                    _book.isReserved = false;
-                }
-            }
-            FileManagement.WriteAllBooks(books);
-            member.reservedBooks.Remove(reserve);
-            FileManagement.RemoveReserve(reserve);
         }
 
         //initializes a new 'Reserve' object with the clicked 'book' and 'member'
@@ -91,6 +67,40 @@ namespace LMS.Pages.MemberPages
             FileManagement.SaveNewReserve(newReserve);
             FileManagement.WriteAllBooks(books);
         }
+
+        //Searches for the book associated with the passed 'book' object
+        //updates the 'isReserved' status in 'bookInformation.csv' and Removes book from 'member.reservedBooks'
+        private void CancelReserve(object sender, Reserve reserve)
+        {
+            List<Book> books = FileManagement.LoadBooks();
+            foreach (Book _book in books)
+            {
+                if (_book.id == reserve.bookId)
+                {
+                    _book.isReserved = false;
+                }
+            }
+            FileManagement.WriteAllBooks(books);
+            member.reservedBooks.Remove(reserve);
+            FileManagement.RemoveReserve(reserve);
+        }
+
+        private void RenewLoan(object sender, Loan loan)
+        {
+            member.loanedBooks.Remove(loan);
+            FileManagement.RemoveLoan(loan);
+
+            DateTime dateDue = DateTime.Parse($"{MainWindow.currentDate.Year}/" + loan.dateDue);
+            loan.dateDue = dateDue.AddDays(7).ToString("yyyy/MM/dd"); //adds 7 days to loan
+            FileManagement.SaveNewLoan(loan);
+
+
+            loan.dateDue = DateTime.Parse(loan.dateDue).ToString("MM/dd"); //immediately changes format for viewing in program.
+            member.loanedBooks.Add(loan);
+
+            //MessageBox.Show("Book renewed for 7 days");
+        }
+
         private void SearchbarKeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
@@ -98,10 +108,12 @@ namespace LMS.Pages.MemberPages
                 SearchBooks(sender, e);
             }
         }
+
         private void SearchIconButtonClick(object sender, RoutedEventArgs e)
         {
             SearchBooks(sender, e);
         }
+
         private void SearchBooks(object sender, RoutedEventArgs e)
         {
             string searchInput = SearchBar.Text.Trim();
@@ -114,12 +126,13 @@ namespace LMS.Pages.MemberPages
                     book.authorLastName.IndexOf(searchInput, StringComparison.OrdinalIgnoreCase) >= 0 ||
                     book.subject.IndexOf(searchInput, StringComparison.OrdinalIgnoreCase) >= 0
                 ).ToList();
+
                 bookResultsPage = new BookResultsPage(searchResults, searchInput);
                 bookResultsPage.PlaceReserve += PlaceReserve;
-                bookResultsPage.CancelReserve += CancelReserve;
                 PageContent.Content = bookResultsPage;
             }
         }
+
         private void SearchBarGotFocus(object sender, RoutedEventArgs e)
         {
             if (SearchBar.Text == "Search...")
@@ -147,6 +160,7 @@ namespace LMS.Pages.MemberPages
         {
             memberHomePage = new MemberHomePage(member);
             memberHomePage.CancelReserve += CancelReserve;
+            memberHomePage.RenewLoan += RenewLoan;
             PageContent.Content = memberHomePage;
         }
     }
