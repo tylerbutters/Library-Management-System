@@ -126,40 +126,59 @@ namespace LMS.Pages.AdminPages
 
         private void CancelButtonClick(object sender, RoutedEventArgs e)
         {
-            Reserve selectedReserve = (sender as Button).DataContext as Reserve;
-            CancelReserve?.Invoke(sender, selectedReserve);
+            MessageBoxResult result = MessageBox.Show("Are you sure you want to cancel?", "Confirmation", MessageBoxButton.YesNo);
 
-            ReservesArea.ItemsSource = null;
-            ReservesArea.ItemsSource = member.reservedBooks;
+            if (result == MessageBoxResult.Yes)
+            {
+                Reserve selectedReserve = (sender as Button).DataContext as Reserve;
+                CancelReserve?.Invoke(sender, selectedReserve);
+                ReservesArea.ItemsSource = null;
+                ReservesArea.ItemsSource = member.reservedBooks;
+            }
         }
-        
+
         private void LoanButtonClick(object sender, RoutedEventArgs e)
         {
-            Reserve selectedReserve = (sender as Button).DataContext as Reserve;
-            PlaceLoan?.Invoke(sender, selectedReserve);
+            MessageBoxResult result = MessageBox.Show("Are you sure you want to loan?", "Confirmation", MessageBoxButton.YesNo);
 
-            LoansArea.ItemsSource = null;
-            LoansArea.ItemsSource = member.loanedBooks;
-            ReservesArea.ItemsSource = null;
-            ReservesArea.ItemsSource = member.reservedBooks;
+            if (result == MessageBoxResult.Yes)
+            {
+                Reserve selectedReserve = (sender as Button).DataContext as Reserve;
+                PlaceLoan?.Invoke(sender, selectedReserve);
+
+                LoansArea.ItemsSource = null;
+                LoansArea.ItemsSource = member.loanedBooks;
+                ReservesArea.ItemsSource = null;
+                ReservesArea.ItemsSource = member.reservedBooks;
+            }
         }
 
         private void ReturnButtonClick(object sender, RoutedEventArgs e)
         {
-            Loan selectedLoan = (sender as Button).DataContext as Loan;
-            ReturnLoan?.Invoke(sender, selectedLoan);
+            MessageBoxResult result = MessageBox.Show("Are you sure you want to return?", "Confirmation", MessageBoxButton.YesNo);
 
-            LoansArea.ItemsSource = null;
-            LoansArea.ItemsSource = member.loanedBooks;
+            if (result == MessageBoxResult.Yes)
+            {
+                Loan selectedLoan = (sender as Button).DataContext as Loan;
+                ReturnLoan?.Invoke(sender, selectedLoan);
+
+                LoansArea.ItemsSource = null;
+                LoansArea.ItemsSource = member.loanedBooks;
+            }
         }
 
         private void RenewButtonClick(object sender, RoutedEventArgs e)
         {
-            Loan selectedLoan = (sender as Button).DataContext as Loan;
-            RenewLoan?.Invoke(sender, selectedLoan);
+            MessageBoxResult result = MessageBox.Show("Are you sure you want to renew?", "Confirmation", MessageBoxButton.YesNo);
 
-            LoansArea.ItemsSource = null;
-            LoansArea.ItemsSource = member.loanedBooks;
+            if (result == MessageBoxResult.Yes)
+            {
+                Loan selectedLoan = (sender as Button).DataContext as Loan;
+                RenewLoan?.Invoke(sender, selectedLoan);
+
+                LoansArea.ItemsSource = null;
+                LoansArea.ItemsSource = member.loanedBooks;
+            }
         }
 
         private void BackButtonClick(object sender, RoutedEventArgs e)

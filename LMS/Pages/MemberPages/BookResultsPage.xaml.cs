@@ -73,10 +73,15 @@ namespace LMS.Pages.MemberPages
             }
             else //button says "cancel"
             {
-                Reserve reservedBook = member.reservedBooks.FirstOrDefault(reserve => reserve.bookId == selectedBook.id);
-                CancelReserve?.Invoke(sender, reservedBook);
-                selectedBook.isReservedByUser = false;
-                selectedBook.isReserved = false;
+                MessageBoxResult result = MessageBox.Show("Are you sure you want to cancel?", "Confirmation", MessageBoxButton.YesNo);
+
+                if (result == MessageBoxResult.Yes)
+                {
+                    Reserve reservedBook = member.reservedBooks.FirstOrDefault(reserve => reserve.bookId == selectedBook.id);
+                    CancelReserve?.Invoke(sender, reservedBook);
+                    selectedBook.isReservedByUser = false;
+                    selectedBook.isReserved = false;
+                }
             }
 
             ResultsContainer.ItemsSource = null;

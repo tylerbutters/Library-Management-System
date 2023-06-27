@@ -41,20 +41,30 @@ namespace LMS.Pages.MemberPages
         //Passes the 'selectedReserve.book' as an argument so the 'CancelReserve' method knows which book was selected.
         private void CancelButtonClick(object sender, RoutedEventArgs e)
         {
-            Reserve selectedReserve = (sender as Button).DataContext as Reserve;
-            CancelReserve?.Invoke(sender, selectedReserve);
+            MessageBoxResult result = MessageBox.Show("Are you sure you want to cancel?", "Confirmation", MessageBoxButton.YesNo);
 
-            ReservesArea.ItemsSource = null;
-            ReservesArea.ItemsSource = member.reservedBooks;
+            if (result == MessageBoxResult.Yes)
+            {
+                Reserve selectedReserve = (sender as Button).DataContext as Reserve;
+                CancelReserve?.Invoke(sender, selectedReserve);
+
+                ReservesArea.ItemsSource = null;
+                ReservesArea.ItemsSource = member.reservedBooks;
+            }
         }
 
         private void RenewButtonClick(object sender, RoutedEventArgs e)
         {
-            Loan selectedLoan = (sender as Button).DataContext as Loan;
-            RenewLoan?.Invoke(sender, selectedLoan);
+            MessageBoxResult result = MessageBox.Show("Are you sure you want to renew?", "Confirmation", MessageBoxButton.YesNo);
 
-            LoansArea.ItemsSource = null;
-            LoansArea.ItemsSource = member.loanedBooks;
+            if (result == MessageBoxResult.Yes)
+            {
+                Loan selectedLoan = (sender as Button).DataContext as Loan;
+                RenewLoan?.Invoke(sender, selectedLoan);
+
+                LoansArea.ItemsSource = null;
+                LoansArea.ItemsSource = member.loanedBooks;
+            }
         }
     }
 }

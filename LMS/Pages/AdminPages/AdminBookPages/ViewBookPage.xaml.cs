@@ -24,7 +24,6 @@ namespace LMS.Pages.AdminPages
     {
         public event EventHandler<RoutedEventArgs> NavigateToBookPage;
         private bool isEditing { get; set; }
-        private bool isConfirmed { get; set; }
         private bool isCoverChanged { get; set; }
         private Book book { get; set; }
         private string imageAddress { get; set; }
@@ -33,7 +32,6 @@ namespace LMS.Pages.AdminPages
             InitializeComponent();
 
             isEditing = false;
-            isConfirmed = false;
             isCoverChanged = false;
             book = _book;
 
@@ -53,7 +51,6 @@ namespace LMS.Pages.AdminPages
             if (!isEditing)
             {
                 isEditing = true;
-                isConfirmed = false;
                 SaveButton.Visibility = Visibility.Visible;
                 DeleteButton.Visibility = Visibility.Visible;
                 SelectImageButton.Visibility = Visibility.Visible;
@@ -152,49 +149,46 @@ namespace LMS.Pages.AdminPages
 
         private void SaveButtonClick(object sender, RoutedEventArgs e)
         {
-            string cleanedTitle = "";
-            if (isCoverChanged)
-            {
-                cleanedTitle = string.Join("_", System.IO.Path.GetInvalidFileNameChars().Aggregate(Title.Text, (current, c) => current.Replace(c.ToString(), ""))).Replace(" ", "_").ToLower();
-                string writeImagePath = System.IO.Path.Combine(@".\CoverImages\", $"{cleanedTitle}.png");
-                if (book.cover == "NO_COVER") //if theres no image
-                {
-                    File.Copy(imageAddress, writeImagePath);
-                }
-                else
-                {
-                    File.Copy(imageAddress, writeImagePath, true);
-                }
-            }
-            string readImagePath = System.IO.Path.Combine(@"/CoverImages/", $"{cleanedTitle}.png");
-            Book changedInfo = new Book { id = ID.Text, cover = readImagePath, title = Title.Text, authorFirstName = AuthorFirstName.Text, authorLastName = AuthorLastName.Text, subject = Subject.Text, summary = Summary.Text };
+            MessageBoxResult result = MessageBox.Show("Are you sure you want to save?", "Confirmation", MessageBoxButton.YesNo);
 
-            FileManagement.EditBook(book, changedInfo);
-            EditCancelButtonClick(sender, e);
+            if (result == MessageBoxResult.Yes)
+            {
+                string cleanedTitle = "";
+                if (isCoverChanged)
+                {
+                    cleanedTitle = string.Join("_", System.IO.Path.GetInvalidFileNameChars().Aggregate(Title.Text, (current, c) => current.Replace(c.ToString(), ""))).Replace(" ", "_").ToLower();
+                    string writeImagePath = System.IO.Path.Combine(@".\CoverImages\", $"{cleanedTitle}.png");
+                    if (book.cover == "NO_COVER") //if theres no image
+                    {
+                        File.Copy(imageAddress, writeImagePath);
+                    }
+                    else
+                    {
+                        File.Copy(imageAddress, writeImagePath, true);
+                    }
+                }
+                string readImagePath = System.IO.Path.Combine(@"/CoverImages/", $"{cleanedTitle}.png");
+                Book changedInfo = new Book { id = ID.Text, cover = readImagePath, title = Title.Text, authorFirstName = AuthorFirstName.Text, authorLastName = AuthorLastName.Text, subject = Subject.Text, summary = Summary.Text };
+
+                FileManagement.EditBook(book, changedInfo);
+                EditCancelButtonClick(sender, e);
+            }
         }
 
         private void DeleteButtonClick(object sender, RoutedEventArgs e)
         {
-            if (!isConfirmed)
-            {
-                isConfirmed = true;
-                DeleteButton.Content = "Confirm?";
-            }
-            else
+            MessageBoxResult result = MessageBox.Show("Are you sure you want to delete?", "Confirmation", MessageBoxButton.YesNo);
+
+            if (result == MessageBoxResult.Yes)
             {
                 FileManagement.DeleteBook(book);
-                isConfirmed = false;
-                if (NavigationService != null && NavigationService.CanGoBack)
-                {
-                    NavigationService.GoBack();
-                }
+                NavigateToBookPage?.Invoke(sender, e);
             }
         }
-        
+
         private void BackButtonClick(object sender, RoutedEventArgs e)
         {
             NavigateToBookPage?.Invoke(sender, e);
         }
     }
-
 }
