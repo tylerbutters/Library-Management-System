@@ -26,7 +26,7 @@ namespace LMS.Pages.AdminPages
         private bool isEditing { get; set; }
         private bool isConfirmed { get; set; }
         private bool isCoverChanged { get; set; }
-        public Book book { get; set; }
+        private Book book { get; set; }
         private string imageAddress { get; set; }
         public ViewBookPage(Book _book)
         {
@@ -190,6 +190,7 @@ namespace LMS.Pages.AdminPages
                 }
             }
         }
+        
         private void BackButtonClick(object sender, RoutedEventArgs e)
         {
             NavigateToBookPage?.Invoke(sender, e);
