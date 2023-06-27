@@ -25,7 +25,9 @@ namespace LMS.Pages.AdminPages
     {
         public event EventHandler<RoutedEventArgs> NavigateToMemberPage;
         public event EventHandler<Reserve> PlaceLoan;
+        public event EventHandler<Reserve> CancelReserve;
         public event EventHandler<Loan> ReturnLoan;
+        public event EventHandler<Loan> RenewLoan;
         private bool isEditing { get; set; }
         private bool isConfirmed { get; set; }
         private Member member { get; set; }
@@ -125,10 +127,18 @@ namespace LMS.Pages.AdminPages
         private void CancelButtonClick(object sender, RoutedEventArgs e)
         {
             Reserve selectedReserve = (sender as Button).DataContext as Reserve;
-            selectedReserve.book.isReserved = false;
-            member.reservedBooks.Remove(selectedReserve);
-            FileManagement.RemoveReserve(selectedReserve);
+            CancelReserve?.Invoke(sender, selectedReserve);
 
+            ReservesArea.ItemsSource = null;
+            ReservesArea.ItemsSource = member.reservedBooks;
+        }
+        private void LoanButtonClick(object sender, RoutedEventArgs e)
+        {
+            Reserve selectedReserve = (sender as Button).DataContext as Reserve;
+            PlaceLoan?.Invoke(sender, selectedReserve);
+
+            LoansArea.ItemsSource = null;
+            LoansArea.ItemsSource = member.loanedBooks;
             ReservesArea.ItemsSource = null;
             ReservesArea.ItemsSource = member.reservedBooks;
         }
@@ -142,15 +152,13 @@ namespace LMS.Pages.AdminPages
             LoansArea.ItemsSource = member.loanedBooks;
         }
 
-        private void LoanButtonClick(object sender, RoutedEventArgs e)
+        private void RenewButtonClick(object sender, RoutedEventArgs e)
         {
-            Reserve selectedReserve = (sender as Button).DataContext as Reserve;
-            PlaceLoan?.Invoke(sender, selectedReserve);
+            Loan selectedLoan = (sender as Button).DataContext as Loan;
+            RenewLoan?.Invoke(sender, selectedLoan);
 
             LoansArea.ItemsSource = null;
             LoansArea.ItemsSource = member.loanedBooks;
-            ReservesArea.ItemsSource = null;
-            ReservesArea.ItemsSource = member.reservedBooks;
         }
 
         private void BackButtonClick(object sender, RoutedEventArgs e)

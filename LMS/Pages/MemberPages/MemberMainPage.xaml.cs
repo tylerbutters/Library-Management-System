@@ -50,44 +50,41 @@ namespace LMS.Pages.MemberPages
         {
             Reserve newReserve = new Reserve(_book, member);
             List<Book> books = FileManagement.LoadBooks();
-            foreach (Book book in books)
+            Book reservedBook = books.FirstOrDefault(book => book.id == newReserve.bookId);
+
+            if (reservedBook != null)
             {
-                if (book.id == newReserve.bookId)
+                reservedBook.isReserved = true;
+
+                if (reservedBook.isLoaned)
                 {
-                    book.isReserved = true;
-                    if (book.isLoaned)
+                    Loan loan = FileManagement.LoadLoans().FirstOrDefault(l => l.bookId == reservedBook.id);
+                    if (loan != null)
                     {
-                        List<Loan> loans = FileManagement.LoadLoans();
-                        foreach (Loan loan in loans)
-                        {
-                            if (book.id == loan.bookId)
-                            {
-                                newReserve.dateDueBack = loan.dateDue;
-                            }
-                        }
-                    }
-                    else
-                    {
-                        newReserve.dateDueBack = "Now";
+                        newReserve.dateDueBack = loan.dateDue;
                     }
                 }
+                else
+                {
+                    newReserve.dateDueBack = "Now";
+                }
             }
+
             member.reservedBooks.Add(newReserve);
             FileManagement.SaveNewReserve(newReserve);
             FileManagement.WriteAllBooks(books);
         }
+
 
         //Searches for the book associated with the passed 'book' object
         //updates the 'isReserved' status in 'bookInformation.csv' and Removes book from 'member.reservedBooks'
         private void CancelReserve(object sender, Reserve reserve)
         {
             List<Book> books = FileManagement.LoadBooks();
-            foreach (Book book in books)
+            Book reservedBook = books.FirstOrDefault(book => book.id == reserve.bookId);
+            if (reservedBook != null)
             {
-                if (book.id == reserve.bookId)
-                {
-                    book.isReserved = false;
-                }
+                reservedBook.isReserved = false;
             }
             FileManagement.WriteAllBooks(books);
             member.reservedBooks.Remove(reserve);
