@@ -24,7 +24,7 @@ namespace LMS.Pages.MemberPages
         private MemberHomePage memberHomePage { get; set; }
         private BookResultsPage bookResultsPage { get; set; }
         private BookInfoPage bookInfoPage { get; set; }
-        public Member member { get; set; }
+        private Member member { get; set; }
 
         public MemberMainPage(Member loggedInMember)
         {
@@ -36,11 +36,12 @@ namespace LMS.Pages.MemberPages
             memberHomePage.CancelReserve += CancelReserve;
         }
 
-        private void NavigateToBookInfoPage(object sender, Book _book)
+        private void NavigateToBookInfoPage(object sender, Book book)
         {
-            bookInfoPage = new BookInfoPage(_book);
+            bookInfoPage = new BookInfoPage(book, member);
             bookInfoPage.NavigateBackToResults += SearchBooks;
             bookInfoPage.PlaceReserve += PlaceReserve;
+            bookInfoPage.CancelReserve += CancelReserve;
             PageContent.Content = bookInfoPage;
         }
         //initializes a new 'Reserve' object with the clicked 'book' and 'member'

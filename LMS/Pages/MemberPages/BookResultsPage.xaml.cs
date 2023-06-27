@@ -73,14 +73,7 @@ namespace LMS.Pages.MemberPages
             }
             else //button says "cancel"
             {
-                Reserve reservedBook = null;
-                foreach (Reserve reserve in member.reservedBooks)
-                {
-                    if (reserve.bookId == selectedBook.id)
-                    {
-                        reservedBook = reserve;
-                    }
-                }
+                Reserve reservedBook = member.reservedBooks.FirstOrDefault(reserve => reserve.bookId == selectedBook.id);
                 CancelReserve?.Invoke(sender, reservedBook);
                 selectedBook.isReservedByUser = false;
                 selectedBook.isReserved = false;
