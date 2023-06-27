@@ -20,8 +20,7 @@ namespace LMS.Pages.AdminPages
     /// </summary>
     public partial class MemberTable : Page
     {
-        public event EventHandler<RoutedEventArgs> NavigateToViewMemberPage;
-        public Member selectedMember { get; set; }
+        public event EventHandler<Member> NavigateToViewMemberPage;
         public MemberTable(List<Member> searchResults)
         {
             InitializeComponent();
@@ -30,13 +29,11 @@ namespace LMS.Pages.AdminPages
                 NoResultsText.Visibility = Visibility.Visible;
             }
             MemberGrid.ItemsSource = searchResults;
-            MemberGrid.SelectionChanged += MemberDataGridSelectionChanged;
         }
-        public void MemberDataGridSelectionChanged(object sender, SelectionChangedEventArgs e)
+        public void MemberClicked(object sender, SelectionChangedEventArgs e)
         {
-            selectedMember = (Member)MemberGrid.SelectedItem;
-
-            NavigateToViewMemberPage?.Invoke(sender, e);
+            Member selectedMember = MemberGrid.SelectedItem as Member;
+            NavigateToViewMemberPage?.Invoke(sender, selectedMember);
         }
     }
 }

@@ -22,7 +22,7 @@ namespace LMS.Pages.AdminPages
     public partial class AdminMainPage : Page
     {
         public event EventHandler<RoutedEventArgs> NavigateToLoginPage;
-        private bool isOnMemberPage { get; set; } = true;
+        private bool isOnMemberPage { get; set; }
         private MemberTable memberTable { get; set; }
         private AddMemberPage addMemberPage { get; set; } = new AddMemberPage();
         private ViewMemberPage viewMemberPage { get; set; }
@@ -30,10 +30,12 @@ namespace LMS.Pages.AdminPages
         private AddBookPage addBookPage { get; set; } = new AddBookPage();
         private ViewBookPage viewBookPage { get; set; }
         private Member member { get; set; }
+        private Book book { get; set; }
 
         public AdminMainPage()
         {
             InitializeComponent();
+            isOnMemberPage = true;
             memberTable = new MemberTable(new List<Member>());
             PageContent.Content = memberTable;
 
@@ -55,6 +57,27 @@ namespace LMS.Pages.AdminPages
 
             FileManagement.RemoveLoan(loan);
             FileManagement.WriteAllBooks(books);
+        }
+
+        private void RenewLoan(object sender, Loan loan)
+        {
+            DateTime dueDate = DateTime.Parse($"{MainWindow.currentDate.Year}/" + loan.dueDate);
+            TimeSpan difference = dueDate.Subtract(MainWindow.currentDate);
+
+            if (difference.Days < 2)
+            {
+                member.loanedBooks.Remove(loan);
+                FileManagement.RemoveLoan(loan);
+                loan.dueDate = dueDate.AddDays(7).ToString("yyyy/MM/dd"); //adds 7 days to loan
+                FileManagement.SaveNewLoan(loan);
+                loan.dueDate = DateTime.Parse(loan.dueDate).ToString("MM/dd"); //immediately changes format for viewing in program.
+                member.loanedBooks.Add(loan);
+                MessageBox.Show("Book renewed for 7 days");
+            }
+            else
+            {
+                MessageBox.Show("Please wait " + difference.Days + " more days until renewing");
+            }
         }
 
         private void CancelReserve(object sender, Reserve reserve)
@@ -95,31 +118,10 @@ namespace LMS.Pages.AdminPages
             FileManagement.WriteAllBooks(books);
         }
 
-
-        private void RenewLoan(object sender, Loan loan)
+        public void NavigateToViewMemberPage(object sender, Member selectedMember)
         {
-            DateTime dueDate = DateTime.Parse($"{MainWindow.currentDate.Year}/" + loan.dueDate);
-            TimeSpan difference = dueDate.Subtract(MainWindow.currentDate);
-
-            if (difference.Days < 2)
-            {
-                member.loanedBooks.Remove(loan);
-                FileManagement.RemoveLoan(loan);
-                loan.dueDate = dueDate.AddDays(7).ToString("yyyy/MM/dd"); //adds 7 days to loan
-                FileManagement.SaveNewLoan(loan);
-                loan.dueDate = DateTime.Parse(loan.dueDate).ToString("MM/dd"); //immediately changes format for viewing in program.
-                member.loanedBooks.Add(loan);
-                MessageBox.Show("Book renewed for 7 days");
-            }
-            else
-            {
-                MessageBox.Show("Please wait " + difference.Days + " more days until renewing");
-            }
-        }
-        public void NavigateToViewMemberPage(object sender, RoutedEventArgs e)
-        {
-            member = memberTable.selectedMember;
-            viewMemberPage = new ViewMemberPage(memberTable.selectedMember);
+            member = selectedMember;
+            viewMemberPage = new ViewMemberPage(selectedMember);
             viewMemberPage.NavigateToMemberPage += SearchMembers;
             viewMemberPage.PlaceLoan += PlaceLoan;
             viewMemberPage.ReturnLoan += ReturnLoan;
@@ -128,9 +130,10 @@ namespace LMS.Pages.AdminPages
             PageContent.Content = viewMemberPage;
         }
 
-        public void NavigateToViewBookPage(object sender, RoutedEventArgs e)
+        public void NavigateToViewBookPage(object sender, Book selectedBook)
         {
-            viewBookPage = new ViewBookPage(bookTable.selectedBook);
+            book = selectedBook;
+            viewBookPage = new ViewBookPage(book);
             viewBookPage.NavigateToBookPage += SearchBooks;
             PageContent.Content = viewBookPage;
         }
@@ -151,6 +154,7 @@ namespace LMS.Pages.AdminPages
                 PageContent.Content = addBookPage;
             }
         }
+
         private void MemberPageButtonClick(object sender, RoutedEventArgs e)
         {
             SearchBar.Text = "";
@@ -218,7 +222,7 @@ namespace LMS.Pages.AdminPages
                 ).ToList();
 
                 memberTable = new MemberTable(searchResults);
-                memberTable.MemberGrid.SelectionChanged += memberTable.MemberDataGridSelectionChanged;
+                memberTable.MemberGrid.SelectionChanged += memberTable.MemberClicked;
                 memberTable.NavigateToViewMemberPage += NavigateToViewMemberPage;
                 PageContent.Content = memberTable;
             }
@@ -239,7 +243,7 @@ namespace LMS.Pages.AdminPages
                 ).ToList();
 
                 bookTable = new BookTable(searchResults);
-                bookTable.BookGrid.SelectionChanged += bookTable.BookDataGridSelectionChanged;
+                bookTable.BookGrid.SelectionChanged += bookTable.BookClicked;
                 bookTable.NavigateToViewBookPage += NavigateToViewBookPage;
                 PageContent.Content = bookTable;
             }

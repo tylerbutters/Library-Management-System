@@ -21,7 +21,6 @@ namespace LMS.Pages.AdminPages
     public partial class BookTable : Page
     {
         public event EventHandler<RoutedEventArgs> NavigateToViewBookPage;
-        public Book selectedBook { get; set; }
         public BookTable(List<Book> searchResults)
         {
             InitializeComponent();
@@ -30,12 +29,11 @@ namespace LMS.Pages.AdminPages
                 NoResultsText.Visibility = Visibility.Visible;
             }
             BookGrid.ItemsSource = searchResults;
-            BookGrid.SelectionChanged += BookDataGridSelectionChanged;
+            BookGrid.SelectionChanged += BookClicked;
         }
-        public void BookDataGridSelectionChanged(object sender, SelectionChangedEventArgs e)
+        public void BookClicked(object sender, SelectionChangedEventArgs e)
         {
-            selectedBook = (Book)BookGrid.SelectedItem;
-
+            Book selectedBook = BookGrid.SelectedItem as Book;
             NavigateToViewBookPage?.Invoke(sender, e);
         }
     }

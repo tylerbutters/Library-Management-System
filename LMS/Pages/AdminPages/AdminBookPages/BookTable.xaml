@@ -23,7 +23,7 @@
               CanUserResizeRows="False"
               VerticalContentAlignment="Center" 
               BorderThickness="0"
-              GridLinesVisibility="None" SelectionChanged="BookDataGridSelectionChanged">
+              GridLinesVisibility="None" SelectionChanged="BookClicked">
 
             <DataGrid.Resources>
                 <Style BasedOn="{StaticResource {x:Type DataGridColumnHeader}}" TargetType="{x:Type DataGridColumnHeader}">

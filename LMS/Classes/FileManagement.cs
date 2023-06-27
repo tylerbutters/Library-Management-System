@@ -21,11 +21,6 @@ namespace LMS
         private const string NearDueLog = @".\Logs\nearDueLogs.csv";
         private const string OverdueLog = @".\Logs\overdueLogs.csv";
 
-        //private static List<Book> allBooks = LoadBooks();
-        //private static List<Loan> allLoans = LoadLoans();
-        //private static List<Reserve> allReserves = LoadReserves();
-
-
         //READ METHODS
 
         //loads all accounts, splits the members and admins. the members info is read from file then populates their loan and reserve lists with functions.
@@ -386,7 +381,7 @@ namespace LMS
             List<string> rows = File.ReadAllLines(LoanFile).ToList();
             rows.Remove(loanString);
 
-            File.AppendAllText(ReturnLog, "Book: " + loan.bookId + ", Loaned by: " + loan.memberId + ", Returned at: " + MainWindow.currentDate);
+            File.AppendAllText(ReturnLog, "Book: " + loan.bookId + ", Loaned by: " + loan.memberId + ", Returned at: " + MainWindow.currentDate + Environment.NewLine);
             File.WriteAllLines(LoanFile, rows);
         }
     }
