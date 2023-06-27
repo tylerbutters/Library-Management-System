@@ -75,11 +75,11 @@ namespace LMS.Pages.AdminPages
         {
             Loan newLoan = new Loan(reserve.book, member)
             {
-                dateDue = MainWindow.currentDate.AddDays(14).ToString("yyyy/MM/dd") // Initially sets the date to proper format
+                dueDate = MainWindow.currentDate.AddDays(14).ToString("yyyy/MM/dd") // Initially sets the date to proper format
             };
             FileManagement.SaveNewLoan(newLoan);
 
-            newLoan.dateDue = DateTime.Parse(newLoan.dateDue).ToString("MM/dd"); // Immediately changes format for viewing in the program
+            newLoan.dueDate = DateTime.Parse(newLoan.dueDate).ToString("MM/dd"); // Immediately changes format for viewing in the program
             member.loanedBooks.Add(newLoan);
 
             List<Book> books = FileManagement.LoadBooks();
@@ -98,16 +98,16 @@ namespace LMS.Pages.AdminPages
 
         private void RenewLoan(object sender, Loan loan)
         {
-            DateTime dateDue = DateTime.Parse($"{MainWindow.currentDate.Year}/" + loan.dateDue);
-            TimeSpan difference = dateDue.Subtract(MainWindow.currentDate);
+            DateTime dueDate = DateTime.Parse($"{MainWindow.currentDate.Year}/" + loan.dueDate);
+            TimeSpan difference = dueDate.Subtract(MainWindow.currentDate);
 
             if (difference.Days < 2)
             {
                 member.loanedBooks.Remove(loan);
                 FileManagement.RemoveLoan(loan);
-                loan.dateDue = dateDue.AddDays(7).ToString("yyyy/MM/dd"); //adds 7 days to loan
+                loan.dueDate = dueDate.AddDays(7).ToString("yyyy/MM/dd"); //adds 7 days to loan
                 FileManagement.SaveNewLoan(loan);
-                loan.dateDue = DateTime.Parse(loan.dateDue).ToString("MM/dd"); //immediately changes format for viewing in program.
+                loan.dueDate = DateTime.Parse(loan.dueDate).ToString("MM/dd"); //immediately changes format for viewing in program.
                 member.loanedBooks.Add(loan);
                 MessageBox.Show("Book renewed for 7 days");
             }

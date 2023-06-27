@@ -1,2 +1,3 @@
-bookid,memberid,datedueback
+bookid,memberid,estAvailDate
 B97952,M12345,Now
+B61700,M1234,Now
