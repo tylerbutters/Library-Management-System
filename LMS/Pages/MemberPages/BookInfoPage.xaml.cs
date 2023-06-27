@@ -28,6 +28,10 @@ namespace LMS.Pages.MemberPages
         public BookInfoPage(Book _book, Member _member)
         {
             InitializeComponent();
+            if (_book is null || _member is null)
+            {
+                throw new NullReferenceException();
+            }
             book = _book;
             member = _member;
 
@@ -48,6 +52,10 @@ namespace LMS.Pages.MemberPages
                 if (result == MessageBoxResult.Yes)
                 {
                     Reserve reservedBook = member.reservedBooks.FirstOrDefault(reserve => reserve.bookId == book.id);
+                    if (reservedBook is null)
+                    {
+                        throw new NullReferenceException();
+                    }
                     CancelReserve?.Invoke(sender, reservedBook);
                     book.isReservedByUser = false;
                     book.isReserved = false;

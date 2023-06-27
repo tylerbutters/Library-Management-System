@@ -89,7 +89,6 @@ namespace LMS.Pages.AdminPages
 
         private void SaveNewBook()
         {
-
             List<Book> currentBooks = FileManagement.LoadBooks();
             string clippedTitle = titleInput.Text.Substring(0, Math.Min(titleInput.Text.Length, 40)); //cuts of image name from 40 characters
             string cleanedTitle = string.Join("_", System.IO.Path.GetInvalidFileNameChars().Aggregate(clippedTitle, (current, c) => current.Replace(c.ToString(), ""))).Replace(" ", "_").ToLower();

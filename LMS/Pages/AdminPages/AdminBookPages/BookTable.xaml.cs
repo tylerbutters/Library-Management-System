@@ -24,15 +24,28 @@ namespace LMS.Pages.AdminPages
         public BookTable(List<Book> searchResults)
         {
             InitializeComponent();
+
+            if (searchResults is null)
+            {
+                throw new NullReferenceException();
+            }
+
             if (searchResults.Count == 0)
             {
                 NoResultsText.Visibility = Visibility.Visible;
             }
+
             BookGrid.ItemsSource = searchResults;
         }
         public void BookClicked(object sender, SelectionChangedEventArgs e)
         {
             Book selectedBook = BookGrid.SelectedItem as Book;
+
+            if (selectedBook is null)
+            {
+                throw new NullReferenceException();
+            }
+
             NavigateToViewBookPage?.Invoke(sender, selectedBook);
         }
     }

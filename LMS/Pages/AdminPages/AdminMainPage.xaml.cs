@@ -46,14 +46,22 @@ namespace LMS.Pages.AdminPages
         //removes loan from file and updates book's status
         private void ReturnLoan(object sender, Loan loan)
         {
+            if (loan is null)
+            {
+                throw new NullReferenceException();
+            }
+
             member.loanedBooks.Remove(loan);
 
             List<Book> books = FileManagement.LoadBooks();
             Book returnedBook = books.FirstOrDefault(book => book.id == loan.bookId);
-            if (returnedBook != null)
+
+            if (returnedBook is null)
             {
-                returnedBook.isLoaned = false;
+                throw new NullReferenceException();
             }
+
+                returnedBook.isLoaned = false;
 
             FileManagement.RemoveLoan(loan);
             FileManagement.WriteAllBooks(books);
@@ -61,6 +69,11 @@ namespace LMS.Pages.AdminPages
 
         private void RenewLoan(object sender, Loan loan)
         {
+            if (loan is null)
+            {
+                throw new NullReferenceException();
+            }
+
             DateTime dueDate = DateTime.Parse($"{MainWindow.currentDate.Year}/" + loan.dueDate);
             TimeSpan difference = dueDate.Subtract(MainWindow.currentDate);
 
@@ -82,12 +95,20 @@ namespace LMS.Pages.AdminPages
 
         private void CancelReserve(object sender, Reserve reserve)
         {
+            if (reserve is null)
+            {
+                throw new NullReferenceException();
+            }
+
             List<Book> books = FileManagement.LoadBooks();
             Book reservedBook = books.FirstOrDefault(book => book.id == reserve.bookId);
-            if (reservedBook != null)
+
+            if (reservedBook is null)
             {
-                reservedBook.isReserved = false;
+                throw new NullReferenceException();
             }
+
+            reservedBook.isReserved = false;
             FileManagement.WriteAllBooks(books);
             member.reservedBooks.Remove(reserve);
             FileManagement.RemoveReserve(reserve);
@@ -96,6 +117,11 @@ namespace LMS.Pages.AdminPages
         //creates new loan object, changes its book statuses accordingly, then writes to file.
         private void PlaceLoan(object sender, Reserve reserve)
         {
+            if (reserve is null)
+            {
+                throw new NullReferenceException();
+            }
+
             Loan newLoan = new Loan(reserve.book, member)
             {
                 dueDate = MainWindow.currentDate.AddDays(14).ToString("yyyy/MM/dd") // Initially sets the date to proper format
@@ -107,12 +133,14 @@ namespace LMS.Pages.AdminPages
 
             List<Book> books = FileManagement.LoadBooks();
             Book loanedBook = books.FirstOrDefault(book => book.id == newLoan.bookId);
-            if (loanedBook != null)
+
+            if (loanedBook is null)
             {
-                loanedBook.isLoaned = true;
-                loanedBook.isReserved = false;
+                throw new NullReferenceException();
             }
 
+            loanedBook.isLoaned = true;
+            loanedBook.isReserved = false;
             member.reservedBooks.Remove(reserve);
             FileManagement.RemoveReserve(reserve);
             FileManagement.WriteAllBooks(books);
@@ -120,6 +148,11 @@ namespace LMS.Pages.AdminPages
 
         public void NavigateToViewMemberPage(object sender, Member selectedMember)
         {
+            if (selectedMember is null)
+            {
+                throw new NullReferenceException();
+            }
+
             member = selectedMember;
             viewMemberPage = new ViewMemberPage(selectedMember);
             viewMemberPage.NavigateToMemberPage += SearchMembers;
@@ -132,6 +165,11 @@ namespace LMS.Pages.AdminPages
 
         public void NavigateToViewBookPage(object sender, Book selectedBook)
         {
+            if (selectedBook is null)
+            {
+                throw new NullReferenceException();
+            }
+
             book = selectedBook;
             viewBookPage = new ViewBookPage(book);
             viewBookPage.NavigateToBookPage += SearchBooks;

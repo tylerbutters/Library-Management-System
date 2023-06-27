@@ -26,6 +26,12 @@ namespace LMS.Pages.MemberPages
         public MemberHomePage(Member loggedInMember)
         {
             InitializeComponent();
+
+            if (loggedInMember is null)
+            {
+                throw new NullReferenceException();
+            }
+
             member = loggedInMember;
 
             ID.Text = member.id;
@@ -46,6 +52,10 @@ namespace LMS.Pages.MemberPages
             if (result == MessageBoxResult.Yes)
             {
                 Reserve selectedReserve = (sender as Button).DataContext as Reserve;
+                if (selectedReserve is null)
+                {
+                    throw new NullReferenceException();
+                }
                 CancelReserve?.Invoke(sender, selectedReserve);
 
                 ReservesArea.ItemsSource = null;
@@ -60,6 +70,10 @@ namespace LMS.Pages.MemberPages
             if (result == MessageBoxResult.Yes)
             {
                 Loan selectedLoan = (sender as Button).DataContext as Loan;
+                if (selectedLoan is null)
+                {
+                    throw new NullReferenceException();
+                }
                 RenewLoan?.Invoke(sender, selectedLoan);
 
                 LoansArea.ItemsSource = null;

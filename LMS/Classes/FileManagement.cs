@@ -88,7 +88,7 @@ namespace LMS
         {
             if (members is null)
             {
-                throw new NullReferenceException("members is null.");
+                throw new NullReferenceException();
             }
 
             List<Reserve> reserves = LoadReserves();
@@ -103,7 +103,7 @@ namespace LMS
         {
             if (members is null)
             {
-                throw new NullReferenceException("members is null.");
+                throw new NullReferenceException();
             }
 
             List<Loan> loans = LoadLoans();
@@ -192,7 +192,7 @@ namespace LMS
 
                 if (book is null)
                 {
-                    throw new NullReferenceException("book is null");
+                    throw new NullReferenceException();
                 }
 
                 Reserve reserve = new Reserve(book, new Member())
@@ -239,7 +239,7 @@ namespace LMS
 
                 if (book is null)
                 {
-                    throw new NullReferenceException("book is null");
+                    throw new NullReferenceException();
                 }
 
                 Loan loan = new Loan(book, new Member())
@@ -299,7 +299,7 @@ namespace LMS
         {
             if (books is null)
             {
-                throw new NullReferenceException("books is null");
+                throw new NullReferenceException();
             }
             
             List<string> bookRows = new List<string>();
@@ -319,7 +319,7 @@ namespace LMS
         {
             if (newBook is null)
             {
-                throw new NullReferenceException("newbook is null");
+                throw new NullReferenceException();
             }
 
             string bookString = $"{newBook.id},{newBook.cover},{newBook.title.ToLower()},{newBook.authorFirstName.ToLower()},{newBook.authorLastName.ToLower()},{newBook.subject.ToLower()},{newBook.summary.ToLower()},{newBook.isLoaned},{newBook.isReserved}";
@@ -333,7 +333,7 @@ namespace LMS
         {
             if (newMember is null)
             {
-                throw new NullReferenceException("newmember is null");
+                throw new NullReferenceException();
             }
 
             string memberString = $"{newMember.id},{newMember.pin},{newMember.firstName.ToLower()},{newMember.lastName.ToLower()},{newMember.email}";
@@ -347,7 +347,7 @@ namespace LMS
         {
             if (book is null)
             {
-                throw new NullReferenceException("book is null");
+                throw new NullReferenceException();
             }
 
             string bookString = $"{book.id},{book.cover},{book.title.ToLower()},{book.authorFirstName.ToLower()},{book.authorLastName.ToLower()},{book.subject.ToLower()},{book.summary.ToLower()},{book.isLoaned},{book.isReserved}";
@@ -361,7 +361,7 @@ namespace LMS
         {
             if (member is null)
             {
-                throw new NullReferenceException("member is null");
+                throw new NullReferenceException();
             }
 
             string memberString = $"{member.id},{member.pin},{member.firstName.ToLower()},{member.lastName.ToLower()},{member.email}";
@@ -405,7 +405,7 @@ namespace LMS
         {
             if (reserve is null)
             {
-                throw new NullReferenceException("reserve is null");
+                throw new NullReferenceException();
             }
 
             //converts back to yyyy/MM/yy format unless date is "now"
@@ -428,7 +428,7 @@ namespace LMS
         {
             if (loan is null)
             {
-                throw new NullReferenceException("loan is null");
+                throw new NullReferenceException();
             }
 
             string loanString = $"{loan.bookId},{loan.memberId},{loan.dueDate}";
@@ -442,7 +442,7 @@ namespace LMS
         {
             if (reserve is null)
             {
-                throw new NullReferenceException("reserve is null");
+                throw new NullReferenceException();
             }
 
             //converts back to yyyy/MM/yy format unless date is "now"
@@ -465,7 +465,7 @@ namespace LMS
         {
             if (loan is null)
             {
-                throw new NullReferenceException("loan is null");
+                throw new NullReferenceException();
             }
 
             string loanString = $"{loan.bookId},{loan.memberId},{MainWindow.currentDate.Year}/{loan.dueDate}";
