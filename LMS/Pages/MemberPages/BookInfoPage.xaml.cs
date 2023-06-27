@@ -22,21 +22,32 @@ namespace LMS.Pages.MemberPages
     {
         public event EventHandler<RoutedEventArgs> NavigateBackToResults;
         public event EventHandler<Book> PlaceReserve;
+        public event EventHandler<Reserve> CancelReserve;
         private Book book { get; set; }
-        public BookInfoPage(Book _book)
+        private Member member { get; set; }
+        public BookInfoPage(Book _book, Member _member)
         {
             InitializeComponent();
             book = _book;
+            member = _member;
 
             DataContext = book;
         }
 
-        private void ReserveButtonClick(object sender, RoutedEventArgs e)
+        private void ReserveCancelButtonClick(object sender, RoutedEventArgs e)
         {
-            Book selectedBook = (sender as Button).DataContext as Book;
-
-            PlaceReserve?.Invoke(sender, selectedBook);
-            book.isReserved = true;
+            if (!book.isReservedByUser) //button says "reserve"
+            {
+                PlaceReserve?.Invoke(sender, book);
+                book.isReservedByUser = true;
+            }
+            else //button says "cancel"
+            {
+                Reserve reservedBook = member.reservedBooks.FirstOrDefault(reserve => reserve.bookId == book.id);
+                CancelReserve?.Invoke(sender, reservedBook);
+                book.isReservedByUser = false;
+                book.isReserved = false;
+            }
 
             DataContext = null;
             DataContext = book;

@@ -47,15 +47,27 @@ namespace LMS.Pages.AdminPages
             member.loanedBooks.Remove(loan);
 
             List<Book> books = FileManagement.LoadBooks();
-            foreach (Book book in books)
+            Book returnedBook = books.FirstOrDefault(book => book.id == loan.bookId);
+            if (returnedBook != null)
             {
-                if (book.id == loan.bookId)
-                {
-                    book.isLoaned = false;
-                }
+                returnedBook.isLoaned = false;
             }
+
             FileManagement.RemoveLoan(loan);
             FileManagement.WriteAllBooks(books);
+        }
+
+        private void CancelReserve(object sender, Reserve reserve)
+        {
+            List<Book> books = FileManagement.LoadBooks();
+            Book reservedBook = books.FirstOrDefault(book => book.id == reserve.bookId);
+            if (reservedBook != null)
+            {
+                reservedBook.isReserved = false;
+            }
+            FileManagement.WriteAllBooks(books);
+            member.reservedBooks.Remove(reserve);
+            FileManagement.RemoveReserve(reserve);
         }
 
         //creates new loan object, changes its book statuses accordingly, then writes to file.
@@ -63,26 +75,47 @@ namespace LMS.Pages.AdminPages
         {
             Loan newLoan = new Loan(reserve.book, member)
             {
-                dateDue = MainWindow.currentDate.AddDays(14).ToString("yyyy/MM/dd") //initally sets the date to proper format
+                dateDue = MainWindow.currentDate.AddDays(14).ToString("yyyy/MM/dd") // Initially sets the date to proper format
             };
             FileManagement.SaveNewLoan(newLoan);
 
-            newLoan.dateDue = DateTime.Parse(newLoan.dateDue).ToString("MM/dd"); //immediately changes format for viewing in program.
+            newLoan.dateDue = DateTime.Parse(newLoan.dateDue).ToString("MM/dd"); // Immediately changes format for viewing in the program
             member.loanedBooks.Add(newLoan);
+
             List<Book> books = FileManagement.LoadBooks();
-            foreach (Book book in books)
+            Book loanedBook = books.FirstOrDefault(book => book.id == newLoan.bookId);
+            if (loanedBook != null)
             {
-                if (book.id == newLoan.bookId)
-                {
-                    book.isLoaned = true;
-                    book.isReserved = false;
-                }
+                loanedBook.isLoaned = true;
+                loanedBook.isReserved = false;
             }
+
             member.reservedBooks.Remove(reserve);
             FileManagement.RemoveReserve(reserve);
             FileManagement.WriteAllBooks(books);
         }
 
+
+        private void RenewLoan(object sender, Loan loan)
+        {
+            DateTime dateDue = DateTime.Parse($"{MainWindow.currentDate.Year}/" + loan.dateDue);
+            TimeSpan difference = dateDue.Subtract(MainWindow.currentDate);
+
+            if (difference.Days < 2)
+            {
+                member.loanedBooks.Remove(loan);
+                FileManagement.RemoveLoan(loan);
+                loan.dateDue = dateDue.AddDays(7).ToString("yyyy/MM/dd"); //adds 7 days to loan
+                FileManagement.SaveNewLoan(loan);
+                loan.dateDue = DateTime.Parse(loan.dateDue).ToString("MM/dd"); //immediately changes format for viewing in program.
+                member.loanedBooks.Add(loan);
+                MessageBox.Show("Book renewed for 7 days");
+            }
+            else
+            {
+                MessageBox.Show("Please wait " + difference.Days + " more days until renewing");
+            }
+        }
         public void NavigateToViewMemberPage(object sender, RoutedEventArgs e)
         {
             member = memberTable.selectedMember;
@@ -90,6 +123,8 @@ namespace LMS.Pages.AdminPages
             viewMemberPage.NavigateToMemberPage += SearchMembers;
             viewMemberPage.PlaceLoan += PlaceLoan;
             viewMemberPage.ReturnLoan += ReturnLoan;
+            viewMemberPage.RenewLoan += RenewLoan;
+            viewMemberPage.CancelReserve += CancelReserve;
             PageContent.Content = viewMemberPage;
         }
 
