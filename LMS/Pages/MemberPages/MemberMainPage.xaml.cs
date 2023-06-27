@@ -81,11 +81,11 @@ namespace LMS.Pages.MemberPages
         private void CancelReserve(object sender, Reserve reserve)
         {
             List<Book> books = FileManagement.LoadBooks();
-            foreach (Book _book in books)
+            foreach (Book book in books)
             {
-                if (_book.id == reserve.bookId)
+                if (book.id == reserve.bookId)
                 {
-                    _book.isReserved = false;
+                    book.isReserved = false;
                 }
             }
             FileManagement.WriteAllBooks(books);
@@ -135,8 +135,9 @@ namespace LMS.Pages.MemberPages
                     book.subject.IndexOf(searchInput, StringComparison.OrdinalIgnoreCase) >= 0
                 ).ToList();
 
-                bookResultsPage = new BookResultsPage(searchResults, searchInput);
+                bookResultsPage = new BookResultsPage(searchResults, searchInput, member);
                 bookResultsPage.PlaceReserve += PlaceReserve;
+                bookResultsPage.CancelReserve += CancelReserve;
                 bookResultsPage.NavigateToBookInfoPage += NavigateToBookInfoPage;
                 PageContent.Content = bookResultsPage;
             }

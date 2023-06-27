@@ -14,8 +14,10 @@ namespace LMS
         public string title { get; set; }
         public string authorFirstName { get; set; }
         public string authorLastName { get; set; }
-        public string subject{ get; set; }
+        public string subject { get; set; }
         public string summary { get; set; }
+        public bool isLoanedByUser { get; set; }
+        public bool isReservedByUser { get; set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
         private bool _isReserved;

@@ -24,29 +24,67 @@ namespace LMS.Pages.MemberPages
     {
         //Events enable 'MemberHomePage' methods to subscribe to it when 'ReserveButtonClick' is clicked.
         public event EventHandler<Book> PlaceReserve;
+        public event EventHandler<Reserve> CancelReserve;
         public event EventHandler<Book> NavigateToBookInfoPage;
 
         //holds the list of search results. It is used to store the books that match the search criteria provided to the page.
         private List<Book> results { get; set; }
+        private Member member { get; set; }
 
         //'searchResults' represents the list of books that match the search criteria, and 'searchInput' is the text used for the search.
         //Inside the constructor, 'searchresults' are assigned to 'results', and the UI elements (ResultsContainer and ResultText) are populated with the search results and search input information     
-        public BookResultsPage(List<Book> searchResults, string searchInput)
+        public BookResultsPage(List<Book> searchResults, string searchInput, Member _member)
         {
             InitializeComponent();
             results = searchResults;
+            member = _member;
+            foreach (Book book in results)
+            {
+                foreach (Loan loan in member.loanedBooks)
+                {
+                    if (book.id == loan.bookId)
+                    {
+                        book.isLoanedByUser = true;
+                    }
+                }
+                foreach (Reserve reserve in member.reservedBooks)
+                {
+                    if (book.id == reserve.bookId)
+                    {
+                        book.isReservedByUser = true;
+                    }
+                }
+
+            }
             ResultsContainer.ItemsSource = results;
             ResultText.Text = searchInput;
         }
 
         //Extracts 'selectedBook' from 'DataContext' and invokes 'PlaceReserve' or 'CancelReserve' depending on the books reserve status.S
         //Updates UI using 'ResultsContainer.ItemsSource'.
-        private void ReserveButtonClick(object sender, RoutedEventArgs e)
+        private void ReserveCancelButtonClick(object sender, RoutedEventArgs e)
         {
             Book selectedBook = (sender as Button).DataContext as Book;
 
-            PlaceReserve?.Invoke(sender, selectedBook);
-            selectedBook.isReserved = true;
+            if (!selectedBook.isReservedByUser) //button says "reserve"
+            {
+                PlaceReserve?.Invoke(sender, selectedBook);
+                selectedBook.isReservedByUser = true;
+            }
+            else //button says "cancel"
+            {
+                Reserve reservedBook = null;
+                foreach (Reserve reserve in member.reservedBooks)
+                {
+                    if (reserve.bookId == selectedBook.id)
+                    {
+                        reservedBook = reserve;
+                    }
+                }
+                CancelReserve?.Invoke(sender, reservedBook);
+                selectedBook.isReservedByUser = false;
+                selectedBook.isReserved = false;
+            }
 
             ResultsContainer.ItemsSource = null;
             ResultsContainer.ItemsSource = results;
