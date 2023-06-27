@@ -19,7 +19,7 @@ namespace LMS
         public string authorLastName { get; set; }
         public string subject { get; set; }
         public string summary { get; set; }
-        public bool isLoanedByUser { get; set; } //doesnt need property chanaged even cuz it doesnt update on click 
+        public bool isLoanedByUser { get; set; }
         public bool isReserved
         {
             get { return _isReserved; }
