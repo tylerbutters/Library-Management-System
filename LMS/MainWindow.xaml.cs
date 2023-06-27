@@ -41,9 +41,9 @@ namespace LMS
             loginPage.NavigateToAdminMainPage += NavigateToAdminMainPage;
         }
 
-        public void NavigateToMemberMainPage(object sender, RoutedEventArgs e)
+        public void NavigateToMemberMainPage(object sender, Member loggedInMember)
         {
-            memberMainPage = new MemberMainPage(loginPage.loggedInMember);
+            memberMainPage = new MemberMainPage(loggedInMember);
             memberMainPage.NavigateToLoginPage += NavigateToLoginPage;
             MainWindowFrame.Content = memberMainPage;
         }

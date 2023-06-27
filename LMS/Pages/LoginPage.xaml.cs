@@ -22,9 +22,8 @@ namespace LMS.Pages
     /// </summary>
     public partial class LoginPage : Page
     {
-        public event EventHandler<RoutedEventArgs> NavigateToMemberMainPage;
+        public event EventHandler<Member> NavigateToMemberMainPage;
         public event EventHandler<RoutedEventArgs> NavigateToAdminMainPage;
-        public Member loggedInMember { get; set; }
         public LoginPage()
         {
             InitializeComponent();
@@ -77,9 +76,7 @@ namespace LMS.Pages
             {
                 if (authenticatedAccount is Member member)
                 {
-                    loggedInMember = member;
-
-                    NavigateToMemberMainPage?.Invoke(sender, e);
+                    NavigateToMemberMainPage?.Invoke(sender, member);
                 }
                 else if (authenticatedAccount is Admin)
                 {
