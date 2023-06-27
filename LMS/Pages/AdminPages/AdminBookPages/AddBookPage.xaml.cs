@@ -26,7 +26,7 @@ namespace LMS.Pages.AdminPages
     public partial class AddBookPage : Page
     {
         public event EventHandler<RoutedEventArgs> NavigateToBookPage;
-        public string imageAddress { get; set; }
+        private string imageAddress { get; set; }
         public AddBookPage()
         {
             InitializeComponent();
@@ -45,6 +45,7 @@ namespace LMS.Pages.AdminPages
                 SaveNewBook();
             }
         }
+        
         private void SaveButtonClick(object sender, RoutedEventArgs e)
         {
             if (!ValidateInputs())
@@ -129,6 +130,7 @@ namespace LMS.Pages.AdminPages
             summaryInput.Text = "";
             selectedImageAddress.Text = "";
         }
+       
         private string GenerateBookID()
         {
             int min = 10000;

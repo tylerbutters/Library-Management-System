@@ -21,11 +21,6 @@ namespace LMS
         private const string NearDueLog = @".\Logs\nearDueLogs.csv";
         private const string OverdueLog = @".\Logs\overdueLogs.csv";
 
-        //private static List<Book> allBooks = LoadBooks();
-        //private static List<Loan> allLoans = LoadLoans();
-        //private static List<Reserve> allReserves = LoadReserves();
-
-
         //READ METHODS
 
         //loads all accounts, splits the members and admins. the members info is read from file then populates their loan and reserve lists with functions.
@@ -179,15 +174,15 @@ namespace LMS
                 {
                     bookId = bookId,
                     memberId = split[1],
-                    dateDueBack = split[2],
+                    estAvailDate = split[2],
                     book = book
                 };
 
                 //reserve.isAvailableToLoan = !reserve.book.isLoaned; //checks if reserve is available to loan by checking if it's book is loaned or not
 
-                if (reserve.dateDueBack != "Now")
+                if (reserve.estAvailDate != "Now")
                 {
-                    reserve.dateDueBack = DateTime.Parse(reserve.dateDueBack).ToString("MM/dd"); //formats the date from yyyy/MM/dd to just MM/dd, unless the date is "now"
+                    reserve.estAvailDate = DateTime.Parse(reserve.estAvailDate).ToString("MM/dd"); //formats the date from yyyy/MM/dd to just MM/dd, unless the date is "now"
                 }
 
                 reserves.Add(reserve);
@@ -218,7 +213,7 @@ namespace LMS
                 Loan loan = new Loan(book, new Member())
                 {
                     memberId = split[1],
-                    dateDue = split[2],
+                    dueDate = split[2],
                 };
 
                 loans.Add(loan);
@@ -237,7 +232,7 @@ namespace LMS
 
             foreach (Loan loan in loans)
             {
-                dueDate = DateTime.Parse(loan.dateDue);
+                dueDate = DateTime.Parse(loan.dueDate);
                 timeDifference = dueDate.Subtract(MainWindow.currentDate);
 
                 if (dueDate <= MainWindow.currentDate) //checks if duedate is past currentdate/due
@@ -257,7 +252,7 @@ namespace LMS
                     }
                 }
 
-                loan.dateDue = DateTime.Parse(loan.dateDue).ToString("MM/dd"); //formats the date from yyyy/MM/dd to just MM/dd, unless the date is "now"
+                loan.dueDate = DateTime.Parse(loan.dueDate).ToString("MM/dd"); //formats the date from yyyy/MM/dd to just MM/dd, unless the date is "now"
             }
         }
 
@@ -338,13 +333,13 @@ namespace LMS
         {
             //converts back to yyyy/MM/yy format unless date is "now"
             string reserveString = $"{reserve.bookId},{reserve.memberId},";
-            if (reserve.dateDueBack == "Now")
+            if (reserve.estAvailDate == "Now")
             {
-                reserveString += $"{reserve.dateDueBack}";
+                reserveString += $"{reserve.estAvailDate}";
             }
             else
             {
-                reserveString += $"{MainWindow.currentDate.Year}/{reserve.dateDueBack}";
+                reserveString += $"{MainWindow.currentDate.Year}/{reserve.estAvailDate}";
             }
 
             List<string> rows = File.ReadAllLines(ReserveFile).ToList();
@@ -354,7 +349,7 @@ namespace LMS
 
         public static void SaveNewLoan(Loan loan)
         {
-            string loanString = $"{loan.bookId},{loan.memberId},{loan.dateDue}";
+            string loanString = $"{loan.bookId},{loan.memberId},{loan.dueDate}";
 
             List<string> rows = File.ReadAllLines(LoanFile).ToList();
             rows.Add(loanString);
@@ -365,13 +360,13 @@ namespace LMS
         {
             //converts back to yyyy/MM/yy format unless date is "now"
             string reserveString = $"{reserve.bookId},{reserve.memberId},";
-            if (reserve.dateDueBack == "Now")
+            if (reserve.estAvailDate == "Now")
             {
-                reserveString += $"{reserve.dateDueBack}";
+                reserveString += $"{reserve.estAvailDate}";
             }
             else
             {
-                reserveString += $"{MainWindow.currentDate.Year}/{reserve.dateDueBack}";
+                reserveString += $"{MainWindow.currentDate.Year}/{reserve.estAvailDate}";
             }
 
             List<string> rows = File.ReadAllLines(ReserveFile).ToList();
@@ -381,12 +376,12 @@ namespace LMS
 
         public static void RemoveLoan(Loan loan)
         {
-            string loanString = $"{loan.bookId},{loan.memberId},{MainWindow.currentDate.Year}/{loan.dateDue}";
+            string loanString = $"{loan.bookId},{loan.memberId},{MainWindow.currentDate.Year}/{loan.dueDate}";
 
             List<string> rows = File.ReadAllLines(LoanFile).ToList();
             rows.Remove(loanString);
 
-            File.AppendAllText(ReturnLog, "Book: " + loan.bookId + ", Loaned by: " + loan.memberId + ", Returned at: " + MainWindow.currentDate);
+            File.AppendAllText(ReturnLog, "Book: " + loan.bookId + ", Loaned by: " + loan.memberId + ", Returned at: " + MainWindow.currentDate + Environment.NewLine);
             File.WriteAllLines(LoanFile, rows);
         }
     }

@@ -23,7 +23,7 @@
               CanUserResizeRows="False"
               VerticalContentAlignment="Center" 
               BorderThickness="0"
-              GridLinesVisibility="None" SelectionChanged="BookDataGridSelectionChanged">
+              GridLinesVisibility="None" SelectionChanged="BookClicked">
 
             <DataGrid.Resources>
                 <Style BasedOn="{StaticResource {x:Type DataGridColumnHeader}}" TargetType="{x:Type DataGridColumnHeader}">
@@ -51,14 +51,51 @@
             </DataGrid.CellStyle>
 
             <DataGrid.Columns>
-                <DataGridTextColumn Header="ID" Binding="{Binding id}" Width="1*"></DataGridTextColumn>
-                <DataGridTextColumn Header="Title" Binding="{Binding title}" Width="2*"></DataGridTextColumn>
-                <DataGridTextColumn Header="First Name" Binding="{Binding authorFirstName}" Width="1*"></DataGridTextColumn>
-                <DataGridTextColumn Header="Last Name" Binding="{Binding authorLastName}" Width="1*"></DataGridTextColumn>
-                <DataGridTextColumn Header="Subject" Binding="{Binding subject}" Width="1*"></DataGridTextColumn>
-                <DataGridTextColumn Header="Available" Width="1*">
+                <DataGridTextColumn Header="ID" Binding="{Binding id}" Width="1*">
                     <DataGridTextColumn.ElementStyle>
                         <Style TargetType="TextBlock">
+                            <Setter Property="VerticalAlignment" Value="Center"/>
+                            <Setter Property="Margin" Value="10 0 0 0"/>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="Title" Binding="{Binding title}" Width="1.5*">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="VerticalAlignment" Value="Center"/>
+                            <Setter Property="Margin" Value="10 0 0 0"/>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="First Name" Binding="{Binding authorFirstName}" Width="1*">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="VerticalAlignment" Value="Center"/>
+                            <Setter Property="Margin" Value="10 0 0 0"/>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="Last Name" Binding="{Binding authorLastName}" Width="1*">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="VerticalAlignment" Value="Center"/>
+                            <Setter Property="Margin" Value="10 0 0 0"/>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="Subject" Binding="{Binding subject}" Width="1*">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="VerticalAlignment" Value="Center"/>
+                            <Setter Property="Margin" Value="10 0 0 0"/>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="Availablity" Width="1*">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="VerticalAlignment" Value="Center"/>
+                            <Setter Property="Margin" Value="10 0 0 0"/>
                             <Style.Triggers>
                                 <DataTrigger Binding="{Binding isLoaned}" Value="True">
                                     <Setter Property="Foreground" Value="Red"/>
@@ -72,7 +109,6 @@
                         </Style>
                     </DataGridTextColumn.ElementStyle>
                 </DataGridTextColumn>
-
             </DataGrid.Columns>
         </DataGrid>
     </Grid>

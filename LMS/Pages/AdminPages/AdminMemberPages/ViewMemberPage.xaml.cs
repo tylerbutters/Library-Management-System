@@ -132,6 +132,7 @@ namespace LMS.Pages.AdminPages
             ReservesArea.ItemsSource = null;
             ReservesArea.ItemsSource = member.reservedBooks;
         }
+        
         private void LoanButtonClick(object sender, RoutedEventArgs e)
         {
             Reserve selectedReserve = (sender as Button).DataContext as Reserve;

@@ -61,12 +61,12 @@ namespace LMS.Pages.MemberPages
                     Loan loan = FileManagement.LoadLoans().FirstOrDefault(l => l.bookId == reservedBook.id);
                     if (loan != null)
                     {
-                        newReserve.dateDueBack = loan.dateDue;
+                        newReserve.estAvailDate = loan.dueDate;
                     }
                 }
                 else
                 {
-                    newReserve.dateDueBack = "Now";
+                    newReserve.estAvailDate = "Now";
                 }
             }
 
@@ -93,16 +93,16 @@ namespace LMS.Pages.MemberPages
 
         private void RenewLoan(object sender, Loan loan)
         {
-            DateTime dateDue = DateTime.Parse($"{MainWindow.currentDate.Year}/" + loan.dateDue);
-            TimeSpan difference = dateDue.Subtract(MainWindow.currentDate);
+            DateTime dueDate = DateTime.Parse($"{MainWindow.currentDate.Year}/" + loan.dueDate);
+            TimeSpan difference = dueDate.Subtract(MainWindow.currentDate);
 
             if (difference.Days < 2)
             {
                 member.loanedBooks.Remove(loan);
                 FileManagement.RemoveLoan(loan);
-                loan.dateDue = dateDue.AddDays(7).ToString("yyyy/MM/dd"); //adds 7 days to loan
+                loan.dueDate = dueDate.AddDays(7).ToString("yyyy/MM/dd"); //adds 7 days to loan
                 FileManagement.SaveNewLoan(loan);
-                loan.dateDue = DateTime.Parse(loan.dateDue).ToString("MM/dd"); //immediately changes format for viewing in program.
+                loan.dueDate = DateTime.Parse(loan.dueDate).ToString("MM/dd"); //immediately changes format for viewing in program.
                 member.loanedBooks.Add(loan);
                 MessageBox.Show("Book renewed for 7 days");
             }

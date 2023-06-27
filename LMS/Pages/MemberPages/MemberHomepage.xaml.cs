@@ -22,7 +22,7 @@ namespace LMS.Pages.MemberPages
     {
         public event EventHandler<Reserve> CancelReserve;
         public event EventHandler<Loan> RenewLoan;
-        public Member member { get; set; }
+        private Member member { get; set; }
         public MemberHomePage(Member loggedInMember)
         {
             InitializeComponent();
