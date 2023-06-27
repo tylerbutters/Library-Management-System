@@ -24,7 +24,7 @@ namespace LMS
     /// </summary>
     public partial class MainWindow : Window
     {
-        private static string dateString { get; set; } = "2023/05/25"; //simulated time for the application
+        private static string dateString { get; set; } = "2023/06/23"; //simulated time for the application
         public static DateTime currentDate { get; set; } = DateTime.Parse(dateString);
 
         private LoginPage loginPage { get; set; }

@@ -96,18 +96,23 @@ namespace LMS.Pages.MemberPages
 
         private void RenewLoan(object sender, Loan loan)
         {
-            member.loanedBooks.Remove(loan);
-            FileManagement.RemoveLoan(loan);
-
             DateTime dateDue = DateTime.Parse($"{MainWindow.currentDate.Year}/" + loan.dateDue);
-            loan.dateDue = dateDue.AddDays(7).ToString("yyyy/MM/dd"); //adds 7 days to loan
-            FileManagement.SaveNewLoan(loan);
+            TimeSpan difference = dateDue.Subtract(MainWindow.currentDate);
 
-
-            loan.dateDue = DateTime.Parse(loan.dateDue).ToString("MM/dd"); //immediately changes format for viewing in program.
-            member.loanedBooks.Add(loan);
-
-            MessageBox.Show("Book renewed for 7 days");
+            if (difference.Days < 2)
+            {
+                member.loanedBooks.Remove(loan);
+                FileManagement.RemoveLoan(loan);
+                loan.dateDue = dateDue.AddDays(7).ToString("yyyy/MM/dd"); //adds 7 days to loan
+                FileManagement.SaveNewLoan(loan);
+                loan.dateDue = DateTime.Parse(loan.dateDue).ToString("MM/dd"); //immediately changes format for viewing in program.
+                member.loanedBooks.Add(loan);
+                MessageBox.Show("Book renewed for 7 days");
+            }
+            else
+            {
+                MessageBox.Show("Please wait " + difference.Days + " more days until renewing");
+            }
         }
 
         private void SearchbarKeyDown(object sender, KeyEventArgs e)
