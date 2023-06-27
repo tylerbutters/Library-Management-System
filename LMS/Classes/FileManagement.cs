@@ -92,6 +92,15 @@ namespace LMS
             }
 
             List<Reserve> reserves = LoadReserves();
+            if (members is null)
+            {
+                throw new NullReferenceException();
+            }
+            if (reserves.Count is 0)
+            {
+                return;
+            }
+
             foreach (Member member in members) //checks what reserves match the members id
             {
                 member.reservedBooks = reserves.Where(reserve => reserve.memberId == member.id).ToList();
@@ -107,6 +116,16 @@ namespace LMS
             }
 
             List<Loan> loans = LoadLoans();
+
+            if (loans is null)
+            {
+                throw new NullReferenceException();
+            }
+            if (loans.Count is 0)
+            {
+                return;
+            }
+
             foreach (Member member in members) //checks what reserves match the members id
             {
                 member.loanedBooks = loans.Where(reserve => reserve.memberId == member.id).ToList();
@@ -260,6 +279,10 @@ namespace LMS
         private static void CheckLoanDates(List<Loan> loans)
         {
             if (loans is null)
+            {
+                throw new NullReferenceException();
+            }
+            if (loans.Count is 0)
             {
                 return;
             }
