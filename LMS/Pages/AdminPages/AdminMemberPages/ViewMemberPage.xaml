@@ -33,7 +33,7 @@
                         </Setter>
                         <Style.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="#A5AE38"/>
+                                <Setter Property="Background" Value="#31571a"/>
                             </Trigger>
                         </Style.Triggers>
                     </Style>
@@ -59,7 +59,7 @@
                         </Setter>
                         <Style.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="#A5AE38"/>
+                                <Setter Property="Background" Value="#31571a"/>
                             </Trigger>
                         </Style.Triggers>
                     </Style>
@@ -113,7 +113,7 @@
                         </Setter>
                         <Style.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="#A5AE38"/>
+                                <Setter Property="Background" Value="#933618"/>
                             </Trigger>
                         </Style.Triggers>
                     </Style>
@@ -238,7 +238,7 @@
                                                                                 <Style.Triggers>
                                                                                     <DataTrigger Binding="{Binding isDue}" Value="True">
                                                                                         <Setter Property="Text" Value="OVERDUE!" />
-                                                                                        <Setter Property="Foreground" Value="red"/> 
+                                                                                        <Setter Property="Foreground" Value="#C84920"/> 
                                                                                     </DataTrigger>
                                                                                     <DataTrigger Binding="{Binding isDue}" Value="False">
                                                                                         <Setter Property="Text" Value="Not Due" />
@@ -265,7 +265,7 @@
                                                                                 </Setter>
                                                                                 <Style.Triggers>
                                                                                     <Trigger Property="IsMouseOver" Value="True">
-                                                                                        <Setter Property="Background" Value="#A5AE38"/>
+                                                                                        <Setter Property="Background" Value="#31571a"/>
                                                                                     </Trigger>
                                                                                 </Style.Triggers>
                                                                             </Style>
@@ -358,7 +358,7 @@
                                                                                 <Style.Triggers>
                                                                                     <DataTrigger Binding="{Binding book.isLoaned}" Value="True">
                                                                                         <Setter Property="Text" Value="Unavailable" />
-                                                                                        <Setter Property="Foreground" Value="red"/>
+                                                                                        <Setter Property="Foreground" Value="#C84920"/>
                                                                                     </DataTrigger>
                                                                                     <DataTrigger Binding="{Binding book.isLoaned}" Value="False">
                                                                                         <Setter Property="Text" Value="Available" />
@@ -385,7 +385,7 @@
                                                                                 </Setter>
                                                                                 <Style.Triggers>
                                                                                     <Trigger Property="IsMouseOver" Value="True">
-                                                                                        <Setter Property="Background" Value="#A5AE38"/>
+                                                                                        <Setter Property="Background" Value="#31571a"/>
                                                                                     </Trigger>
                                                                                 </Style.Triggers>
                                                                             </Style>

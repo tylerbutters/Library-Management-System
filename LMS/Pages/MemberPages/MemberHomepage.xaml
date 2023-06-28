@@ -71,7 +71,7 @@
                                                                             </DataTrigger>
                                                                             <DataTrigger Binding="{Binding isDue}" Value="True">
                                                                                 <Setter Property="Text" Value="OVERDUE!" />
-                                                                                <Setter Property="Foreground" Value="Red"/>
+                                                                                <Setter Property="Foreground" Value="#C84920"/>
                                                                             </DataTrigger>
                                                                         </Style.Triggers>
                                                                     </Style>
@@ -168,7 +168,7 @@
                                                                         <Style.Triggers>
                                                                             <DataTrigger Binding="{Binding book.isLoaned}" Value="True">
                                                                                 <Setter Property="Text" Value="Unavailable" />
-                                                                                <Setter Property="Foreground" Value="red"/>
+                                                                                <Setter Property="Foreground" Value="#C84920"/>
                                                                             </DataTrigger>
                                                                             <DataTrigger Binding="{Binding book.isLoaned}" Value="False">
                                                                                 <Setter Property="Text" Value="Available" />

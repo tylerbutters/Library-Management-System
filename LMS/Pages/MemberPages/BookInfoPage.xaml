@@ -48,7 +48,7 @@
                         <Grid Background="Gray" Width="205" Height="300 ">
                             <Image x:Name="CoverImage" Source="{Binding cover}"></Image>
                         </Grid>
-                        <Button Grid.Column="1" Content="{Binding}" Click="ReserveCancelButtonClick" Width="205" Margin="20" Height="60" FontSize="30" FontWeight="Black" Foreground="White" BorderThickness="0">
+                        <Button Grid.Column="1" Click="ReserveCancelButtonClick" Width="205" Margin="20" Height="60" FontSize="30" FontWeight="Black" Foreground="White" BorderThickness="0">
                             <Button.Style>
                                 <Style TargetType="Button">
                                     <Setter Property="Template">
@@ -63,6 +63,7 @@
                                     <Style.Triggers>
                                         <Trigger Property="IsMouseOver" Value="True">
                                             <Setter Property="Cursor" Value="Hand"/>
+                                            <Setter Property="Background" Value="#A5AE38"/>
                                         </Trigger>
                                         <MultiDataTrigger >
                                             <MultiDataTrigger.Conditions>
@@ -71,42 +72,17 @@
                                             </MultiDataTrigger.Conditions>
                                             <Setter Property="IsEnabled" Value="False"/>
                                             <Setter Property="Background" Value="Gray"/>
-                                            <MultiDataTrigger.EnterActions>
-                                                <BeginStoryboard>
-                                                    <Storyboard>
-                                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Content">
-                                                            <DiscreteObjectKeyFrame KeyTime="0" Value="Reserved" />
-                                                        </ObjectAnimationUsingKeyFrames>
-                                                    </Storyboard>
-                                                </BeginStoryboard>
-                                            </MultiDataTrigger.EnterActions>
+                                            <Setter Property="Content" Value="Reserved"/>
                                         </MultiDataTrigger>
                                         <DataTrigger Binding="{Binding isReserved}" Value="False">
                                             <Setter Property="IsEnabled" Value="True"/>
                                             <Setter Property="Background" Value="#BFCA43"/>
-                                            <DataTrigger.EnterActions>
-                                                <BeginStoryboard>
-                                                    <Storyboard>
-                                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Content">
-                                                            <DiscreteObjectKeyFrame KeyTime="0" Value="Reserve" />
-                                                        </ObjectAnimationUsingKeyFrames>
-                                                    </Storyboard>
-                                                </BeginStoryboard>
-                                            </DataTrigger.EnterActions>
+                                            <Setter Property="Content" Value="Reserve"/>
                                         </DataTrigger>
-
                                         <DataTrigger Binding="{Binding isReservedByUser}" Value="True">
                                             <Setter Property="IsEnabled" Value="True"/>
                                             <Setter Property="Background" Value="#417422"/>
-                                            <DataTrigger.EnterActions>
-                                                <BeginStoryboard>
-                                                    <Storyboard>
-                                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Content">
-                                                            <DiscreteObjectKeyFrame KeyTime="0" Value="Cancel" />
-                                                        </ObjectAnimationUsingKeyFrames>
-                                                    </Storyboard>
-                                                </BeginStoryboard>
-                                            </DataTrigger.EnterActions>
+                                            <Setter Property="Content" Value="Cancel"/>
                                         </DataTrigger>
                                         <DataTrigger Binding="{Binding isLoanedByUser}" Value="True">
                                             <Setter Property="IsEnabled" Value="False"/>
@@ -121,9 +97,6 @@
                                     <Setter Property="CornerRadius" Value="10"/>
                                 </Style>
                             </Button.Resources>
-                            <!--<Button.Tag>
-                                <Binding RelativeSource="{RelativeSource AncestorType={x:Type local:BookInfoPage}}" Path="DataContext"/>
-                            </Button.Tag>-->
                         </Button>
                         <TextBlock Grid.Column="0" Name="Availablity" HorizontalAlignment="Center" FontWeight="Bold" FontSize="25" VerticalAlignment="Center">
                             <TextBlock.Style>
@@ -131,7 +104,7 @@
                                     <Style.Triggers>
                                         <DataTrigger Binding="{Binding isLoaned}" Value="True">
                                             <Setter Property="Text" Value="Unavailable" />
-                                            <Setter Property="Foreground" Value="red"/>
+                                            <Setter Property="Foreground" Value="#C84920"/>
                                         </DataTrigger>
                                         <DataTrigger Binding="{Binding isLoaned}" Value="False">
                                             <Setter Property="Text" Value="Available" />

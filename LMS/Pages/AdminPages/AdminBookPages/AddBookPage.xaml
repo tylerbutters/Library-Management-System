@@ -23,7 +23,7 @@
                     </Setter>
                     <Style.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="Background" Value="#A5AE38"/>
+                            <Setter Property="Background" Value="#31571a"/>
                         </Trigger>
                     </Style.Triggers>
                 </Style>

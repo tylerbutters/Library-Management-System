@@ -36,6 +36,8 @@ namespace LMS.Pages.AdminPages
         {
             InitializeComponent();
             isOnMemberPage = true;
+            MemberPageButton.IsEnabled = false;
+            BookPageButton.IsEnabled = true;
             memberTable = new MemberTable(new List<Member>());
             PageContent.Content = memberTable;
 
@@ -198,6 +200,8 @@ namespace LMS.Pages.AdminPages
             SearchBar.Text = "";
             SearchBarLostFocus(sender, e);
             isOnMemberPage = true;
+            MemberPageButton.IsEnabled = false;
+            BookPageButton.IsEnabled = true;
             BookPageButton.Background = (Brush)new BrushConverter().ConvertFrom("#6FAB4A");
             BookPageButton.Foreground = Brushes.White;
             MemberPageButton.Background = (Brush)new BrushConverter().ConvertFrom("#FDFEEE");
@@ -211,6 +215,8 @@ namespace LMS.Pages.AdminPages
             SearchBar.Text = "";
             SearchBarLostFocus(sender, e);
             isOnMemberPage = false;
+            MemberPageButton.IsEnabled = true;
+            BookPageButton.IsEnabled = false;
             BookPageButton.Background = (Brush)new BrushConverter().ConvertFrom("#FDFEEE");
             BookPageButton.Foreground = Brushes.Black;
             MemberPageButton.Background = (Brush)new BrushConverter().ConvertFrom("#6FAB4A");
