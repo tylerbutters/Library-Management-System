@@ -36,8 +36,15 @@ namespace LMS.Pages.MemberPages
         public BookResultsPage(List<Book> searchResults, string searchInput, Member _member)
         {
             InitializeComponent();
+
+            if (searchResults is null || _member is null)
+            {
+                throw new NullReferenceException();
+            }
+
             results = searchResults;
             member = _member;
+
             foreach (Book book in results)
             {
                 foreach (Loan loan in member.loanedBooks)
@@ -56,6 +63,7 @@ namespace LMS.Pages.MemberPages
                 }
 
             }
+
             ResultsContainer.ItemsSource = results;
             ResultText.Text = searchInput;
         }
@@ -65,6 +73,10 @@ namespace LMS.Pages.MemberPages
         private void ReserveCancelButtonClick(object sender, RoutedEventArgs e)
         {
             Book selectedBook = (sender as Button).DataContext as Book;
+            if (selectedBook is null)
+            {
+                throw new NullReferenceException();
+            }
 
             if (!selectedBook.isReservedByUser) //button says "reserve"
             {
@@ -73,10 +85,15 @@ namespace LMS.Pages.MemberPages
             }
             else //button says "cancel"
             {
-                Reserve reservedBook = member.reservedBooks.FirstOrDefault(reserve => reserve.bookId == selectedBook.id);
-                CancelReserve?.Invoke(sender, reservedBook);
-                selectedBook.isReservedByUser = false;
-                selectedBook.isReserved = false;
+                MessageBoxResult result = MessageBox.Show("Are you sure you want to cancel?", "Confirmation", MessageBoxButton.YesNo);
+
+                if (result is MessageBoxResult.Yes)
+                {
+                    Reserve reservedBook = member.reservedBooks.FirstOrDefault(reserve => reserve.bookId == selectedBook.id);
+                    CancelReserve?.Invoke(sender, reservedBook);
+                    selectedBook.isReservedByUser = false;
+                    selectedBook.isReserved = false;
+                }
             }
 
             ResultsContainer.ItemsSource = null;
@@ -85,6 +102,10 @@ namespace LMS.Pages.MemberPages
         private void ItemClick(object sender, MouseButtonEventArgs e)
         {
             Book clickedItem = (sender as FrameworkElement).DataContext as Book;
+            if (clickedItem is null)
+            {
+                throw new NullReferenceException();
+            }
             NavigateToBookInfoPage?.Invoke(sender, clickedItem);
         }
 
