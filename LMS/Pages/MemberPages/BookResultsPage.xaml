@@ -90,39 +90,39 @@
                                                                     <Setter.Value>
                                                                         <ControlTemplate TargetType="{x:Type Button}">
                                                                             <Border Background="{TemplateBinding Background}">
-                                                                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
                                                                             </Border>
                                                                         </ControlTemplate>
                                                                     </Setter.Value>
                                                                 </Setter>
                                                                 <Style.Triggers>
                                                                     <Trigger Property="IsMouseOver" Value="True">
-                                                                        <Setter Property="Cursor" Value="Hand"/>
+                                                                        <Setter Property="Cursor" Value="Hand" />
                                                                         <Setter Property="Background" Value="#A5AE38"/>
                                                                     </Trigger>
-                                                                    <MultiDataTrigger >
+                                                                    <MultiDataTrigger>
                                                                         <MultiDataTrigger.Conditions>
-                                                                            <Condition Binding="{Binding isReserved}" Value="True"/>
-                                                                            <Condition Binding="{Binding isReservedByUser}" Value="False"/>
+                                                                            <Condition Binding="{Binding isReserved}" Value="True" />
+                                                                            <Condition Binding="{Binding isReservedByUser}" Value="False" />
                                                                         </MultiDataTrigger.Conditions>
-                                                                        <Setter Property="IsEnabled" Value="False"/>
-                                                                        <Setter Property="Background" Value="Gray"/>
-                                                                        <Setter Property="Content" Value="Reserved"/>
+                                                                        <Setter Property="IsEnabled" Value="False" />
+                                                                        <Setter Property="Background" Value="Gray" />
+                                                                        <Setter Property="Content" Value="Reserved" />
                                                                     </MultiDataTrigger>
                                                                     <DataTrigger Binding="{Binding isReserved}" Value="False">
-                                                                        <Setter Property="IsEnabled" Value="True"/>
-                                                                        <Setter Property="Background" Value="#BFCA43"/>
-                                                                        <Setter Property="Content" Value="Reserve"/>
+                                                                        <Setter Property="IsEnabled" Value="True" />
+                                                                        <Setter Property="Background" Value="#BFCA43" />
+                                                                        <Setter Property="Content" Value="Reserve" />
                                                                     </DataTrigger>
                                                                     <DataTrigger Binding="{Binding isReservedByUser}" Value="True">
-                                                                        <Setter Property="IsEnabled" Value="True"/>
-                                                                        <Setter Property="Background" Value="#417422"/>
-                                                                        <Setter Property="Content" Value="Cancel"/>
+                                                                        <Setter Property="IsEnabled" Value="True" />
+                                                                        <Setter Property="Background" Value="#417422" />
+                                                                        <Setter Property="Content" Value="Cancel" />
                                                                     </DataTrigger>
                                                                     <DataTrigger Binding="{Binding isLoanedByUser}" Value="True">
-                                                                        <Setter Property="IsEnabled" Value="False"/>
-                                                                        <Setter Property="Background" Value="Gray"/>
-                                                                        <Setter Property="Content" Value="Reserve"/>
+                                                                        <Setter Property="IsEnabled" Value="False" />
+                                                                        <Setter Property="Background" Value="Gray" />
+                                                                        <Setter Property="Content" Value="Reserve" />
                                                                     </DataTrigger>
                                                                 </Style.Triggers>
                                                             </Style>

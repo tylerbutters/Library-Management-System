@@ -87,7 +87,7 @@ namespace LMS.Pages.MemberPages
             {
                 MessageBoxResult result = MessageBox.Show("Are you sure you want to cancel?", "Confirmation", MessageBoxButton.YesNo);
 
-                if (result == MessageBoxResult.Yes)
+                if (result is MessageBoxResult.Yes)
                 {
                     Reserve reservedBook = member.reservedBooks.FirstOrDefault(reserve => reserve.bookId == selectedBook.id);
                     CancelReserve?.Invoke(sender, reservedBook);

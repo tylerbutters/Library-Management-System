@@ -74,7 +74,7 @@ namespace LMS.Pages.AdminPages
 
             bool? result = openFileDialog.ShowDialog(); //if user chose an image
 
-            if (result == true)
+            if (result is true)
             {
                 string selectedFile = openFileDialog.FileName;
                 selectedImageAddress.Text = selectedFile;
