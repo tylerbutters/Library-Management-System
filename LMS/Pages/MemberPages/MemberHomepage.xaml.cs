@@ -21,6 +21,7 @@ namespace LMS.Pages.MemberPages
     public partial class MemberHomePage : Page
     {
         public event EventHandler<Reserve> CancelReserve;
+        public event EventHandler<Book> NavigateToBookInfoPage;
         public event EventHandler<Loan> RenewLoan;
         private Member member { get; set; }
         public MemberHomePage(Member loggedInMember)
@@ -49,7 +50,7 @@ namespace LMS.Pages.MemberPages
         {
             MessageBoxResult result = MessageBox.Show("Are you sure you want to cancel?", "Confirmation", MessageBoxButton.YesNo);
 
-            if (result == MessageBoxResult.Yes)
+            if (result is MessageBoxResult.Yes)
             {
                 Reserve selectedReserve = (sender as Button).DataContext as Reserve;
                 if (selectedReserve is null)
@@ -67,7 +68,7 @@ namespace LMS.Pages.MemberPages
         {
             MessageBoxResult result = MessageBox.Show("Are you sure you want to renew?", "Confirmation", MessageBoxButton.YesNo);
 
-            if (result == MessageBoxResult.Yes)
+            if (result is MessageBoxResult.Yes)
             {
                 Loan selectedLoan = (sender as Button).DataContext as Loan;
                 if (selectedLoan is null)
@@ -79,6 +80,27 @@ namespace LMS.Pages.MemberPages
                 LoansArea.ItemsSource = null;
                 LoansArea.ItemsSource = member.loanedBooks;
             }
+        }
+
+        private void ItemClick(object sender, MouseButtonEventArgs e)
+        {
+            Book clickedItem = null;
+
+            if ((sender as FrameworkElement).DataContext is Loan loan)
+            {
+                clickedItem = loan.book;
+            }
+            else if ((sender as FrameworkElement).DataContext is Reserve reserve)
+            {
+                clickedItem = reserve.book;
+            }
+
+            if (clickedItem is null)
+            {
+                throw new NullReferenceException();
+            }
+
+            NavigateToBookInfoPage?.Invoke(sender, clickedItem);
         }
     }
 }

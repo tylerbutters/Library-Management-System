@@ -30,7 +30,7 @@ namespace LMS.Pages.AdminPages
                 throw new NullReferenceException();
             }
 
-            if (searchResults.Count == 0)
+            if (searchResults.Count is 0)
             {
                 NoResultsText.Visibility = Visibility.Visible;
             }

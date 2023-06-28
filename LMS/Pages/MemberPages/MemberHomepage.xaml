@@ -20,6 +20,11 @@
                 <Border CornerRadius="10" Background="#e7ead4" Height="530" Width="530">
                     <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Hidden">
                         <ItemsControl Name="LoansArea" ItemsSource="{Binding member.loanedBooks}">
+                            <ItemsControl.ItemContainerStyle>
+                                <Style TargetType="ContentPresenter">
+                                    <EventSetter Event="MouseLeftButtonDown" Handler="ItemClick" />
+                                </Style>
+                            </ItemsControl.ItemContainerStyle>
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
                                     <StackPanel Margin="10">
@@ -116,6 +121,11 @@
                 <Border  CornerRadius="10" Background="#e7ead4" Height="530" Width="530" Padding="10">
                     <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Hidden">
                         <ItemsControl Name="ReservesArea" ItemsSource="{Binding member.reservedBooks}">
+                            <ItemsControl.ItemContainerStyle>
+                                <Style TargetType="ContentPresenter">
+                                    <EventSetter Event="MouseLeftButtonDown" Handler="ItemClick" />
+                                </Style>
+                            </ItemsControl.ItemContainerStyle>
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
                                     <StackPanel Margin="10">

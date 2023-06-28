@@ -119,7 +119,8 @@
                                                                     <DataTrigger Binding="{Binding isReserved}" Value="False">
                                                                         <Setter Property="IsEnabled" Value="True"/>
                                                                         <Setter Property="Background" Value="#BFCA43"/>
-                                                                        <DataTrigger.EnterActions>
+                                                                        <Setter Property="Content" Value="reservsdfe"/>
+                                                                        <!--<DataTrigger.EnterActions>
                                                                             <BeginStoryboard>
                                                                                 <Storyboard>
                                                                                     <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Content">
@@ -127,7 +128,7 @@
                                                                                     </ObjectAnimationUsingKeyFrames>
                                                                                 </Storyboard>
                                                                             </BeginStoryboard>
-                                                                        </DataTrigger.EnterActions>
+                                                                        </DataTrigger.EnterActions>-->
                                                                     </DataTrigger>
                                                                     <DataTrigger Binding="{Binding isReservedByUser}" Value="True">
                                                                         <Setter Property="IsEnabled" Value="True"/>

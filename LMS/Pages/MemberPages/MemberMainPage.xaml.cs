@@ -34,12 +34,13 @@ namespace LMS.Pages.MemberPages
             PageContent.Content = memberHomePage;
             memberHomePage.RenewLoan += RenewLoan;
             memberHomePage.CancelReserve += CancelReserve;
+            memberHomePage.NavigateToBookInfoPage += NavigateToBookInfoPage;
         }
 
         private void NavigateToBookInfoPage(object sender, Book book)
         {
             bookInfoPage = new BookInfoPage(book, member);
-            bookInfoPage.NavigateBackToResults += SearchBooks;
+            //bookInfoPage.NavigateBackToResults += SearchBooks;
             bookInfoPage.PlaceReserve += PlaceReserve;
             bookInfoPage.CancelReserve += CancelReserve;
             PageContent.Content = bookInfoPage;
@@ -137,7 +138,7 @@ namespace LMS.Pages.MemberPages
 
         private void SearchbarKeyDown(object sender, KeyEventArgs e)
         {
-            if (e.Key == Key.Enter)
+            if (e.Key is Key.Enter)
             {
                 SearchBooks(sender, e);
             }
@@ -171,7 +172,7 @@ namespace LMS.Pages.MemberPages
 
         private void SearchBarGotFocus(object sender, RoutedEventArgs e)
         {
-            if (SearchBar.Text == "Search...")
+            if (SearchBar.Text is "Search...")
             {
                 SearchBar.Text = string.Empty;
                 SearchBar.FontWeight = FontWeights.Normal;
@@ -197,6 +198,7 @@ namespace LMS.Pages.MemberPages
             memberHomePage = new MemberHomePage(member);
             memberHomePage.CancelReserve += CancelReserve;
             memberHomePage.RenewLoan += RenewLoan;
+            memberHomePage.NavigateToBookInfoPage += NavigateToBookInfoPage;
             PageContent.Content = memberHomePage;
         }
     }
