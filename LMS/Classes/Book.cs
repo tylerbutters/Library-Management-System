@@ -19,19 +19,7 @@ namespace LMS
         public string authorLastName { get; set; }
         public string subject { get; set; }
         public string summary { get; set; }
-        public bool isLoanedByUser { get; set; }
-        public bool isReserved
-        {
-            get { return _isReserved; }
-            set
-            {
-                if (_isReserved != value)
-                {
-                    _isReserved = value;
-                    OnPropertyChanged("isReserved");
-                }
-            }
-        }
+        public bool isLoanedByUser { get; set; } //doesnt need property chanaged even cuz it doesnt update on click 
         public bool isReservedByUser
         {
             get { return _isReservedByUser; }
@@ -41,6 +29,18 @@ namespace LMS
                 {
                     _isReservedByUser = value;
                     OnPropertyChanged("isReservedByUser");
+                }
+            }
+        }
+        public bool isReserved
+        {
+            get { return _isReserved; }
+            set
+            {
+                if (_isReserved != value)
+                {
+                    _isReserved = value;
+                    OnPropertyChanged("isReserved");
                 }
             }
         }

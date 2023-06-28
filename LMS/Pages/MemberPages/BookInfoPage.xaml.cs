@@ -28,10 +28,12 @@ namespace LMS.Pages.MemberPages
         public BookInfoPage(Book _book, Member _member)
         {
             InitializeComponent();
+
             if (_book is null || _member is null)
             {
                 throw new NullReferenceException();
             }
+
             book = _book;
             member = _member;
 
@@ -40,6 +42,7 @@ namespace LMS.Pages.MemberPages
 
         private void ReserveCancelButtonClick(object sender, RoutedEventArgs e)
         {
+            
             if (!book.isReservedByUser) //button says "reserve"
             {
                 PlaceReserve?.Invoke(sender, book);
@@ -58,7 +61,6 @@ namespace LMS.Pages.MemberPages
                     }
                     CancelReserve?.Invoke(sender, reservedBook);
                     book.isReservedByUser = false;
-                    book.isReserved = false;
                 }
             }
 

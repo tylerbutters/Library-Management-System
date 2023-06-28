@@ -133,7 +133,7 @@ namespace LMS.Pages.AdminPages
 
             bool? result = openFileDialog.ShowDialog();
 
-            if (result == true)
+            if (result is true)
             {
                 string selectedFile = openFileDialog.FileName;
                 Cover.Text = selectedFile;
