@@ -26,10 +26,9 @@ namespace LMS
         //loads all accounts, splits the members and admins. the members info is read from file then populates their loan and reserve lists with functions.
         public static List<Account> LoadAccounts()
         {
-            if (!File.Exists(AccountFile))
+            if (!File.Exists(AccountFile)) // Handle the scenario where the account file is missing
             {
-                // Handle the scenario where the account file is missing
-                throw new FileNotFoundException("file not found.");
+                throw new FileNotFoundException("file not found.", AccountFile);
             }
 
             CultureInfo cultureInfo = CultureInfo.CurrentCulture;
@@ -37,40 +36,43 @@ namespace LMS
             List<string> rows = File.ReadAllLines(AccountFile).ToList();
 
             List<Account> accounts = new List<Account>();
-            if (rows.Count >= 2) //incase file is empty
+
+            if (!(rows.Count >= 2)) //incase file is empty
             {
-                foreach (string row in rows.Skip(1))
-                {
-                    string[] split = row.Split(',');
-
-                    if (split[0].StartsWith("M")) //if Id starts with M
-                    {
-                        Member member = new Member
-                        {
-                            id = split[0],
-                            pin = split[1],
-                            firstName = textInfo.ToTitleCase(split[2]),
-                            lastName = textInfo.ToTitleCase(split[3]),
-                            email = split[4]
-                        };
-
-
-                        accounts.Add(member);
-                    }
-                    else
-                    {
-                        Admin admin = new Admin
-                        {
-                            id = split[0],
-                            pin = split[1]
-                        };
-
-                        accounts.Add(admin);
-                    }
-                }
-                LoadMembersReserves(accounts.OfType<Member>().ToList());
-                LoadMembersLoans(accounts.OfType<Member>().ToList());
+                throw new FormatException("file empty");
             }
+
+            foreach (string row in rows.Skip(1))
+            {
+                string[] split = row.Split(',');
+
+                if (split[0].StartsWith("M")) //if Id starts with M
+                {
+                    Member member = new Member
+                    {
+                        id = split[0],
+                        pin = split[1],
+                        firstName = textInfo.ToTitleCase(split[2]),
+                        lastName = textInfo.ToTitleCase(split[3]),
+                        email = split[4]
+                    };
+
+
+                    accounts.Add(member);
+                }
+                else
+                {
+                    Admin admin = new Admin
+                    {
+                        id = split[0],
+                        pin = split[1]
+                    };
+
+                    accounts.Add(admin);
+                }
+            }
+            LoadMembersReserves(accounts.OfType<Member>().ToList());
+            LoadMembersLoans(accounts.OfType<Member>().ToList());
 
             return accounts;
         }
@@ -84,7 +86,21 @@ namespace LMS
         //Loads all reserves and returns all 'member's Reserves' that match the logged-in member's i.d
         public static void LoadMembersReserves(List<Member> members)
         {
+            if (members is null)
+            {
+                throw new NullReferenceException();
+            }
+
             List<Reserve> reserves = LoadReserves();
+            if (members is null)
+            {
+                throw new NullReferenceException();
+            }
+            if (reserves.Count is 0)
+            {
+                return;
+            }
+
             foreach (Member member in members) //checks what reserves match the members id
             {
                 member.reservedBooks = reserves.Where(reserve => reserve.memberId == member.id).ToList();
@@ -94,7 +110,22 @@ namespace LMS
         //Loads all loans and returns all 'member's loans' that match the logged-in member's i.d
         public static void LoadMembersLoans(List<Member> members)
         {
+            if (members is null)
+            {
+                throw new NullReferenceException();
+            }
+
             List<Loan> loans = LoadLoans();
+
+            if (loans is null)
+            {
+                throw new NullReferenceException();
+            }
+            if (loans.Count is 0)
+            {
+                return;
+            }
+
             foreach (Member member in members) //checks what reserves match the members id
             {
                 member.loanedBooks = loans.Where(reserve => reserve.memberId == member.id).ToList();
@@ -107,7 +138,7 @@ namespace LMS
             if (!File.Exists(BookFile))
             {
                 // Handle the scenario where the account file is missing
-                throw new FileNotFoundException("file not found.");
+                throw new FileNotFoundException("file not found.", BookFile);
             }
 
             CultureInfo cultureInfo = CultureInfo.CurrentCulture;
@@ -116,31 +147,34 @@ namespace LMS
             List<string> rows = File.ReadAllLines(BookFile).ToList();
             List<Book> books = new List<Book>();
 
+            if (!(rows.Count >= 2))
+            {
+                throw new FormatException("file empty");
+            }
+
             foreach (string row in rows.Skip(1))
             {
                 string[] split = row.Split(',');
 
-                if (split.Length >= 9) //checks if row has out of range index
+                if (split.Length != 9)
                 {
-                    Book book = new Book()
-                    {
-                        id = split[0],
-                        cover = split[1],
-                        title = textInfo.ToTitleCase(split[2]),
-                        authorFirstName = textInfo.ToTitleCase(split[3]),
-                        authorLastName = textInfo.ToTitleCase(split[4]),
-                        subject = textInfo.ToTitleCase(split[5]),
-                        summary = split[6],
-                        isLoaned = bool.Parse(split[7]),
-                        isReserved = bool.Parse(split[8])
-                    };
+                    throw new FormatException("file format is wrong");
+                }
 
-                    books.Add(book);
-                }
-                else
+                Book book = new Book()
                 {
-                    Console.WriteLine($"Invalid row: {row}");
-                }
+                    id = split[0],
+                    cover = split[1],
+                    title = textInfo.ToTitleCase(split[2]),
+                    authorFirstName = textInfo.ToTitleCase(split[3]),
+                    authorLastName = textInfo.ToTitleCase(split[4]),
+                    subject = textInfo.ToTitleCase(split[5]),
+                    summary = split[6],
+                    isLoaned = bool.Parse(split[7]),
+                    isReserved = bool.Parse(split[8])
+                };
+
+                books.Add(book);
             }
 
             return books;
@@ -149,36 +183,42 @@ namespace LMS
         //reads all reserve info from file and adds to a list
         public static List<Reserve> LoadReserves()
         {
-            if (!File.Exists(ReserveFile))
+            if (!File.Exists(ReserveFile)) // Handle the scenario where the account file is missing
             {
-                // Handle the scenario where the account file is missing
-                throw new FileNotFoundException("file not found.");
+                throw new FileNotFoundException("file not found.", ReserveFile);
             }
 
             List<string> rows = File.ReadAllLines(ReserveFile).ToList();
 
             List<Reserve> reserves = new List<Reserve>();
 
+            if (!(rows.Count >= 2))
+            {
+                throw new FormatException("file empty");
+            }
+
             foreach (string row in rows.Skip(1))
             {
                 string[] split = row.Split(',');
+
+                if (split.Length != 3)
+                {
+                    throw new FormatException("file format is wrong");
+                }
+
                 string bookId = split[0];
                 Book book = LoadBooks().FirstOrDefault(b => b.id == bookId); //links reserve to book
 
-                if (book == null)
+                if (book is null)
                 {
-                    Console.WriteLine($"Warning: Book with ID {bookId} not found.");
-                    continue;
+                    throw new NullReferenceException();
                 }
+
                 Reserve reserve = new Reserve(book, new Member())
                 {
-                    bookId = bookId,
                     memberId = split[1],
                     estAvailDate = split[2],
-                    book = book
                 };
-
-                //reserve.isAvailableToLoan = !reserve.book.isLoaned; //checks if reserve is available to loan by checking if it's book is loaned or not
 
                 if (reserve.estAvailDate != "Now")
                 {
@@ -197,7 +237,7 @@ namespace LMS
             if (!File.Exists(LoanFile))
             {
                 // Handle the scenario where the account file is missing
-                throw new FileNotFoundException("file not found.");
+                throw new FileNotFoundException("file not found.", LoanFile);
             }
 
             List<string> rows = File.ReadAllLines(LoanFile).ToList();
@@ -207,8 +247,19 @@ namespace LMS
             foreach (string row in rows.Skip(1))
             {
                 string[] split = row.Split(',');
+
+                if (split.Length != 3)
+                {
+                    throw new FormatException("file format is wrong");
+                }
+
                 string bookId = split[0];
                 Book book = LoadBooks().FirstOrDefault(b => b.id == bookId); //links loan to book
+
+                if (book is null)
+                {
+                    throw new NullReferenceException();
+                }
 
                 Loan loan = new Loan(book, new Member())
                 {
@@ -227,6 +278,15 @@ namespace LMS
         //checks the due date for the loans and writes logs to files accordingly
         private static void CheckLoanDates(List<Loan> loans)
         {
+            if (loans is null)
+            {
+                throw new NullReferenceException();
+            }
+            if (loans.Count is 0)
+            {
+                return;
+            }
+
             DateTime dueDate;
             TimeSpan timeDifference;
 
@@ -260,6 +320,11 @@ namespace LMS
 
         public static void WriteAllBooks(List<Book> books)
         {
+            if (books is null)
+            {
+                throw new NullReferenceException();
+            }
+            
             List<string> bookRows = new List<string>();
             string headerRow = "id,cover,title,authorFirstName,authorLastName,subject,summary,isLoaned,isReserved";
             bookRows.Add(headerRow);
@@ -275,6 +340,11 @@ namespace LMS
 
         public static void SaveNewBook(Book newBook)
         {
+            if (newBook is null)
+            {
+                throw new NullReferenceException();
+            }
+
             string bookString = $"{newBook.id},{newBook.cover},{newBook.title.ToLower()},{newBook.authorFirstName.ToLower()},{newBook.authorLastName.ToLower()},{newBook.subject.ToLower()},{newBook.summary.ToLower()},{newBook.isLoaned},{newBook.isReserved}";
             List<string> rows = File.ReadAllLines(BookFile).ToList();
             rows.Add(bookString);
@@ -284,6 +354,11 @@ namespace LMS
 
         public static void SaveNewMember(Member newMember)
         {
+            if (newMember is null)
+            {
+                throw new NullReferenceException();
+            }
+
             string memberString = $"{newMember.id},{newMember.pin},{newMember.firstName.ToLower()},{newMember.lastName.ToLower()},{newMember.email}";
             List<string> rows = File.ReadAllLines(AccountFile).ToList();
             rows.Add(memberString);
@@ -293,6 +368,11 @@ namespace LMS
 
         public static void DeleteBook(Book book)
         {
+            if (book is null)
+            {
+                throw new NullReferenceException();
+            }
+
             string bookString = $"{book.id},{book.cover},{book.title.ToLower()},{book.authorFirstName.ToLower()},{book.authorLastName.ToLower()},{book.subject.ToLower()},{book.summary.ToLower()},{book.isLoaned},{book.isReserved}";
             List<string> rows = File.ReadAllLines(BookFile).ToList();
             rows.RemoveAll(row => row == bookString);
@@ -302,6 +382,11 @@ namespace LMS
 
         public static void DeleteMember(Member member)
         {
+            if (member is null)
+            {
+                throw new NullReferenceException();
+            }
+
             string memberString = $"{member.id},{member.pin},{member.firstName.ToLower()},{member.lastName.ToLower()},{member.email}";
             List<string> rows = File.ReadAllLines(AccountFile).ToList();
             rows.RemoveAll(row => row == memberString);
@@ -311,6 +396,11 @@ namespace LMS
 
         public static void EditMember(Member currentInfo, Member changedInfo)
         {
+            if (currentInfo is null || changedInfo is null)
+            {
+                throw new NullReferenceException();
+            }
+
             string currentInfoString = $"{currentInfo.id},{currentInfo.pin},{currentInfo.firstName.ToLower()},{currentInfo.lastName.ToLower()},{currentInfo.email}";
             string changedInfoString = $"{changedInfo.id},{changedInfo.pin},{changedInfo.firstName.ToLower()},{changedInfo.lastName.ToLower()},{changedInfo.email}";
             List<string> rows = File.ReadAllLines(AccountFile).ToList();
@@ -319,10 +409,15 @@ namespace LMS
             MessageBox.Show("Details Saved Successfully!\n");
         }
 
-        public static void EditBook(Book currentInfo, Book newInfo)
+        public static void EditBook(Book currentInfo, Book changedInfo)
         {
+            if (currentInfo is null || changedInfo is null)
+            {
+                throw new NullReferenceException();
+            }
+
             string currentInfoString = $"{currentInfo.id},{currentInfo.cover},{currentInfo.title.ToLower()},{currentInfo.authorFirstName.ToLower()},{currentInfo.authorLastName.ToLower()},{currentInfo.subject.ToLower()},{currentInfo.summary.ToLower()},{currentInfo.isLoaned},{currentInfo.isReserved}";
-            string changedInfoString = $"{newInfo.id},{newInfo.cover},{newInfo.title.ToLower()},{newInfo.authorFirstName.ToLower()},{newInfo.authorLastName.ToLower()},{newInfo.subject.ToLower()},{newInfo.summary.ToLower()},{newInfo.isLoaned},{newInfo.isReserved}";
+            string changedInfoString = $"{changedInfo.id},{changedInfo.cover},{changedInfo.title.ToLower()},{changedInfo.authorFirstName.ToLower()},{changedInfo.authorLastName.ToLower()},{changedInfo.subject.ToLower()},{changedInfo.summary.ToLower()},{changedInfo.isLoaned},{changedInfo.isReserved}";
             List<string> rows = File.ReadAllLines(BookFile).ToList();
             List<string> newRows = rows.Select(row => row == currentInfoString ? changedInfoString : row).ToList();
             File.WriteAllLines(BookFile, newRows);
@@ -331,6 +426,11 @@ namespace LMS
 
         public static void SaveNewReserve(Reserve reserve)
         {
+            if (reserve is null)
+            {
+                throw new NullReferenceException();
+            }
+
             //converts back to yyyy/MM/yy format unless date is "now"
             string reserveString = $"{reserve.bookId},{reserve.memberId},";
             if (reserve.estAvailDate == "Now")
@@ -349,6 +449,11 @@ namespace LMS
 
         public static void SaveNewLoan(Loan loan)
         {
+            if (loan is null)
+            {
+                throw new NullReferenceException();
+            }
+
             string loanString = $"{loan.bookId},{loan.memberId},{loan.dueDate}";
 
             List<string> rows = File.ReadAllLines(LoanFile).ToList();
@@ -358,6 +463,11 @@ namespace LMS
 
         public static void RemoveReserve(Reserve reserve)
         {
+            if (reserve is null)
+            {
+                throw new NullReferenceException();
+            }
+
             //converts back to yyyy/MM/yy format unless date is "now"
             string reserveString = $"{reserve.bookId},{reserve.memberId},";
             if (reserve.estAvailDate == "Now")
@@ -376,6 +486,11 @@ namespace LMS
 
         public static void RemoveLoan(Loan loan)
         {
+            if (loan is null)
+            {
+                throw new NullReferenceException();
+            }
+
             string loanString = $"{loan.bookId},{loan.memberId},{MainWindow.currentDate.Year}/{loan.dueDate}";
 
             List<string> rows = File.ReadAllLines(LoanFile).ToList();

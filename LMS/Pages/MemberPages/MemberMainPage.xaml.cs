@@ -34,12 +34,13 @@ namespace LMS.Pages.MemberPages
             PageContent.Content = memberHomePage;
             memberHomePage.RenewLoan += RenewLoan;
             memberHomePage.CancelReserve += CancelReserve;
+            memberHomePage.NavigateToBookInfoPage += NavigateToBookInfoPage;
         }
 
         private void NavigateToBookInfoPage(object sender, Book book)
         {
             bookInfoPage = new BookInfoPage(book, member);
-            bookInfoPage.NavigateBackToResults += SearchBooks;
+            //bookInfoPage.NavigateBackToResults += SearchBooks;
             bookInfoPage.PlaceReserve += PlaceReserve;
             bookInfoPage.CancelReserve += CancelReserve;
             PageContent.Content = bookInfoPage;
@@ -48,26 +49,36 @@ namespace LMS.Pages.MemberPages
         //loads every book and checks which book matches the i.d of the selected book, updates the selected one with '_book.isReserved = true;' and saves changes using 'FileManagement'.
         private void PlaceReserve(object sender, Book _book)
         {
+            if (_book is null)
+            {
+                throw new NullReferenceException();
+            }
+
             Reserve newReserve = new Reserve(_book, member);
             List<Book> books = FileManagement.LoadBooks();
             Book reservedBook = books.FirstOrDefault(book => book.id == newReserve.bookId);
 
-            if (reservedBook != null)
+            if (reservedBook is null)
             {
-                reservedBook.isReserved = true;
+                throw new NullReferenceException();
+            }
 
-                if (reservedBook.isLoaned)
+            reservedBook.isReserved = true;
+
+            if (reservedBook.isLoaned)
+            {
+                Loan loan = FileManagement.LoadLoans().FirstOrDefault(l => l.bookId == reservedBook.id);
+
+                if (loan is null)
                 {
-                    Loan loan = FileManagement.LoadLoans().FirstOrDefault(l => l.bookId == reservedBook.id);
-                    if (loan != null)
-                    {
-                        newReserve.estAvailDate = loan.dueDate;
-                    }
+                    throw new NullReferenceException();
                 }
-                else
-                {
-                    newReserve.estAvailDate = "Now";
-                }
+
+                newReserve.estAvailDate = loan.dueDate;
+            }
+            else
+            {
+                newReserve.estAvailDate = "Now";
             }
 
             member.reservedBooks.Add(newReserve);
@@ -80,12 +91,20 @@ namespace LMS.Pages.MemberPages
         //updates the 'isReserved' status in 'bookInformation.csv' and Removes book from 'member.reservedBooks'
         private void CancelReserve(object sender, Reserve reserve)
         {
+            if (reserve is null)
+            {
+                throw new NullReferenceException();
+            }
+
             List<Book> books = FileManagement.LoadBooks();
             Book reservedBook = books.FirstOrDefault(book => book.id == reserve.bookId);
-            if (reservedBook != null)
+
+            if (reservedBook is null)
             {
                 reservedBook.isReserved = false;
             }
+
+            reservedBook.isReserved = false;
             FileManagement.WriteAllBooks(books);
             member.reservedBooks.Remove(reserve);
             FileManagement.RemoveReserve(reserve);
@@ -93,10 +112,19 @@ namespace LMS.Pages.MemberPages
 
         private void RenewLoan(object sender, Loan loan)
         {
+            if (loan is null)
+            {
+                throw new NullReferenceException();
+            }
+
             DateTime dueDate = DateTime.Parse($"{MainWindow.currentDate.Year}/" + loan.dueDate);
             TimeSpan difference = dueDate.Subtract(MainWindow.currentDate);
 
-            if (difference.Days < 2)
+            if (difference.Days >= 2)
+            {
+                MessageBox.Show("Please wait " + difference.Days + " more days until renewing");
+            }
+            else
             {
                 member.loanedBooks.Remove(loan);
                 FileManagement.RemoveLoan(loan);
@@ -106,15 +134,11 @@ namespace LMS.Pages.MemberPages
                 member.loanedBooks.Add(loan);
                 MessageBox.Show("Book renewed for 7 days");
             }
-            else
-            {
-                MessageBox.Show("Please wait " + difference.Days + " more days until renewing");
-            }
         }
 
         private void SearchbarKeyDown(object sender, KeyEventArgs e)
         {
-            if (e.Key == Key.Enter)
+            if (e.Key is Key.Enter)
             {
                 SearchBooks(sender, e);
             }
@@ -148,7 +172,7 @@ namespace LMS.Pages.MemberPages
 
         private void SearchBarGotFocus(object sender, RoutedEventArgs e)
         {
-            if (SearchBar.Text == "Search...")
+            if (SearchBar.Text is "Search...")
             {
                 SearchBar.Text = string.Empty;
                 SearchBar.FontWeight = FontWeights.Normal;
@@ -174,6 +198,7 @@ namespace LMS.Pages.MemberPages
             memberHomePage = new MemberHomePage(member);
             memberHomePage.CancelReserve += CancelReserve;
             memberHomePage.RenewLoan += RenewLoan;
+            memberHomePage.NavigateToBookInfoPage += NavigateToBookInfoPage;
             PageContent.Content = memberHomePage;
         }
     }

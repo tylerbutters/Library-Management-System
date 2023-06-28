@@ -19,6 +19,5 @@ namespace LMS
             bookId = book.id;
             memberId = _member.id;
         }
-
     }
 }

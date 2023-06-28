@@ -29,7 +29,6 @@ namespace LMS.Pages.AdminPages
         public event EventHandler<Loan> ReturnLoan;
         public event EventHandler<Loan> RenewLoan;
         private bool isEditing { get; set; }
-        private bool isConfirmed { get; set; }
         private Member member { get; set; }
 
         //Member info from login and member class's are passed through parameters and displayed in each text example.
@@ -38,7 +37,6 @@ namespace LMS.Pages.AdminPages
             InitializeComponent();
 
             isEditing = false;
-            isConfirmed = false;
             member = _member;
 
             ID.Text = member.id;
@@ -55,7 +53,6 @@ namespace LMS.Pages.AdminPages
             if (!isEditing)
             {
                 isEditing = true;
-                isConfirmed = false;
                 SaveButton.Visibility = Visibility.Visible;
                 DeleteButton.Visibility = Visibility.Visible;
                 EditCancelButton.Content = "Cancel";
@@ -103,63 +100,83 @@ namespace LMS.Pages.AdminPages
 
         private void SaveButtonClick(object sender, RoutedEventArgs e)
         {
-            Member changedInfo = new Member { id = ID.Text, pin = PIN.Text, firstName = FirstName.Text, lastName = LastName.Text, email = Email.Text };
-            FileManagement.EditMember(member, changedInfo);
+            MessageBoxResult result = MessageBox.Show("Are you sure you want to save?", "Confirmation", MessageBoxButton.YesNo);
 
-            EditCancelButtonClick(sender, e);
+            if (result == MessageBoxResult.Yes)
+            {
+                Member changedInfo = new Member { id = ID.Text, pin = PIN.Text, firstName = FirstName.Text, lastName = LastName.Text, email = Email.Text };
+                FileManagement.EditMember(member, changedInfo);
+
+                EditCancelButtonClick(sender, e);
+            }
         }
 
         private void DeleteButtonClick(object sender, RoutedEventArgs e)
         {
-            if (!isConfirmed)
-            {
-                isConfirmed = true;
-                DeleteButton.Content = "Confirm?";
-            }
-            else
+            MessageBoxResult result = MessageBox.Show("Are you sure you want to delete?", "Confirmation", MessageBoxButton.YesNo);
+
+            if (result == MessageBoxResult.Yes)
             {
                 FileManagement.DeleteMember(member);
-                isConfirmed = false;
                 NavigateToMemberPage?.Invoke(sender, e);
             }
         }
 
         private void CancelButtonClick(object sender, RoutedEventArgs e)
         {
-            Reserve selectedReserve = (sender as Button).DataContext as Reserve;
-            CancelReserve?.Invoke(sender, selectedReserve);
+            MessageBoxResult result = MessageBox.Show("Are you sure you want to cancel?", "Confirmation", MessageBoxButton.YesNo);
 
-            ReservesArea.ItemsSource = null;
-            ReservesArea.ItemsSource = member.reservedBooks;
+            if (result == MessageBoxResult.Yes)
+            {
+                Reserve selectedReserve = (sender as Button).DataContext as Reserve;
+                CancelReserve?.Invoke(sender, selectedReserve);
+                ReservesArea.ItemsSource = null;
+                ReservesArea.ItemsSource = member.reservedBooks;
+            }
         }
-        
+
         private void LoanButtonClick(object sender, RoutedEventArgs e)
         {
-            Reserve selectedReserve = (sender as Button).DataContext as Reserve;
-            PlaceLoan?.Invoke(sender, selectedReserve);
+            MessageBoxResult result = MessageBox.Show("Are you sure you want to loan?", "Confirmation", MessageBoxButton.YesNo);
 
-            LoansArea.ItemsSource = null;
-            LoansArea.ItemsSource = member.loanedBooks;
-            ReservesArea.ItemsSource = null;
-            ReservesArea.ItemsSource = member.reservedBooks;
+            if (result == MessageBoxResult.Yes)
+            {
+                Reserve selectedReserve = (sender as Button).DataContext as Reserve;
+                PlaceLoan?.Invoke(sender, selectedReserve);
+
+                LoansArea.ItemsSource = null;
+                LoansArea.ItemsSource = member.loanedBooks;
+                ReservesArea.ItemsSource = null;
+                ReservesArea.ItemsSource = member.reservedBooks;
+            }
         }
 
         private void ReturnButtonClick(object sender, RoutedEventArgs e)
         {
-            Loan selectedLoan = (sender as Button).DataContext as Loan;
-            ReturnLoan?.Invoke(sender, selectedLoan);
+            MessageBoxResult result = MessageBox.Show("Are you sure you want to return?", "Confirmation", MessageBoxButton.YesNo);
 
-            LoansArea.ItemsSource = null;
-            LoansArea.ItemsSource = member.loanedBooks;
+            if (result == MessageBoxResult.Yes)
+            {
+                Loan selectedLoan = (sender as Button).DataContext as Loan;
+                ReturnLoan?.Invoke(sender, selectedLoan);
+
+                LoansArea.ItemsSource = null;
+                LoansArea.ItemsSource = member.loanedBooks;
+            }
         }
 
         private void RenewButtonClick(object sender, RoutedEventArgs e)
         {
-            Loan selectedLoan = (sender as Button).DataContext as Loan;
-            RenewLoan?.Invoke(sender, selectedLoan);
+            MessageBoxResult result = MessageBox.Show("Are you sure you want to renew?", "Confirmation", MessageBoxButton.YesNo);
 
-            LoansArea.ItemsSource = null;
-            LoansArea.ItemsSource = member.loanedBooks;
+            if (result == MessageBoxResult.Yes)
+            {
+                Loan selectedLoan = (sender as Button).DataContext as Loan;
+                RenewLoan?.Invoke(sender, selectedLoan);
+
+                LoansArea.ItemsSource = null;
+                LoansArea.ItemsSource = member.loanedBooks;
+            }
         }
 
         private void BackButtonClick(object sender, RoutedEventArgs e)

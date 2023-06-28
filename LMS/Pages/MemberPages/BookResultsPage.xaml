@@ -131,9 +131,6 @@
                                                                 <Setter Property="CornerRadius" Value="10"/>
                                                             </Style>
                                                         </Button.Resources>
-                                                        <!--<Button.Tag>
-                                                            <Binding RelativeSource="{RelativeSource AncestorType={x:Type local:BookResultsPage}}" Path="DataContext"/>
-                                                        </Button.Tag>-->
                                                     </Button>
                                                 </Grid>
                                             </Grid>

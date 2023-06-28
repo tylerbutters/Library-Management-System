@@ -24,7 +24,13 @@ namespace LMS.Pages.AdminPages
         public MemberTable(List<Member> searchResults)
         {
             InitializeComponent();
-            if (searchResults.Count == 0)
+
+            if (searchResults is null)
+            {
+                throw new NullReferenceException();
+            }
+
+            if (searchResults.Count is 0)
             {
                 NoResultsText.Visibility = Visibility.Visible;
             }
@@ -33,6 +39,12 @@ namespace LMS.Pages.AdminPages
         public void MemberClicked(object sender, SelectionChangedEventArgs e)
         {
             Member selectedMember = MemberGrid.SelectedItem as Member;
+
+            if (selectedMember is null)
+            {
+                throw new NullReferenceException();
+            }
+
             NavigateToViewMemberPage?.Invoke(sender, selectedMember);
         }
     }

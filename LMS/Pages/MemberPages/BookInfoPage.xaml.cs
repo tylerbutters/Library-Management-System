@@ -20,7 +20,7 @@ namespace LMS.Pages.MemberPages
     /// </summary>
     public partial class BookInfoPage : Page
     {
-        public event EventHandler<RoutedEventArgs> NavigateBackToResults;
+        
         public event EventHandler<Book> PlaceReserve;
         public event EventHandler<Reserve> CancelReserve;
         private Book book { get; set; }
@@ -55,6 +55,10 @@ namespace LMS.Pages.MemberPages
                 if (result is MessageBoxResult.Yes)
                 {
                     Reserve reservedBook = member.reservedBooks.FirstOrDefault(reserve => reserve.bookId == book.id);
+                    if (reservedBook is null)
+                    {
+                        throw new NullReferenceException();
+                    }
                     CancelReserve?.Invoke(sender, reservedBook);
                     book.isReservedByUser = false;
                 }
@@ -66,7 +70,7 @@ namespace LMS.Pages.MemberPages
 
         private void BackButtonClick(object sender, RoutedEventArgs e)
         {
-            NavigateBackToResults?.Invoke(sender, e);
+            NavigationService?.GoBack();
         }
     }
 }

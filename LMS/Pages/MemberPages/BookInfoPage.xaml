@@ -51,7 +51,7 @@
                         <Button Grid.Column="1" Click="ReserveCancelButtonClick" Width="205" Margin="20" Height="60" FontSize="30" FontWeight="Black" Foreground="White" BorderThickness="0">
                             <Button.Style>
                                 <Style TargetType="Button">
-                                    <!--<Setter Property="Template">
+                                    <Setter Property="Template">
                                         <Setter.Value>
                                             <ControlTemplate TargetType="{x:Type Button}">
                                                 <Border Background="{TemplateBinding Background}">
@@ -59,7 +59,7 @@
                                                 </Border>
                                             </ControlTemplate>
                                         </Setter.Value>
-                                    </Setter>-->
+                                    </Setter>
                                     <Style.Triggers>
                                         <Trigger Property="IsMouseOver" Value="True">
                                             <Setter Property="Cursor" Value="Hand" />
@@ -136,7 +136,6 @@
                             <TextBlock FontSize="25" FontWeight="Black" Text="Subject" />
                             <TextBlock Margin="0 10 0 0" x:Name="Subject" Text="{Binding subject}" FontWeight="Medium" FontSize="20" Height="60"/>
                         </StackPanel>
-
                     </Grid>
 
                     <Grid Grid.Column="2" Margin="20">
