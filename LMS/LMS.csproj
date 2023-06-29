@@ -181,9 +181,9 @@
     <None Include="Databases\bookInformation.csv" />
     <None Include="Databases\loanInformation.csv" />
     <None Include="Databases\reserveInformation.csv" />
-    <None Include="Logs\nearDueLogs.csv" />
-    <None Include="Logs\overdueLogs.csv" />
-    <None Include="Logs\returnLogs.csv" />
+    <None Include="NotificationLogs\nearDueLogs.csv" />
+    <None Include="NotificationLogs\overdueLogs.csv" />
+    <None Include="NotificationLogs\returnLogs.csv" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -210,11 +210,37 @@
   <ItemGroup>
     <Resource Include="CoverImages\laserman2.png" />
     <Content Include="CoverImages\asdf.png" />
+    <Resource Include="CoverImages\atoms_and_ashes_from_bikini_atoll_to_fu.png" />
     <Content Include="CoverImages\book.png" />
     <Resource Include="CoverImages\book_3.png" />
     <Resource Include="CoverImages\Laserman22.png" />
+    <Resource Include="CoverImages\book_202.png" />
+    <Resource Include="CoverImages\crash.png" />
+    <Resource Include="CoverImages\cryptonomicon.png" />
+    <Resource Include="CoverImages\good_omens.png" />
+    <Resource Include="CoverImages\gravity%27s_rainbow.png" />
+    <Resource Include="CoverImages\guards!_guards!.png" />
+    <Resource Include="CoverImages\jerusalem_chronicles_from_the_holy_city.png" />
+    <Resource Include="CoverImages\last_chance_to_see.png" />
+    <Resource Include="CoverImages\life_the_universe_and_everything.png" />
+    <Resource Include="CoverImages\mostly_harmless.png" />
+    <Resource Include="CoverImages\nineteen_eighty-four.png" />
+    <Resource Include="CoverImages\pyongyang_a_journey_in_north_korea.png" />
     <Content Include="CoverImages\roads.png" />
+    <Resource Include="CoverImages\roadside_picnic.png" />
     <Content Include="CoverImages\sdf.png" />
+    <Resource Include="CoverImages\sdfs.png" />
+    <Resource Include="CoverImages\slaughterhouse_five.png" />
+    <Resource Include="CoverImages\so_long_and_thanks_for_all_the_fish.png" />
+    <Resource Include="CoverImages\stasiland.png" />
+    <Resource Include="CoverImages\the_communist_manifesto.png" />
+    <Resource Include="CoverImages\the_gulag_archipelago.png" />
+    <Resource Include="CoverImages\the_hitch-hiker%27s_guide_to_the_galaxy.png" />
+    <Resource Include="CoverImages\the_last_continent.png" />
+    <Resource Include="CoverImages\the_master_and_magarita.png" />
+    <Resource Include="CoverImages\the_resturant_at_the_end_of_the_universe.png" />
+    <Resource Include="CoverImages\the_right_stuff_.png" />
+    <Resource Include="CoverImages\the_wind_up_bird_chronicle.png" />
     <Content Include="CoverImages\tyler.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

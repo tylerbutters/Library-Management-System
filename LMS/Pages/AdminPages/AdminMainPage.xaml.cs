@@ -35,10 +35,17 @@ namespace LMS.Pages.AdminPages
         public AdminMainPage()
         {
             InitializeComponent();
+
             isOnMemberPage = true;
             MemberPageButton.IsEnabled = false;
             BookPageButton.IsEnabled = true;
+            BookPageButton.Background = (Brush)new BrushConverter().ConvertFrom("#6FAB4A");
+            BookPageButton.Foreground = Brushes.White;
+            MemberPageButton.Background = (Brush)new BrushConverter().ConvertFrom("#FDFEEE");
+            MemberPageButton.Foreground = Brushes.Black;
+
             memberTable = new MemberTable(new List<Member>());
+
             PageContent.Content = memberTable;
 
             addMemberPage.NavigateToMemberPage += SearchMembers;

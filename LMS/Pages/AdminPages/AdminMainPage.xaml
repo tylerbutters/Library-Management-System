@@ -36,6 +36,7 @@
                                 </Setter>
                                 <Style.Triggers>
                                     <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Cursor" Value="Hand"/>
                                         <Setter Property="Background" Value="#A5AE38"/>
                                     </Trigger>
                                 </Style.Triggers>
@@ -80,6 +81,7 @@
                                 </Setter>
                                 <Style.Triggers>
                                     <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Cursor" Value="Hand"/>
                                         <Setter Property="Background" Value="#933618"/>
                                     </Trigger>
                                 </Style.Triggers>
@@ -99,7 +101,7 @@
                     <ColumnDefinition Width="1*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
                 <Grid Grid.Column="0">
-                    <Button Content="Members" Name="MemberPageButton" Width="235" Height="60" Background="#FDFEEE" FontWeight="Black" FontSize="35" Foreground="Black" HorizontalAlignment="Left" BorderThickness="0" Click="MemberPageButtonClick">
+                    <Button Content="Members" Name="MemberPageButton" Width="235" Height="60" FontWeight="Black" FontSize="35" HorizontalAlignment="Left" BorderThickness="0" Click="MemberPageButtonClick">
                         <Button.Style>
                             <Style TargetType="{x:Type Button}">
                                 <Setter Property="Template">
@@ -113,6 +115,7 @@
                                 </Setter>
                                 <Style.Triggers>
                                     <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Cursor" Value="Hand"/>
                                         <Setter Property="Background" Value="#629641"/>
                                     </Trigger>
                                 </Style.Triggers>
@@ -126,7 +129,7 @@
                     </Button>
                 </Grid>
                 <Grid Grid.Column="1">
-                    <Button Content="Books" Name="BookPageButton" Width="235" Height="60" FontWeight="Black" FontSize="35" Foreground="White" Background="#6FAB4A" HorizontalAlignment="Right" BorderThickness="0" Click="BookPageButtonClick">
+                    <Button Content="Books" Name="BookPageButton" Width="235" Height="60" FontWeight="Black" FontSize="35"  HorizontalAlignment="Right" BorderThickness="0" Click="BookPageButtonClick">
                         <Button.Style>
                             <Style TargetType="{x:Type Button}">
                                 <Setter Property="Template">
@@ -140,6 +143,7 @@
                                 </Setter>
                                 <Style.Triggers>
                                     <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Cursor" Value="Hand"/>
                                         <Setter Property="Background" Value="#629641"/>
                                     </Trigger>
                                 </Style.Triggers>
@@ -155,6 +159,6 @@
 
             </Grid>
         </Grid>
-        <Frame Height="750" VerticalAlignment="Bottom" Name="PageContent"/>
+        <Frame Height="830" VerticalAlignment="Bottom" Name="PageContent"/>
     </Grid>
 </Page>

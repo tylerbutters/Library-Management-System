@@ -17,9 +17,9 @@ namespace LMS
         private const string ReserveFile = @".\Databases\reserveInformation.csv";
         private const string LoanFile = @".\Databases\loanInformation.csv";
 
-        private const string ReturnLog = @".\Logs\returnLogs.csv";
-        private const string NearDueLog = @".\Logs\nearDueLogs.csv";
-        private const string OverdueLog = @".\Logs\overdueLogs.csv";
+        private const string ReturnLog = @".\NotificationLogs\returnLogs.csv";
+        private const string NearDueLog = @".\NotificationLogs\nearDueLogs.csv";
+        private const string OverdueLog = @".\NotificationLogs\overdueLogs.csv";
 
         //READ METHODS
 
@@ -92,11 +92,7 @@ namespace LMS
             }
 
             List<Reserve> reserves = LoadReserves();
-            if (members is null)
-            {
-                throw new NullReferenceException();
-            }
-            if (reserves.Count is 0)
+            if (reserves is null)
             {
                 return;
             }
@@ -118,10 +114,6 @@ namespace LMS
             List<Loan> loans = LoadLoans();
 
             if (loans is null)
-            {
-                throw new NullReferenceException();
-            }
-            if (loans.Count is 0)
             {
                 return;
             }
@@ -190,12 +182,13 @@ namespace LMS
 
             List<string> rows = File.ReadAllLines(ReserveFile).ToList();
 
-            List<Reserve> reserves = new List<Reserve>();
-
             if (!(rows.Count >= 2))
             {
-                throw new FormatException("file empty");
+                Console.WriteLine("File empty");
+                return null;
             }
+
+            List<Reserve> reserves = new List<Reserve>();
 
             foreach (string row in rows.Skip(1))
             {
@@ -241,6 +234,12 @@ namespace LMS
             }
 
             List<string> rows = File.ReadAllLines(LoanFile).ToList();
+
+            if (!(rows.Count >= 2))
+            {
+                Console.WriteLine("File empty");
+                return null;
+            }
 
             List<Loan> loans = new List<Loan>();
 

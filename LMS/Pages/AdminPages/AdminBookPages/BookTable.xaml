@@ -23,7 +23,9 @@
               CanUserResizeRows="False"
               VerticalContentAlignment="Center" 
               BorderThickness="0"
-              GridLinesVisibility="None" SelectionChanged="BookClicked">
+              GridLinesVisibility="None" 
+                  SelectionChanged="BookClicked"
+                  VerticalScrollBarVisibility="Hidden">
 
             <DataGrid.Resources>
                 <Style BasedOn="{StaticResource {x:Type DataGridColumnHeader}}" TargetType="{x:Type DataGridColumnHeader}">
@@ -51,7 +53,7 @@
             </DataGrid.CellStyle>
 
             <DataGrid.Columns>
-                <DataGridTextColumn Header="ID" Binding="{Binding id}" Width="1*">
+                <DataGridTextColumn Header="ID" Binding="{Binding id}" Width="120">
                     <DataGridTextColumn.ElementStyle>
                         <Style TargetType="TextBlock">
                             <Setter Property="VerticalAlignment" Value="Center"/>
@@ -83,7 +85,7 @@
                         </Style>
                     </DataGridTextColumn.ElementStyle>
                 </DataGridTextColumn>
-                <DataGridTextColumn Header="Subject" Binding="{Binding subject}" Width="1*">
+                <DataGridTextColumn Header="Subject" Binding="{Binding subject}" Width="1.5*">
                     <DataGridTextColumn.ElementStyle>
                         <Style TargetType="TextBlock">
                             <Setter Property="VerticalAlignment" Value="Center"/>
@@ -95,7 +97,7 @@
                     <DataGridTextColumn.ElementStyle>
                         <Style TargetType="TextBlock">
                             <Setter Property="VerticalAlignment" Value="Center"/>
-                            <Setter Property="Margin" Value="10 0 0 0"/>
+                            <Setter Property="HorizontalAlignment" Value="Center"/>
                             <Style.Triggers>
                                 <DataTrigger Binding="{Binding isLoaned}" Value="True">
                                     <Setter Property="Foreground" Value="Red"/>
