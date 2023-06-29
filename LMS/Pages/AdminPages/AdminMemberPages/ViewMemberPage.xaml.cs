@@ -100,6 +100,13 @@ namespace LMS.Pages.AdminPages
 
         private void SaveButtonClick(object sender, RoutedEventArgs e)
         {
+            if (FirstName.Text.Contains(",") || LastName.Text.Contains(",") || Email.Text.Contains(","))
+            {
+                // Handle the case where one or more text fields contain a comma
+                MessageBox.Show("Cannot contain commas");
+                return;
+            }
+
             MessageBoxResult result = MessageBox.Show("Are you sure you want to save?", "Confirmation", MessageBoxButton.YesNo);
 
             if (result == MessageBoxResult.Yes)

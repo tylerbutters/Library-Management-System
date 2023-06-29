@@ -63,7 +63,7 @@ namespace LMS.Pages.AdminPages
                 throw new NullReferenceException();
             }
 
-                returnedBook.isLoaned = false;
+            returnedBook.isLoaned = false;
 
             FileManagement.RemoveLoan(loan);
             FileManagement.WriteAllBooks(books);
@@ -283,7 +283,7 @@ namespace LMS.Pages.AdminPages
                     book.title.IndexOf(searchInput, StringComparison.OrdinalIgnoreCase) >= 0 ||
                     book.authorFirstName.IndexOf(searchInput, StringComparison.OrdinalIgnoreCase) >= 0 ||
                     book.authorLastName.IndexOf(searchInput, StringComparison.OrdinalIgnoreCase) >= 0 ||
-                    book.subject.IndexOf(searchInput, StringComparison.OrdinalIgnoreCase) >= 0 || 
+                    book.subject.IndexOf(searchInput, StringComparison.OrdinalIgnoreCase) >= 0 ||
                     book.summary.IndexOf(searchInput, StringComparison.OrdinalIgnoreCase) >= 0
                 ).ToList();
 
