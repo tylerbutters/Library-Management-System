@@ -56,7 +56,6 @@ namespace LMS.Pages.MemberPages
             Book reservedBook = _book;
             Reserve newReserve = new Reserve(_book, member);
             List<Book> books = FileManagement.LoadBooks();
-            //Book reservedBook = books.FirstOrDefault(book => book.id == newReserve.bookId);
 
             if (reservedBook is null)
             {
