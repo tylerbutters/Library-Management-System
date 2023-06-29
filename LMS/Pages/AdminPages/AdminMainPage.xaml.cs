@@ -283,7 +283,8 @@ namespace LMS.Pages.AdminPages
                     book.title.IndexOf(searchInput, StringComparison.OrdinalIgnoreCase) >= 0 ||
                     book.authorFirstName.IndexOf(searchInput, StringComparison.OrdinalIgnoreCase) >= 0 ||
                     book.authorLastName.IndexOf(searchInput, StringComparison.OrdinalIgnoreCase) >= 0 ||
-                    book.subject.IndexOf(searchInput, StringComparison.OrdinalIgnoreCase) >= 0
+                    book.subject.IndexOf(searchInput, StringComparison.OrdinalIgnoreCase) >= 0 || 
+                    book.summary.IndexOf(searchInput, StringComparison.OrdinalIgnoreCase) >= 0
                 ).ToList();
 
                 bookTable = new BookTable(searchResults);

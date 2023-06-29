@@ -46,7 +46,7 @@ namespace LMS.Pages.AdminPages
                 SaveNewBook();
             }
         }
-        
+
         private void SaveButtonClick(object sender, RoutedEventArgs e)
         {
             if (!ValidateInputs())
@@ -85,6 +85,7 @@ namespace LMS.Pages.AdminPages
             else
             {
                 MessageBox.Show("No Image Selected");
+                isCoverChanged = false;
                 return null;
             }
         }
@@ -92,7 +93,7 @@ namespace LMS.Pages.AdminPages
         private void SaveNewBook()
         {
             MessageBoxResult result = MessageBox.Show("Are you sure you want to save?", "Confirmation", MessageBoxButton.YesNo);
-            
+
             if (result is MessageBoxResult.Yes)
             {
                 string readImagePath;
@@ -120,32 +121,32 @@ namespace LMS.Pages.AdminPages
                     subject = subjectInput.Text,
                     summary = summaryInput.Text,
                 };
-            
-            //Check to see if title already exist and generate new ones if they do
-            foreach (Book currentBook in currentBooks)
-            {
-                if (currentBook.title == newBook.title && currentBook.authorFirstName == newBook.authorFirstName && currentBook.authorLastName == newBook.authorLastName)
-                {
-                    MessageBox.Show("This book is already registered.");
-                    return;
-                }
-                else if (currentBook.id == newBook.id)
-                {
-                    newBook.id = GenerateBookID().ToString();
-                }
-            }
 
-            FileManagement.SaveNewBook(newBook);
+                //Check to see if title already exist and generate new ones if they do
+                foreach (Book currentBook in currentBooks)
+                {
+                    if (currentBook.title == newBook.title && currentBook.authorFirstName == newBook.authorFirstName && currentBook.authorLastName == newBook.authorLastName)
+                    {
+                        MessageBox.Show("This book is already registered.");
+                        return;
+                    }
+                    else if (currentBook.id == newBook.id)
+                    {
+                        newBook.id = GenerateBookID().ToString();
+                    }
+                }
 
-            titleInput.Text = "";
-            authorFirstNameInput.Text = "";
-            authorLastNameInput.Text = "";
-            subjectInput.Text = "";
-            summaryInput.Text = "";
-            selectedImageAddress.Text = "";
+                FileManagement.SaveNewBook(newBook);
+
+                titleInput.Text = "";
+                authorFirstNameInput.Text = "";
+                authorLastNameInput.Text = "";
+                subjectInput.Text = "";
+                summaryInput.Text = "";
+                selectedImageAddress.Text = "";
             }
         }
-       
+
         private string GenerateBookID()
         {
             int min = 10000;
