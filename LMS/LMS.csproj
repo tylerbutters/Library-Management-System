@@ -14,8 +14,6 @@
     <WarningLevel>4</WarningLevel>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
-    <NuGetPackageImportStamp>
-    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -220,15 +218,4 @@
     <Content Include="CoverImages\tyler.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <PropertyGroup>
-    <PreBuildEvent>
-    </PreBuildEvent>
-  </PropertyGroup>
-  <Import Project="packages\Microsoft.VisualStudio.Setup.Configuration.Interop.3.2.2146\build\Microsoft.VisualStudio.Setup.Configuration.Interop.targets" Condition="Exists('packages\Microsoft.VisualStudio.Setup.Configuration.Interop.3.2.2146\build\Microsoft.VisualStudio.Setup.Configuration.Interop.targets')" />
-  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
-    <PropertyGroup>
-      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
-    </PropertyGroup>
-    <Error Condition="!Exists('packages\Microsoft.VisualStudio.Setup.Configuration.Interop.3.2.2146\build\Microsoft.VisualStudio.Setup.Configuration.Interop.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Microsoft.VisualStudio.Setup.Configuration.Interop.3.2.2146\build\Microsoft.VisualStudio.Setup.Configuration.Interop.targets'))" />
-  </Target>
 </Project>
