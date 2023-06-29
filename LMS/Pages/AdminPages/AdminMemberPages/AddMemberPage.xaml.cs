@@ -51,36 +51,41 @@ namespace LMS.Pages.AdminPages
 
         private void SaveNewMember()
         {
-            List<Member> currentMembers = FileManagement.LoadMembers();
+            MessageBoxResult result = MessageBox.Show("Are you sure you want to save?", "Confirmation", MessageBoxButton.YesNo);
 
-            Member newMember = new Member
+            if (result is MessageBoxResult.Yes)
             {
-                id = GenerateMemberID(),
-                pin = GenerateMemberPIN(),
-                firstName = firstNameInput.Text,
-                lastName = lastNameInput.Text,
-                email = emailInput.Text
-            };
+                List<Member> currentMembers = FileManagement.LoadMembers();
 
-            //Check to see if PIN or email already exist and generate new ones if they do
-            foreach (Member currentMember in currentMembers)
-            {
-                if (currentMember.email == newMember.email)
+                Member newMember = new Member
                 {
-                    MessageBox.Show("This Email is already registered.");
-                    return;
-                }
-                else if (currentMember.id == newMember.id)
+                    id = GenerateMemberID(),
+                    pin = GenerateMemberPIN(),
+                    firstName = firstNameInput.Text,
+                    lastName = lastNameInput.Text,
+                    email = emailInput.Text
+                };
+
+                //Check to see if PIN or email already exist and generate new ones if they do
+                foreach (Member currentMember in currentMembers)
                 {
-                    newMember.id = GenerateMemberID();
+                    if (currentMember.email == newMember.email)
+                    {
+                        MessageBox.Show("This Email is already registered.");
+                        return;
+                    }
+                    else if (currentMember.id == newMember.id)
+                    {
+                        newMember.id = GenerateMemberID();
+                    }
                 }
+
+                FileManagement.SaveNewMember(newMember);
+
+                firstNameInput.Text = "";
+                lastNameInput.Text = "";
+                emailInput.Text = "";
             }
-
-            FileManagement.SaveNewMember(newMember);
-
-            firstNameInput.Text = "";
-            lastNameInput.Text = "";
-            emailInput.Text = "";
         }
 
         public string GenerateMemberID()

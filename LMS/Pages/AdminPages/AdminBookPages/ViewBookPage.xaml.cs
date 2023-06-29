@@ -137,7 +137,6 @@ namespace LMS.Pages.AdminPages
             {
                 string selectedFile = openFileDialog.FileName;
                 Cover.Text = selectedFile;
-
                 isCoverChanged = true;
                 return selectedFile;
             }

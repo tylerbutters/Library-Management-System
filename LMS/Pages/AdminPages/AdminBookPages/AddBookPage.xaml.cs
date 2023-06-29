@@ -27,6 +27,7 @@ namespace LMS.Pages.AdminPages
     {
         public event EventHandler<RoutedEventArgs> NavigateToBookPage;
         private string imageAddress { get; set; }
+        private bool isCoverChanged { get; set; }
         public AddBookPage()
         {
             InitializeComponent();
@@ -78,6 +79,7 @@ namespace LMS.Pages.AdminPages
             {
                 string selectedFile = openFileDialog.FileName;
                 selectedImageAddress.Text = selectedFile;
+                isCoverChanged = true;
                 return selectedFile;
             }
             else
@@ -89,24 +91,36 @@ namespace LMS.Pages.AdminPages
 
         private void SaveNewBook()
         {
-            List<Book> currentBooks = FileManagement.LoadBooks();
-            string clippedTitle = titleInput.Text.Substring(0, Math.Min(titleInput.Text.Length, 40)); //cuts of image name from 40 characters
-            string cleanedTitle = string.Join("_", System.IO.Path.GetInvalidFileNameChars().Aggregate(clippedTitle, (current, c) => current.Replace(c.ToString(), ""))).Replace(" ", "_").ToLower();
-            string writeImagePath = System.IO.Path.Combine(@".\CoverImages\", $"{cleanedTitle}.png");
-            File.Copy(imageAddress, writeImagePath);
-
-            string readImagePath = System.IO.Path.Combine(@"/CoverImages/", $"{cleanedTitle}.png");
-            Book newBook = new Book
+            MessageBoxResult result = MessageBox.Show("Are you sure you want to save?", "Confirmation", MessageBoxButton.YesNo);
+            
+            if (result is MessageBoxResult.Yes)
             {
-                id = GenerateBookID(),
-                cover = readImagePath,
-                title = titleInput.Text,
-                authorFirstName = authorFirstNameInput.Text,
-                authorLastName = authorLastNameInput.Text,
-                subject = subjectInput.Text,
-                summary = summaryInput.Text,
-            };
+                string readImagePath;
+                List<Book> currentBooks = FileManagement.LoadBooks();
+                if (!isCoverChanged)
+                {
+                    readImagePath = "NO_COVER";
+                }
+                else
+                {
+                    string clippedTitle = titleInput.Text.Substring(0, Math.Min(titleInput.Text.Length, 40)); //cuts of image name from 40 characters
+                    string cleanedTitle = string.Join("_", System.IO.Path.GetInvalidFileNameChars().Aggregate(clippedTitle, (current, c) => current.Replace(c.ToString(), ""))).Replace(" ", "_").ToLower();
+                    string writeImagePath = System.IO.Path.Combine(@".\CoverImages\", $"{cleanedTitle}.png");
+                    File.Copy(imageAddress, writeImagePath);
+                    readImagePath = System.IO.Path.Combine(@"/CoverImages/", $"{cleanedTitle}.png");
+                }
 
+                Book newBook = new Book
+                {
+                    id = GenerateBookID(),
+                    cover = readImagePath,
+                    title = titleInput.Text,
+                    authorFirstName = authorFirstNameInput.Text,
+                    authorLastName = authorLastNameInput.Text,
+                    subject = subjectInput.Text,
+                    summary = summaryInput.Text,
+                };
+            
             //Check to see if title already exist and generate new ones if they do
             foreach (Book currentBook in currentBooks)
             {
@@ -129,6 +143,7 @@ namespace LMS.Pages.AdminPages
             subjectInput.Text = "";
             summaryInput.Text = "";
             selectedImageAddress.Text = "";
+            }
         }
        
         private string GenerateBookID()
