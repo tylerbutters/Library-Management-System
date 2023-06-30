@@ -76,6 +76,8 @@ namespace LMS.Pages.AdminPages
                 Cover.Padding = new Thickness(20, 0, 0, 0);
                 Cover.IsReadOnly = true;
 
+
+
             }
             else
             {
@@ -113,6 +115,7 @@ namespace LMS.Pages.AdminPages
                 Subject.Text = book.subject;
                 Summary.Text = book.summary;
                 Cover.Text = book.cover;
+                imageAddress = book.cover;
             }
         }
 
@@ -176,7 +179,7 @@ namespace LMS.Pages.AdminPages
                 }
                 string readImagePath = System.IO.Path.Combine(@"/CoverImages/", $"{cleanedTitle}.png");
                 Book changedInfo = new Book { id = ID.Text, cover = readImagePath, title = Title.Text, authorFirstName = AuthorFirstName.Text, authorLastName = AuthorLastName.Text, subject = Subject.Text, summary = Summary.Text };
-
+                book = changedInfo;
                 FileManagement.EditBook(book, changedInfo);
                 EditCancelButtonClick(sender, e);
             }

@@ -95,6 +95,7 @@ namespace LMS.Pages.AdminPages
                 FirstName.Text = member.firstName;
                 LastName.Text = member.lastName;
                 Email.Text = member.email;
+
             }
         }
 
@@ -113,7 +114,7 @@ namespace LMS.Pages.AdminPages
             {
                 Member changedInfo = new Member { id = ID.Text, pin = PIN.Text, firstName = FirstName.Text, lastName = LastName.Text, email = Email.Text };
                 FileManagement.EditMember(member, changedInfo);
-
+                member = changedInfo;
                 EditCancelButtonClick(sender, e);
             }
         }
