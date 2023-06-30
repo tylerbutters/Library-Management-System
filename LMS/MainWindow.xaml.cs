@@ -1,4 +1,6 @@
 ﻿using LMS.Pages;
+using LMS.Pages.AdminPages;
+using LMS.Pages.MemberPages;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -22,25 +24,43 @@ namespace LMS
     /// </summary>
     public partial class MainWindow : Window
     {
-        public LoginPage loginPage = new LoginPage();
-        public MemberHomepage memberHomepage = new MemberHomepage();
-        public MemberPage adminHomepage = new MemberPage();
+        private static string dateString { get; set; } = "2023/06/23"; //simulated time for the application
+        public static DateTime currentDate { get; set; } = DateTime.Parse(dateString);
+
+        private LoginPage loginPage { get; set; }
+        private MemberMainPage memberMainPage { get; set; }
+        private AdminMainPage adminMainPage { get; set; }
         public MainWindow()
         {
             InitializeComponent();
-            //Display Login in frame at startup
+
+            loginPage = new LoginPage();
             MainWindowFrame.Content = loginPage;
 
-            loginPage.NavigateToMemberHomepage += NavigateTo_MemberHomepage;
-            loginPage.NaigateToAdminHomepage += NavigateTo_AdminHomepage;
+            loginPage.NavigateToMemberMainPage += NavigateToMemberMainPage;
+            loginPage.NavigateToAdminMainPage += NavigateToAdminMainPage;
         }
-        public void NavigateTo_MemberHomepage(object sender, RoutedEventArgs e)
+
+        public void NavigateToMemberMainPage(object sender, Member loggedInMember)
         {
-            MainWindowFrame.Content = memberHomepage; 
+            memberMainPage = new MemberMainPage(loggedInMember);
+            memberMainPage.NavigateToLoginPage += NavigateToLoginPage;
+            MainWindowFrame.Content = memberMainPage;
         }
-        public void NavigateTo_AdminHomepage(object sender, RoutedEventArgs e)
+
+        public void NavigateToAdminMainPage(object sender, RoutedEventArgs e)
         {
-            MainWindowFrame.Content = adminHomepage;
+            adminMainPage = new AdminMainPage();
+            adminMainPage.NavigateToLoginPage += NavigateToLoginPage;
+            MainWindowFrame.Content = adminMainPage;
+        }
+
+        public void NavigateToLoginPage(object sender, RoutedEventArgs e)
+        {
+            loginPage = new LoginPage();
+            loginPage.NavigateToMemberMainPage += NavigateToMemberMainPage;
+            loginPage.NavigateToAdminMainPage += NavigateToAdminMainPage;
+            MainWindowFrame.Content = loginPage;
         }
     }
 }

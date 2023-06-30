@@ -22,59 +22,74 @@ namespace LMS.Pages
     /// </summary>
     public partial class LoginPage : Page
     {
-        public string Id;
-        public string Pin;
-
-        public delegate void NavigateTo_MemberHomepage(object sender, RoutedEventArgs e);
-        public event NavigateTo_MemberHomepage NavigateToMemberHomepage;
-        public delegate void NavigateTo_AdminHomepage(object sender, RoutedEventArgs e);
-        public event NavigateTo_AdminHomepage NaigateToAdminHomepage;
+        public event EventHandler<Member> NavigateToMemberMainPage;
+        public event EventHandler<RoutedEventArgs> NavigateToAdminMainPage;
         public LoginPage()
         {
             InitializeComponent();
+
+            KeyDown += LoginKeyDown;
         }
-        //Login Check checks the entered email and password against the given list and returns true/false.
-        public bool CheckLoginDetails(string file)
+        private void LoginKeyDown(object sender, KeyEventArgs e)
         {
-            string idInput = IDInput.Text;
-            string pinInput = PinInput.Text;
-            string[] rows = File.ReadAllLines(file);
-            //member and admin classes inherit from account class. code just puts the id and pin data into the account object.
-            //then compares to the inputted data. since admin and member both inherit from account this function can be used for both cases.
-            IEnumerable<Account> accounts = (from l in rows.Skip(1)
-                                 let split = l.Split(',')
-                                 select new Account()
-                                 {
-                                     Id = split[0],
-                                     Pin = split[1],
-                                 }).ToList();
-           
-            foreach (Account account in accounts){
-                if (account.Id == idInput && account.Pin == pinInput)
+            if (e.Key == Key.Enter)
+            {
+                HandleAuthentication(sender, e);
+            }
+        }
+
+        private void LoginButtonClick(object sender, RoutedEventArgs e)
+        {
+            HandleAuthentication(sender, e);
+        }
+
+        //returns authenticated account
+        public Account AuthenticateLoginDetails(string idInput, string pinInput)
+        {
+            List<Account> accounts = FileManagement.LoadAccounts();
+            foreach (Account account in accounts)
+            {
+                if (account.id == idInput && account.pin == pinInput)
                 {
-                    return true;
+                    return account;
                 }
             }
-            return false;
+
+            return null;
         }
-        //Login button runs "Login_Check()" against user list first, then admin list.
-        private void Login_Button_Click(object sender, RoutedEventArgs e)
+
+        //checks the account type and Navigates them to their respective page
+        private void HandleAuthentication(object sender, RoutedEventArgs e)
         {
-            if (CheckLoginDetails(FileManagement.MemberFile))
+            string idInput = IDInput.Text;
+            string pinInput = PINInput.Text;
+
+            if (string.IsNullOrEmpty(idInput) || string.IsNullOrEmpty(pinInput))
             {
-                NavigateToMemberHomepage(sender, e);
+                MessageBox.Show("Please enter both ID and PIN.");
+                return;
             }
-            else if (CheckLoginDetails(FileManagement.AdminFile))
+
+            Account authenticatedAccount = AuthenticateLoginDetails(idInput, pinInput);
+
+            if (authenticatedAccount != null)
             {
-                //MessageBox.Show("Logging in as Admin");
-                NaigateToAdminHomepage(sender, e);
+                if (authenticatedAccount is Member member)
+                {
+                    NavigateToMemberMainPage?.Invoke(sender, member);
+                }
+                else if (authenticatedAccount is Admin)
+                {
+                    NavigateToAdminMainPage?.Invoke(sender, e);
+                }
             }
             else
             {
                 MessageBox.Show("Cannot find account with those details");
             }
         }
-        private void Exit_Button_Click(object sender, RoutedEventArgs e)
+
+        private void ExitButtonClick(object sender, RoutedEventArgs e)
         {
             Application.Current.Shutdown();
         }
