@@ -61,6 +61,7 @@ namespace LMS.Pages.MemberPages
                     }
                     CancelReserve?.Invoke(sender, reservedBook);
                     book.isReservedByUser = false;
+                    book.isReserved = false;
                 }
             }
 
