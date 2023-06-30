@@ -145,11 +145,17 @@ namespace LMS.Pages.AdminPages
 
         private void LoanButtonClick(object sender, RoutedEventArgs e)
         {
+            Reserve selectedReserve = (sender as Button).DataContext as Reserve;
+            if (selectedReserve.book.isLoaned)
+            {
+                MessageBox.Show("Book is still loaned");
+            }
+
             MessageBoxResult result = MessageBox.Show("Are you sure you want to loan?", "Confirmation", MessageBoxButton.YesNo);
 
             if (result == MessageBoxResult.Yes)
             {
-                Reserve selectedReserve = (sender as Button).DataContext as Reserve;
+                
                 PlaceLoan?.Invoke(sender, selectedReserve);
 
                 LoansArea.ItemsSource = null;
