@@ -89,10 +89,12 @@ namespace LMS.Pages.MemberPages
             if ((sender as FrameworkElement).DataContext is Loan loan)
             {
                 clickedItem = loan.book;
+                clickedItem.isLoanedByUser = true;
             }
             else if ((sender as FrameworkElement).DataContext is Reserve reserve)
             {
                 clickedItem = reserve.book;
+                clickedItem.isReservedByUser = true;
             }
 
             if (clickedItem is null)

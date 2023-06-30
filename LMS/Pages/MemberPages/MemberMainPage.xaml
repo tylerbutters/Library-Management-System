@@ -95,6 +95,6 @@
                 </Button>
             </Grid>
         </Grid>
-        <Frame Grid.Row="1" Name="PageContent" Height="820" VerticalAlignment="Bottom" Margin="0 0 0 30"></Frame>
+        <Frame Grid.Row="1" Name="PageContent" Height="820" VerticalAlignment="Bottom"></Frame>
     </Grid>
 </Page>

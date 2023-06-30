@@ -53,9 +53,9 @@ namespace LMS.Pages.MemberPages
             {
                 throw new NullReferenceException();
             }
-            Book reservedBook = _book;
-            Reserve newReserve = new Reserve(_book, member);
+           
             List<Book> books = FileManagement.LoadBooks();
+            Book reservedBook = books.FirstOrDefault(book => book.id == _book.id);
 
             if (reservedBook is null)
             {
@@ -63,6 +63,8 @@ namespace LMS.Pages.MemberPages
             }
 
             reservedBook.isReserved = true;
+
+            Reserve newReserve = new Reserve(_book, member);
 
             if (reservedBook.isLoaned)
             {

@@ -122,7 +122,6 @@ namespace LMS.Pages.AdminPages
         private void SelectImageButtonClick(object sender, RoutedEventArgs e)
         {
             imageAddress = SelectImageDialog();
-            CoverImage.Source = new BitmapImage(new Uri(imageAddress, UriKind.Relative));
         }
 
         private string SelectImageDialog()

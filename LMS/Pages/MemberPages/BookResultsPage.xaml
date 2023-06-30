@@ -7,17 +7,17 @@
       mc:Ignorable="d" 
       d:DesignHeight="820" d:DesignWidth="1920"
       Title="BookResultsPage">
-    <Grid>
+    <Grid Margin="0 -70 0 0">
         <Grid.RowDefinitions>
             <RowDefinition Height="70"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
 
         <Grid Grid.Row="0" Background="#6FAB4A" Height="70">
-            <TextBlock Text="Search Results for:" FontWeight="Black" FontSize="25" Foreground="White" VerticalAlignment="Center" Margin="0 0 15 0" HorizontalAlignment="Center">
-                <Run Text="" />
-                <Run Name="ResultText" FontWeight="Medium" FontSize="25" FontStyle="Italic" Foreground="White"/>
-            </TextBlock>
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+                <TextBlock Text="Search Results for: " FontWeight="Black" FontSize="25" Foreground="White" />
+                <TextBlock Name="ResultText" FontWeight="Medium" FontSize="25" FontStyle="Italic" Foreground="White"/>
+            </StackPanel>
         </Grid>
         <Grid Grid.Row="1" Margin="0 20 0 0">
 
